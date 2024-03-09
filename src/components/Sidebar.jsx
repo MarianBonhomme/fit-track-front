@@ -2,7 +2,6 @@ import { NavLink, useLocation } from "react-router-dom"
 
 export default function Sidebar() {
   const location = useLocation();
-  console.log(location.pathname);
 
   return (
     <nav className="h-screen flex flex-col justify-between items-center py-10">

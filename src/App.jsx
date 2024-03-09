@@ -1,9 +1,14 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import NutritionDashboard from './pages/NutritionDashboard';
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
 import Sidebar from "./components/Sidebar";
-import SportDashboard from "./pages/SportDashboard";
 import FinanceDashboard from "./pages/FinanceDashboard";
+import NutritionDashboard from "./pages/NutritionDashboard";
 import SettingsDashboard from "./pages/SettingsDashboard";
+import SportDashboard from "./pages/SportDashboard";
 
 export default function App() {
   return (
@@ -14,7 +19,7 @@ export default function App() {
         </div>
         <div className="pl-[150px]">
           <Routes>
-            <Route path='/' element={<Navigate to="/nutrition"/>} />
+            <Route path="/" element={<Navigate to="/nutrition" />} />
             <Route path="/nutrition" Component={NutritionDashboard} />
             <Route path="/sport" Component={SportDashboard} />
             <Route path="/finance" Component={FinanceDashboard} />
@@ -23,5 +28,5 @@ export default function App() {
         </div>
       </div>
     </Router>
-  )
+  );
 }
