@@ -13,19 +13,17 @@ import SportDashboard from "./pages/SportDashboard";
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen w-screen bg-black text-white">
-        <div className="h-screen w-[150px] bg-dark absolute top-0 left-0">
-          <Sidebar />
-        </div>
-        <div className="pl-[150px]">
-          <Routes>
-            <Route path="/" element={<Navigate to="/nutrition" />} />
-            <Route path="/nutrition" Component={NutritionDashboard} />
-            <Route path="/sport" Component={SportDashboard} />
-            <Route path="/finance" Component={FinanceDashboard} />
-            <Route path="/settings" Component={SettingsDashboard} />
-          </Routes>
-        </div>
+      <div className="h-screen w-[150px] bg-dark fixed top-0 left-0">
+        <Sidebar />
+      </div>
+      <div className="pl-[150px]">
+        <Routes>
+          <Route path="/" element={<Navigate to="/nutrition" />} />
+          <Route path="/nutrition" Component={NutritionDashboard} />
+          <Route path="/sport" Component={SportDashboard} />
+          <Route path="/finance" Component={FinanceDashboard} />
+          <Route path="/settings" Component={SettingsDashboard} />
+        </Routes>
       </div>
     </Router>
   );

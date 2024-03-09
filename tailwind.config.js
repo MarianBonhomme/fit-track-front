@@ -10,6 +10,7 @@ export default {
         pink: '#9E2384',
         blue: '#2B0D84',
         orange: '#D7964E',
+        green: '#B5DD84',
         gold: '#8E5C0E',
         dark: '#25252F',
         black: '#181619'
