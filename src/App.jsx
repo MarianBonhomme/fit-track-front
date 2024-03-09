@@ -9,6 +9,7 @@ import FinanceDashboard from "./pages/FinanceDashboard";
 import NutritionDashboard from "./pages/NutritionDashboard";
 import SettingsDashboard from "./pages/SettingsDashboard";
 import SportDashboard from "./pages/SportDashboard";
+import RepositoryDashboard from './pages/RepositoryDashboard';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       <div className="pl-[150px]">
         <Routes>
           <Route path="/" element={<Navigate to="/nutrition" />} />
+          <Route path="/repository" Component={RepositoryDashboard} />
           <Route path="/nutrition" Component={NutritionDashboard} />
           <Route path="/sport" Component={SportDashboard} />
           <Route path="/finance" Component={FinanceDashboard} />

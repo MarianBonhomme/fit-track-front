@@ -1,4 +1,5 @@
 import { Bar } from "react-chartjs-2";
+import CardTitle from "../CardTitle";
 
 export default function MacroChart() {
   const data = {
@@ -42,7 +43,7 @@ export default function MacroChart() {
 
   return (
     <div className="grow bg-dark px-5 py-2 shadow rounded-2xl">
-      <h3 className="text-center text-2xl font-bold mb-3">Daily Consumption</h3>
+      <CardTitle text="Daily Consumption" />
       <Bar data={data} options={options} />
     </div>
   );

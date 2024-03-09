@@ -1,6 +1,7 @@
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { Pie } from "react-chartjs-2";
+import CardTitle from './../CardTitle';
 
 Chart.register(CategoryScale);
 
@@ -21,8 +22,8 @@ export default function MacroPie() {
 
   return (
     <div className="grow flex flex-col bg-dark px-5 py-3 shadow rounded-2xl">
-      <h3 className="text-center text-2xl font-bold mb-3">Macro Repartition</h3>
-      <div class="grow flex items-center">
+      <CardTitle text="Macro Repartition" />
+      <div className="grow flex items-center">
         <Pie data={data} />
       </div>
     </div>
