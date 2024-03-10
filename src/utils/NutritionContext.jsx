@@ -1,22 +1,25 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { getAllFoods, addFood, updateFood, deleteFood, getAllUnities } from './NutritionService';
+import { getAllFoods, addFood, updateFood, deleteFood, getAllUnities, getAllFoodConsumptions } from './NutritionService';
 
 const NutritionContext = createContext();
 
 export const NutritionProvider = ({ children }) => {
   const [coffeeCount, setCoffeeCount] = useState(0);
-  const [foods, setFoods] = useState([]);
   const [unities, setUnities] = useState([]);
+  const [foods, setFoods] = useState([]);
+  const [foodConsumptions, setFoodConsumptions] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const allFoods = await getAllFoods();
-        setFoods(allFoods);
         const allUnities = await getAllUnities();
         setUnities(allUnities);
+        const allFoods = await getAllFoods();
+        setFoods(allFoods);
+        const allFoodConsumptions = await getAllFoodConsumptions();
+        setFoodConsumptions(allFoodConsumptions);
       } catch (error) {
-        console.error('Error loading foods:', error);
+        console.error('Error loading data', error);
       }
     };
 
@@ -62,8 +65,9 @@ export const NutritionProvider = ({ children }) => {
     <NutritionContext.Provider
       value={{
         coffeeCount,
-        foods,
         unities,
+        foods,
+        foodConsumptions,
         incrementCoffeeCount,
         handleAddFood,
         handleUpdateFood,
