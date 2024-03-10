@@ -3,14 +3,14 @@ import { useNutrition } from "../../utils/NutritionContext";
 import CardTitle from "../CardTitle";
 
 export default function FavoriteCard() {
-  const { foodList } = useNutrition();
+  const { foods } = useNutrition();
   const [favsFood, setFavsFood] = useState([])
 
   useEffect(() => {
-    const sortedFoodList = [...foodList].sort((a, b) => b.totalQuantity - a.totalQuantity);
-    const top5Favs = sortedFoodList.slice(0, 5);
+    const sortedFoods = [...foods].sort((a, b) => b.totalQuantity - a.totalQuantity);
+    const top5Favs = sortedFoods.slice(0, 5);
     setFavsFood(top5Favs);
-  }, [foodList]);
+  }, [foods]);
 
   return (
     <div className="grow bg-dark px-5 py-3 shadow rounded-2xl relative">
@@ -19,7 +19,7 @@ export default function FavoriteCard() {
       <div className="flex justify-evenly p-5">
         {favsFood.map((food) => {
           return (
-            <div key={food.uniqid} className="text-center">
+            <div key={food.id} className="text-center">
               <p className="text-xl">{food.name}</p>
               <div className="flex items-end">
                 <p className="text-5xl font-bold">{food.totalQuantity * food.portion}</p>

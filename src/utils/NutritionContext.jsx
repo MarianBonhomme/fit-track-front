@@ -1,44 +1,73 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import foodData from '../data.json';
+import { getAllFoods, addFood, updateFood, deleteFood, getAllUnities } from './NutritionService';
 
 const NutritionContext = createContext();
 
 export const NutritionProvider = ({ children }) => {
   const [coffeeCount, setCoffeeCount] = useState(0);
-  const [foodList, setFoodList] = useState([]);
+  const [foods, setFoods] = useState([]);
+  const [unities, setUnities] = useState([]);
 
   useEffect(() => {
-    const data = foodData;
-    setFoodList(data);
-  }, [])
+    const fetchData = async () => {
+      try {
+        const allFoods = await getAllFoods();
+        setFoods(allFoods);
+        const allUnities = await getAllUnities();
+        setUnities(allUnities);
+      } catch (error) {
+        console.error('Error loading foods:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const incrementCoffeeCount = () => {
     const incrementedCoffeeCount = coffeeCount + 1;
     setCoffeeCount(incrementedCoffeeCount);
   }
 
-  const updateFoodList = (food) => {
-    const updatedFoodList = foodList.map(item => (item.uniqid === food.uniqid ? food : item));  
-    if (!foodList.some(item => item.uniqid === food.uniqid)) {
-      updatedFoodList.push(food);
+  const handleAddFood = async (newFood) => {
+    try {
+      const addedFood = await addFood(newFood);
+      console.log(addedFood);
+      setFoods((prevFoods) => [...prevFoods, addedFood]);
+    } catch (error) {
+      console.error('Error adding food:', error);
     }
-    setFoodList(updatedFoodList);
-  }
+  };
 
-  const deleteFromFoodList = (food) => {
-    const updatedFoodList = foodList.filter(item => item !== food);
-    console.log(updatedFoodList);
-    setFoodList(updatedFoodList);
-  }
+  const handleUpdateFood = async (foodToUpdate) => {
+    try {
+      const updatedFood = await updateFood(foodToUpdate);
+      setFoods((prevFoods) =>
+        prevFoods.map((food) => (food.id === updatedFood.id ? updatedFood : food))
+      );
+    } catch (error) {
+      console.error(`Error updating food with id ${id}:`, error);
+    }
+  };
+
+  const handleDeleteFood = async (foodToDelete) => {
+    try {
+      await deleteFood(foodToDelete);
+      setFoods((prevFoods) => prevFoods.filter((food) => food.id !== foodToDelete.id));
+    } catch (error) {
+      console.error(`Error deleting food with id ${id}:`, error);
+    }
+  };
 
   return (
     <NutritionContext.Provider
       value={{
         coffeeCount,
+        foods,
+        unities,
         incrementCoffeeCount,
-        foodList,
-        updateFoodList,
-        deleteFromFoodList,
+        handleAddFood,
+        handleUpdateFood,
+        handleDeleteFood,
       }}
     >
       {children}

@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react"
 import { useNutrition } from "../../utils/NutritionContext";
-import { v4 as uuidv4 } from 'uuid';
 
 export default function FoodForm({ food, close }) {
-  const { updateFoodList } = useNutrition();
+  const { unities, handleAddFood, handleUpdateFood } = useNutrition();
 
   const [formData, setFormData] = useState({
     name: '',
     kcal: 0,
-    protein: 0,
+    prot: 0,
     carb: 0,
     fat: 0,
-    unity: 'kg',
-    portion: 0.001,
+    unity_id: 1,
   })
 
   useEffect(() => {
@@ -31,8 +29,11 @@ export default function FoodForm({ food, close }) {
 
   const handleSubmit = (e) => {
 	  e.preventDefault();
-    const updatedFormData = food ? formData : { ...formData, uniqid: uuidv4() };
-    updateFoodList(updatedFormData);
+    if (food) {
+      handleUpdateFood(formData);
+    } else {
+      handleAddFood(formData)
+    }
 	  close();
 	};
 
@@ -58,7 +59,7 @@ export default function FoodForm({ food, close }) {
             <div className='flex flex-col mb-5'>
               <label htmlFor="kcal">Kcals</label>
               <input
-                type="text"
+                type="number"
                 id="kcal"
                 name="kcal"
                 value={formData.kcal}
@@ -68,12 +69,12 @@ export default function FoodForm({ food, close }) {
               />
             </div>
             <div className='flex flex-col mb-5'>
-              <label htmlFor="protein">Proteins</label>
+              <label htmlFor="prot">Proteins</label>
               <input
-                type="text"
-                id="protein"
-                name="protein"
-                value={formData.protein}
+                type="number"
+                id="prot"
+                name="prot"
+                value={formData.prot}
                 onChange={handleChange}
                 className='text-black px-4 py-1 border rounded-2xl mt-1 w-32'
                 required
@@ -82,7 +83,7 @@ export default function FoodForm({ food, close }) {
             <div className='flex flex-col mb-5'>
               <label htmlFor="carb">Carbs</label>
               <input
-                type="text"
+                type="number"
                 id="carb"
                 name="carb"
                 value={formData.carb}
@@ -94,7 +95,7 @@ export default function FoodForm({ food, close }) {
             <div className='flex flex-col mb-5'>
               <label htmlFor="fat">Fats</label>
               <input
-                type="text"
+                type="number"
                 id="fat"
                 name="fat"
                 value={formData.fat}
@@ -107,27 +108,19 @@ export default function FoodForm({ food, close }) {
           <div className="flex gap-5">
             <div className='flex flex-col mb-5'>
               <label htmlFor="unity">Unity</label>
-              <input
+              <select
                 type="text"
-                id="unity"
-                name="unity"
-                value={formData.unity}
+                id="unity_id"
+                name="unity_id"
+                value={formData.unity_id}
                 onChange={handleChange}
                 className='text-black px-4 py-1 border rounded-2xl mt-1 w-32'
                 required
-              />
-            </div>
-            <div className='flex flex-col mb-5'>
-              <label htmlFor="portion">Portion</label>
-              <input
-                type="text"
-                id="portion"
-                name="portion"
-                value={formData.portion}
-                onChange={handleChange}
-                className='text-black px-4 py-1 border rounded-2xl mt-1 w-32'
-                required
-              />
+              >
+                {unities.map((unity) => (
+                  <option key={unity.id} value={unity.id}>{unity.name}</option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
