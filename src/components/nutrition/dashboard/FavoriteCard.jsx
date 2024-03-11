@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNutrition } from "../../utils/NutritionContext";
-import CardTitle from "../CardTitle";
+import { useNutrition } from "../../../utils/NutritionContext";
+import CardTitle from "../../CardTitle";
 
 export default function FavoriteCard() {
   const { foods, getFoodTotalQuantity } = useNutrition();

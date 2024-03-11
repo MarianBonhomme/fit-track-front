@@ -2,8 +2,8 @@ import { CategoryScale } from "chart.js";
 import Chart from "chart.js/auto";
 import { useEffect, useMemo, useState } from "react";
 import { Pie } from "react-chartjs-2";
-import { useNutrition } from "../../utils/NutritionContext";
-import CardTitle from "./../CardTitle";
+import { useNutrition } from "../../../utils/NutritionContext";
+import CardTitle from "../../CardTitle";
 
 Chart.register(CategoryScale);
 

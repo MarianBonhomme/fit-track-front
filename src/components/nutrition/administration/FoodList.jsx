@@ -1,4 +1,4 @@
-import { useNutrition } from '../../utils/NutritionContext';
+import { useNutrition } from '../../../utils/NutritionContext';
 
 export default function FoodList({ editFood }) {
   const { foods, unities, handleDeleteFood } = useNutrition();

@@ -4,16 +4,13 @@ import { getAllFoods, addFood, updateFood, deleteFood, getAllUnities, getAllFood
 const NutritionContext = createContext();
 
 export const NutritionProvider = ({ children }) => {
-  const [nutritionLoading, setNutritionLoading] = useState(true)
-;  const [unities, setUnities] = useState([]);
+  const [nutritionLoading, setNutritionLoading] = useState(true);
   const [foods, setFoods] = useState([]);
   const [foodConsumptions, setFoodConsumptions] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const allUnities = await getAllUnities();
-        setUnities(allUnities);
         const allFoods = await getAllFoods();
         setFoods(allFoods);
         const allFoodConsumptions = await getAllFoodConsumptions();
@@ -80,7 +77,6 @@ export const NutritionProvider = ({ children }) => {
     <NutritionContext.Provider
       value={{
         nutritionLoading,
-        unities,
         foods,
         foodConsumptions,
         getFoodTotalQuantity,

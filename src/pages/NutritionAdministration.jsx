@@ -1,6 +1,6 @@
 import { useState } from "react";
-import FoodForm from "../components/repository/FoodForm";
-import FoodList from "./../components/repository/FoodList";
+import FoodForm from './../components/nutrition/administration/FoodForm';
+import FoodList from './../components/nutrition/administration/FoodList';
 
 export default function NutritionAdministration() {
   const [isFoodFormDisplayed, setIsFoodFormDisplayed] = useState(false)

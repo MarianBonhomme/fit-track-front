@@ -1,5 +1,5 @@
 import { Bar } from "react-chartjs-2";
-import CardTitle from "../CardTitle";
+import CardTitle from "../../CardTitle";
 
 export default function MacroChart() {
   const data = {
