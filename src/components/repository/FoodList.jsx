@@ -37,8 +37,8 @@ export default function FoodList({ editFood }) {
                 <td>{food.fat}</td>
                 <td>{unity ? unity.name : 'N/A'}</td>
                 <td className='flex gap-3'>
-                  <img src="src/assets/icons/global/setting-dynamic-premium.png" alt="update" className="w-6 py-3 pointer" onClick={() => editFood(food)}/>
-                  <img src="src/assets/icons/global/trash-can-dynamic-premium.png" alt="delete" className="w-6 py-3 pointer" onClick={() => deleteFood(food)}/>
+                  <img src="/assets/icons/global/setting-dynamic-premium.png" alt="update" className="w-6 py-3 pointer" onClick={() => editFood(food)}/>
+                  <img src="/assets/icons/global/trash-can-dynamic-premium.png" alt="delete" className="w-6 py-3 pointer" onClick={() => deleteFood(food)}/>
                 </td>
               </tr>
             )

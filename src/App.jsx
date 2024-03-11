@@ -9,18 +9,18 @@ import FinanceDashboard from "./pages/FinanceDashboard";
 import NutritionDashboard from "./pages/NutritionDashboard";
 import SettingsDashboard from "./pages/SettingsDashboard";
 import SportDashboard from "./pages/SportDashboard";
-import RepositoryDashboard from './pages/RepositoryDashboard';
+import NutritionAdministration from "./pages/NutritionAdministration";
 
 export default function App() {
   return (
     <Router>
-      <div className="h-screen w-[150px] bg-dark fixed top-0 left-0">
+      <div className="h-screen w-[100px] bg-dark fixed top-0 left-0">
         <Sidebar />
       </div>
-      <div className="pl-[150px]">
+      <div className="pl-[100px]">
         <Routes>
           <Route path="/" element={<Navigate to="/nutrition" />} />
-          <Route path="/repository" Component={RepositoryDashboard} />
+          <Route path="/nutrition/administration" Component={NutritionAdministration} />
           <Route path="/nutrition" Component={NutritionDashboard} />
           <Route path="/sport" Component={SportDashboard} />
           <Route path="/finance" Component={FinanceDashboard} />

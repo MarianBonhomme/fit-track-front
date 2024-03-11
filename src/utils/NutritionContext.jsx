@@ -4,8 +4,8 @@ import { getAllFoods, addFood, updateFood, deleteFood, getAllUnities, getAllFood
 const NutritionContext = createContext();
 
 export const NutritionProvider = ({ children }) => {
-  const [coffeeCount, setCoffeeCount] = useState(0);
-  const [unities, setUnities] = useState([]);
+  const [nutritionLoading, setNutritionLoading] = useState(true)
+;  const [unities, setUnities] = useState([]);
   const [foods, setFoods] = useState([]);
   const [foodConsumptions, setFoodConsumptions] = useState([]);
 
@@ -18,18 +18,17 @@ export const NutritionProvider = ({ children }) => {
         setFoods(allFoods);
         const allFoodConsumptions = await getAllFoodConsumptions();
         setFoodConsumptions(allFoodConsumptions);
+
+        setNutritionLoading(false);
       } catch (error) {
         console.error('Error loading data', error);
+        setNutritionLoading(false);
       }
     };
 
+    setNutritionLoading(true);
     fetchData();
   }, []);
-
-  const incrementCoffeeCount = () => {
-    const incrementedCoffeeCount = coffeeCount + 1;
-    setCoffeeCount(incrementedCoffeeCount);
-  }
 
   const handleAddFood = async (newFood) => {
     try {
@@ -61,14 +60,30 @@ export const NutritionProvider = ({ children }) => {
     }
   };
 
+  const getFoodTotalQuantity = (foodId) => {
+    const foodConsumptionsForFood = foodConsumptions.filter(
+      (consumption) => consumption.food_id === foodId
+    );
+
+    const totalQuantity = foodConsumptionsForFood.reduce(
+      (total, consumption) => total + consumption.quantity,
+      0
+    );
+
+    return {
+      food: foodConsumptionsForFood[0].food, // Sélectionne la première consommation pour accéder à l'entité food
+      totalQuantity,
+    };
+  };
+
   return (
     <NutritionContext.Provider
       value={{
-        coffeeCount,
+        nutritionLoading,
         unities,
         foods,
         foodConsumptions,
-        incrementCoffeeCount,
+        getFoodTotalQuantity,
         handleAddFood,
         handleUpdateFood,
         handleDeleteFood,

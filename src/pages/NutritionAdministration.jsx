@@ -2,7 +2,7 @@ import { useState } from "react";
 import FoodForm from "../components/repository/FoodForm";
 import FoodList from "./../components/repository/FoodList";
 
-export default function RepositoryDashboard() {
+export default function NutritionAdministration() {
   const [isFoodFormDisplayed, setIsFoodFormDisplayed] = useState(false)
   const [foodToUpdate, setFoodToUpdate] = useState(null);
 
@@ -23,7 +23,7 @@ export default function RepositoryDashboard() {
       )}
 
       <div className="w-full">
-        <img src="src/assets/icons/global/plus-dynamic-premium.png" alt="add" className="w-20 pointer" onClick={addFood} />
+        <img src="/assets/icons/global/plus-dynamic-premium.png" alt="add" className="w-20 pointer" onClick={addFood} />
       </div>
       <FoodList editFood={goToEdition} />
 

@@ -42,7 +42,7 @@ export default function MacroChart() {
   };
 
   return (
-    <div className="grow bg-dark px-5 py-2 shadow rounded-2xl">
+    <div className="w-full flex flex-col items-center bg-dark px-5 py-2 shadow rounded-2xl">
       <CardTitle text="Daily Consumption" />
       <Bar data={data} options={options} />
     </div>

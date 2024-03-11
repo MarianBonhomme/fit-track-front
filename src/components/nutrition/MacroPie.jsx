@@ -15,7 +15,6 @@ export default function MacroPie() {
 
   useEffect(() => {
     setMacroRepartition();
-    console.log(foodConsumptions)
   }, [foodConsumptions]);
 
   const setMacroRepartition = () => {
@@ -49,10 +48,10 @@ export default function MacroPie() {
   }, [averageProt, averageCarb, averageFat]);
 
   return (
-    <div className="grow flex flex-col bg-dark px-5 py-3 shadow rounded-2xl">
+    <div className="flex flex-col items-center bg-dark px-5 py-3 shadow rounded-2xl">
       <CardTitle text="Macro Repartition" />
       {foodConsumptions && (
-        <div className="grow flex items-center">
+        <div>
           <Pie data={data} />
         </div>
       )}      

@@ -1,35 +1,31 @@
-import AddCoffeeButton from "../components/nutrition/AddCoffeeButton";
-import AddFoodButton from "../components/nutrition/AddFoodButton";
-import CoffeeCard from "../components/nutrition/CoffeeCard";
+import CountCard from "../components/nutrition/CountCard";
 import FavoriteCard from "../components/nutrition/FavoriteCard";
 import MacroChart from "../components/nutrition/MacroChart";
 import MacroPie from "../components/nutrition/MacroPie";
+import { useNutrition } from "../utils/NutritionContext";
 
 export default function NutritionDashboard() {
+  const { nutritionLoading } = useNutrition();
+
   return (
-    <div className="flex flex-col gap-y-5 py-5">     
-      <div className="w-full flex items-stretch gap-5 px-5">
-        <div className="w-3/4 flex">
+    <div className="p-5">     
+      {!nutritionLoading && ( 
+        <div className="grid grid-cols-2 gap-5">
           <MacroChart />
-        </div>
-        <div className="w-1/4 flex flex-col justify-between gap-5">
-          <div className="flex h-full">
-            <MacroPie />
+          <div className="grid gap-5">
+            <div className="grid grid-cols-2 gap-5">
+              <MacroPie />
+              <div className="grid grid-cols-2 gap-5">
+                <CountCard foodId={1} />
+                <CountCard foodId={2} />
+                <CountCard foodId={6} />
+                <CountCard foodId={11} />
+              </div>
+            </div>
+            <FavoriteCard />      
           </div>
-          <div className="flex">
-            <CoffeeCard />
-          </div>
         </div>
-      </div>
-      {/* <div className="w-full flex items-stretch gap-5 px-5">
-        <div className="w-2/12 flex">
-          <AddFoodButton />
-        </div>
-        <div className="w-10/12 flex">
-          <FavoriteCard />
-        </div>
-      </div> */}
-      <AddCoffeeButton />
+      )}
     </div>
   )
 }
