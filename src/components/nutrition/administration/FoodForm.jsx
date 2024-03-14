@@ -122,25 +122,19 @@ export default function FoodForm({ food, close }) {
                 <option value="Portion">Portion</option>
               </select>
             </div>
-          </div>
-          <div className="flex gap-5">
             <div className='flex flex-col mb-5'>
               <label htmlFor="proportion">Proportion</label>
-              <select
-                type="text"
+              <input
+                type="number"
                 id="proportion"
                 name="proportion"
                 value={formData.proportion}
                 onChange={handleChange}
                 className='text-black px-4 py-1 border rounded-2xl mt-1 w-32'
                 required
-              >
-                <option value="Gram">G</option>
-                <option value="Litre">Ml</option>
-                <option value="Portion">Portion</option>
-              </select>
+              />
             </div>
-          </div>
+          </div>          
         </div>
         <button type="submit" className='bg-black px-10 py-3 rounded-3xl mt-10'>Confirm</button>
       </form>
