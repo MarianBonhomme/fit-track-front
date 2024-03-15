@@ -27,8 +27,31 @@ export default function FavoriteCard() {
             <div key={food.id} className="text-center">
               <p className="text-xl">{food.name}</p>
               <div className="flex justify-center items-end">
-                <p className="text-3xl font-bold">{food.totalQuantity}</p>
-                <span className="text-xl">{food.unity}</span>
+                {food.unity === "Gram" ? (
+                  food.totalQuantity > 999 ? (
+                    <>
+                      <p className="text-3xl font-bold">{food.totalQuantity / 100}</p>
+                      <span className="text-xl">kg</span>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-3xl font-bold">{food.totalQuantity}</p>
+                      <span className="text-xl">g</span>
+                    </>
+                  )
+                ) : (
+                  food.totalQuantity > 999 ? (
+                    <>
+                      <p className="text-3xl font-bold">{food.totalQuantity / 100}</p>
+                      <span className="text-xl">L</span>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-3xl font-bold">{food.totalQuantity}</p>
+                      <span className="text-xl">ml</span>
+                    </>
+                  )
+                )}
               </div>
             </div>
           )      
