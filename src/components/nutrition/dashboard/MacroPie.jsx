@@ -8,30 +8,32 @@ import CardTitle from "../../CardTitle";
 Chart.register(CategoryScale);
 
 export default function MacroPie() {
-  const { foodConsumptions } = useNutrition();
+  const { foodsWithTotalQuantity } = useNutrition();
   const [averageProt, setAverageProt] = useState(0);
   const [averageCarb, setAverageCarb] = useState(0);
   const [averageFat, setAverageFat] = useState(0);
 
   useEffect(() => {
-    setMacroRepartition();
-  }, [foodConsumptions]);
+    let totalProt = 0;
+    let totalCarb = 0;
+    let totalFat = 0;
+    let totalFoods = 0;
 
-  const setMacroRepartition = () => {
-    if (foodConsumptions && foodConsumptions.length > 0) {
-      const totalProt = foodConsumptions.reduce((acc, food) => acc + food.food.prot, 0);
-      const totalCarb = foodConsumptions.reduce((acc, food) => acc + food.food.carb, 0);
-      const totalFat = foodConsumptions.reduce((acc, food) => acc + food.food.fat, 0);
+    foodsWithTotalQuantity.forEach(food => {
+      let quantity = food.totalQuantity;
+      if (food.unity === "Portion") {
+        quantity *= food.proportion;
+      }
+      totalProt += food.prot * quantity / 100;
+      totalCarb += food.carb * quantity / 100;
+      totalFat += food.fat * quantity / 100;
+      totalFoods++;
+    });
 
-      const avgProt = totalProt / foodConsumptions.length;
-      const avgCarb = totalCarb / foodConsumptions.length;
-      const avgFat = totalFat / foodConsumptions.length;
-
-      setAverageProt(avgProt);
-      setAverageCarb(avgCarb);
-      setAverageFat(avgFat);
-    }
-  };
+    setAverageProt(totalProt / totalFoods);
+    setAverageCarb(totalCarb / totalFoods);
+    setAverageFat(totalFat / totalFoods);
+  }, [foodsWithTotalQuantity]);
 
   const data = useMemo(() => {
     return {
@@ -50,11 +52,9 @@ export default function MacroPie() {
   return (
     <div className="flex flex-col items-center bg-dark px-5 py-3 shadow rounded-2xl">
       <CardTitle text="Macro Repartition" />
-      {foodConsumptions && (
-        <div>
-          <Pie data={data} />
-        </div>
-      )}      
+      <div>
+        <Pie data={data} />   
+      </div>
     </div>
   );
 }

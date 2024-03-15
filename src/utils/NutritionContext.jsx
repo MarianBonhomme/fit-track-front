@@ -33,7 +33,6 @@ export const NutritionProvider = ({ children }) => {
   const handleAddFood = async (newFood) => {
     try {
       const addedFood = await addFood(newFood);
-      console.log(addedFood);
       setFoods((prevFoods) => [...prevFoods, addedFood]);
     } catch (error) {
       console.error('Error adding food:', error);

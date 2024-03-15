@@ -7,7 +7,6 @@ export default function FavoriteCard() {
   const [favoriteFoods, setFavoriteFoods] = useState([])
 
   useEffect(() => {
-    console.log(foodsWithTotalQuantity);
     const top3foods = getTop3Foods();
     setFavoriteFoods(top3foods);
   }, [foodsWithTotalQuantity]);
