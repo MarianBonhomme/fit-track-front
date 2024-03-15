@@ -2,17 +2,7 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:3000";
 
-const getAllUnities = async () => {
-  try {
-    const response = await axios.get(`${BASE_URL}/unity`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching all unities:", error);
-    throw error;
-  }
-};
-
-const getAllFoods = async () => {
+const getFoods = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/food`);
     return response.data;
@@ -62,7 +52,7 @@ const deleteFood = async (foodToDelete) => {
   }
 };
 
-const getAllFoodConsumptions = async () => {
+const getFoodConsumptions = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/foodConsumption`);
     return response.data;
@@ -72,4 +62,14 @@ const getAllFoodConsumptions = async () => {
   }
 };
 
-export { getAllUnities, getAllFoods, getFoodById, addFood, updateFood, deleteFood, getAllFoodConsumptions };
+const getFoodsWithTotalQuantity = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/food/totalQuantity`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching all foods:", error);
+    throw error;
+  }
+}
+
+export { getFoods, getFoodById, addFood, updateFood, deleteFood, getFoodConsumptions, getFoodsWithTotalQuantity };

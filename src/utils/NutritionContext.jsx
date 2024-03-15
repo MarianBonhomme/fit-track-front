@@ -1,20 +1,23 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { getAllFoods, addFood, updateFood, deleteFood, getAllUnities, getAllFoodConsumptions } from './NutritionService';
+import { getFoods, addFood, updateFood, deleteFood, getFoodConsumptions, getFoodsWithTotalQuantity } from './NutritionService';
 
 const NutritionContext = createContext();
 
 export const NutritionProvider = ({ children }) => {
   const [nutritionLoading, setNutritionLoading] = useState(true);
   const [foods, setFoods] = useState([]);
+  const [foodsWithTotalQuantity, setFoodsWithTotalQuantity] = useState([]);
   const [foodConsumptions, setFoodConsumptions] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const allFoods = await getAllFoods();
-        setFoods(allFoods);
-        const allFoodConsumptions = await getAllFoodConsumptions();
-        setFoodConsumptions(allFoodConsumptions);
+        const fetchedFoods = await getFoods();
+        setFoods(fetchedFoods);
+        const fetchedFoodsWithTotalQuantity = await getFoodsWithTotalQuantity();
+        setFoodsWithTotalQuantity(fetchedFoodsWithTotalQuantity);
+        const fetchedFoodConsumptions = await getFoodConsumptions();
+        setFoodConsumptions(fetchedFoodConsumptions);
 
         setNutritionLoading(false);
       } catch (error) {
@@ -57,29 +60,13 @@ export const NutritionProvider = ({ children }) => {
     }
   };
 
-  const getFoodTotalQuantity = (foodId) => {
-    const foodConsumptionsForFood = foodConsumptions.filter(
-      (consumption) => consumption.food_id === foodId
-    );
-
-    const totalQuantity = foodConsumptionsForFood.reduce(
-      (total, consumption) => total + consumption.quantity,
-      0
-    );
-
-    return {
-      food: foodConsumptionsForFood[0].food, // Sélectionne la première consommation pour accéder à l'entité food
-      totalQuantity,
-    };
-  };
-
   return (
     <NutritionContext.Provider
       value={{
         nutritionLoading,
         foods,
+        foodsWithTotalQuantity,
         foodConsumptions,
-        getFoodTotalQuantity,
         handleAddFood,
         handleUpdateFood,
         handleDeleteFood,
