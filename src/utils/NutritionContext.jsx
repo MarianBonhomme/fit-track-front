@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { getFoods, addFood, updateFood, deleteFood, getFoodConsumptions, getFoodsWithTotalQuantity } from './NutritionService';
+import { getFoods, addFood, updateFood, getFoodConsumptions, getFoodsWithTotalQuantity } from './NutritionService';
 
 const NutritionContext = createContext();
 
@@ -50,15 +50,6 @@ export const NutritionProvider = ({ children }) => {
     }
   };
 
-  const handleDeleteFood = async (foodToDelete) => {
-    try {
-      await deleteFood(foodToDelete);
-      setFoods((prevFoods) => prevFoods.filter((food) => food.id !== foodToDelete.id));
-    } catch (error) {
-      console.error(`Error deleting food with id ${id}:`, error);
-    }
-  };
-
   return (
     <NutritionContext.Provider
       value={{
@@ -68,7 +59,6 @@ export const NutritionProvider = ({ children }) => {
         foodConsumptions,
         handleAddFood,
         handleUpdateFood,
-        handleDeleteFood,
       }}
     >
       {children}
