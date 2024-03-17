@@ -19,16 +19,10 @@ export default function Sidebar() {
           <img src="/assets/icons/finance/euro-dynamic-premium.png" alt="Icone Finance Active" className={`absolute w-full transition duration-300 ${location.pathname === '/finance' ? '' : 'opacity-0'}`} />
         </NavLink>
       </div>
-      <div className="flex flex-col gap-10">
-        <NavLink to="nutrition/administration" className="relative w-14 h-14">
-          <img src="/assets/icons/global/folder-dynamic-clay.png" alt="Icone Nutrition" className={`absolute w-full transition duration-300 ${location.pathname === '/repository' ? 'opacity-0' : ''}`} />
-          <img src="/assets/icons/global/folder-dynamic-premium.png" alt="Icone Nutrition Active" className={`absolute w-full transition duration-300 ${location.pathname === '/repository' ? '' : 'opacity-0'}`} />
-        </NavLink>
-        <NavLink to="settings" className="relative w-14 h-14">
-          <img src="/assets/icons/global/setting-dynamic-clay.png" alt="Icone Nutrition" className={`absolute w-full transition duration-300 ${location.pathname === '/settings' ? 'opacity-0' : ''}`} />
-          <img src="/assets/icons/global/setting-dynamic-premium.png" alt="Icone Nutrition Active" className={`absolute w-full transition duration-300 ${location.pathname === '/settings' ? '' : 'opacity-0'}`} />
-        </NavLink>
-      </div>
+      <NavLink to="settings" className="relative w-14 h-14">
+        <img src="/assets/icons/global/setting-dynamic-clay.png" alt="Icone Nutrition" className={`absolute w-full transition duration-300 ${location.pathname === '/settings' ? 'opacity-0' : ''}`} />
+        <img src="/assets/icons/global/setting-dynamic-premium.png" alt="Icone Nutrition Active" className={`absolute w-full transition duration-300 ${location.pathname === '/settings' ? '' : 'opacity-0'}`} />
+      </NavLink>
     </nav>
   )
 }

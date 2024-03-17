@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNutrition } from "../../../utils/NutritionContext";
-import CardTitle from "../../CardTitle";
-import QuantityUnity from "../QuantityUnity";
+import QuantityUnity from "../global/QuantityUnity";
+import CardTitle from "../../global/CardTitle";
 
 export default function FavoriteCard() {
   const { foodsWithTotalQuantity } = useNutrition();
@@ -20,7 +20,7 @@ export default function FavoriteCard() {
   }
 
   return (
-    <div className="grow bg-dark px-5 py-3 shadow rounded-2xl">
+    <div className="grow bg-black px-5 py-3 shadow rounded-2xl">
       <CardTitle text="Top 3 Food" />
       <div className="flex justify-evenly p-5">
         {favoriteFoods && favoriteFoods.map((food) => {

@@ -3,7 +3,7 @@ import Chart from "chart.js/auto";
 import { useEffect, useMemo, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { useNutrition } from "../../../utils/NutritionContext";
-import CardTitle from "../../CardTitle";
+import CardTitle from "../../global/CardTitle";
 
 Chart.register(CategoryScale);
 
@@ -50,7 +50,7 @@ export default function MacroPie() {
   }, [averageProt, averageCarb, averageFat]);
 
   return (
-    <div className="flex flex-col items-center bg-dark px-5 py-3 shadow rounded-2xl">
+    <div className="flex flex-col items-center bg-black px-5 py-3 shadow rounded-2xl">
       <CardTitle text="Macro Repartition" />
       <div>
         <Pie data={data} />   

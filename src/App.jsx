@@ -4,12 +4,8 @@ import {
   BrowserRouter as Router,
   Routes,
 } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
-import FinanceDashboard from "./pages/FinanceDashboard";
-import NutritionDashboard from "./pages/NutritionDashboard";
-import SettingsDashboard from "./pages/SettingsDashboard";
-import SportDashboard from "./pages/SportDashboard";
-import NutritionAdministration from "./pages/NutritionAdministration";
+import Sidebar from "./components/global/Sidebar";
+import NutritionPage from "./pages/NutritionPage";
 
 export default function App() {
   return (
@@ -20,11 +16,7 @@ export default function App() {
       <div className="pl-[100px]">
         <Routes>
           <Route path="/" element={<Navigate to="/nutrition" />} />
-          <Route path="/nutrition/administration" Component={NutritionAdministration} />
-          <Route path="/nutrition" Component={NutritionDashboard} />
-          <Route path="/sport" Component={SportDashboard} />
-          <Route path="/finance" Component={FinanceDashboard} />
-          <Route path="/settings" Component={SettingsDashboard} />
+          <Route path="/nutrition" Component={NutritionPage} />
         </Routes>
       </div>
     </Router>

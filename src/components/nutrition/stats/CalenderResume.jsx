@@ -1,6 +1,6 @@
 import { addDays, format, subDays } from 'date-fns';
 import { useEffect, useState } from "react";
-import CalenderCard from "./CalenderCard";
+import CalenderCard from './../global/CalenderCard';
 
 export default function CalenderResume() {
   const [daysToDisplay, setDaysToDisplay] = useState();

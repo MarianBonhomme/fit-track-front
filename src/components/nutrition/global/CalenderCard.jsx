@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNutrition } from "../../../utils/NutritionContext";
-import CardTitle from "../../CardTitle";
+import CardTitle from "../../global/CardTitle";
 import FoodConsumptionForm from "./FoodConsumptionForm";
-import QuantityUnity from "../QuantityUnity";
+import QuantityUnity from "./QuantityUnity";
 
 export default function CalenderCard({ day }) {
   const { foodConsumptions, handleDeleteFoodConsumption } = useNutrition();
@@ -81,7 +81,7 @@ export default function CalenderCard({ day }) {
 
   return (
     <>
-      <div className="bg-dark px-4 py-3 shadow rounded-2xl relative">
+      <div className="bg-black px-4 py-3 shadow rounded-2xl relative">
         <div className="grid grid-cols-2">
           <div className="flex flex-col items-start">
             <CardTitle text={isToday ? 'Today' : day.name} className="justify-self-start"/>
