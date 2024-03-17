@@ -9,6 +9,7 @@ import MacroPie from './stats/MacroPie';
 export default function StatsDashboard() {
   const { foodsWithTotalQuantity } = useNutrition();
   const [foodsForCountCards, setFoodsForCountCards] = useState([]);
+  const colors = ["blue", "purple", "yellow", "dark"]
 
   useEffect(() => {
     const foodsCountCard = getPortionFoods();
@@ -21,16 +22,16 @@ export default function StatsDashboard() {
   }
 
   return (
-    <div className="bg-dark grid gap-5 p-5 rounded-tl-none rounded-3xl">
-       <CalenderResume />
+    <div className="grid gap-5 rounded-tl-none rounded-3xl relative z-10">
+      <CalenderResume />
       <div className="grid grid-cols-2 gap-5">
         <MacroChart />
         <div className="grid gap-5">
           <div className="grid grid-cols-2 gap-5">
             <MacroPie />
             <div className="grid grid-cols-2 gap-5">
-              {foodsForCountCards && foodsForCountCards.map((food) => (
-                <CountCard key={food.id} food={food} />
+              {foodsForCountCards && foodsForCountCards.map((food, index) => (
+                <CountCard key={food.id} food={food} color={colors[index]} />
               ))}
             </div>
           </div>

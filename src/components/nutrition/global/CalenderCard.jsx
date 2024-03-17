@@ -3,6 +3,7 @@ import { useNutrition } from "../../../utils/NutritionContext";
 import CardTitle from "../../global/CardTitle";
 import FoodConsumptionForm from "./FoodConsumptionForm";
 import QuantityUnity from "./QuantityUnity";
+import { Icon } from '@iconify/react';
 
 export default function CalenderCard({ day }) {
   const { foodConsumptions, handleDeleteFoodConsumption } = useNutrition();
@@ -81,13 +82,13 @@ export default function CalenderCard({ day }) {
 
   return (
     <>
-      <div className="bg-black px-4 py-3 shadow rounded-2xl relative">
+      <div className="bg-white px-4 py-3 shadow-custom rounded-3xl rounded-tl-none relative">
         <div className="grid grid-cols-2">
           <div className="flex flex-col items-start">
             <CardTitle text={isToday ? 'Today' : day.name} className="justify-self-start"/>
-            <div className="w-full flex items-center gap-2 border-b border-gray-600 text-gray-400 mb-3" onClick={() => openFoodConsumptionForm(null)}>
-              <img src="/assets/icons/global/plus-dynamic-premium.png" alt="add" className="w-10" />
-              <p>Ajouter</p>
+            <div className="flex items-center bg-purple rounded-xl gap-1 pl-2 pr-4 mt-1 mb-3 cursor-pointer" onClick={() => openFoodConsumptionForm(null)}>
+              <Icon icon="fluent-emoji-high-contrast:plus" width={20} height={20} style={{color: '#F5F5F5'}} />
+              <p className="text-white font-bold">Add</p>
             </div>
           </div>
           <div className="flex justify-end gap-5">
@@ -108,14 +109,11 @@ export default function CalenderCard({ day }) {
         <ul>
           {foodConsumptionsForDate && foodConsumptionsForDate.map((consumption) => (
             <li className="flex justify-between" key={consumption.id}>
-              <p>{consumption.food.name}</p>
-              <div className="flex gap-3">
+              <div className="w-3/4 flex justify-between" onClick={() => openFoodConsumptionForm(consumption)}>
+                <p>{consumption.food.name}</p>
                 <QuantityUnity quantity={consumption.quantity} unity={consumption.food.unity} />
-                <div className="flex">
-                  <img src="/assets/icons/global/setting-dynamic-premium.png" alt="update" className="w-6 pointer" onClick={() => openFoodConsumptionForm(consumption)}/>
-                  <img src="/assets/icons/global/trash-can-dynamic-premium.png" alt="delete" className="w-6 pointer" onClick={() => deleteFoodConsumption(consumption)}/>
-                </div>
               </div>
+              <Icon icon="maki:cross" width={25} height={25} style={{color: '#F46F97', cursor: 'pointer'}} onClick={() => deleteFoodConsumption(consumption)} />
             </li>
           ))}
         </ul>

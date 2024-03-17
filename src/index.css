@@ -12,3 +12,32 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-track {
   background-color: transparent;
 }
+
+
+.bg-red {
+  background-color: #F46F97;
+}
+
+.bg-yellow {
+  background-color: #F5BE40;
+}
+
+.bg-orange {
+  background-color: #F58A61;
+}
+
+.bg-green {
+  background-color: #37C8A6;
+}
+
+.bg-blue {
+  background-color: #3BCBEA;
+}
+
+.bg-purple {
+  background-color: #AA6AE6;
+}
+
+.bg-dark {
+  background-color: #25252F;
+}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNutrition } from "../../../utils/NutritionContext";
+import { Icon } from '@iconify/react';
 
 export default function FoodForm({ food, close }) {
   const { handleAddFood, handleUpdateFood } = useNutrition();
@@ -59,20 +60,15 @@ export default function FoodForm({ food, close }) {
 	};
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 bg-opacity-50 bg-black flex justify-center items-center z-50'>
-      <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-dark p-10 relative rounded-2xl'>
+    <div className='h-screen w-full fixed top-0 left-0 bg-opacity-50 bg-ice flex justify-center items-center z-50'>
+      <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-white p-10 relative rounded-2xl'>
         <button onClick={close} className='absolute top-5 right-5 text-xl hover:rotate-90'>❌</button>
         <h3 className='font-bold text-3xl'>{food ? 'Update Food' : 'Create New Food'}</h3>
         <p className="mb-10">Toutes les quantités à renseigner sont pour 100g</p>
         <div className='w-full flex flex-col items-center relative'>          
           <div className='flex flex-col mb-5 relative'>
             <div className="absolute -left-1/4 top-1/3">
-              <img
-                src={formData.is_favorite ? '/assets/icons/global/star-dynamic-premium.png' : '/assets/icons/global/star-dynamic-clay.png'}
-                alt="favorite"
-                className="w-10 pointer"
-                onClick={toggleIsFavorite}
-              />
+              <Icon icon="solar:star-bold" width={30} height={30} style={{color: `${formData.is_favorite ? '#F5BE40' : '#25252F'}`, cursor: 'pointer'}} onClick={toggleIsFavorite} />  
             </div>
             <label htmlFor="name">Name</label>
             <input
@@ -165,7 +161,7 @@ export default function FoodForm({ food, close }) {
             </div>
           </div>          
         </div>
-        <button type="submit" className='bg-black px-10 py-3 rounded-3xl mt-10'>Confirm</button>
+        <button type="submit" className='bg-ice px-10 py-3 rounded-3xl mt-10'>Confirm</button>
       </form>
     </div>
   )

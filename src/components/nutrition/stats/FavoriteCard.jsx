@@ -20,7 +20,7 @@ export default function FavoriteCard() {
   }
 
   return (
-    <div className="grow bg-black px-5 py-3 shadow rounded-2xl">
+    <div className="grow bg-green text-white px-5 py-3 shadow-custom rounded-3xl">
       <CardTitle text="Top 3 Food" />
       <div className="flex justify-evenly p-5">
         {favoriteFoods && favoriteFoods.map((food) => {

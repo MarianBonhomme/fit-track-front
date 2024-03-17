@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import FoodForm from './administration/FoodForm';
 import FoodList from './administration/FoodList';
+import { Icon } from '@iconify/react';
 
 export default function FoodsDashboard() {
   const [isFoodFormDisplayed, setIsFoodFormDisplayed] = useState(false)
@@ -12,12 +13,13 @@ export default function FoodsDashboard() {
   }
 
   return (
-    <div className="bg-dark  rounded-3xl p-5">
+    <div className="bg-white rounded-3xl p-5">
       {isFoodFormDisplayed && (
         <FoodForm food={foodToUpdate} close={() => setIsFoodFormDisplayed(false)}/>
       )}
-      <div className="w-full">
-        <img src="/assets/icons/global/plus-dynamic-premium.png" alt="add" className="w-20 pointer" onClick={() => openFoodForm(null)} />
+      <div className="max-w-fit flex items-center bg-purple rounded-3xl gap-1 pl-5 pr-8 py-1 mt-1 mb-3 cursor-pointer" onClick={() => openFoodForm(null)} >
+        <Icon icon="fluent-emoji-high-contrast:plus" width={20} height={20} style={{color: '#F5F5F5'}} />
+        <p className="text-white font-bold">Add</p>
       </div>
       <FoodList editBtnClicked={openFoodForm} />
     </div>

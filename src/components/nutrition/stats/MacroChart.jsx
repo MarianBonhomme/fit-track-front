@@ -8,19 +8,19 @@ export default function MacroChart() {
       {
         label: 'Proteines',
         data: [80, 70, 90, 75, 85, 80, 95],
-        backgroundColor: '#9E2384',
+        backgroundColor: '#37C8A6',
         barPercentage: 0.9,
       },
       {
         label: 'Glucides',
         data: [150, 130, 160, 140, 155, 150, 170],
-        backgroundColor: '#2B0D84',
+        backgroundColor: '#F5BE40',
         barPercentage: 0.9,
       },
       {
         label: 'Lipides',
         data: [50, 45, 55, 48, 52, 50, 58],
-        backgroundColor: '#D7964E',
+        backgroundColor: '#AA6AE6',
         barPercentage: 0.9,
       },
     ],
@@ -42,7 +42,7 @@ export default function MacroChart() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center bg-black px-5 py-2 shadow rounded-2xl">
+    <div className="w-full flex flex-col items-center bg-white px-5 py-2 shadow-custom rounded-3xl">
       <CardTitle text="Daily Consumption" />
       <Bar data={data} options={options} />
     </div>

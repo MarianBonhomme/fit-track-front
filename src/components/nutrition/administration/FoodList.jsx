@@ -1,6 +1,7 @@
 import { useNutrition } from '../../../utils/NutritionContext';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { Icon } from '@iconify/react';
 
 export default function FoodList({ editBtnClicked }) {
   const { foods, handleUpdateFood } = useNutrition();
@@ -70,26 +71,28 @@ export default function FoodList({ editBtnClicked }) {
           sortedFoods.map((food) => {
             return food.is_active ? (
               <tr key={food.id} className="border-t">
-                <td>{food.is_favorite ? (                  
-                  <img src='/assets/icons/global/star-dynamic-premium.png' alt="favorite" className='w-6 pointer mx-auto' onClick={() => removeFromFavorite(food)}/>
-                ) : (
-                  <img src='/assets/icons/global/star-dynamic-clay.png' alt="favorite" className='w-6 pointer mx-auto' onClick={() => addToFavorite(food)}/>
-                )}</td>
+                <td className="flex justify-center">
+                  {food.is_favorite ? (         
+                    <Icon icon="solar:star-bold" width={30} height={30} style={{color: '#F5BE40', cursor: 'pointer'}} onClick={() => removeFromFavorite(food)} />         
+                  ) : (
+                    <Icon icon="solar:star-bold" width={30} height={30} style={{color: '#25252F', cursor: 'pointer'}} onClick={() => addToFavorite(food)} />         
+                  )}
+                </td>
                 <td>{food.name}</td>
                 <td>{food.kcal}</td>
                 <td>{food.prot}</td>
                 <td>{food.carb}</td>
                 <td>{food.fat}</td>
                 <td>{food.unity}</td>
-                <td className='flex gap-3'>
-                  <img src="/assets/icons/global/setting-dynamic-premium.png" alt="update" className="w-6 py-3 pointer" onClick={() => editBtnClicked(food)}/>
-                  <img src="/assets/icons/global/trash-can-dynamic-premium.png" alt="delete" className="w-6 py-3 pointer" onClick={() => setInactive(food)}/>
+                <td className='flex'>
+                  <Icon icon="mdi:note-edit" width={30} height={30} style={{color: '#F5BE40', cursor: 'pointer'}} onClick={() => editBtnClicked(food)} />
+                  <Icon icon="ic:round-delete" width={30} height={30} style={{color: '#F46F97', cursor: 'pointer'}} onClick={() => setInactive(food)} />
                 </td>
               </tr>
             ) : (
               <tr key={food.id} className="border-t opacity-50">
-                <td>            
-                  <img src='/assets/icons/global/star-dynamic-clay.png' alt="favorite" className='w-6 pointer mx-auto'/>
+                <td className="flex justify-center">            
+                  <Icon icon="solar:star-bold" width={30} height={30} style={{color: '#25252F'}} />
                 </td>
                 <td>{food.name}</td>
                 <td>{food.kcal}</td>
@@ -97,9 +100,9 @@ export default function FoodList({ editBtnClicked }) {
                 <td>{food.carb}</td>
                 <td>{food.fat}</td>
                 <td>{food.unity}</td>
-                <td className='flex gap-3'>
-                  <img src="/assets/icons/global/setting-dynamic-premium.png" alt="update" className="w-6 py-3 pointer" onClick={() => editBtnClicked(food)}/>
-                  <img src="/assets/icons/global/plus-dynamic-premium.png" alt="delete" className="w-6 py-3 pointer" onClick={() => setActive(food)}/>
+                <td className='flex'>
+                  <Icon icon="mdi:note-edit" width={30} height={30} style={{color: '#F5BE40', cursor: 'pointer'}} onClick={() => editBtnClicked(food)} />
+                  <Icon icon="mingcute:arrow-up-fill" width={30} height={30} style={{color: '#AA6AE6', cursor: 'pointer'}} onClick={() => setActive(food)} />
                 </td>
               </tr>
             )

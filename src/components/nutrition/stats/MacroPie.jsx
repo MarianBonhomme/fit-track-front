@@ -41,7 +41,7 @@ export default function MacroPie() {
       datasets: [
         {
           data: [averageProt, averageCarb, averageFat],
-          backgroundColor: ["#9E2384", "#2B0D84", "#D7964E"],
+          backgroundColor: ["#37C8A6", "#F5BE40", "#AA6AE6"],
           borderWidth: 0,
           hoverOffset: 10,
         },
@@ -50,7 +50,7 @@ export default function MacroPie() {
   }, [averageProt, averageCarb, averageFat]);
 
   return (
-    <div className="flex flex-col items-center bg-black px-5 py-3 shadow rounded-2xl">
+    <div className="flex flex-col items-center bg-white px-5 py-3 shadow-custom rounded-3xl">
       <CardTitle text="Macro Repartition" />
       <div>
         <Pie data={data} />   
