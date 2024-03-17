@@ -6,13 +6,8 @@ export default function NutritionAdministration() {
   const [isFoodFormDisplayed, setIsFoodFormDisplayed] = useState(false)
   const [foodToUpdate, setFoodToUpdate] = useState(null);
 
-  const addFood = () => {
-    setFoodToUpdate(null);
-    setIsFoodFormDisplayed(true);
-  }
-
-  const goToEdition = (food) => {
-    setFoodToUpdate(food);
+  const openFoodForm = (food) => {
+    food ? setFoodToUpdate(food) : setFoodToUpdate(null);
     setIsFoodFormDisplayed(true);
   }
 
@@ -23,9 +18,9 @@ export default function NutritionAdministration() {
       )}
 
       <div className="w-full">
-        <img src="/assets/icons/global/plus-dynamic-premium.png" alt="add" className="w-20 pointer" onClick={addFood} />
+        <img src="/assets/icons/global/plus-dynamic-premium.png" alt="add" className="w-20 pointer" onClick={() => openFoodForm(null)} />
       </div>
-      <FoodList editFood={goToEdition} />
+      <FoodList editBtnClicked={openFoodForm} />
 
     </div>
   );

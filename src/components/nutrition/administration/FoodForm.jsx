@@ -23,10 +23,10 @@ export default function FoodForm({ food, close }) {
   }, [food])
 
   const handleChange = (e) => {
-	  const { name, value, type } = e.target;
+	  const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? e.target.checked : value,
+      [name]: value,
     });
     checkSelectInput(name, value);
 	};

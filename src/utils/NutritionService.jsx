@@ -47,7 +47,37 @@ const getFoodConsumptions = async () => {
     const response = await axios.get(`${BASE_URL}/foodConsumption`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching all foods:", error);
+    console.error("Error fetching all foodConsumptions:", error);
+    throw error;
+  }
+};
+
+const addFoodConsumption = async (newFoodConsumption) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/foodConsumption`, newFoodConsumption);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding new foodConsumption:", error);
+    throw error;
+  }
+};
+
+const updateFoodConsumption = async (foodConsumptionToUpdate) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/foodConsumption/${foodConsumptionToUpdate.id}`, foodConsumptionToUpdate);
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating food with id ${foodConsumptionToUpdate.id}:`, error);
+    throw error;
+  }
+};
+
+const deleteFoodConsumption = async (foodConsumptionToDelete) => {
+  try {
+    const response = await axios.delete(`${BASE_URL}/foodConsumption/${foodConsumptionToDelete.id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error deleting foodConsumption with id ${foodConsumptionToDelete.id}:`, error);
     throw error;
   }
 };
@@ -57,9 +87,9 @@ const getFoodsWithTotalQuantity = async () => {
     const response = await axios.get(`${BASE_URL}/food/totalQuantity`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching all foods:", error);
+    console.error("Error fetching all foods with totalQuantity:", error);
     throw error;
   }
 }
 
-export { getFoods, getFoodById, addFood, updateFood, getFoodConsumptions, getFoodsWithTotalQuantity };
+export { getFoods, getFoodById, addFood, updateFood, getFoodConsumptions, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getFoodsWithTotalQuantity };

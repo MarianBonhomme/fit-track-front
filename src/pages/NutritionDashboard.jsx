@@ -4,6 +4,7 @@ import CountCard from "./../components/nutrition/dashboard/CountCard";
 import FavoriteCard from "./../components/nutrition/dashboard/FavoriteCard";
 import MacroChart from "./../components/nutrition/dashboard/MacroChart";
 import MacroPie from "./../components/nutrition/dashboard/MacroPie";
+import CalenderResume from "../components/nutrition/calendar/CalenderResume";
 
 export default function NutritionDashboard() {
   const { nutritionLoading, foodsWithTotalQuantity } = useNutrition();
@@ -12,7 +13,7 @@ export default function NutritionDashboard() {
   useEffect(() => {
     const foodsCountCard = getPortionFoods();
     setFoodsForCountCards(foodsCountCard)
-  }, [nutritionLoading]);
+  }, [foodsWithTotalQuantity]);
 
   const getPortionFoods = () => {
     const portionFoods = foodsWithTotalQuantity.filter((food) => food.unity == 'Portion');
@@ -22,18 +23,21 @@ export default function NutritionDashboard() {
   return (
     <div className="p-5">
       {!nutritionLoading && (
-        <div className="grid grid-cols-2 gap-5">
-          <MacroChart />
-          <div className="grid gap-5">
-            <div className="grid grid-cols-2 gap-5">
-              <MacroPie />
+        <div className="grid gap-5">
+          <CalenderResume />
+          <div className="grid grid-cols-2 gap-5">
+            <MacroChart />
+            <div className="grid gap-5">
               <div className="grid grid-cols-2 gap-5">
-                {foodsForCountCards && foodsForCountCards.map((food) => (
-                  <CountCard key={food.id} food={food} />
-                ))}
+                <MacroPie />
+                <div className="grid grid-cols-2 gap-5">
+                  {foodsForCountCards && foodsForCountCards.map((food) => (
+                    <CountCard key={food.id} food={food} />
+                  ))}
+                </div>
               </div>
+              <FavoriteCard />
             </div>
-            <FavoriteCard />
           </div>
         </div>
       )}

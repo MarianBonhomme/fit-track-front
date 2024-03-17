@@ -2,7 +2,7 @@ import { useNutrition } from '../../../utils/NutritionContext';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-export default function FoodList({ editFood }) {
+export default function FoodList({ editBtnClicked }) {
   const { foods, handleUpdateFood } = useNutrition();
   const [sortedFoods, setSortedFoods] = useState();
 
@@ -82,7 +82,7 @@ export default function FoodList({ editFood }) {
                 <td>{food.fat}</td>
                 <td>{food.unity}</td>
                 <td className='flex gap-3'>
-                  <img src="/assets/icons/global/setting-dynamic-premium.png" alt="update" className="w-6 py-3 pointer" onClick={() => editFood(food)}/>
+                  <img src="/assets/icons/global/setting-dynamic-premium.png" alt="update" className="w-6 py-3 pointer" onClick={() => editBtnClicked(food)}/>
                   <img src="/assets/icons/global/trash-can-dynamic-premium.png" alt="delete" className="w-6 py-3 pointer" onClick={() => setInactive(food)}/>
                 </td>
               </tr>
@@ -98,7 +98,7 @@ export default function FoodList({ editFood }) {
                 <td>{food.fat}</td>
                 <td>{food.unity}</td>
                 <td className='flex gap-3'>
-                  <img src="/assets/icons/global/setting-dynamic-premium.png" alt="update" className="w-6 py-3 pointer" onClick={() => editFood(food)}/>
+                  <img src="/assets/icons/global/setting-dynamic-premium.png" alt="update" className="w-6 py-3 pointer" onClick={() => editBtnClicked(food)}/>
                   <img src="/assets/icons/global/plus-dynamic-premium.png" alt="delete" className="w-6 py-3 pointer" onClick={() => setActive(food)}/>
                 </td>
               </tr>

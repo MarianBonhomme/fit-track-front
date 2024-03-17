@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { getFoods, addFood, updateFood, getFoodConsumptions, getFoodsWithTotalQuantity } from './NutritionService';
+import { getFoods, addFood, updateFood, getFoodConsumptions, getFoodsWithTotalQuantity, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption } from './NutritionService';
 
 const NutritionContext = createContext();
 
@@ -46,7 +46,37 @@ export const NutritionProvider = ({ children }) => {
         prevFoods.map((food) => (food.id === updatedFood.id ? updatedFood : food))
       );
     } catch (error) {
-      console.error(`Error updating food with id ${id}:`, error);
+      console.error(`Error updating food with id ${foodToUpdate.id}:`, error);
+    }
+  };
+
+  const handleAddFoodConsumption = async (newFoodConsumption) => {
+    try {
+      const addedFoodConsumption = await addFoodConsumption(newFoodConsumption);
+      setFoodConsumptions((prevFoodsConsumptions) => [...prevFoodsConsumptions, addedFoodConsumption]);
+
+    } catch (error) {
+      console.error('Error adding foodConsumption:', error);
+    }
+  };
+
+  const handleUpdateFoodConsumption = async (foodConsumptionToUpdate) => {
+    try {
+      const updatedFoodConsumption = await updateFoodConsumption(foodConsumptionToUpdate);
+      setFoodConsumptions((prevFoodConsumptions) =>
+        prevFoodConsumptions.map((consumption) => (consumption.id === updatedFoodConsumption.id ? updatedFoodConsumption : consumption))
+      );
+    } catch (error) {
+      console.error(`Error updating foodConsumption with id ${foodConsumptionToUpdate.id}:`, error);
+    }
+  };
+
+  const handleDeleteFoodConsumption = async (foodConsumptionToDelete) => {
+    try {
+      await deleteFoodConsumption(foodConsumptionToDelete);
+      setFoodConsumptions((prevFoodConsumptions) => prevFoodConsumptions.filter((consumption) => consumption.id !== foodConsumptionToDelete.id));
+    } catch (error) {
+      console.error(`Error deleting foodConsumption with id ${foodConsumptionToDelete.id}:`, error);
     }
   };
 
@@ -59,6 +89,9 @@ export const NutritionProvider = ({ children }) => {
         foodConsumptions,
         handleAddFood,
         handleUpdateFood,
+        handleAddFoodConsumption,
+        handleUpdateFoodConsumption,
+        handleDeleteFoodConsumption,
       }}
     >
       {children}
