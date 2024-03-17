@@ -4,31 +4,36 @@ import { getFoods, addFood, updateFood, getFoodConsumptions, getFoodsWithTotalQu
 const NutritionContext = createContext();
 
 export const NutritionProvider = ({ children }) => {
-  const [nutritionLoading, setNutritionLoading] = useState(true);
   const [foods, setFoods] = useState([]);
   const [foodsWithTotalQuantity, setFoodsWithTotalQuantity] = useState([]);
   const [foodConsumptions, setFoodConsumptions] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetchedFoods = await getFoods();
-        setFoods(fetchedFoods);
-        const fetchedFoodsWithTotalQuantity = await getFoodsWithTotalQuantity();
-        setFoodsWithTotalQuantity(fetchedFoodsWithTotalQuantity);
-        const fetchedFoodConsumptions = await getFoodConsumptions();
-        setFoodConsumptions(fetchedFoodConsumptions);
+    fetchFoods();
+  }, [])
 
-        setNutritionLoading(false);
-      } catch (error) {
-        console.error('Error loading data', error);
-        setNutritionLoading(false);
-      }
-    };
+  useEffect(() => {
+    fetchFoodConsumptions();
+  }, [])
 
-    setNutritionLoading(true);
-    fetchData();
-  }, []);
+  useEffect(() => {
+    fetchFoodsWithTotalQuantity();
+  }, [foodConsumptions])
+
+  const fetchFoods = async () => {
+    const fetchedFoods = await getFoods();
+    setFoods(fetchedFoods);
+  }
+
+  const fetchFoodConsumptions = async () => {
+    const fetchedFoodConsumptions = await getFoodConsumptions();
+    setFoodConsumptions(fetchedFoodConsumptions);
+  }
+
+  const fetchFoodsWithTotalQuantity = async () => {
+    const fetchedFoodsWithTotalQuantity = await getFoodsWithTotalQuantity();
+    setFoodsWithTotalQuantity(fetchedFoodsWithTotalQuantity);
+  }
 
   const handleAddFood = async (newFood) => {
     try {
@@ -83,7 +88,6 @@ export const NutritionProvider = ({ children }) => {
   return (
     <NutritionContext.Provider
       value={{
-        nutritionLoading,
         foods,
         foodsWithTotalQuantity,
         foodConsumptions,

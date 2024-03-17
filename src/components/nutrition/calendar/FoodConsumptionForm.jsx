@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useNutrition } from '../../../utils/NutritionContext'
 
 export default function FoodConsumptionForm({ date, foodConsumption, close }) {
-  const { foods, handleAddFoodConsumption, handleUpdateFoodConsumption } = useNutrition();
+  const { foods, foodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption } = useNutrition();
+  const [foodConsumptionsForDate, setFoodConsumptionsForDate] = useState([]);
 
   const [formData, setFormData] = useState({
     id: foodConsumption ? foodConsumption.id : null,
@@ -10,6 +11,16 @@ export default function FoodConsumptionForm({ date, foodConsumption, close }) {
     quantity: 0,
     date: date
   })
+
+  useEffect(() => {
+    const datedConsumptions = filterFoodConsumptionsByDate();
+    setFoodConsumptionsForDate(datedConsumptions);
+  }, [foodConsumptions])
+
+  const filterFoodConsumptionsByDate = () => {
+    const consumptions = foodConsumptions.filter(consumption => consumption.date == date);
+    return consumptions
+  }
 
   useEffect(() => {
     if (foodConsumption) {
@@ -30,10 +41,33 @@ export default function FoodConsumptionForm({ date, foodConsumption, close }) {
     if (foodConsumption) {
       handleUpdateFoodConsumption(formData);
     } else {
-      handleAddFoodConsumption(formData)
+      if (isFoodAlreadyInDate(formData.food_id)) {
+        const updatedFormData = getFormDataWithTotalQuantity();
+        handleUpdateFoodConsumption(updatedFormData);
+      } else {
+        handleAddFoodConsumption(formData)
+      }
     }
 	  close();
 	};
+
+  const isFoodAlreadyInDate = (foodId) => {
+    for (const consumption of foodConsumptionsForDate) {
+      if (consumption.food_id == foodId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  const getFormDataWithTotalQuantity = () => {
+    const existingIndex = foodConsumptionsForDate.findIndex(consumption => consumption.food_id == formData.food_id);
+    const existingQuantity = foodConsumptionsForDate[existingIndex].quantity;
+    const existingId = foodConsumptionsForDate[existingIndex].id;
+    const totalQuantity = parseInt(existingQuantity, 10) + parseInt(formData.quantity, 10);
+    const updatedFormData = { ...formData, id: existingId, quantity: totalQuantity };
+    return updatedFormData;
+  }
 
   return (
     <div className='h-screen w-full fixed top-0 left-0 bg-opacity-50 bg-black flex justify-center items-center z-50'>
