@@ -101,7 +101,7 @@ export default function FoodList({ editBtnClicked }) {
                 <td>{food.fat}</td>
                 <td>{food.unity}</td>
                 <td className='flex'>
-                  <Icon icon="mdi:note-edit" width={30} height={30} style={{color: '#F5BE40', cursor: 'pointer'}} onClick={() => editBtnClicked(food)} />
+                  <Icon icon="mdi:note-edit" width={30} height={30} style={{color: '#F5BE40'}} />
                   <Icon icon="mingcute:arrow-up-fill" width={30} height={30} style={{color: '#AA6AE6', cursor: 'pointer'}} onClick={() => setActive(food)} />
                 </td>
               </tr>
