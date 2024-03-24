@@ -34,7 +34,7 @@ export default function FoodList({ editBtnClicked }) {
   }
 
   const addToFavorite = (food) => {
-    const foodFavorite = { ...food, is_favorite: 1 };
+    const foodFavorite = { ...food, is_favorite: 1, is_active: 1, };
     handleUpdateFood(foodFavorite);
   }
 
@@ -53,70 +53,41 @@ export default function FoodList({ editBtnClicked }) {
     handleUpdateFood(foodInactive);
   }
 
-  return (
-    <table className="w-full text-center">
-      <thead>
-        <tr>
-          <th>Favoris</th>
-          <th>Image</th>
-          <th>Name</th>
-          <th>Kcals</th>
-          <th>Proteins</th>
-          <th>Carbs</th>
-          <th>Fats</th>
-          <th>Unity</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {sortedFoods && (
-          sortedFoods.map((food) => {
-            return food.is_active ? (
-              <tr key={food.id} className="border-t">
-                <td className="flex justify-center">
-                  {food.is_favorite ? (         
-                    <Icon icon="solar:star-bold" width={30} height={30} style={{color: '#F5BE40', cursor: 'pointer'}} onClick={() => removeFromFavorite(food)} />         
-                  ) : (
-                    <Icon icon="solar:star-bold" width={30} height={30} style={{color: '#25252F', cursor: 'pointer'}} onClick={() => addToFavorite(food)} />         
-                  )}
-                </td>
-                <td>
-                  {food.image && <img src={`http://localhost:3000/${getimagePathFormatted(food.image)}`} alt="Nom de l'image" />}
-                </td>
-                <td>{food.name}</td>
-                <td>{food.kcal}</td>
-                <td>{food.prot}</td>
-                <td>{food.carb}</td>
-                <td>{food.fat}</td>
-                <td>{food.unity}</td>
-                <td className='flex'>
-                  <Icon icon="mdi:note-edit" width={30} height={30} style={{color: '#F5BE40', cursor: 'pointer'}} onClick={() => editBtnClicked(food)} />
-                  <Icon icon="ic:round-delete" width={30} height={30} style={{color: '#F46F97', cursor: 'pointer'}} onClick={() => setInactive(food)} />
-                </td>
-              </tr>
-            ) : (
-              <tr key={food.id} className="border-t opacity-50">
-                <td className="flex justify-center">            
-                  <Icon icon="solar:star-bold" width={30} height={30} style={{color: '#25252F'}} />
-                </td>
-                <td>
-                  {food.image && <img src={`http://localhost:3000/${getimagePathFormatted(food.image)}`} alt="Nom de l'image" />}
-                </td>
-                <td>{food.name}</td>
-                <td>{food.kcal}</td>
-                <td>{food.prot}</td>
-                <td>{food.carb}</td>
-                <td>{food.fat}</td>
-                <td>{food.unity}</td>
-                <td className='flex'>
-                  <Icon icon="mdi:note-edit" width={30} height={30} style={{color: '#F5BE40'}} />
-                  <Icon icon="mingcute:arrow-up-fill" width={30} height={30} style={{color: '#AA6AE6', cursor: 'pointer'}} onClick={() => setActive(food)} />
-                </td>
-              </tr>
-            )
-          })
-        )}
-      </tbody>
-    </table>
+  return (    
+    <div className='flex flex-wrap gap-x-5'>
+      {sortedFoods && (
+        sortedFoods.map((food) => (
+          <div key={food.id} className={`bg-white relative w-[250px] mt-[50px] pt-[80px] flex flex-col justify-between text-center shadow-custom rounded-2xl p-3 ${!food.is_active && 'opacity-60'}`}>
+            <div className="absolute -top-[25px] left-0 w-full flex justify-between items-center px-3">
+              {food.is_favorite ? (         
+                <Icon icon="solar:star-bold" width={30} height={30} style={{color: '#F5BE40', cursor: 'pointer'}} onClick={() => removeFromFavorite(food)} />         
+              ) : (
+                <Icon icon="solar:star-bold" width={30} height={30} style={{color: '#25252F', cursor: 'pointer'}} onClick={() => addToFavorite(food)} />         
+              )}
+              <img src={`http://localhost:3000/${getimagePathFormatted(food.image)}`} className="h-[100px] rounded-full" />
+              <div className='pt-8'>
+                <Icon icon="mage:settings-fill" width={30} height={30} style={{color: '#3BCBEA', cursor: `${food.is_active ? 'pointer' : 'default'}`}} onClick={() => {food.is_active && editBtnClicked(food)}} />
+                {food.is_active ? (         
+                  <Icon icon="ic:round-delete" width={30} height={30} style={{color: '#F46F97', cursor: 'pointer'}} onClick={() => setInactive(food)} />        
+                ) : (
+                  <Icon icon="mingcute:arrow-up-fill" width={30} height={30} style={{color: '#AA6AE6', cursor: 'pointer'}} onClick={() => setActive(food)} />      
+                )}
+              </div>
+            </div>
+            <h3 className="text-xl font-bold my-3">{food.name}</h3>	
+            <div className="w-full grid grid-cols-2">
+              <div>
+                <p>{food.kcal} kcal</p>
+                <p>{food.prot} prot</p>
+              </div>
+              <div>
+                <p>{food.carb} carb</p>
+                <p>{food.fat} fat</p>
+              </div>
+            </div>	
+          </div>
+        ))
+      )}
+    </div>
   )
 }

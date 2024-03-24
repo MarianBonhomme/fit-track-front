@@ -22,9 +22,9 @@ const getFoodById = async (id) => {
   }
 };
 
-const addFood = async (newFoodFormData) => {
+const addFood = async (newFood) => {
   try {
-    const response = await axios.post(`${BASE_URL}/food`, newFoodFormData, {
+    const response = await axios.post(`${BASE_URL}/food`, newFood, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -36,16 +36,24 @@ const addFood = async (newFoodFormData) => {
   }
 };
 
-const updateFood = async (foodToUpdateFormData) => {
+const updateFood = async (foodToUpdate) => {
   try {
-    const response = await axios.put(`${BASE_URL}/food/${foodToUpdateFormData.get('id')}`, foodToUpdateFormData, {
+    let id;
+
+    if (foodToUpdate instanceof FormData) {
+      id = foodToUpdate.get('id');
+    } else {
+      id = foodToUpdate.id;
+    }
+
+    const response = await axios.put(`${BASE_URL}/food/${id}}`, foodToUpdate, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
     return response.data;
   } catch (error) {
-    console.error(`Error updating food with id ${foodToUpdateFormData.get('id')}:`, error);
+    console.error(`Error updating food with id ${id}:`, error);
     throw error;
   }
 };
