@@ -2,6 +2,7 @@ import { useNutrition } from '../../../utils/NutritionContext';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Icon } from '@iconify/react';
+import { getimagePathFormatted } from '../../../utils/ImageService';
 
 export default function FoodList({ editBtnClicked }) {
   const { foods, handleUpdateFood } = useNutrition();
@@ -57,6 +58,7 @@ export default function FoodList({ editBtnClicked }) {
       <thead>
         <tr>
           <th>Favoris</th>
+          <th>Image</th>
           <th>Name</th>
           <th>Kcals</th>
           <th>Proteins</th>
@@ -78,6 +80,9 @@ export default function FoodList({ editBtnClicked }) {
                     <Icon icon="solar:star-bold" width={30} height={30} style={{color: '#25252F', cursor: 'pointer'}} onClick={() => addToFavorite(food)} />         
                   )}
                 </td>
+                <td>
+                  {food.image && <img src={`http://localhost:3000/${getimagePathFormatted(food.image)}`} alt="Nom de l'image" />}
+                </td>
                 <td>{food.name}</td>
                 <td>{food.kcal}</td>
                 <td>{food.prot}</td>
@@ -93,6 +98,9 @@ export default function FoodList({ editBtnClicked }) {
               <tr key={food.id} className="border-t opacity-50">
                 <td className="flex justify-center">            
                   <Icon icon="solar:star-bold" width={30} height={30} style={{color: '#25252F'}} />
+                </td>
+                <td>
+                  {food.image && <img src={`http://localhost:3000/${getimagePathFormatted(food.image)}`} alt="Nom de l'image" />}
                 </td>
                 <td>{food.name}</td>
                 <td>{food.kcal}</td>

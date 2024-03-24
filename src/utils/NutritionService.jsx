@@ -22,9 +22,13 @@ const getFoodById = async (id) => {
   }
 };
 
-const addFood = async (newFood) => {
+const addFood = async (newFoodFormData) => {
   try {
-    const response = await axios.post(`${BASE_URL}/food`, newFood);
+    const response = await axios.post(`${BASE_URL}/food`, newFoodFormData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Error adding new food:", error);
@@ -32,12 +36,16 @@ const addFood = async (newFood) => {
   }
 };
 
-const updateFood = async (foodToUpdate) => {
+const updateFood = async (foodToUpdateFormData) => {
   try {
-    const response = await axios.put(`${BASE_URL}/food/${foodToUpdate.id}`, foodToUpdate);
+    const response = await axios.put(`${BASE_URL}/food/${foodToUpdateFormData.get('id')}`, foodToUpdateFormData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
   } catch (error) {
-    console.error(`Error updating food with id ${foodToUpdate.id}:`, error);
+    console.error(`Error updating food with id ${foodToUpdateFormData.get('id')}:`, error);
     throw error;
   }
 };

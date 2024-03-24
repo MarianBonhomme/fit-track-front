@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { useNutrition } from '../../../utils/NutritionContext'
+import { Icon } from '@iconify/react';
+import React, { useEffect, useState } from 'react';
+import { useNutrition } from '../../../utils/NutritionContext';
 
 export default function FoodConsumptionForm({ date, foodConsumption, close }) {
   const { foods, foodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption } = useNutrition();
@@ -70,9 +71,9 @@ export default function FoodConsumptionForm({ date, foodConsumption, close }) {
   }
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 bg-opacity-50 bg-ice flex justify-center items-center z-50'>
+    <div className='h-screen w-full fixed top-0 left-0 bg-opacity-70 bg-ice flex justify-center items-center z-50 shadow-custom'>
       <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-white p-10 relative rounded-2xl'>
-        <button onClick={close} className='absolute top-5 right-5 text-xl hover:rotate-90'>❌</button>
+        <Icon icon="maki:cross" width={35} height={35} style={{color: '#F46F97', cursor: 'pointer'}} className="absolute right-10 top-10" onClick={close} />
         <h3 className='font-bold text-3xl mb-10'>{foodConsumption ? 'Update FoodConsumption' : 'Create New FoodConsumption'}</h3>
         <div className='w-full flex flex-col items-center'>
           <div className="flex gap-5">
@@ -107,7 +108,7 @@ export default function FoodConsumptionForm({ date, foodConsumption, close }) {
             </div>
           </div>        
         </div>
-        <button type="submit" className='bg-ice px-10 py-3 rounded-3xl mt-10'>Confirm</button>
+        <button type="submit" className='font-bold bg-purple text-white px-10 py-3 rounded-3xl mt-10'>Confirm</button>
       </form>
     </div>
   )
