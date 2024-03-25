@@ -27,7 +27,7 @@ export default function FavoriteCard() {
           return (
             <div key={food.id} className="text-center">
               <p className="text-xl">{food.name}</p>
-              <QuantityUnity quantity={food.totalQuantity} unity={food.unity} quantitySize={'text-3xl'} unitySize={'text-xl'} />
+              <QuantityUnity quantity={food.totalQuantity} unity={food.unity} quantityStyle={'text-3xl font-bold'} unityStyle={'text-xl'} />
             </div>
           )      
         })}

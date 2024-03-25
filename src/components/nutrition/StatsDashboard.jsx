@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNutrition } from '../../utils/NutritionContext';
-import CalenderResume from './stats/CalenderResume';
 import CountCard from './stats/CountCard';
 import FavoriteCard from './stats/FavoriteCard';
 import MacroChart from './stats/MacroChart';
 import MacroPie from './stats/MacroPie';
+import TodayCard from './stats/TodayCard';
 
 export default function StatsDashboard() {
   const { foodsWithTotalQuantity } = useNutrition();
@@ -24,7 +24,7 @@ export default function StatsDashboard() {
   return (
     <div className="flex gap-5 rounded-tl-none rounded-3xl relative z-10">
       <div className='w-1/3'>
-        <CalenderResume />
+        <TodayCard />
       </div>
       <div className="w-2/3 flex gap-5">
         <div className='w-3/4 grid gap-5'>

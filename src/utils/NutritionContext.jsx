@@ -7,6 +7,7 @@ export const NutritionProvider = ({ children }) => {
   const [foods, setFoods] = useState([]);
   const [foodsWithTotalQuantity, setFoodsWithTotalQuantity] = useState([]);
   const [foodConsumptions, setFoodConsumptions] = useState([]);
+  const [todayFoodConsumptions, setTodayFoodConsumptions] = useState([]);
 
   useEffect(() => {
     fetchFoods();
@@ -18,6 +19,11 @@ export const NutritionProvider = ({ children }) => {
 
   useEffect(() => {
     fetchFoodsWithTotalQuantity();
+  }, [foodConsumptions])
+
+  useEffect(() => {
+    const today = new Date();
+    setTodayFoodConsumptions(filterFoodConsumptionsByDate(today));
   }, [foodConsumptions])
 
   const fetchFoods = async () => {
@@ -33,6 +39,22 @@ export const NutritionProvider = ({ children }) => {
   const fetchFoodsWithTotalQuantity = async () => {
     const fetchedFoodsWithTotalQuantity = await getFoodsWithTotalQuantity();
     setFoodsWithTotalQuantity(fetchedFoodsWithTotalQuantity);
+  }
+
+  const filterFoodConsumptionsByDate = (date) => {
+    const consumptions = foodConsumptions.filter(consumption => {
+      const consumptionDate = new Date(consumption.date);
+      const consumptionDay = consumptionDate.getDate();
+      const consumptionMonth = consumptionDate.getMonth();
+      const consumptionYear = consumptionDate.getFullYear();
+  
+      const day = date.getDate();
+      const month = date.getMonth();
+      const year = date.getFullYear();
+  
+      return consumptionDay === day && consumptionMonth === month && consumptionYear === year;
+    });
+    return consumptions;
   }
 
   const handleAddFood = async (newFood) => {
@@ -91,6 +113,7 @@ export const NutritionProvider = ({ children }) => {
         foods,
         foodsWithTotalQuantity,
         foodConsumptions,
+        todayFoodConsumptions,
         handleAddFood,
         handleUpdateFood,
         handleAddFoodConsumption,

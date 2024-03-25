@@ -108,4 +108,13 @@ const getFoodsWithTotalQuantity = async () => {
   }
 }
 
-export { getFoods, getFoodById, addFood, updateFood, getFoodConsumptions, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getFoodsWithTotalQuantity };
+const calculateMacros = (consumption) => {
+  return {
+    kcal: (consumption.quantity * consumption.food.proportion * consumption.food.kcal) / 100,
+    prot: (consumption.quantity * consumption.food.proportion * consumption.food.prot) / 100,
+    carb: (consumption.quantity * consumption.food.proportion * consumption.food.carb) / 100,
+    fat: (consumption.quantity * consumption.food.proportion * consumption.food.fat) / 100,
+  }
+}
+
+export { getFoods, getFoodById, addFood, updateFood, getFoodConsumptions, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getFoodsWithTotalQuantity, calculateMacros };
