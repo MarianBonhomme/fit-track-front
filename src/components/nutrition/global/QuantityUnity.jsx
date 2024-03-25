@@ -6,7 +6,7 @@ export default function QuantityUnity({ quantity, unity, quantitySize, unitySize
       {unity === "Gram" && (
         quantity > 999 ? (
           <>
-            <p className={`${quantitySize && quantitySize} font-bold`}>{quantity / 100}</p>
+            <p className={`${quantitySize && quantitySize} font-bold`}>{quantity / 1000}</p>
             <span className={`${unitySize && unitySize}`}>kg</span>
           </>
         ) : (
@@ -19,7 +19,7 @@ export default function QuantityUnity({ quantity, unity, quantitySize, unitySize
       {unity === "Litre" && (
         quantity > 999 ? (
           <>
-            <p className={`${quantitySize && quantitySize} font-bold`}>{quantity / 100}</p>
+            <p className={`${quantitySize && quantitySize} font-bold`}>{quantity / 1000}</p>
             <span className={`${unitySize && unitySize}`}>l</span>
           </>
         ) : (
@@ -32,7 +32,7 @@ export default function QuantityUnity({ quantity, unity, quantitySize, unitySize
       {unity === "Portion" && (
         quantity > 999 ? (
           <>
-            <p className={`${quantitySize && quantitySize} font-bold`}>{quantity / 100}</p>
+            <p className={`${quantitySize && quantitySize} font-bold`}>{quantity / 1000}</p>
             <span className={`${unitySize && unitySize}`}>p</span>
           </>
         ) : (

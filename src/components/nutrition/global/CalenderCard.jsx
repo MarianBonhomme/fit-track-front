@@ -40,10 +40,10 @@ export default function CalenderCard({ day }) {
     var dailyFat = 0;
 
     foodConsumptionsForDate.forEach((consumption) => {
-      dailyKcal += (consumption.quantity * consumption.food.kcal) / 100; 
-      dailyProt += (consumption.quantity * consumption.food.prot) / 100; 
-      dailyCarb += (consumption.quantity * consumption.food.carb) / 100; 
-      dailyFat += (consumption.quantity * consumption.food.fat) / 100; 
+      dailyKcal += (consumption.quantity * consumption.food.proportion * consumption.food.kcal) / 100; 
+      dailyProt += (consumption.quantity * consumption.food.proportion * consumption.food.prot) / 100; 
+      dailyCarb += (consumption.quantity * consumption.food.proportion * consumption.food.carb) / 100; 
+      dailyFat += (consumption.quantity * consumption.food.proportion * consumption.food.fat) / 100; 
     })
 
     macros = {
