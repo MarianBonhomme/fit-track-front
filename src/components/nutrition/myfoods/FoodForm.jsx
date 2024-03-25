@@ -191,7 +191,7 @@ export default function FoodForm({ food, close }) {
             </div>
           </div>          
         </div>
-        <button type="submit" className='font-bold bg-purple text-white px-10 py-3 rounded-3xl mt-10'>Confirm</button>
+        <button type="submit" className='font-bold bg-blue text-white px-10 py-3 rounded-3xl mt-10'>Confirm</button>
       </form>
     </div>
   )

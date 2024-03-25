@@ -1,24 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import { Icon } from '@iconify/react';
+import React, { useEffect, useState } from 'react';
+import FlipMove from 'react-flip-move';
+import { getimagePathFormatted } from '../../../utils/ImageService';
 import { useNutrition } from '../../../utils/NutritionContext';
 import CardTitle from '../../global/CardTitle';
-import { Icon } from '@iconify/react';
-import FoodConsumptionForm from '../global/FoodConsumptionForm';
-import { getimagePathFormatted } from '../../../utils/ImageService';
+import FoodConsumptionForm from '../calendar/FoodConsumptionForm';
 import QuantityUnity from '../global/QuantityUnity';
 
 export default function TodayCard() {
   const { todayFoodConsumptions, handleDeleteFoodConsumption } = useNutrition();
+  const [sortedTodayFoodConsumptions, setSortedTodayFoodConsumptions] = useState();
   const [isFoodConsumptionFormVisible, setIsFoodConsumptionFormVisible] = useState(false);
   const [foodConsumptionToUpdate, setFoodConsumptionToUpdate] = useState(null);
   const [dailyMacros, setDailyMacros] = useState(null);
   const today = new Date();
 
-  console.log(todayFoodConsumptions)
-
   useEffect(() => {
     const macros = getDailyMacros();
     setDailyMacros(macros);
+    const sortedFoodConsumptions = sortByFavorites();
+    setSortedTodayFoodConsumptions(sortedFoodConsumptions);
   }, [todayFoodConsumptions])
+
+  const sortByFavorites = () => {
+    const sortedFoods = [...todayFoodConsumptions];
+
+    sortedFoods.sort((a, b) => {
+      if (a.food.is_favorite && !b.food.is_favorite) {
+        return -1;
+      } else if (!a.food.is_favorite && b.food.is_favorite) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    return sortedFoods;
+  }
 
   const getDailyMacros = () => {
     var macros = null;
@@ -54,11 +72,6 @@ export default function TodayCard() {
     setIsFoodConsumptionFormVisible(false);
   }
 
-  const deleteFoodConsumption = (foodConsumption) => {
-    const confirmed = window.confirm("Etes-vous sûr ?");
-    confirmed && handleDeleteFoodConsumption(foodConsumption);
-  }
-
   return (
     <>
       <div className="bg-white px-4 py-3 shadow-custom rounded-3xl rounded-tl-none relative">
@@ -71,7 +84,7 @@ export default function TodayCard() {
             </div>
           </div>
           {dailyMacros && (
-            <div className="flex justify-center gap-5">
+            <div className="flex justify-center gap-5 text-lg">
               <div>
                 <p>kcal: <span className="font-bold">{Math.round(dailyMacros.kcal)}</span></p>
                 <p className='text-green'>prot: <span className="font-bold">{Math.round(dailyMacros.prot)}</span></p>
@@ -82,42 +95,44 @@ export default function TodayCard() {
               </div>
             </div>
           )}
-          <div className='flex justify-end'>
-            <Icon icon="solar:calendar-bold" width="50" height="50" style={{color: '#F46F97'}} />
+          <div className='flex justify-end cursor-pointer'>
+            <Icon icon="solar:calendar-bold" width="60" height="60" style={{color: '#F46F97'}} />
           </div>
         </div>
-          {todayFoodConsumptions && todayFoodConsumptions.map((consumption) => (
-            <div className="py-3 border-t">
-              <div className="grid grid-cols-2 px-3">
+        <FlipMove enterAnimation="elevator" leaveAnimation="elevator">
+          {sortedTodayFoodConsumptions && sortedTodayFoodConsumptions.map((consumption) => (
+            <div key={consumption.id} className="py-3 border-t">
+              <div className="flex justify-between px-3">
                 <div className='flex items-center gap-5 cursor-pointer' onClick={() => openFoodConsumptionForm(consumption)}>
-                  <img src={`http://localhost:3000/${getimagePathFormatted(consumption.food.image)}`} className="h-[70px] rounded-full" />
+                  <img src={`http://localhost:3000/${getimagePathFormatted(consumption.food.image)}`} className="w-[70px] h-[70px] rounded-full" />
                   <div>
                     <h3 className='font-bold'>{consumption.food.name}</h3>
                     <QuantityUnity quantity={consumption.quantity} unity={consumption.food.unity} />
                   </div>
                 </div>
-                <div className="grid grid-cols-4 items-center relative">
+                <div className="flex gap-3 items-center relative">
                   <div className='w-[50px] h-[50px] text-sm flex flex-col justify-center items-center bg-ice rounded-full'>
-                    <p className='font-bold'>{Math.round((consumption.quantity * consumption.food.kcal) / 100 )}</p>
+                    <p className='font-bold'>{Math.round((consumption.quantity * consumption.food.proportion * consumption.food.kcal) / 100 )}</p>
                     <p>kcal</p>
                   </div>
                   <div className='w-[50px] h-[50px] text-sm flex flex-col justify-center items-center bg-green text-white rounded-full'>
-                    <p className='font-bold'>{Math.round((consumption.quantity * consumption.food.prot) / 100 )}</p>
+                    <p className='font-bold'>{Math.round((consumption.quantity * consumption.food.proportion * consumption.food.prot) / 100 )}</p>
                     <p>prot</p>
                   </div>
                   <div className='w-[50px] h-[50px] text-sm flex flex-col justify-center items-center bg-purple text-white rounded-full'>
-                    <p className='font-bold'>{Math.round((consumption.quantity * consumption.food.fat) / 100 )}</p>
+                    <p className='font-bold'>{Math.round((consumption.quantity * consumption.food.proportion * consumption.food.fat) / 100 )}</p>
                     <p>fat</p>
                   </div>
                   <div className='w-[50px] h-[50px] text-sm flex flex-col justify-center items-center bg-yellow text-white rounded-full'>
-                    <p className='font-bold'>{Math.round((consumption.quantity * consumption.food.carb) / 100 )}</p>
+                    <p className='font-bold'>{Math.round((consumption.quantity * consumption.food.proportion * consumption.food.carb) / 100 )}</p>
                     <p>carb</p>
                   </div>
-                  <div className='absolute -right-3'><Icon icon="maki:cross" width={15} height={15} style={{color: '#F46F97', cursor: 'pointer'}} onClick={() => deleteFoodConsumption(consumption)} /></div>
+                  <Icon icon="maki:cross" width={15} height={15} style={{color: '#F46F97', cursor: 'pointer'}} onClick={() => handleDeleteFoodConsumption(consumption)} />
                 </div>
               </div>
             </div>
           ))}
+        </FlipMove>
       </div>
   
       {isFoodConsumptionFormVisible && (
