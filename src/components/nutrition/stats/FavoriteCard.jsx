@@ -43,10 +43,10 @@ export default function FavoriteCard() {
         {favoriteFoods && favoriteFoods.map((food, index) => {
           return (
             <div key={food.id} className="py-5 border-t">
-              <div className='flex items-center gap-3 cursor-pointer px-3 relative'>
+              <div className='flex items-center gap-3 px-3 relative'>
                 {index === 0 && (
                   <div className="absolute top-0 right-0 rotate-45">
-                    <Icon icon="streamline:crown-solid" width="20" height="20" style={{color: '#F5BE40'}}  />
+                    <Icon icon="streamline:crown-solid" width="25" height="25" style={{color: '#F5BE40'}}  />
                   </div>
                 )}
                 <p className={`font-bold ${getClassByIndex(index)}`}>{index + 1}</p>

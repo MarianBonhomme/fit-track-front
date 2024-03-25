@@ -64,7 +64,7 @@ export default function FoodList({ editBtnClicked }) {
               ) : (
                 <Icon icon="solar:star-bold" width={30} height={30} style={{color: '#25252F', cursor: 'pointer'}} onClick={() => addToFavorite(food)} />         
               )}
-              <img src={`http://localhost:3000/${getimagePathFormatted(food.image)}`} className="h-[100px] rounded-full" />
+              <img src={`http://localhost:3000/${getimagePathFormatted(food.image)}`} className="w-[100px] h-[100px] rounded-full" />
               <div className='pt-8'>
                 <Icon icon="mage:settings-fill" width={30} height={30} style={{color: '#3BCBEA', cursor: `${food.is_active ? 'pointer' : 'default'}`}} onClick={() => {food.is_active && editBtnClicked(food)}} />
                 {food.is_active ? (         
@@ -77,12 +77,12 @@ export default function FoodList({ editBtnClicked }) {
             <h3 className="text-xl font-bold my-3">{food.name}</h3>	
             <div className="w-full grid grid-cols-2">
               <div>
-                <p>{food.kcal} kcal</p>
-                <p>{food.prot} prot</p>
+                <p><span className='font-bold'>{food.kcal}</span> kcal</p>
+                <p className='text-green'><span className='font-bold'>{food.prot}</span> prot</p>
               </div>
               <div>
-                <p>{food.carb} carb</p>
-                <p>{food.fat} fat</p>
+                <p className='text-purple'><span className='font-bold'>{food.fat}</span> fat</p>
+                <p className='text-yellow'><span className='font-bold'>{food.carb}</span> carb</p>
               </div>
             </div>	
           </div>

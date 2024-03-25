@@ -1,11 +1,12 @@
 import { Icon } from '@iconify/react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import FlipMove from 'react-flip-move';
 import { getimagePathFormatted } from '../../../utils/ImageService';
 import { useNutrition } from '../../../utils/NutritionContext';
 import CardTitle from '../../global/CardTitle';
 import FoodConsumptionForm from '../calendar/FoodConsumptionForm';
 import QuantityUnity from '../global/QuantityUnity';
+import { Pie } from 'react-chartjs-2';
 
 export default function TodayCard() {
   const { todayFoodConsumptions, handleDeleteFoodConsumption } = useNutrition();
@@ -62,6 +63,22 @@ export default function TodayCard() {
     return macros;
   }
 
+  const data = useMemo(() => {
+    if (dailyMacros) {
+      return {
+        labels: [],
+        datasets: [
+          {
+            data: [dailyMacros.prot, dailyMacros.carb, dailyMacros.fat],
+            backgroundColor: ["#37C8A6", "#F5BE40", "#AA6AE6"],
+            borderWidth: 0,
+            hoverOffset: 10,
+          },
+        ],
+      };
+    }
+  }, [dailyMacros]);
+
   const openFoodConsumptionForm = (foodConsumption) => {
     setFoodConsumptionToUpdate(foodConsumption);
     setIsFoodConsumptionFormVisible(true);
@@ -84,19 +101,24 @@ export default function TodayCard() {
             </div>
           </div>
           {dailyMacros && (
-            <div className="flex justify-center gap-5 text-lg">
-              <div>
-                <p>kcal: <span className="font-bold">{Math.round(dailyMacros.kcal)}</span></p>
-                <p className='text-green'>prot: <span className="font-bold">{Math.round(dailyMacros.prot)}</span></p>
+            <div className='flex gap-5'>
+              <div className='w-[80px] h-[80px]'>
+                <Pie data={data} />
               </div>
-              <div>
-                <p className='text-purple'>fat: <span className="font-bold">{Math.round(dailyMacros.fat)}</span></p>
-                <p className='text-yellow'>carb: <span className="font-bold">{Math.round(dailyMacros.carb)}</span></p>
+              <div className="flex justify-center items-center gap-5 text-lg">
+                <div>
+                  <p><span className="font-bold">{Math.round(dailyMacros.kcal)}</span> kcal</p>
+                  <p className='text-green'><span className="font-bold">{Math.round(dailyMacros.prot)}</span> prot</p>
+                </div>
+                <div>
+                  <p className='text-purple'><span className="font-bold">{Math.round(dailyMacros.fat)} fat</span></p>
+                  <p className='text-yellow'><span className="font-bold">{Math.round(dailyMacros.carb)} carb</span></p>
+                </div>
               </div>
             </div>
           )}
           <div className='flex justify-end cursor-pointer'>
-            <Icon icon="solar:calendar-bold" width="60" height="60" style={{color: '#F46F97'}} />
+            <Icon icon="solar:calendar-bold" width="50" height="50" style={{color: '#F46F97'}} />
           </div>
         </div>
         <FlipMove enterAnimation="elevator" leaveAnimation="elevator">
@@ -106,7 +128,7 @@ export default function TodayCard() {
                 <div className='flex items-center gap-5 cursor-pointer' onClick={() => openFoodConsumptionForm(consumption)}>
                   <img src={`http://localhost:3000/${getimagePathFormatted(consumption.food.image)}`} className="w-[70px] h-[70px] rounded-full" />
                   <div>
-                    <h3 className='font-bold'>{consumption.food.name}</h3>
+                    <p className='font-bold'>{consumption.food.name}</p>
                     <QuantityUnity quantity={consumption.quantity} unity={consumption.food.unity} />
                   </div>
                 </div>
