@@ -22,12 +22,14 @@ export default function StatsDashboard() {
   }
 
   return (
-    <div className="grid gap-5 rounded-tl-none rounded-3xl relative z-10">
-      <CalenderResume />
-      <div className="grid grid-cols-2 gap-5">
-        <MacroChart />
-        <div className="grid gap-5">
-          <div className="grid grid-cols-2 gap-5">
+    <div className="flex gap-5 rounded-tl-none rounded-3xl relative z-10">
+      <div className='w-1/3'>
+        <CalenderResume />
+      </div>
+      <div className="w-2/3 flex gap-5">
+        <div className='w-3/4 grid gap-5'>
+          <MacroChart />
+          <div className='grid grid-cols-2 gap-5'>
             <MacroPie />
             <div className="grid grid-cols-2 gap-5">
               {foodsForCountCards && foodsForCountCards.map((food, index) => (
@@ -35,6 +37,8 @@ export default function StatsDashboard() {
               ))}
             </div>
           </div>
+        </div>
+        <div className="w-1/4 flex items-stretch">
           <FavoriteCard />
         </div>
       </div>

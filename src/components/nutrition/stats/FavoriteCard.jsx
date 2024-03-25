@@ -15,14 +15,14 @@ export default function FavoriteCard() {
   const getTop3Foods = () => {
     const filteredFoods = foodsWithTotalQuantity.filter((food) => food.unity !== "Portion" );
     const sortedFoods = [...filteredFoods].sort((a, b) => b.totalQuantity - a.totalQuantity);
-    const top3 = sortedFoods.slice(0, 3);
+    const top3 = sortedFoods.slice(0, 5);
     return top3;
   }
 
   return (
-    <div className="grow bg-green text-white px-5 py-3 shadow-custom rounded-3xl">
-      <CardTitle text="Top 3 Food" />
-      <div className="flex justify-evenly p-5">
+    <div className="grow bg-white px-5 py-3 shadow-custom rounded-3xl">
+      <CardTitle text="Top 5 Food" />
+      <div className="h-full flex flex-col justify-evenly p-5">
         {favoriteFoods && favoriteFoods.map((food) => {
           return (
             <div key={food.id} className="text-center">
