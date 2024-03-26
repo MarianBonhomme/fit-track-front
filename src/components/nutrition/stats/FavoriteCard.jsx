@@ -50,7 +50,7 @@ export default function FavoriteCard() {
                   </div>
                 )}
                 <p className={`font-bold ${getClassByIndex(index)}`}>{index + 1}</p>
-                <img src={`http://localhost:3000/${getimagePathFormatted(food.image)}`} className="w-[70px] h-[70px] rounded-full" />
+                {food.image && (<img src={`http://localhost:3000/${getimagePathFormatted(food.image)}`} className="w-[70px] h-[70px] rounded-full" />)}
                 <div>
                   <p>{food.name}</p>
                   <QuantityUnity quantity={food.totalQuantity} unity={food.unity} quantityStyle={'text-2xl font-bold'} unityStyle={'text-xl'} />
