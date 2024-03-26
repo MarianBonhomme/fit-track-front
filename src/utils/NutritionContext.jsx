@@ -23,7 +23,8 @@ export const NutritionProvider = ({ children }) => {
 
   useEffect(() => {
     const today = new Date();
-    setTodayFoodConsumptions(filterFoodConsumptionsByDate(today));
+    const filteredFoodConsumptions = filterFoodConsumptionsByDate(today);
+    setTodayFoodConsumptions(filteredFoodConsumptions);
   }, [foodConsumptions])
 
   const fetchFoods = async () => {
@@ -81,7 +82,6 @@ export const NutritionProvider = ({ children }) => {
     try {
       const addedFoodConsumption = await addFoodConsumption(newFoodConsumption);
       setFoodConsumptions((prevFoodsConsumptions) => [...prevFoodsConsumptions, addedFoodConsumption]);
-
     } catch (error) {
       console.error('Error adding foodConsumption:', error);
     }

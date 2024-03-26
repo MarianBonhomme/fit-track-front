@@ -1,7 +1,7 @@
 import { Bar } from "react-chartjs-2";
 import CardTitle from "../../global/CardTitle";
 
-export default function MacroChart() {
+export default function MacroChartCard() {
   const data = {
     labels: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
     datasets: [

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNutrition } from '../../utils/NutritionContext';
 import CountCard from './stats/CountCard';
-import FavoriteCard from './stats/FavoriteCard';
-import MacroChart from './stats/MacroChart';
-import MacroPie from './stats/MacroPie';
-import TodayCard from './stats/TodayCard';
+import DailyCard from './stats/DailyCard';
+import MacroChartCard from './stats/MacroChartCard';
+import MacroPieCard from './stats/MacroPieCard';
+import RankingCard from './stats/RankingCard';
 
 export default function StatsDashboard() {
   const { foodsWithTotalQuantity } = useNutrition();
@@ -24,13 +24,13 @@ export default function StatsDashboard() {
   return (
     <div className="flex items-start gap-5 rounded-tl-none rounded-3xl relative z-10">
       <div className='w-1/3'>
-        <TodayCard />
+        <DailyCard />
       </div>
       <div className="w-2/3 flex gap-5 sticky top-20">
         <div className='w-3/4 grid gap-5'>
-          <MacroChart />
+          <MacroChartCard />
           <div className='grid grid-cols-2 gap-5'>
-            <MacroPie />
+            <MacroPieCard />
             <div className="grid grid-cols-2 gap-5">
               {foodsForCountCards && foodsForCountCards.map((food, index) => (
                 <CountCard key={food.id} food={food} color={colors[index]} />
@@ -39,7 +39,7 @@ export default function StatsDashboard() {
           </div>
         </div>
         <div className="w-1/4 flex items-stretch">
-          <FavoriteCard />
+          <RankingCard />
         </div>
       </div>
     </div>

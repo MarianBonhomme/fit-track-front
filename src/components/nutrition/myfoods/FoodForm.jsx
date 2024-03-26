@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
-import { useNutrition } from "../../../utils/NutritionContext";
 import { Icon } from '@iconify/react';
+import { useEffect, useState } from "react";
+import { useNutrition } from "../../../utils/NutritionContext";
 
 export default function FoodForm({ food, close }) {
   const { handleAddFood, handleUpdateFood } = useNutrition();

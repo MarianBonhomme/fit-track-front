@@ -20,7 +20,7 @@ export default function QuantityUnity({ quantity, unity, quantityStyle, unitySty
         quantity > 999 ? (
           <p className={`${quantityStyle && quantityStyle}`}>
             {quantity / 1000}
-            <span className={`${unityStyle && unityStyle}`}>l</span>
+            <span className={`${unityStyle && unityStyle}`}>L</span>
           </p>            
         ) : (        
           <p className={`${quantityStyle && quantityStyle}`}>

@@ -1,25 +1,24 @@
+import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { useNutrition } from "../../../utils/NutritionContext";
-import QuantityUnity from "../global/QuantityUnity";
 import CardTitle from "../../global/CardTitle";
-import { getimagePathFormatted } from "../../../utils/ImageService";
-import FlipMove from 'react-flip-move';
-import { Icon } from "@iconify/react";
+import FoodImage from "../global/FoodImage";
+import QuantityUnity from "../global/QuantityUnity";
 
-export default function FavoriteCard() {
+export default function RankingCard() {
   const { foodsWithTotalQuantity } = useNutrition();
-  const [favoriteFoods, setFavoriteFoods] = useState([])
+  const [rankedFoods, setRankedFoods] = useState([])
 
   useEffect(() => {
-    const top3foods = getTopFoods();
-    setFavoriteFoods(top3foods);
+    const topfoods = getTopFoods();
+    setRankedFoods(topfoods);
   }, [foodsWithTotalQuantity]);
 
   const getTopFoods = () => {
     const filteredFoods = foodsWithTotalQuantity.filter((food) => food.unity !== "Portion" );
     const sortedFoods = [...filteredFoods].sort((a, b) => b.totalQuantity - a.totalQuantity);
-    const top3 = sortedFoods.slice(0, 7);
-    return top3;
+    const topFoods = sortedFoods.slice(0, 7);
+    return topFoods;
   }
 
   const getClassByIndex = (index) => {
@@ -37,10 +36,10 @@ export default function FavoriteCard() {
 };
 
   return (
-    <div className="grow flex flex-col gap-5 bg-white px-4 py-3 shadow-custom rounded-3xl">
+    <div className="grow flex flex-col gap-2 bg-white px-4 pt-3 shadow-custom rounded-3xl">
       <CardTitle text="Top Food" />
-      <FlipMove>
-        {favoriteFoods && favoriteFoods.map((food, index) => {
+      <div>
+        {rankedFoods.map((food, index) => {
           return (
             <div key={food.id} className="py-5 border-t">
               <div className='flex items-center gap-3 px-3 relative'>
@@ -50,11 +49,7 @@ export default function FavoriteCard() {
                   </div>
                 )}
                 <p className={`font-bold ${getClassByIndex(index)}`}>{index + 1}</p>
-                {food.image ? (
-                  <img src={`http://localhost:3000/${getimagePathFormatted(food.image)}`} className="w-[70px] h-[70px] rounded-full" />
-                ) : (
-                  <img src="src/assets/images/not-found.jpg" className="w-[70px] h-[70px] rounded-full" />
-                )}
+                <FoodImage image={food.image} size="lg" />
                 <div>
                   <p>{food.name}</p>
                   <QuantityUnity quantity={food.totalQuantity} unity={food.unity} quantityStyle={'text-2xl font-bold'} unityStyle={'text-xl'} />
@@ -63,7 +58,7 @@ export default function FavoriteCard() {
             </div>
           )      
         })}
-      </FlipMove>
+      </div>
     </div>
   )
 }

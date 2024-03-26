@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNutrition } from '../../utils/NutritionContext';
+import { sortFoodsByFavoritesAndInactives } from '../../utils/NutritionService';
+import AddButton from './global/AddButton';
+import FoodCard from './myfoods/FoodCard';
 import FoodForm from './myfoods/FoodForm';
-import FoodList from './myfoods/FoodList';
-import { Icon } from '@iconify/react';
 
 export default function MyFoodsDashboard() {
+  const { foods } = useNutrition();
+  const [sortedFoods, setSortedFoods] = useState();
   const [isFoodFormDisplayed, setIsFoodFormDisplayed] = useState(false)
   const [foodToUpdate, setFoodToUpdate] = useState(null);
+
+  useEffect(() => {
+    const sortedFoods = sortFoodsByFavoritesAndInactives(foods);
+    setSortedFoods(sortedFoods);
+  }, [foods])
 
   const openFoodForm = (food) => {
     food ? setFoodToUpdate(food) : setFoodToUpdate(null);
@@ -14,16 +23,19 @@ export default function MyFoodsDashboard() {
 
   return (
     <>
+      <div className='w-full bg-white p-5 rounded-3xl'>
+        <AddButton btnClicked={() => openFoodForm(null)}/>
+      </div>
+      <div className='flex flex-wrap gap-x-5'>
+        {sortedFoods && (
+          sortedFoods.map((food) => (
+            <FoodCard food={food} key={food.id} editBtnClicked={() => openFoodForm(food)} />
+          ))
+        )}
+      </div>
       {isFoodFormDisplayed && (
         <FoodForm food={foodToUpdate} close={() => setIsFoodFormDisplayed(false)}/>
       )}
-      <div className='w-full bg-white p-5 rounded-3xl'>
-        <div className="max-w-fit flex items-center bg-blue rounded-full gap-1 pl-4 pr-5 py-2 cursor-pointer" onClick={() => openFoodForm(null)} >
-          <Icon icon="fluent-emoji-high-contrast:plus" width={20} height={20} style={{color: '#F5F5F5'}} />
-          <p className="text-white font-bold">Add</p>
-        </div>
-      </div>
-      <FoodList editBtnClicked={openFoodForm} />
     </>
   );
 }

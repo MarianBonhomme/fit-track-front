@@ -12,8 +12,6 @@ export default function FoodConsumptionForm({ date, foodConsumption, close }) {
     date: date
   })
 
-  console.log(foods);
-
   useEffect(() => {
     if (foodConsumption) {
       setFormData(foodConsumption)

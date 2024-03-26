@@ -117,4 +117,40 @@ const calculateMacros = (consumption) => {
   }
 }
 
-export { getFoods, getFoodById, addFood, updateFood, getFoodConsumptions, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getFoodsWithTotalQuantity, calculateMacros };
+const sortFoodsByFavoritesAndInactives = (foods) => {
+  const sortedFoods = [...foods];
+
+  sortedFoods.sort((a, b) => {
+    if (a.is_favorite && !b.is_favorite) {
+      return -1;
+    } else if (!a.is_favorite && b.is_favorite) {
+      return 1;
+    } else if (a.is_active && !b.is_active) {
+      return -1;
+    } else if (!a.is_active && b.is_active) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
+  return sortedFoods;
+}
+
+const sortFoodConsumptionsByFavorites = (foodConsumptions) => {
+  const sortedFoodConsumptions = [...foodConsumptions];
+
+  sortedFoodConsumptions.sort((a, b) => {
+    if (a.food.is_favorite && !b.food.is_favorite) {
+      return -1;
+    } else if (!a.food.is_favorite && b.food.is_favorite) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
+  return sortedFoodConsumptions;
+}
+
+export { getFoods, getFoodById, addFood, updateFood, getFoodConsumptions, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getFoodsWithTotalQuantity, calculateMacros, sortFoodsByFavoritesAndInactives, sortFoodConsumptionsByFavorites };
