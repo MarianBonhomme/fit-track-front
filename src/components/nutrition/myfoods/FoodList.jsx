@@ -64,7 +64,11 @@ export default function FoodList({ editBtnClicked }) {
               ) : (
                 <Icon icon="solar:star-bold" width={30} height={30} style={{color: '#25252F', cursor: 'pointer'}} onClick={() => addToFavorite(food)} />         
               )}
-              {food.image && (<img src={`http://localhost:3000/${getimagePathFormatted(food.image)}`} className="w-[100px] h-[100px] rounded-full" />)}
+              {food.image ? (
+                <img src={`http://localhost:3000/${getimagePathFormatted(food.image)}`} className="w-[100px] h-[100px] rounded-full" />
+              ) : (
+                <img src="src/assets/images/not-found.jpg" className="w-[100px] h-[100px] rounded-full" />
+              )}
               <div className='pt-8'>
                 <Icon icon="mage:settings-fill" width={30} height={30} style={{color: '#3BCBEA', cursor: `${food.is_active ? 'pointer' : 'default'}`}} onClick={() => {food.is_active && editBtnClicked(food)}} />
                 {food.is_active ? (         

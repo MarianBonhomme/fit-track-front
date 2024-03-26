@@ -126,7 +126,11 @@ export default function TodayCard() {
             <div key={consumption.id} className="py-3 border-t">
               <div className="flex justify-between px-3">
                 <div className='flex items-center gap-5 cursor-pointer' onClick={() => openFoodConsumptionForm(consumption)}>
-                  {consumption.food.image && (<img src={`http://localhost:3000/${getimagePathFormatted(consumption.food.image)}`} className="w-[70px] h-[70px] rounded-full" />)}
+                  {consumption.food.image ? (
+                    <img src={`http://localhost:3000/${getimagePathFormatted(consumption.food.image)}`} className="w-[70px] h-[70px] rounded-full" />
+                  ) : (
+                    <img src="src/assets/images/not-found.jpg" className="w-[70px] h-[70px] rounded-full" />
+                  )}
                   <div>
                     <p className='font-bold'>{consumption.food.name}</p>
                     <QuantityUnity quantity={consumption.quantity} unity={consumption.food.unity} />
