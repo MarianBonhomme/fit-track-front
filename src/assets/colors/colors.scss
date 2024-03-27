@@ -1,15 +1,22 @@
-$red: #FF898A;
-$yellow: #FBD976;
-$orange: #F1BE8B;
-$green: #55E8B7;
-$blue: #7CCAED;
-$purple: #B9A9F0;
-$dark: #1D2225;
-$black: #161A1C;
-$white: #F5F5F5;
-$ice: #E9ECF5;
-$gray: #A1A1A1;
-$light: #DBDCDA;
+// $primary: #202124;
+// $lightPrimary: #0E1013;
+// $red: #F48282;
+// $yellow: #FEECA0;
+// $orange: #FBCAA1;
+// $green: #8CE0D1;
+// $blue: #7CCAED;
+// $purple: #A283C6;
+// $gray: #5A5B63;
+
+$primary: #F5F5F5;
+$lightPrimary: #E9ECF5;
+$red: #EE6C6C;
+$yellow: #F6D963;
+$orange: #F4B570;
+$green: #42C697;
+$blue: #069ECF;
+$purple: #906FB4;
+$gray: #AAAAAF;
 
 .bg-red {
   background-color: $red;
@@ -35,26 +42,14 @@ $light: #DBDCDA;
   background-color: $purple;
 }
 
-.bg-dark {
-  background-color: $dark;
+.bg-primary {
+  background-color: $primary;
 }
 
-.bg-black {
-  background-color: $black;
-}
-
-.bg-white {
-  background-color: $white;
-}
-
-.bg-ice {
-  background-color: $ice;
+.bg-lightPrimary {
+  background-color: $lightPrimary;
 }
 
 .bg-gray {
-  background-color: $ice;
-}
-
-.bg-light {
-  background-color: $light;
+  background-color: $gray;
 }

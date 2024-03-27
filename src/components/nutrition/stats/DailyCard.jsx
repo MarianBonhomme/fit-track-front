@@ -61,7 +61,7 @@ export default function DailyCard() {
 
   return (
     <>
-      <div className="bg-white px-4 py-3 shadow-custom rounded-3xl rounded-tl-none relative">
+      <div className="bg-primary px-4 py-3 shadow-custom rounded-3xl rounded-tl-none relative">
         <div className="flex justify-between items-center">
           <AddButton btnClicked={() => openFoodConsumptionForm(null)}/>
           <CardTitle text={currentDay && getFormattedDate(currentDay)} className="justify-self-start"/>

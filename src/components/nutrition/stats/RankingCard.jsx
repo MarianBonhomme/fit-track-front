@@ -38,12 +38,12 @@ export default function RankingCard() {
 };
 
   return (
-    <div className="grow flex flex-col gap-2 bg-white px-4 pt-3 shadow-custom rounded-3xl">
+    <div className="grow flex flex-col gap-2 bg-primary px-4 pt-3 shadow-custom rounded-3xl">
       <CardTitle text="Top Food" />
       <div>
         {rankedFoods.map((food, index) => {
           return (
-            <div key={food.id} className="border-t border-light">
+            <div key={food.id} className="border-t border-lightPrimary">
               <div className='flex items-center gap-3 px-3 py-5 relative'>
                 
                 {index === 0 ? (
@@ -52,7 +52,7 @@ export default function RankingCard() {
                   </div>
                 ) : (
                   <div className={`absolute top-0 right-0 bg-${getColorByIndex(index)} pl-4 pb-2 pr-2 pt-1 rounded-bl-full`}>
-                    <p className=" text-white font-bold">{index + 1}</p>
+                    <p className=" text-primary font-bold">{index + 1}</p>
                   </div>
                 )}                
                 <FoodImage image={food.image} size="lg" />

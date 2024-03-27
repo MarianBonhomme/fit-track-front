@@ -29,12 +29,12 @@ function FoodCard({food, editBtnClicked}) {
   }
   
   return (
-    <div className={`bg-white relative w-[300px] mt-[50px] pt-[80px] flex flex-col justify-between text-center shadow-custom rounded-2xl p-4 ${!food.is_active && 'opacity-60'}`}>
+    <div className={`bg-primary relative w-[300px] mt-[50px] pt-[80px] flex flex-col justify-between text-center shadow-custom rounded-2xl p-4 ${!food.is_active && 'opacity-60'}`}>
       <div className="absolute -top-[20px] left-0 w-full flex justify-between items-center px-3">
         {food.is_favorite ? (         
           <Icon icon="solar:star-bold" width={30} height={30} style={{color: colors.yellow, cursor: 'pointer'}} onClick={() => removeFromFavorite(food)} />         
         ) : (
-          <Icon icon="solar:star-bold" width={30} height={30} style={{color: colors.light, cursor: 'pointer'}} onClick={() => addToFavorite(food)} />         
+          <Icon icon="solar:star-bold" width={30} height={30} style={{color: colors.gray, cursor: 'pointer'}} onClick={() => addToFavorite(food)} />         
         )}
         <FoodImage image={food.image} size="xl" />
         <div className='pt-8'>

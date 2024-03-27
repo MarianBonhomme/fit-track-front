@@ -10,7 +10,7 @@ export default function FoodConsumptionItem({consumption, clicked}) {
   const { handleDeleteFoodConsumption } = useNutrition();
 
   return (
-    <div key={consumption.id} className="py-3 border-t border-light">
+    <div key={consumption.id} className="py-3 border-t border-lightPrimary">
       <div className="flex justify-between px-3">
         <div className='flex items-center gap-5 cursor-pointer' onClick={clicked}>
           <FoodImage image={consumption.food.image} size="lg" />

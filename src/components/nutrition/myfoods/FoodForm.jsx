@@ -80,8 +80,8 @@ export default function FoodForm({ food, close }) {
 	};
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 bg-opacity-70 bg-ice flex justify-center items-center z-50'>
-      <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-white p-10 relative rounded-2xl shadow-custom'>
+    <div className='h-screen w-full fixed top-0 left-0 bg-opacity-70 bg-lightPrimary flex justify-center items-center z-50'>
+      <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-primary p-10 relative rounded-2xl shadow-custom'>
         <Icon icon="maki:cross" width={35} height={35} style={{color: colors.red, cursor: 'pointer'}} className="absolute right-10 top-10" onClick={close} />
         <h3 className='font-bold text-3xl'>{food ? 'Update Food' : 'Create New Food'}</h3>
         <p className="mb-10">Toutes les quantités à renseigner sont pour 100g</p>
@@ -99,7 +99,7 @@ export default function FoodForm({ food, close }) {
           </div>     
           <div className='flex flex-col mb-5 relative'>
             <div className="absolute -left-1/4 top-1/3">
-              <Icon icon="solar:star-bold" width={30} height={30} style={{color: `${formData.is_favorite ? colors.yellow : colors.light}`, cursor: 'pointer'}} onClick={toggleIsFavorite} />  
+              <Icon icon="solar:star-bold" width={30} height={30} style={{color: `${formData.is_favorite ? colors.yellow : colors.gray}`, cursor: 'pointer'}} onClick={toggleIsFavorite} />  
             </div>
             <label htmlFor="name">Name</label>
             <input
@@ -192,7 +192,7 @@ export default function FoodForm({ food, close }) {
             </div>
           </div>          
         </div>
-        <button type="submit" className='font-bold bg-blue text-white px-10 py-3 rounded-3xl mt-10'>Confirm</button>
+        <button type="submit" className='font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10'>Confirm</button>
       </form>
     </div>
   )

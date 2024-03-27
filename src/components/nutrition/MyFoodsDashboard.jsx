@@ -23,7 +23,7 @@ export default function MyFoodsDashboard() {
 
   return (
     <>
-      <div className='w-full bg-white p-5 rounded-3xl'>
+      <div className='w-full bg-primary p-5 rounded-3xl'>
         <AddButton btnClicked={() => openFoodForm(null)}/>
       </div>
       <div className='flex flex-wrap gap-x-5'>

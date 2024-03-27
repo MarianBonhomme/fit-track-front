@@ -10,7 +10,7 @@ import NutritionPage from "./pages/NutritionPage";
 export default function App() {
   return (
     <Router>
-      <div className="h-screen w-[80px] bg-white fixed top-0 left-0">
+      <div className="h-screen w-[80px] bg-primary fixed top-0 left-0">
         <Sidebar />
       </div>
       <div className="pl-[80px]">

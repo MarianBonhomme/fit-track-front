@@ -9,9 +9,9 @@ export default function NutritionPage() {
   return (
     <div className='p-5'>
       <ul className='flex relative z-20 font-bold'>
-        <li className={`${active === 'stats' ? 'bg-white' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActive('stats')} >Statistiques</li>
-        <li className={`${active === 'myfoods' ? 'bg-white' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActive('myfoods')} >Mes aliments</li>
-        <li className={`${active === 'calendar' ? 'bg-white' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActive('calendar')} >Calendrier</li>
+        <li className={`${active === 'stats' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActive('stats')} >Statistiques</li>
+        <li className={`${active === 'myfoods' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActive('myfoods')} >Mes aliments</li>
+        <li className={`${active === 'calendar' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActive('calendar')} >Calendrier</li>
       </ul>
       {active === 'stats' && (
         <StatsDashboard />

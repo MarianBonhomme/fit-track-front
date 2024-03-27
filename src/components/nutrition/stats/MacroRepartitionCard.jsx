@@ -49,20 +49,20 @@ export default function MacroRepartitionCard() {
   }
 
   return (
-    <div className="flex flex-col items-center bg-white px-5 py-3 shadow-custom rounded-3xl">
+    <div className="flex flex-col items-center bg-primary px-5 py-3 shadow-custom rounded-3xl">
       <CardTitle text="Total Macro Repartition" />
       <div className="w-full flex justify-center items-center">
         {totalMacros && (
           <div className="w-1/3 flex flex-col items-center gap-5">
-            <div className='w-[110px] h-[30px] flex justify-center items-center gap-1 bg-purple text-white text-sm rounded-lg'>
+            <div className='w-[110px] h-[30px] flex justify-center items-center gap-1 bg-purple text-primary text-sm rounded-lg'>
               <QuantityUnity quantity={Math.round(totalMacros.prot)} unity={"Gram"} quantityStyle={"font-bold"} /> 
               <p>prot</p>
             </div>
-            <div className='w-[110px] h-[30px] flex justify-center items-center gap-1 bg-orange text-white text-sm rounded-lg'>
+            <div className='w-[110px] h-[30px] flex justify-center items-center gap-1 bg-orange text-primary text-sm rounded-lg'>
               <QuantityUnity quantity={Math.round(totalMacros.fat)} unity={"Gram"} quantityStyle={"font-bold"} /> 
               <p>fat</p>
             </div>
-            <div className='w-[110px] h-[30px] flex justify-center items-center gap-1 bg-yellow text-white text-sm rounded-lg'>
+            <div className='w-[110px] h-[30px] flex justify-center items-center gap-1 bg-yellow text-primary text-sm rounded-lg'>
               <QuantityUnity quantity={Math.round(totalMacros.carb)} unity={"Gram"} quantityStyle={"font-bold"} /> 
               <p>carb</p>
             </div>

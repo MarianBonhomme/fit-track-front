@@ -39,17 +39,17 @@ export default function CountCard({ food, color }) {
   }
 
   return (
-    <div className={`flex flex-col items-center bg-${color} text-white px-5 py-3 shadow-custom rounded-3xl`}>
+    <div className={`flex flex-col items-center bg-${color} text-primary px-5 py-3 shadow-custom rounded-3xl`}>
       <CardTitle text={food.name} />
       <div className="grow w-full flex items-center">
         <div className="w-1/3 flex justify-center">
           {isFoodInDailyFoodConsumptions() && (
-            <Icon icon="ic:round-minus" width={25} height={25} style={{color: colors.white}} onClick={decrementFoodConsumptionInDaily} />
+            <Icon icon="ic:round-minus" width={25} height={25} style={{color: colors.primary}} onClick={decrementFoodConsumptionInDaily} />
           )}
         </div>
         <p className="w-1/3 text-center text-5xl font-bold">{food.totalQuantity}</p>
         <div className="w-1/3 flex justify-center">
-          <Icon icon="ic:round-plus" width={25} height={25} style={{color: colors.white}} onClick={incrementFoodConsumptionInDaily} />
+          <Icon icon="ic:round-plus" width={25} height={25} style={{color: colors.primary}} onClick={incrementFoodConsumptionInDaily} />
         </div>
       </div>      
     </div>
