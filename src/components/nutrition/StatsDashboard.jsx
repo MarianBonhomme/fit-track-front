@@ -3,7 +3,7 @@ import { useNutrition } from '../../utils/NutritionContext';
 import CountCard from './stats/CountCard';
 import DailyCard from './stats/DailyCard';
 import MacroChartCard from './stats/MacroChartCard';
-import MacroPieCard from './stats/MacroPieCard';
+import MacroRepartitionCard from './stats/MacroRepartitionCard';
 import RankingCard from './stats/RankingCard';
 
 export default function StatsDashboard() {
@@ -30,7 +30,7 @@ export default function StatsDashboard() {
         <div className='w-3/4 grid gap-5'>
           <MacroChartCard />
           <div className='grid grid-cols-2 gap-5'>
-            <MacroPieCard />
+            <MacroRepartitionCard />
             <div className="grid grid-cols-2 gap-5">
               {foodsForCountCards && foodsForCountCards.map((food, index) => (
                 <CountCard key={food.id} food={food} color={colors[index]} />

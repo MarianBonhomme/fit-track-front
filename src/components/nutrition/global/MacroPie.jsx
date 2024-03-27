@@ -6,11 +6,11 @@ import colors from '../../../assets/colors/colors';
 
 Chart.register(CategoryScale);
 
-export default function MacroPie({displayLabel, macros}) {
+export default function MacroPie({macros}) {
 
   const data = useMemo(() => {
     return {
-      labels: displayLabel ? ["Protein", "Carb", "Fat"] : [],
+      labels: [],
       datasets: [
         {
           data: [macros.prot, macros.carb, macros.fat],

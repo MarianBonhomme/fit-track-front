@@ -72,7 +72,7 @@ export default function DailyCard() {
           {dailyMacros && (
             <div className='flex items-center gap-5'>
               <div className='w-[80px] h-[80px]'>
-                <MacroPie displayLabel={false} macros={dailyMacros} />
+                <MacroPie macros={dailyMacros} />
               </div>
               <MacrosQuantities macros={dailyMacros} />
             </div>

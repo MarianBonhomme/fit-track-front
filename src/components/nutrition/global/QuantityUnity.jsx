@@ -6,7 +6,7 @@ export default function QuantityUnity({ quantity, unity, quantityStyle, unitySty
       {unity === "Gram" && (
         quantity > 999 ? (
           <p className={`${quantityStyle && quantityStyle}`}>
-            {quantity / 1000}
+            {(quantity / 1000).toFixed(2)}
             <span className={`${unityStyle && unityStyle}`}>kg</span>
           </p>
         ) : (
@@ -19,7 +19,7 @@ export default function QuantityUnity({ quantity, unity, quantityStyle, unitySty
       {unity === "Litre" && (
         quantity > 999 ? (
           <p className={`${quantityStyle && quantityStyle}`}>
-            {quantity / 1000}
+            {(quantity / 1000).toFixed(2)}
             <span className={`${unityStyle && unityStyle}`}>L</span>
           </p>            
         ) : (        
@@ -32,7 +32,7 @@ export default function QuantityUnity({ quantity, unity, quantityStyle, unitySty
       {unity === "Portion" && (
         quantity > 999 ? (
           <p className={`${quantityStyle && quantityStyle}`}>
-            {quantity / 1000}
+            {(quantity / 1000).toFixed(2)}
             <span className={`${unityStyle && unityStyle}`}>p</span>
           </p>
         ) : (
