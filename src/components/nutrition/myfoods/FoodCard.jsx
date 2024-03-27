@@ -3,7 +3,6 @@ import React from 'react';
 import { useNutrition } from '../../../utils/NutritionContext';
 import FoodImage from '../global/FoodImage';
 import MacrosQuantities from '../global/MacrosQuantities';
-import colors from '../../../assets/colors/colors';
 
 function FoodCard({food, editBtnClicked}) {
   const { handleUpdateFood } = useNutrition();
@@ -32,17 +31,17 @@ function FoodCard({food, editBtnClicked}) {
     <div className={`bg-primary relative w-[300px] mt-[50px] pt-[80px] flex flex-col justify-between text-center shadow-custom rounded-2xl p-4 ${!food.is_active && 'opacity-60'}`}>
       <div className="absolute -top-[20px] left-0 w-full flex justify-between items-center px-3">
         {food.is_favorite ? (         
-          <Icon icon="solar:star-bold" width={30} height={30} style={{color: colors.yellow, cursor: 'pointer'}} onClick={() => removeFromFavorite(food)} />         
+          <Icon icon="solar:star-bold" width={30} height={30} className="text-yellow cursor-pointer" onClick={() => removeFromFavorite(food)} />         
         ) : (
-          <Icon icon="solar:star-bold" width={30} height={30} style={{color: colors.gray, cursor: 'pointer'}} onClick={() => addToFavorite(food)} />         
+          <Icon icon="solar:star-bold" width={30} height={30} className="text-gray cursor-pointer" onClick={() => addToFavorite(food)} />         
         )}
         <FoodImage image={food.image} size="xl" />
         <div className='pt-8'>
-          <Icon icon="mage:settings-fill" width={30} height={30} style={{color: colors.blue, cursor: `${food.is_active ? 'pointer' : 'default'}`}} onClick={editBtnClicked} />
+          <Icon icon="mage:settings-fill" width={30} height={30} className="text-blue cursor-pointer" onClick={editBtnClicked} />
           {food.is_active ? (         
-            <Icon icon="ic:round-delete" width={30} height={30} style={{color: colors.red, cursor: 'pointer'}} onClick={() => setInactive(food)} />        
+            <Icon icon="ic:round-delete" width={30} height={30} className="text-red cursor-pointer" onClick={() => setInactive(food)} />        
           ) : (
-            <Icon icon="mingcute:arrow-up-fill" width={30} height={30} style={{color: colors.purple, cursor: 'pointer'}} onClick={() => setActive(food)} />      
+            <Icon icon="mingcute:arrow-up-fill" width={30} height={30} className="text-purple cursor-pointer" onClick={() => setActive(food)} />      
           )}
         </div>
       </div>

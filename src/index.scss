@@ -1,5 +1,3 @@
-@import url('/src/assets/colors/colors.scss');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,6 +6,74 @@
   font-family: 'Montserrat';
   src: url('./assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf');
 }
+
+:root {
+  --primary-color: #F5F5F5;
+  --lightPrimary-color: #E9ECF5;
+  --secondary-color: #202124;
+  --red-color: #EE6C6C;
+  --yellow-color: #F6D963;
+  --orange-color: #F4B570;
+  --green-color: #42C697;
+  --blue-color: #069ECF;
+  --purple-color: #906FB4;
+  --gray-color: #AAAAAF;
+}
+
+[data-theme='dark'] {
+  --primary-color: #202124;
+  --lightPrimary-color: #0E1013;
+  --secondary-color: #F5F5F5;
+  --red-color: #F48282;
+  --yellow-color: #FEECA0;
+  --orange-color: #FBCAA1;
+  --green-color: #8CE0D1;
+  --blue-color: #7CCAED;
+  --purple-color: #A283C6;
+  --gray-color: #5A5B63;
+}
+
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-lightPrimary {
+  background-color: var(--lightPrimary-color);
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+}
+
+.bg-red {
+  background-color: var(--red-color);
+}
+
+.bg-yellow {
+  background-color: var(--yellow-color);
+}
+
+.bg-orange {
+  background-color: var(--orange-color);
+}
+
+.bg-green {
+  background-color: var(--green-color);
+}
+
+.bg-blue {
+  background-color: var(--blue-color);
+}
+
+.bg-purple {
+  background-color: var(--purple-color);
+}
+
+.bg-gray {
+  background-color: var(--gray-color);
+}
+
 
 /* hide scrollbar */
 body::-webkit-scrollbar {
@@ -19,6 +85,7 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-track {
   background-color: transparent;
 }
+
 
 .img-size-md {
   width: 50px;

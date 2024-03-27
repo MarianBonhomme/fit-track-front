@@ -4,7 +4,6 @@ import { useNutrition } from "../../../utils/NutritionContext";
 import CardTitle from "../../global/CardTitle";
 import FoodImage from "../global/FoodImage";
 import QuantityUnity from "../global/QuantityUnity";
-import colors from "../../../assets/colors/colors";
 
 export default function RankingCard() {
   const { foodsWithTotalQuantity } = useNutrition();
@@ -48,7 +47,7 @@ export default function RankingCard() {
                 
                 {index === 0 ? (
                   <div className="absolute top-1 right-0 rotate-45">
-                    <Icon icon="streamline:crown-solid" width="30" height="30" style={{color: colors.yellow}}  />
+                    <Icon icon="streamline:crown-solid" width="30" height="30" className="text-yellow" />
                   </div>
                 ) : (
                   <div className={`absolute top-0 right-0 bg-${getColorByIndex(index)} pl-4 pb-2 pr-2 pt-1 rounded-bl-full`}>

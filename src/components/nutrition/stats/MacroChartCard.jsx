@@ -1,8 +1,10 @@
 import { Bar } from "react-chartjs-2";
 import CardTitle from "../../global/CardTitle";
-import colors from "../../../assets/colors/colors";
+import { useTheme } from "../../../utils/ThemeContext";
 
 export default function MacroChartCard() {
+  const { colors } = useTheme();
+
   const data = {
     labels: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
     datasets: [

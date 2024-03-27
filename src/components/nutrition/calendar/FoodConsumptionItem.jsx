@@ -4,7 +4,6 @@ import { useNutrition } from '../../../utils/NutritionContext'
 import FoodImage from '../global/FoodImage'
 import QuantityUnity from '../global/QuantityUnity'
 import MacrosQuantities from '../global/MacrosQuantities'
-import colors from '../../../assets/colors/colors'
 
 export default function FoodConsumptionItem({consumption, clicked}) {
   const { handleDeleteFoodConsumption } = useNutrition();
@@ -21,7 +20,7 @@ export default function FoodConsumptionItem({consumption, clicked}) {
         </div>
         <div className="flex gap-5 items-center relative">
           <MacrosQuantities macros={consumption.food} />
-          <Icon icon="maki:cross" width={15} height={15} style={{color: colors.red, cursor: 'pointer'}} onClick={() => handleDeleteFoodConsumption(consumption)} />
+          <Icon icon="maki:cross" width={15} height={15} className="text-red cursor-pointer" onClick={() => handleDeleteFoodConsumption(consumption)} />
         </div>
       </div>
     </div>

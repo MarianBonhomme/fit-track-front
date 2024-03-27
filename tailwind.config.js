@@ -1,6 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-import colors from './src/assets/colors/colors';
-
 export default {
   content: [
     "./index.html",
@@ -12,16 +10,16 @@ export default {
     },
     extend: {
       colors: {
-        primary: colors.primary,
-        lightPrimary: colors.lightPrimary,
-        secondary: colors.secondary,
-        red: colors.red,
-        yellow: colors.yellow,
-        orange: colors.orange,
-        green: colors.green,
-        blue: colors.blue,
-        purple: colors.purple,
-        gray: colors.gray,
+        primary: 'var(--primary-color)',
+        lightPrimary: 'var(--lightPrimary-color)',
+        secondary: 'var(--secondary-color)',
+        red: 'var(--red-color)',
+        yellow: 'var(--yellow-color)',
+        orange: 'var(--orange-color)',
+        green: 'var(--green-color)',
+        blue: 'var(--blue-color)',
+        purple: 'var(--purple-color)',
+        gray: 'var(--gray-color)',
       },
       boxShadow: {
         custom: 'rgba(17, 17, 26, 0.1) 0px 0px 16px'
