@@ -2,21 +2,21 @@ import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
 import { useNutrition } from '../../../utils/NutritionContext';
 
-export default function FoodConsumptionForm({ date, foodConsumption, close }) {
-  const { foods, todayFoodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption } = useNutrition();
+export default function FoodConsumptionForm({ foodConsumption, close }) {
+  const { foods, dailyFoodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption, currentDay } = useNutrition();
 
   const [formData, setFormData] = useState({
     id: foodConsumption ? foodConsumption.id : null,
     food_id: 1,
     quantity: 0,
-    date: date
+    date: currentDay
   })
 
   useEffect(() => {
     if (foodConsumption) {
       setFormData(foodConsumption)
     }
-  }, [foodConsumption])
+  }, [foodConsumption, currentDay])
 
   const handleChange = (e) => {
 	  const { name, value } = e.target;
@@ -42,7 +42,7 @@ export default function FoodConsumptionForm({ date, foodConsumption, close }) {
 	};
 
   const isFoodAlreadyInDate = (foodId) => {
-    for (const consumption of todayFoodConsumptions) {
+    for (const consumption of dailyFoodConsumptions) {
       if (consumption.food_id == foodId) {
         return true;
       }
@@ -51,9 +51,9 @@ export default function FoodConsumptionForm({ date, foodConsumption, close }) {
   }
 
   const getFormDataWithTotalQuantity = () => {
-    const existingIndex = todayFoodConsumptions.findIndex(consumption => consumption.food_id == formData.food_id);
-    const existingQuantity = todayFoodConsumptions[existingIndex].quantity;
-    const existingId = todayFoodConsumptions[existingIndex].id;
+    const existingIndex = dailyFoodConsumptions.findIndex(consumption => consumption.food_id == formData.food_id);
+    const existingQuantity = dailyFoodConsumptions[existingIndex].quantity;
+    const existingId = dailyFoodConsumptions[existingIndex].id;
     const totalQuantity = parseInt(existingQuantity, 10) + parseInt(formData.quantity, 10);
     const updatedFormData = { ...formData, id: existingId, quantity: totalQuantity };
     return updatedFormData;

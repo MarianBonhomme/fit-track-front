@@ -7,7 +7,8 @@ export const NutritionProvider = ({ children }) => {
   const [foods, setFoods] = useState([]);
   const [foodsWithTotalQuantity, setFoodsWithTotalQuantity] = useState([]);
   const [foodConsumptions, setFoodConsumptions] = useState([]);
-  const [todayFoodConsumptions, setTodayFoodConsumptions] = useState([]);
+  const [currentDay, setCurrentDay] = useState()
+  const [dailyFoodConsumptions, setDailyFoodConsumptions] = useState([]);
 
   useEffect(() => {
     fetchFoods();
@@ -23,9 +24,13 @@ export const NutritionProvider = ({ children }) => {
 
   useEffect(() => {
     const today = new Date();
-    const filteredFoodConsumptions = filterFoodConsumptionsByDate(today);
-    setTodayFoodConsumptions(filteredFoodConsumptions);
-  }, [foodConsumptions])
+    setCurrentDay(today);
+  }, [])
+
+  useEffect(() => {
+    const filteredFoodConsumptions = filterFoodConsumptionsByDate(currentDay);
+    setDailyFoodConsumptions(filteredFoodConsumptions);
+  }, [foodConsumptions, currentDay])
 
   const fetchFoods = async () => {
     const fetchedFoods = await getFoods();
@@ -107,18 +112,33 @@ export const NutritionProvider = ({ children }) => {
     }
   };
 
+  const incrementCurrentDay = () => {
+    const nextDay = new Date(currentDay);
+    nextDay.setDate(currentDay.getDate() + 1);
+    setCurrentDay(nextDay);
+  };
+
+  const decrementCurrentDay = () => {
+    const prevDay = new Date(currentDay);
+    prevDay.setDate(currentDay.getDate() - 1);
+    setCurrentDay(prevDay);
+  };
+
   return (
     <NutritionContext.Provider
       value={{
         foods,
         foodsWithTotalQuantity,
         foodConsumptions,
-        todayFoodConsumptions,
+        currentDay,
+        dailyFoodConsumptions,
         handleAddFood,
         handleUpdateFood,
         handleAddFoodConsumption,
         handleUpdateFoodConsumption,
         handleDeleteFoodConsumption,
+        incrementCurrentDay,
+        decrementCurrentDay,
       }}
     >
       {children}
