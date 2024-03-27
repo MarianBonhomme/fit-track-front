@@ -3,6 +3,7 @@ import CalendarDashboard from '../components/nutrition/CalendarDashboard';
 import MyFoodsDashboard from '../components/nutrition/MyFoodsDashboard';
 import { useTheme } from '../utils/ThemeContext';
 import StatsDashboard from './../components/nutrition/StatsDashboard';
+import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
 export default function NutritionPage() { 
   const { isDarkMode, toggleDarkMode } = useTheme();
@@ -16,7 +17,11 @@ export default function NutritionPage() {
           <li className={`${active === 'myfoods' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActive('myfoods')} >Mes aliments</li>
           <li className={`${active === 'calendar' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActive('calendar')} >Calendrier</li>
         </ul>
-        <button onClick={toggleDarkMode}>Click me</button>
+        <DarkModeSwitch
+          checked={isDarkMode}
+          onChange={toggleDarkMode}
+          size={50}
+        />
       </div>
       {active === 'stats' && (
         <StatsDashboard />
