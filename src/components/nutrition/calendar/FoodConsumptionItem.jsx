@@ -3,12 +3,14 @@ import React from 'react'
 import { useNutrition } from '../../../utils/NutritionContext'
 import FoodImage from '../global/FoodImage'
 import QuantityUnity from '../global/QuantityUnity'
+import MacrosQuantities from '../global/MacrosQuantities'
+import colors from '../../../assets/colors/colors'
 
 export default function FoodConsumptionItem({consumption, clicked}) {
   const { handleDeleteFoodConsumption } = useNutrition();
 
   return (
-    <div key={consumption.id} className="py-3 border-t">
+    <div key={consumption.id} className="py-3 border-t border-light">
       <div className="flex justify-between px-3">
         <div className='flex items-center gap-5 cursor-pointer' onClick={clicked}>
           <FoodImage image={consumption.food.image} size="lg" />
@@ -17,24 +19,9 @@ export default function FoodConsumptionItem({consumption, clicked}) {
             <QuantityUnity quantity={consumption.quantity} unity={consumption.food.unity} />
           </div>
         </div>
-        <div className="flex gap-3 items-center relative">
-          <div className='w-[50px] h-[50px] text-sm flex flex-col justify-center items-center bg-ice rounded-full'>
-            <p className='font-bold'>{Math.round((consumption.quantity * consumption.food.proportion * consumption.food.kcal) / 100 )}</p>
-            <p>kcal</p>
-          </div>
-          <div className='w-[50px] h-[50px] text-sm flex flex-col justify-center items-center bg-green text-white rounded-full'>
-            <p className='font-bold'>{Math.round((consumption.quantity * consumption.food.proportion * consumption.food.prot) / 100 )}</p>
-            <p>prot</p>
-          </div>
-          <div className='w-[50px] h-[50px] text-sm flex flex-col justify-center items-center bg-purple text-white rounded-full'>
-            <p className='font-bold'>{Math.round((consumption.quantity * consumption.food.proportion * consumption.food.fat) / 100 )}</p>
-            <p>fat</p>
-          </div>
-          <div className='w-[50px] h-[50px] text-sm flex flex-col justify-center items-center bg-yellow text-white rounded-full'>
-            <p className='font-bold'>{Math.round((consumption.quantity * consumption.food.proportion * consumption.food.carb) / 100 )}</p>
-            <p>carb</p>
-          </div>
-          <Icon icon="maki:cross" width={15} height={15} style={{color: '#F46F97', cursor: 'pointer'}} onClick={() => handleDeleteFoodConsumption(consumption)} />
+        <div className="flex gap-5 items-center relative">
+          <MacrosQuantities macros={consumption.food} />
+          <Icon icon="maki:cross" width={15} height={15} style={{color: colors.red, cursor: 'pointer'}} onClick={() => handleDeleteFoodConsumption(consumption)} />
         </div>
       </div>
     </div>

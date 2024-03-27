@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
 import { useEffect, useState } from "react";
 import { useNutrition } from "../../../utils/NutritionContext";
+import colors from '../../../assets/colors/colors';
 
 export default function FoodForm({ food, close }) {
   const { handleAddFood, handleUpdateFood } = useNutrition();
@@ -79,9 +80,9 @@ export default function FoodForm({ food, close }) {
 	};
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 bg-opacity-70 bg-ice flex justify-center items-center z-50 shadow-custom'>
-      <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-white p-10 relative rounded-2xl'>
-        <Icon icon="maki:cross" width={35} height={35} style={{color: '#F46F97', cursor: 'pointer'}} className="absolute right-10 top-10" onClick={close} />
+    <div className='h-screen w-full fixed top-0 left-0 bg-opacity-70 bg-ice flex justify-center items-center z-50'>
+      <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-white p-10 relative rounded-2xl shadow-custom'>
+        <Icon icon="maki:cross" width={35} height={35} style={{color: colors.red, cursor: 'pointer'}} className="absolute right-10 top-10" onClick={close} />
         <h3 className='font-bold text-3xl'>{food ? 'Update Food' : 'Create New Food'}</h3>
         <p className="mb-10">Toutes les quantités à renseigner sont pour 100g</p>
         <div className='w-full flex flex-col items-center relative'>     
@@ -93,12 +94,12 @@ export default function FoodForm({ food, close }) {
               name="image"
 						  onChange={e => setFile(e.target.files[0])}
               accept="image/*"
-              className='text-black px-4 py-1 border rounded-2xl mt-1 w-72'
+              className='px-4 py-1 rounded-2xl mt-1 w-72'
             />
           </div>     
           <div className='flex flex-col mb-5 relative'>
             <div className="absolute -left-1/4 top-1/3">
-              <Icon icon="solar:star-bold" width={30} height={30} style={{color: `${formData.is_favorite ? '#F5BE40' : '#25252F'}`, cursor: 'pointer'}} onClick={toggleIsFavorite} />  
+              <Icon icon="solar:star-bold" width={30} height={30} style={{color: `${formData.is_favorite ? colors.yellow : colors.light}`, cursor: 'pointer'}} onClick={toggleIsFavorite} />  
             </div>
             <label htmlFor="name">Name</label>
             <input
@@ -107,7 +108,7 @@ export default function FoodForm({ food, close }) {
               name="name"
               value={formData.name}
 						  onChange={handleChange}
-              className='text-black px-4 py-1 border rounded-2xl mt-1 w-72'
+              className='px-4 py-1 rounded-2xl mt-1 w-72'
               required
             />
           </div>
@@ -120,7 +121,7 @@ export default function FoodForm({ food, close }) {
                 name="kcal"
                 value={formData.kcal}
                 onChange={handleChange}
-                className='text-black px-4 py-1 border rounded-2xl mt-1 w-32'
+                className='px-4 py-1 rounded-2xl mt-1 w-32'
                 required
               />
             </div>
@@ -132,7 +133,7 @@ export default function FoodForm({ food, close }) {
                 name="prot"
                 value={formData.prot}
                 onChange={handleChange}
-                className='text-black px-4 py-1 border rounded-2xl mt-1 w-32'
+                className='px-4 py-1 rounded-2xl mt-1 w-32'
                 required
               />
             </div>
@@ -144,7 +145,7 @@ export default function FoodForm({ food, close }) {
                 name="carb"
                 value={formData.carb}
                 onChange={handleChange}
-                className='text-black px-4 py-1 border rounded-2xl mt-1 w-32'
+                className='px-4 py-1 rounded-2xl mt-1 w-32'
                 required
               />
             </div>
@@ -156,7 +157,7 @@ export default function FoodForm({ food, close }) {
                 name="fat"
                 value={formData.fat}
                 onChange={handleChange}
-                className='text-black px-4 py-1 border rounded-2xl mt-1 w-32'
+                className='px-4 py-1 rounded-2xl mt-1 w-32'
                 required
               />
             </div>
@@ -169,7 +170,7 @@ export default function FoodForm({ food, close }) {
                 name="unity"
                 value={formData.unity}
                 onChange={handleChange}
-                className='text-black px-4 py-1 border rounded-2xl mt-1 w-32'
+                className='px-4 py-1 rounded-2xl mt-1 w-32'
                 required
               >
                 <option value="Gram">G</option>
@@ -185,7 +186,7 @@ export default function FoodForm({ food, close }) {
                 name="proportion"
                 value={formData.proportion}
                 onChange={handleChange}
-                className='text-black px-4 py-1 border rounded-2xl mt-1 w-32'
+                className='px-4 py-1 rounded-2xl mt-1 w-32'
                 required
               />
             </div>

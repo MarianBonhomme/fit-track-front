@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
 import { useNutrition } from '../../../utils/NutritionContext';
+import colors from './../../../assets/colors/colors';
 
 export default function FoodConsumptionForm({ foodConsumption, close }) {
   const { foods, dailyFoodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption, currentDay } = useNutrition();
@@ -60,9 +61,9 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
   }
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 bg-opacity-70 bg-ice flex justify-center items-center z-50 shadow-custom'>
-      <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-white p-10 relative rounded-2xl'>
-        <Icon icon="maki:cross" width={35} height={35} style={{color: '#F46F97', cursor: 'pointer'}} className="absolute right-10 top-10" onClick={close} />
+    <div className='h-screen w-full fixed top-0 left-0 bg-opacity-70 bg-ice flex justify-center items-center z-50'>
+      <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-white p-10 relative rounded-2xl shadow-custom'>
+        <Icon icon="maki:cross" width={35} height={35} style={{color: colors.red, cursor: 'pointer'}} className="absolute right-10 top-10" onClick={close} />
         <h3 className='font-bold text-3xl mb-10'>{foodConsumption ? 'Update FoodConsumption' : 'Create New FoodConsumption'}</h3>
         <div className='w-full flex flex-col items-center'>
           <div className="flex gap-5">
@@ -73,7 +74,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                 name="food_id"
                 value={formData.food_id}
                 onChange={handleChange}
-                className='text-black px-4 py-1 border rounded-2xl mt-1 w-72'
+                className='px-4 py-1 rounded-2xl mt-1 w-72'
                 required
               >
                 {foods && foods.map((food) => (
@@ -91,7 +92,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                 name="quantity"
                 value={formData.quantity}
                 onChange={handleChange}
-                className='text-black px-4 py-1 border rounded-2xl mt-1 w-20'
+                className='px-4 py-1 rounded-2xl mt-1 w-20'
                 required
               />
             </div>

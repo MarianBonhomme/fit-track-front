@@ -9,7 +9,7 @@ import RankingCard from './stats/RankingCard';
 export default function StatsDashboard() {
   const { foodsWithTotalQuantity } = useNutrition();
   const [foodsForCountCards, setFoodsForCountCards] = useState([]);
-  const colors = ["blue", "purple", "yellow", "dark"]
+  const colors = ["purple", "yellow", "orange", "green"]
 
   useEffect(() => {
     const foodsCountCard = getPortionFoods();

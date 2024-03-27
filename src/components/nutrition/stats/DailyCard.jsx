@@ -7,8 +7,9 @@ import FoodConsumptionForm from '../calendar/FoodConsumptionForm';
 import FoodConsumptionItem from '../calendar/FoodConsumptionItem';
 import AddButton from '../global/AddButton';
 import MacroPie from '../global/MacroPie';
-import MacroQuantity from '../global/MacroQuantity';
+import MacrosQuantities from '../global/MacrosQuantities';
 import { getFormattedDate } from '../../../utils/DateService';
+import colors from '../../../assets/colors/colors';
 
 export default function DailyCard() {
   const { currentDay, dailyFoodConsumptions, incrementCurrentDay, decrementCurrentDay } = useNutrition();
@@ -64,19 +65,19 @@ export default function DailyCard() {
         <div className="flex justify-between items-center">
           <AddButton btnClicked={() => openFoodConsumptionForm(null)}/>
           <CardTitle text={currentDay && getFormattedDate(currentDay)} className="justify-self-start"/>
-          <Icon icon="solar:calendar-bold" width="50" height="50" style={{color: '#F46F97'}} />
+          <Icon icon="solar:calendar-bold" width="50" height="50" style={{color: colors.blue}} />
         </div>
         <div className="flex justify-center items-center gap-5 mb-3">
-          <Icon icon="ic:round-chevron-left" width="50" height="50" style={{color: '#25252F', cursor: 'pointer'}} onClick={decrementCurrentDay} />
+          <Icon icon="ic:round-chevron-left" width="50" height="50" style={{color: colors.dark, cursor: 'pointer'}} onClick={decrementCurrentDay} />
           {dailyMacros && (
-            <div className='w-1/2 flex items-center gap-5'>
+            <div className='flex items-center gap-5'>
               <div className='w-[80px] h-[80px]'>
                 <MacroPie displayLabel={false} macros={dailyMacros} />
               </div>
-              <MacroQuantity macros={dailyMacros} />
+              <MacrosQuantities macros={dailyMacros} />
             </div>
           )}
-          <Icon icon="ic:round-chevron-right" width="50" height="50" style={{color: '#25252F', cursor: 'pointer'}} onClick={incrementCurrentDay} />
+          <Icon icon="ic:round-chevron-right" width="50" height="50" style={{color: colors.dark, cursor: 'pointer'}} onClick={incrementCurrentDay} />
         </div>
         {sortedDailyFoodConsumptions.map((consumption) => (
           <FoodConsumptionItem key={consumption.id} consumption={consumption} clicked={() => openFoodConsumptionForm(consumption)} />         
