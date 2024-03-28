@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { useNutrition } from '../../../utils/NutritionContext';
 import FoodImage from './../global/FoodImage';
 import MacrosQuantities from './../global/MacrosQuantities';
+import { sortFoodsByFavoritesAndInactives } from '../../../utils/NutritionService';
 
 export default function FoodConsumptionForm({ foodConsumption, close }) {
   const { foods, dailyFoodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption, currentDay } = useNutrition();
+  const [sortedFoods, setSortedFoods] = useState();
   const [selectedFood, setSelectedFood] = useState();
   const [isFoodsListVisible, setIsFoodsListVisible] = useState(!foodConsumption);
   const [quantity, setQuantity] = useState(1);
@@ -35,6 +37,11 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
   const handleChangeQuantity = (event) => {
     setQuantity(event.target.value);
   };
+
+  useEffect(() => {
+    const sorted = sortFoodsByFavoritesAndInactives(foods);
+    setSortedFoods(sorted);
+  }, [foods])
 
   const handleSubmit = () => {
     if (foodConsumption) {
@@ -96,7 +103,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                 </div>
               </div>
             ) : (
-              <p className='text-center text-gray font-bold'>+ Click to add Food</p>
+              <p className='text-center text-gray font-bold'>Select food</p>
             )}
             {!foodConsumption && (
               <Icon icon="ion:chevron-up" width="40" height="40" className={`transition ${isFoodsListVisible ? '' : 'rotate-180'} cursor-pointer`}  onClick={() => setIsFoodsListVisible(!isFoodsListVisible)}/>
@@ -104,8 +111,8 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
           </div>
          {isFoodsListVisible && (
             <div className='w-full relative top-full h-[50dvh] overflow-y-scroll'>
-              {foods && foods.map((food) => {
-                return (
+              {sortedFoods && sortedFoods.map((food) => {
+                return ( food.is_active &&
                   <div key={food.id} className="flex items-center justify-between gap-3 p-3 border-t border-primary cursor-pointer" onClick={() => selectFood(food)}>
                     <FoodImage image={food.image} size="lg" />
                     <p>{food.name}</p>
