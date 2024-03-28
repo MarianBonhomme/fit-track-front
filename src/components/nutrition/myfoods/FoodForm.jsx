@@ -79,7 +79,7 @@ export default function FoodForm({ food, close }) {
 	};
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 bg-opacity-70 bg-lightPrimary flex justify-center items-center z-50'>
+    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-50'>
       <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-primary p-10 relative rounded-2xl shadow-custom'>
         <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer" onClick={close} />
         <h3 className='font-bold text-3xl'>{food ? 'Update Food' : 'Create New Food'}</h3>
