@@ -43,12 +43,12 @@ export default function CountCard({ food, color }) {
       <div className="grow w-full flex items-center">
         <div className="w-1/3 flex justify-center">
           {isFoodInDailyFoodConsumptions() && (
-            <Icon icon="ic:round-minus" width={25} height={25} className="text-primary" onClick={decrementFoodConsumptionInDaily} />
+            <Icon icon="ic:round-minus" width={25} height={25} className="text-primary cursor-pointer" onClick={decrementFoodConsumptionInDaily} />
           )}
         </div>
         <p className="w-1/3 text-center text-5xl font-bold">{food.totalQuantity}</p>
         <div className="w-1/3 flex justify-center">
-          <Icon icon="ic:round-plus" width={25} height={25} className="text-primary" onClick={incrementFoodConsumptionInDaily} />
+          <Icon icon="ic:round-plus" width={25} height={25} className="text-primary cursor-pointer" onClick={incrementFoodConsumptionInDaily} />
         </div>
       </div>      
     </div>
