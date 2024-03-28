@@ -9,10 +9,10 @@ export default function FoodForm({ food, close }) {
   const [formData, setFormData] = useState({
     id: 0,
     name: '',
-    kcal: 0,
-    prot: 0,
-    carb: 0,
-    fat: 0,
+    kcal: null,
+    prot: null,
+    carb: null,
+    fat: null,
     unity: 'Gram',
     proportion: 1,
     is_favorite: false,
@@ -82,10 +82,9 @@ export default function FoodForm({ food, close }) {
     <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-50'>
       <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-primary p-10 relative rounded-2xl shadow-custom'>
         <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer" onClick={close} />
-        <h3 className='font-bold text-3xl'>{food ? 'Update Food' : 'Create New Food'}</h3>
-        <p className="mb-10">Toutes les quantités à renseigner sont pour 100g</p>
-        <div className='w-full flex flex-col items-center relative'>     
-          <div className='flex flex-col mb-5 relative'>
+        <h3 className='font-bold text-3xl mb-10'>{food ? 'Update Food' : 'Create New Food'}</h3>
+        <div className='w-full flex flex-col items-center relative gap-10'>     
+          <div className='flex flex-col relative'>
             <label htmlFor="image">Image</label>
             <input
               type="file"
@@ -93,10 +92,9 @@ export default function FoodForm({ food, close }) {
               name="image"
 						  onChange={e => setFile(e.target.files[0])}
               accept="image/*"
-              className='px-4 py-1 rounded-2xl mt-1 w-72'
             />
           </div>     
-          <div className='flex flex-col mb-5 relative'>
+          <div className='flex flex-col relative'>
             <div className="absolute -left-1/4 top-1/3">
               <Icon icon="solar:star-bold" width={30} height={30} className={`text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />  
             </div>
@@ -107,69 +105,72 @@ export default function FoodForm({ food, close }) {
               name="name"
               value={formData.name}
 						  onChange={handleChange}
-              className='px-4 py-1 rounded-2xl mt-1 w-72'
+              className='max-w-100 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
               required
             />
           </div>
-          <div className="flex gap-5">
-            <div className='flex flex-col mb-5'>
-              <label htmlFor="kcal">Kcals</label>
-              <input
-                type="number"
-                id="kcal"
-                name="kcal"
-                value={formData.kcal}
-                onChange={handleChange}
-                className='px-4 py-1 rounded-2xl mt-1 w-32'
-                required
-              />
+          <div className='flex flex-col items-center'>
+            <div className="flex gap-5">
+              <div className='flex flex-col'>
+                <label htmlFor="kcal">Kcals</label>
+                <input
+                  type="number"
+                  id="kcal"
+                  name="kcal"
+                  value={formData.kcal}
+                  onChange={handleChange}
+                  className='max-w-20 px-3 py-1 rounded-md bg-green text-primary font-bold'
+                  required
+                />
+              </div>
+              <div className='flex flex-col'>
+                <label htmlFor="prot">Proteins</label>
+                <input
+                  type="number"
+                  id="prot"
+                  name="prot"
+                  value={formData.prot}
+                  onChange={handleChange}
+                  className='max-w-20 px-3 py-1 rounded-md bg-purple text-primary font-bold'
+                  required
+                />
+              </div>
+              <div className='flex flex-col'>
+                <label htmlFor="fat">Fats</label>
+                <input
+                  type="number"
+                  id="fat"
+                  name="fat"
+                  value={formData.fat}
+                  onChange={handleChange}
+                  className='max-w-20 px-3 py-1 rounded-md bg-orange text-primary font-bold'
+                  required
+                />
+              </div>
+              <div className='flex flex-col'>
+                <label htmlFor="carb">Carbs</label>
+                <input
+                  type="number"
+                  id="carb"
+                  name="carb"
+                  value={formData.carb}
+                  onChange={handleChange}
+                  className='max-w-20 px-3 py-1 rounded-md bg-yellow text-primary font-bold'
+                  required
+                />
+              </div>
             </div>
-            <div className='flex flex-col mb-5'>
-              <label htmlFor="prot">Proteins</label>
-              <input
-                type="number"
-                id="prot"
-                name="prot"
-                value={formData.prot}
-                onChange={handleChange}
-                className='px-4 py-1 rounded-2xl mt-1 w-32'
-                required
-              />
-            </div>
-            <div className='flex flex-col mb-5'>
-              <label htmlFor="carb">Carbs</label>
-              <input
-                type="number"
-                id="carb"
-                name="carb"
-                value={formData.carb}
-                onChange={handleChange}
-                className='px-4 py-1 rounded-2xl mt-1 w-32'
-                required
-              />
-            </div>
-            <div className='flex flex-col mb-5'>
-              <label htmlFor="fat">Fats</label>
-              <input
-                type="number"
-                id="fat"
-                name="fat"
-                value={formData.fat}
-                onChange={handleChange}
-                className='px-4 py-1 rounded-2xl mt-1 w-32'
-                required
-              />
-            </div>
+            <p className='mt-2 text-gray font-bold'>Toutes les quantités sont à renseigner pour 100g</p>
           </div>
           <div className="flex gap-5">
-            <div className='flex flex-col mb-5'>
+            <div className='flex flex-col'>
               <label htmlFor="unity">Unity</label>
               <select
                 id="unity"
                 name="unity"
                 value={formData.unity}
                 onChange={handleChange}
-                className='px-4 py-1 rounded-2xl mt-1 w-32'
+                className='max-w-28 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
                 required
               >
                 <option value="Gram">G</option>

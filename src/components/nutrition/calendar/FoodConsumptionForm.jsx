@@ -12,7 +12,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
   const [sortedFoods, setSortedFoods] = useState();
   const [selectedFood, setSelectedFood] = useState();
   const [isFoodsListVisible, setIsFoodsListVisible] = useState(!foodConsumption);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(null);
   const [formData, setFormData] = useState({
     id: foodConsumption ? foodConsumption.id : null,
     food_id: selectedFood ? selectedFood.id : 1,
@@ -80,7 +80,6 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
   const selectFood = (food) => {
     setSelectedFood(food);
     setIsFoodsListVisible(false);
-    setQuantity(1);
   }
 
   return (

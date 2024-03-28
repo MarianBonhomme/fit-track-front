@@ -13,9 +13,9 @@ export default function NutritionPage() {
     <div className='p-5'>
       <div className='flex justify-between'>
         <ul className='flex font-bold'>
-          <li className={`${active === 'stats' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActive('stats')} >Statistiques</li>
-          <li className={`${active === 'myfoods' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActive('myfoods')} >Mes aliments</li>
-          <li className={`${active === 'calendar' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActive('calendar')} >Calendrier</li>
+          <li className={`${active === 'stats' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActive('stats')} >Statistics</li>
+          <li className={`${active === 'myfoods' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActive('myfoods')} >My Foods</li>
+          <li className={`${active === 'calendar' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActive('calendar')} >Calendar</li>
         </ul>
         <DarkModeSwitch
           checked={isDarkMode}

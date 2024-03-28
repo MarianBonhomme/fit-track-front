@@ -48,7 +48,7 @@ export default function MyFoodsDashboard() {
             placeholder="Search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-lightPrimary text-white rounded-xl px-4 py-2 "
+            className="bg-lightPrimary text-secondary rounded-xl px-4 py-2 "
           />
           <Icon icon="maki:cross" width={20} height={20} className={`text-red cursor-pointer transition ${searchQuery ? '' : 'opacity-0'}`} onClick={() => setSearchQuery('')} />
         </div>

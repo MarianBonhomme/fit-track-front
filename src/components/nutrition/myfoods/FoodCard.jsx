@@ -52,17 +52,17 @@ function FoodCard({food, editBtnClicked}) {
       <div className={`absolute -top-5 -right-5 bg-primary rounded-2xl p-3 z-50 shadow-custom ${isOpen ? '' : 'hidden'}`}>
         <div className="flex items-center gap-1 cursor-pointer" onClick={editBtnClicked} >
           <Icon icon="mage:settings-fill" width={30} height={30} className="text-blue cursor-pointer" />
-          <p className='font-bold'>Modifier</p>
+          <p className='font-bold'>Edit</p>
         </div>
         {food.is_active ? (  
           <div className="flex items-center gap-1 cursor-pointer" onClick={() => setInactive(food)} >       
             <Icon icon="ic:round-delete" width={30} height={30} className="text-red cursor-pointer"/>
-            <p className='font-bold'>Désactiver</p>      
+            <p className='font-bold'>Disable</p>      
           </div>  
         ) : (
           <div className="flex items-center gap-1 cursor-pointer" onClick={() => setActive(food)} >
             <Icon icon="mingcute:arrow-up-fill" width={30} height={30} className="text-purple cursor-pointer" /> 
-            <p className='font-bold'>Activer</p> 
+            <p className='font-bold'>Enable</p> 
           </div>    
         )}
       </div>
