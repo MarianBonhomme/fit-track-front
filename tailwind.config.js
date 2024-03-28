@@ -22,7 +22,7 @@ export default {
         gray: 'var(--gray-color)',
       },
       boxShadow: {
-        custom: 'rgba(17, 17, 26, 0.1) 0px 0px 16px'
+        custom: 'var(--lightPrimary-color) 0px 0px 5px'
       }
     },
   },

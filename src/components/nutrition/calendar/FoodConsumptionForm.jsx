@@ -4,8 +4,10 @@ import { useNutrition } from '../../../utils/NutritionContext';
 import FoodImage from './../global/FoodImage';
 import MacrosQuantities from './../global/MacrosQuantities';
 import { sortFoodsByFavoritesAndInactives } from '../../../utils/NutritionService';
+import { useTheme } from '../../../utils/ThemeContext';
 
 export default function FoodConsumptionForm({ foodConsumption, close }) {
+  const { isDarkMode } = useTheme();
   const { foods, dailyFoodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption, currentDay } = useNutrition();
   const [sortedFoods, setSortedFoods] = useState();
   const [selectedFood, setSelectedFood] = useState();
@@ -83,10 +85,10 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
 
   return (
     <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-start pt-20 z-50'>
-      <div className='w-full max-w-3xl bg-primary p-10 relative rounded-2xl shadow-custom'>
+      <div className={`w-full max-w-3xl p-10 relative rounded-2xl shadow-custom ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`}>
         <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer" onClick={close} />
         <h3 className='text-center font-bold text-3xl mb-10'>{foodConsumption ? 'Update FoodConsumption' : 'Create New FoodConsumption'}</h3>
-        <div className='bg-lightPrimary px-5 rounded-xl relative'>
+        <div className={`px-5 rounded-xl relative shadow-custom ${isDarkMode ? 'bg-lightPrimary' : 'bg-primary'}`}>
           <div className='w-full flex justify-between items-center gap-5 py-3'>
             {selectedFood ? (
               <div className="grow flex justify-between items-center">
@@ -99,7 +101,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                 </div>
                 <div className='flex flex-col items-center gap-3'>
                   <p>Quantity</p>
-                  <input type="number" className='max-w-20 px-3 py-1 rounded-md bg-primary' value={quantity} onChange={handleChangeQuantity} />
+                  <input type="number" className={`max-w-20 px-3 py-1 rounded-md ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`} value={quantity} onChange={handleChangeQuantity} />
                 </div>
               </div>
             ) : (
@@ -113,7 +115,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
             <div className='w-full relative top-full h-[50dvh] overflow-y-scroll'>
               {sortedFoods && sortedFoods.map((food) => {
                 return ( food.is_active &&
-                  <div key={food.id} className="flex items-center justify-between gap-3 p-3 border-t border-primary cursor-pointer" onClick={() => selectFood(food)}>
+                  <div key={food.id} className={`flex items-center justify-between gap-3 p-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
                     <FoodImage image={food.image} size="lg" />
                     <p>{food.name}</p>
                     <MacrosQuantities macros={food} />
