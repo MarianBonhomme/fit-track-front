@@ -5,9 +5,9 @@ import MacroPie from '../global/MacroPie';
 import QuantityUnity from "../global/QuantityUnity";
 
 export default function MacroRepartitionCard() {
-  const { foodsWithTotalQuantity } = useNutrition();
+  const { foodsWithTotalQuantity, daysIndicatedCount } = useNutrition();
   const [averageMacros, setAverageMacros] = useState(null);
-  const [totalMacros, setTotalMacros] = useState(null);
+  const [dailyAvgMacro, setDailyAvgMacros] = useState(null);
 
   useEffect(() => {
     const macros = getAverageMacros()
@@ -15,34 +15,34 @@ export default function MacroRepartitionCard() {
   }, [foodsWithTotalQuantity]);
 
   const getAverageMacros = () => {
-    let totalProt = 0;
-    let totalCarb = 0;
-    let totalFat = 0;
+    let avgKcal = 0;
+    let avgProt = 0;
+    let avgCarb = 0;
+    let avgFat = 0;
     let totalFoods = 0;
 
     foodsWithTotalQuantity.forEach(food => {
       let quantity = food.totalQuantity;
-      if (food.unity === "Portion") {
-        quantity *= food.proportion;
-      }
-      totalProt += food.prot * quantity / 100;
-      totalCarb += food.carb * quantity / 100;
-      totalFat += food.fat * quantity / 100;
+      avgKcal += (food.kcal * food.proportion * quantity / 100) / daysIndicatedCount;
+      avgProt += (food.prot * food.proportion * quantity / 100) / daysIndicatedCount;
+      avgCarb += (food.carb * food.proportion * quantity / 100) / daysIndicatedCount;
+      avgFat += (food.fat * food.proportion * quantity / 100) / daysIndicatedCount;
       totalFoods++;
     });
 
-    const totalMacros = {
-      prot: totalProt,
-      carb: totalCarb,
-      fat: totalFat,
+    const avgMacros = {
+      kcal: avgKcal,
+      prot: avgProt,
+      carb: avgCarb,
+      fat: avgFat,
     }
 
-    setTotalMacros(totalMacros)
+    setDailyAvgMacros(avgMacros)
 
     const macros = {
-      prot: totalProt / totalFoods,
-      carb: totalCarb / totalFoods,
-      fat: totalFat / totalFoods,
+      prot: avgProt / totalFoods,
+      carb: avgCarb / totalFoods,
+      fat: avgFat / totalFoods,
     }
 
     return macros;
@@ -52,18 +52,23 @@ export default function MacroRepartitionCard() {
     <div className="flex flex-col items-center bg-primary px-5 py-3 shadow-custom rounded-3xl">
       <CardTitle text="Total Macro Repartition" />
       <div className="w-full flex justify-center items-center">
-        {totalMacros && (
-          <div className="w-1/3 flex flex-col items-center gap-5">
+        {dailyAvgMacro && (
+          <div className="w-1/3 flex flex-col items-center gap-3">
+            <p className="font-bold text-center">Daily Average</p>
+            <div className='w-[110px] h-[30px] flex justify-center items-center gap-1 bg-green text-primary text-sm rounded-lg'>
+              <p className="font-bold">{Math.round(dailyAvgMacro.kcal)}</p>
+              <p>kcal</p>
+            </div>
             <div className='w-[110px] h-[30px] flex justify-center items-center gap-1 bg-purple text-primary text-sm rounded-lg'>
-              <QuantityUnity quantity={Math.round(totalMacros.prot)} unity={"Gram"} quantityStyle={"font-bold"} /> 
+              <p className="font-bold">{Math.round(dailyAvgMacro.prot)}</p>
               <p>prot</p>
             </div>
             <div className='w-[110px] h-[30px] flex justify-center items-center gap-1 bg-orange text-primary text-sm rounded-lg'>
-              <QuantityUnity quantity={Math.round(totalMacros.fat)} unity={"Gram"} quantityStyle={"font-bold"} /> 
+              <p className="font-bold">{Math.round(dailyAvgMacro.fat)}</p>
               <p>fat</p>
             </div>
             <div className='w-[110px] h-[30px] flex justify-center items-center gap-1 bg-yellow text-primary text-sm rounded-lg'>
-              <QuantityUnity quantity={Math.round(totalMacros.carb)} unity={"Gram"} quantityStyle={"font-bold"} /> 
+              <p className="font-bold">{Math.round(dailyAvgMacro.carb)}</p>
               <p>carb</p>
             </div>
           </div>

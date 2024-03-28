@@ -98,6 +98,16 @@ const deleteFoodConsumption = async (foodConsumptionToDelete) => {
   }
 };
 
+const getDatesCount = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/foodConsumption/datesCount`);
+    return response.data
+  } catch (error) {
+    console.error('Error fetching dates count');
+    throw error;
+  }
+}
+
 const getFoodsWithTotalQuantity = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/food/totalQuantity`);
@@ -153,4 +163,4 @@ const sortFoodConsumptionsByFavorites = (foodConsumptions) => {
   return sortedFoodConsumptions;
 }
 
-export { getFoods, getFoodById, addFood, updateFood, getFoodConsumptions, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getFoodsWithTotalQuantity, calculateMacros, sortFoodsByFavoritesAndInactives, sortFoodConsumptionsByFavorites };
+export { getFoods, getFoodById, addFood, updateFood, getFoodConsumptions, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getDatesCount, getFoodsWithTotalQuantity, calculateMacros, sortFoodsByFavoritesAndInactives, sortFoodConsumptionsByFavorites };

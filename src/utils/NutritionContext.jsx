@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { getFoods, addFood, updateFood, getFoodConsumptions, getFoodsWithTotalQuantity, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption } from './NutritionService';
+import { getFoods, addFood, updateFood, getFoodConsumptions, getFoodsWithTotalQuantity, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getDatesCount } from './NutritionService';
 
 const NutritionContext = createContext();
 
@@ -9,6 +9,7 @@ export const NutritionProvider = ({ children }) => {
   const [foodConsumptions, setFoodConsumptions] = useState([]);
   const [currentDay, setCurrentDay] = useState()
   const [dailyFoodConsumptions, setDailyFoodConsumptions] = useState([]);
+  const [daysIndicatedCount, setDaysIndicatedCount] = useState(0);
 
   useEffect(() => {
     fetchFoods();
@@ -20,6 +21,10 @@ export const NutritionProvider = ({ children }) => {
 
   useEffect(() => {
     fetchFoodsWithTotalQuantity();
+  }, [foodConsumptions])
+
+  useEffect(() => {
+    fetchDaysIndicatedCount();
   }, [foodConsumptions])
 
   useEffect(() => {
@@ -40,6 +45,11 @@ export const NutritionProvider = ({ children }) => {
   const fetchFoodConsumptions = async () => {
     const fetchedFoodConsumptions = await getFoodConsumptions();
     setFoodConsumptions(fetchedFoodConsumptions);
+  }
+
+  const fetchDaysIndicatedCount = async () => {
+    const fetchedDaysIndicatedCount = await getDatesCount();
+    setDaysIndicatedCount(fetchedDaysIndicatedCount);
   }
 
   const fetchFoodsWithTotalQuantity = async () => {
@@ -132,6 +142,7 @@ export const NutritionProvider = ({ children }) => {
         foodConsumptions,
         currentDay,
         dailyFoodConsumptions,
+        daysIndicatedCount,
         handleAddFood,
         handleUpdateFood,
         handleAddFoodConsumption,
