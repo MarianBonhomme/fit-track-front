@@ -48,7 +48,7 @@ function FoodCard({food, editBtnClicked}) {
   }
   
   return (
-    <div ref={ref} className={`bg-primary relative w-[300px] mt-[50px] pt-[80px] flex flex-col justify-between text-center shadow-custom rounded-2xl p-4 ${!food.is_active && 'opacity-60'}`}>
+    <div ref={ref} className={`bg-primary relative w-[300px] mt-[50px] pt-[80px] shadow-custom rounded-2xl p-4 ${!food.is_active && 'opacity-60'}`}>
       <div className={`absolute -top-5 -right-5 bg-primary rounded-2xl p-3 z-50 shadow-custom ${isOpen ? '' : 'hidden'}`}>
         <div className="flex items-center gap-1 cursor-pointer" onClick={editBtnClicked} >
           <Icon icon="mage:settings-fill" width={30} height={30} className="text-blue cursor-pointer" />
@@ -75,12 +75,12 @@ function FoodCard({food, editBtnClicked}) {
         <FoodImage image={food.image} size="xl" />
         <Icon icon="solar:menu-dots-bold" width="30" height="30" className='text-blue cursor-pointer' onClick={() => setIsOpen(true)} />
       </div>
-      <h3 className="text-xl font-bold my-3">{food.name}</h3>	
-      <div className="flex justify-center items-center gap-3 text-lg">
-        <MacroItem macro={'kcal'} value={food.kcal} isRounded={true} />
-        <MacroItem macro={'prot'} value={food.prot} isRounded={true} />
-        <MacroItem macro={'fat'} value={food.fat} isRounded={true} />
-        <MacroItem macro={'carb'} value={food.carb} isRounded={true} />
+      <h3 className="text-xl text-center font-bold my-3">{food.name}</h3>	
+      <div className="grid grid-cols-2 gap-2">
+        <MacroItem macro={'kcal'} value={food.kcal} isRounded={false} showUnity={true} />
+        <MacroItem macro={'fat'} value={food.fat} isRounded={false} showUnity={true} />
+        <MacroItem macro={'prot'} value={food.prot} isRounded={false} showUnity={true} />
+        <MacroItem macro={'carb'} value={food.carb} isRounded={false} showUnity={true} />
       </div>
     </div>
   )

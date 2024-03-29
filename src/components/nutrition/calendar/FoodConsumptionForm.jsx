@@ -96,10 +96,10 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                   <div>
                     <p className='text-lg mb-2'>{selectedFood.name}</p>
                     <div className="flex justify-center items-center gap-3 text-lg">
-                      <MacroItem macro={'kcal'} value={selectedFood.kcal} isRounded={true} />
-                      <MacroItem macro={'prot'} value={selectedFood.prot} isRounded={true} />
-                      <MacroItem macro={'fat'} value={selectedFood.fat} isRounded={true} />
-                      <MacroItem macro={'carb'} value={selectedFood.carb} isRounded={true} />
+                      <MacroItem macro={'kcal'} value={selectedFood.kcal} isRounded={true} showUnity={true} />
+                      <MacroItem macro={'prot'} value={selectedFood.prot} isRounded={true} showUnity={true} />
+                      <MacroItem macro={'fat'} value={selectedFood.fat} isRounded={true} showUnity={true} />
+                      <MacroItem macro={'carb'} value={selectedFood.carb} isRounded={true} showUnity={true} />
                     </div>
                   </div>
                 </div>
@@ -123,10 +123,10 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                     <FoodImage image={food.image} size="lg" />
                     <p>{food.name}</p>
                     <div className="flex justify-center items-center gap-3 text-lg">
-                      <MacroItem macro={'kcal'} value={food.kcal} isRounded={true} />
-                      <MacroItem macro={'prot'} value={food.prot} isRounded={true} />
-                      <MacroItem macro={'fat'} value={food.fat} isRounded={true} />
-                      <MacroItem macro={'carb'} value={food.carb} isRounded={true} />
+                      <MacroItem macro={'kcal'} value={food.kcal} isRounded={true} showUnity={true} />
+                      <MacroItem macro={'prot'} value={food.prot} isRounded={true} showUnity={true} />
+                      <MacroItem macro={'fat'} value={food.fat} isRounded={true} showUnity={true} />
+                      <MacroItem macro={'carb'} value={food.carb} isRounded={true} showUnity={true} />
                     </div>
                   </div>
                 )

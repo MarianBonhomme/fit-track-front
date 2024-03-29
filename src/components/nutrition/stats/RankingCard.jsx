@@ -77,7 +77,7 @@ export default function RankingCard() {
                   <div className="flex items-center justify-between gap-3">
                     <QuantityUnity quantity={food.totalQuantity} unity={food.unity} quantityStyle={'text-2xl font-bold'} unityStyle={'text-sm'} />
                     {filter !== 'totalQuantity' && (
-                      <MacroItem macro={filter} showUnity={false} value={food[filter]} isRounded={false} />
+                      <MacroItem macro={filter} value={food[filter]} isRounded={false} />
                     )}
                   </div>
                 </div>

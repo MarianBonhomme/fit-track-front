@@ -55,10 +55,10 @@ export default function MacroRepartitionCard() {
         {dailyAvgMacro && (
           <div className="w-1/3 flex flex-col items-center gap-3">
             <p className="font-bold text-center">Daily Average</p>
-            <MacroItem macro='kcal' value={dailyAvgMacro.kcal} isRounded={false}  />
-            <MacroItem macro='prot' value={dailyAvgMacro.prot} isRounded={false}  />
-            <MacroItem macro='fat' value={dailyAvgMacro.fat} isRounded={false}  />
-            <MacroItem macro='carb' value={dailyAvgMacro.carb} isRounded={false}  />
+            <MacroItem macro='kcal' value={dailyAvgMacro.kcal} isRounded={false} showUnity={true} />
+            <MacroItem macro='prot' value={dailyAvgMacro.prot} isRounded={false} showUnity={true} />
+            <MacroItem macro='fat' value={dailyAvgMacro.fat} isRounded={false} showUnity={true} />
+            <MacroItem macro='carb' value={dailyAvgMacro.carb} isRounded={false} showUnity={true} />
           </div>
         )}
         {averageMacros && (

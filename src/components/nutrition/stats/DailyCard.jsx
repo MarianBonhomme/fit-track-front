@@ -74,10 +74,10 @@ export default function DailyCard() {
                 <MacroPie macros={dailyMacros} />
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <MacroItem macro={'kcal'} value={dailyMacros.kcal} isRounded={false} />
-                <MacroItem macro={'fat'} value={dailyMacros.fat} isRounded={false} />
-                <MacroItem macro={'prot'} value={dailyMacros.prot} isRounded={false} />
-                <MacroItem macro={'carb'} value={dailyMacros.carb} isRounded={false} />
+                <MacroItem macro={'kcal'} value={dailyMacros.kcal} isRounded={false} showUnity={true} />
+                <MacroItem macro={'fat'} value={dailyMacros.fat} isRounded={false} showUnity={true} />
+                <MacroItem macro={'prot'} value={dailyMacros.prot} isRounded={false} showUnity={true} />
+                <MacroItem macro={'carb'} value={dailyMacros.carb} isRounded={false} showUnity={true} />
               </div>
             </div>
           )}
