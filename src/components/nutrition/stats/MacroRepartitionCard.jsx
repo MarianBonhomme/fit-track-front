@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNutrition } from "../../../utils/NutritionContext";
 import CardTitle from "../../global/CardTitle";
 import MacroPie from '../global/MacroPie';
-import QuantityUnity from "../global/QuantityUnity";
+import MacroItem from "../global/MacroItem";
 
 export default function MacroRepartitionCard() {
   const { foodsWithTotalQuantity, daysIndicatedCount } = useNutrition();
@@ -55,22 +55,10 @@ export default function MacroRepartitionCard() {
         {dailyAvgMacro && (
           <div className="w-1/3 flex flex-col items-center gap-3">
             <p className="font-bold text-center">Daily Average</p>
-            <div className='w-[110px] h-[30px] flex justify-center items-center gap-1 bg-green text-primary text-sm rounded-lg'>
-              <p className="font-bold">{Math.round(dailyAvgMacro.kcal)}</p>
-              <p>kcal</p>
-            </div>
-            <div className='w-[110px] h-[30px] flex justify-center items-center gap-1 bg-purple text-primary text-sm rounded-lg'>
-              <p className="font-bold">{Math.round(dailyAvgMacro.prot)}</p>
-              <p>prot</p>
-            </div>
-            <div className='w-[110px] h-[30px] flex justify-center items-center gap-1 bg-orange text-primary text-sm rounded-lg'>
-              <p className="font-bold">{Math.round(dailyAvgMacro.fat)}</p>
-              <p>fat</p>
-            </div>
-            <div className='w-[110px] h-[30px] flex justify-center items-center gap-1 bg-yellow text-primary text-sm rounded-lg'>
-              <p className="font-bold">{Math.round(dailyAvgMacro.carb)}</p>
-              <p>carb</p>
-            </div>
+            <MacroItem macro='kcal' value={dailyAvgMacro.kcal} isRounded={false}  />
+            <MacroItem macro='prot' value={dailyAvgMacro.prot} isRounded={false}  />
+            <MacroItem macro='fat' value={dailyAvgMacro.fat} isRounded={false}  />
+            <MacroItem macro='carb' value={dailyAvgMacro.carb} isRounded={false}  />
           </div>
         )}
         {averageMacros && (

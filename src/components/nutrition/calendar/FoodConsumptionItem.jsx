@@ -2,8 +2,8 @@ import { Icon } from '@iconify/react'
 import React, { useEffect, useState } from 'react'
 import { useNutrition } from '../../../utils/NutritionContext'
 import FoodImage from '../global/FoodImage'
-import MacrosQuantities from '../global/MacrosQuantities'
 import QuantityUnity from '../global/QuantityUnity'
+import MacroItem from '../global/MacroItem'
 
 export default function FoodConsumptionItem({consumption, clicked}) {
   const { handleDeleteFoodConsumption } = useNutrition();
@@ -30,7 +30,14 @@ export default function FoodConsumptionItem({consumption, clicked}) {
           </div>
         </div>
         <div className="flex gap-5 items-center relative">
-          {consumptionMacros && (<MacrosQuantities macros={consumptionMacros} />)}
+          {consumptionMacros && (
+            <div className="flex justify-center items-center gap-3 text-lg">
+              <MacroItem macro={'kcal'} value={consumptionMacros.kcal} isRounded={true} />
+              <MacroItem macro={'prot'} value={consumptionMacros.prot} isRounded={true} />
+              <MacroItem macro={'fat'} value={consumptionMacros.fat} isRounded={true} />
+              <MacroItem macro={'carb'} value={consumptionMacros.carb} isRounded={true} />
+            </div>
+          )}
           <Icon icon="maki:cross" width={15} height={15} className="text-red cursor-pointer" onClick={() => handleDeleteFoodConsumption(consumption)} />
         </div>
       </div>

@@ -2,9 +2,9 @@ import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
 import { useNutrition } from '../../../utils/NutritionContext';
 import FoodImage from './../global/FoodImage';
-import MacrosQuantities from './../global/MacrosQuantities';
 import { sortFoodsByFavoritesAndInactives } from '../../../utils/NutritionService';
 import { useTheme } from '../../../utils/ThemeContext';
+import MacroItem from '../global/MacroItem';
 
 export default function FoodConsumptionForm({ foodConsumption, close }) {
   const { isDarkMode } = useTheme();
@@ -95,7 +95,12 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                   <FoodImage image={selectedFood.image} size="xl" />
                   <div>
                     <p className='text-lg mb-2'>{selectedFood.name}</p>
-                    <MacrosQuantities macros={selectedFood} />
+                    <div className="flex justify-center items-center gap-3 text-lg">
+                      <MacroItem macro={'kcal'} value={selectedFood.kcal} isRounded={true} />
+                      <MacroItem macro={'prot'} value={selectedFood.prot} isRounded={true} />
+                      <MacroItem macro={'fat'} value={selectedFood.fat} isRounded={true} />
+                      <MacroItem macro={'carb'} value={selectedFood.carb} isRounded={true} />
+                    </div>
                   </div>
                 </div>
                 <div className='flex flex-col items-center gap-3'>
@@ -117,7 +122,12 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                   <div key={food.id} className={`flex items-center justify-between gap-3 p-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
                     <FoodImage image={food.image} size="lg" />
                     <p>{food.name}</p>
-                    <MacrosQuantities macros={food} />
+                    <div className="flex justify-center items-center gap-3 text-lg">
+                      <MacroItem macro={'kcal'} value={selectedFood.kcal} isRounded={true} />
+                      <MacroItem macro={'prot'} value={selectedFood.prot} isRounded={true} />
+                      <MacroItem macro={'fat'} value={selectedFood.fat} isRounded={true} />
+                      <MacroItem macro={'carb'} value={selectedFood.carb} isRounded={true} />
+                    </div>
                   </div>
                 )
               })}

@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNutrition } from '../../../utils/NutritionContext';
 import FoodImage from '../global/FoodImage';
-import MacrosQuantities from '../global/MacrosQuantities';
+import MacroItem from '../global/MacroItem';
 
 function FoodCard({food, editBtnClicked}) {
   const { handleUpdateFood } = useNutrition();
@@ -76,7 +76,12 @@ function FoodCard({food, editBtnClicked}) {
         <Icon icon="solar:menu-dots-bold" width="30" height="30" className='text-blue cursor-pointer' onClick={() => setIsOpen(true)} />
       </div>
       <h3 className="text-xl font-bold my-3">{food.name}</h3>	
-      <MacrosQuantities macros={food} />
+      <div className="flex justify-center items-center gap-3 text-lg">
+        <MacroItem macro={'kcal'} value={food.kcal} isRounded={true} />
+        <MacroItem macro={'prot'} value={food.prot} isRounded={true} />
+        <MacroItem macro={'fat'} value={food.fat} isRounded={true} />
+        <MacroItem macro={'carb'} value={food.carb} isRounded={true} />
+      </div>
     </div>
   )
 }

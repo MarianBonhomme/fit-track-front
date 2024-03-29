@@ -7,8 +7,8 @@ import FoodConsumptionForm from '../calendar/FoodConsumptionForm';
 import FoodConsumptionItem from '../calendar/FoodConsumptionItem';
 import AddButton from '../global/AddButton';
 import MacroPie from '../global/MacroPie';
-import MacrosQuantities from '../global/MacrosQuantities';
 import { getFormattedDate } from '../../../utils/DateService';
+import MacroItem from '../global/MacroItem';
 
 export default function DailyCard() {
   const { currentDay, dailyFoodConsumptions, incrementCurrentDay, decrementCurrentDay } = useNutrition();
@@ -73,7 +73,12 @@ export default function DailyCard() {
               <div className='w-[80px] h-[80px]'>
                 <MacroPie macros={dailyMacros} />
               </div>
-              <MacrosQuantities macros={dailyMacros} />
+              <div className="grid grid-cols-2 gap-3">
+                <MacroItem macro={'kcal'} value={dailyMacros.kcal} isRounded={false} />
+                <MacroItem macro={'fat'} value={dailyMacros.fat} isRounded={false} />
+                <MacroItem macro={'prot'} value={dailyMacros.prot} isRounded={false} />
+                <MacroItem macro={'carb'} value={dailyMacros.carb} isRounded={false} />
+              </div>
             </div>
           )}
           <Icon icon="ic:round-chevron-right" width="50" height="50" className="text-dark cursor-pointer" onClick={incrementCurrentDay} />
