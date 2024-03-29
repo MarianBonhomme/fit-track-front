@@ -50,7 +50,7 @@ export default function RankingCard() {
       <CardTitle text="Top Food" />
       <div className="flex justify-between mt-3">
         <p>Sort by : {filter !== "totalQuantity" && filter}</p>
-        <Icon icon="maki:cross" width={20} height={20} className={`text-red cursor-pointer transition ${filter ? 'totalQuantity' : 'opacity-0'}`} onClick={() => setFilter('totalQuantity')} />
+        <Icon icon="maki:cross" width={20} height={20} className={`text-red cursor-pointer transition ${filter !== 'totalQuantity' ? '' : 'opacity-0'}`} onClick={() => setFilter('totalQuantity')} />
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div className={`rounded-lg text-center font-bold py-1 ${filter !== 'kcal' ? 'bg-lightPrimary text-secondary cursor-pointer' : 'bg-green text-primary'}`} onClick={() => setFilter('kcal')}>Kcal</div>
