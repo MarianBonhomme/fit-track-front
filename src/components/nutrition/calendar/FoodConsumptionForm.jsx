@@ -84,7 +84,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
 
   return (
     <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-start pt-20 z-50'>
-      <div className={`w-full max-w-3xl p-10 relative rounded-2xl shadow-custom ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`}>
+      <div className={`w-full max-w-3xl p-10 relative rounded-2xl ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`}>
         <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer" onClick={close} />
         <h3 className='text-center font-bold text-3xl mb-10'>{foodConsumption ? 'Update FoodConsumption' : 'Create New FoodConsumption'}</h3>
         <div className={`px-5 rounded-xl relative shadow-custom ${isDarkMode ? 'bg-lightPrimary' : 'bg-primary'}`}>
