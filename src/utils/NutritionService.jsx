@@ -118,12 +118,12 @@ const getFoodsWithTotalQuantity = async () => {
   }
 }
 
-const calculateMacros = (consumption) => {
+const calculateMacros = (food, quantity) => {
   return {
-    kcal: (consumption.quantity * consumption.food.proportion * consumption.food.kcal) / 100,
-    prot: (consumption.quantity * consumption.food.proportion * consumption.food.prot) / 100,
-    carb: (consumption.quantity * consumption.food.proportion * consumption.food.carb) / 100,
-    fat: (consumption.quantity * consumption.food.proportion * consumption.food.fat) / 100,
+    kcal: (quantity * food.proportion * food.kcal) / 100,
+    prot: (quantity * food.proportion * food.prot) / 100,
+    carb: (quantity * food.proportion * food.carb) / 100,
+    fat: (quantity * food.proportion * food.fat) / 100,
   }
 }
 

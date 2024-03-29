@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export default function MacroItem({ macro, value, isRounded }) {
+export default function MacroItem({ macro, value, isRounded, showUnity }) {
   const [color, setColor] = useState('');
 
   useEffect(() => {
@@ -13,18 +13,18 @@ export default function MacroItem({ macro, value, isRounded }) {
     } else if (macro === 'carb') {
       setColor("yellow")
     }
-  }, [])
+  }, [macro])
 
   return (
     isRounded ? (
       <div className={`w-[50px] h-[50px] text-sm flex flex-col justify-center items-center text-primary rounded-full bg-${color}`} >
         <p className='font-bold'>{Math.round(value)}</p>
-        <p>{macro}</p>
+        {showUnity && (<p>{macro}</p>)}
       </div>
     ) : (
       <div className={`w-[110px] h-[30px] flex justify-center items-center gap-1 text-primary text-sm rounded-lg bg-${color}`} >
         <p className="font-bold">{Math.round(value)}</p>
-        <p>{macro}</p>
+        {showUnity && (<p>{macro}</p>)}
       </div>
     )
   )

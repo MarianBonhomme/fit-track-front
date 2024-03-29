@@ -4,18 +4,14 @@ import { useNutrition } from '../../../utils/NutritionContext'
 import FoodImage from '../global/FoodImage'
 import QuantityUnity from '../global/QuantityUnity'
 import MacroItem from '../global/MacroItem'
+import { calculateMacros } from '../../../utils/NutritionService'
 
 export default function FoodConsumptionItem({consumption, clicked}) {
   const { handleDeleteFoodConsumption } = useNutrition();
   const [consumptionMacros, setConsumptionsMacros] = useState();
   
   useEffect(() => {
-    const macros = {
-      kcal: (consumption.food.kcal * consumption.quantity * consumption.food.proportion) / 100,
-      prot: (consumption.food.prot * consumption.quantity * consumption.food.proportion) / 100,
-      carb: (consumption.food.carb * consumption.quantity * consumption.food.proportion) / 100,
-      fat: (consumption.food.fat * consumption.quantity * consumption.food.proportion) / 100,
-    }
+    const macros = calculateMacros(consumption.food, consumption.quantity)
     setConsumptionsMacros(macros);
   }, [consumption]);
 
