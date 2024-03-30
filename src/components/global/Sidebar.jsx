@@ -15,9 +15,6 @@ export default function Sidebar() {
           <Icon icon="healthicons:money-bag" width={40} height={40} className="text-yellow cursor-pointer" />
         </NavLink>
       </div>
-      <NavLink to="settings" className="relative">
-        <Icon icon="mage:settings-fill" width={40} height={40} className="text-gray cursor-pointer" />
-      </NavLink>
     </nav>
   )
 }
