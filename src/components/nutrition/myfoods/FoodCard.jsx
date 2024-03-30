@@ -35,17 +35,17 @@ function FoodCard({food, editBtnClicked}) {
     setIsOpen(false);
   }
 
-  const setActive = (food) => {
-    const foodActive = { ...food, is_active: 1 };
-    handleUpdateFood(foodActive);
-    setIsOpen(false);
-  }
+  // const setActive = (food) => {
+  //   const foodActive = { ...food, is_active: 1 };
+  //   handleUpdateFood(foodActive);
+  //   setIsOpen(false);
+  // }
 
-  const setInactive = (food) => {
-    const foodInactive = { ...food, is_active: 0, is_favorite : 0 };
-    handleUpdateFood(foodInactive);
-    setIsOpen(false);
-  }
+  // const setInactive = (food) => {
+  //   const foodInactive = { ...food, is_active: 0, is_favorite : 0 };
+  //   handleUpdateFood(foodInactive);
+  //   setIsOpen(false);
+  // }
   
   return (
     <div ref={ref} className={`bg-primary relative w-[300px] mt-[50px] pt-[80px] shadow-custom rounded-2xl p-4 ${!food.is_active && 'opacity-60'}`}>
@@ -54,7 +54,7 @@ function FoodCard({food, editBtnClicked}) {
           <Icon icon="mage:settings-fill" width={30} height={30} className="text-blue cursor-pointer" />
           <p className='font-bold'>Edit</p>
         </div>
-        {food.is_active ? (  
+        {/* {food.is_active ? (  
           <div className="flex items-center gap-1 cursor-pointer" onClick={() => setInactive(food)} >       
             <Icon icon="ic:round-delete" width={30} height={30} className="text-red cursor-pointer"/>
             <p className='font-bold'>Disable</p>      
@@ -64,7 +64,7 @@ function FoodCard({food, editBtnClicked}) {
             <Icon icon="mingcute:arrow-up-fill" width={30} height={30} className="text-purple cursor-pointer" /> 
             <p className='font-bold'>Enable</p> 
           </div>    
-        )}
+        )} */}
       </div>
       <div className="absolute -top-[20px] left-0 w-full flex justify-between items-center px-3">
         {food.is_favorite ? (         
