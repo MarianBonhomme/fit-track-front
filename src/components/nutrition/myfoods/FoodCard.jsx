@@ -51,13 +51,13 @@ function FoodCard({food, editBtnClicked}) {
     <div ref={ref} className={`bg-primary relative w-[300px] mt-[50px] pt-[80px] shadow-custom rounded-2xl p-4 ${!food.is_active && 'opacity-60'}`}>
       <div className={`absolute -top-5 -right-5 bg-primary rounded-2xl p-3 z-50 shadow-custom ${isOpen ? '' : 'hidden'}`}>
         {food.is_favorite ? (        
-          <div className="flex items-center gap-1 cursor-pointer" >
-            <Icon icon="solar:star-bold" width={30} height={30} className="text-yellow cursor-pointer" onClick={() => removeFromFavorite(food)} />         
+          <div className="flex items-center gap-1 cursor-pointer" onClick={() => removeFromFavorite(food)} >
+            <Icon icon="solar:star-bold" width={30} height={30} className="text-yellow cursor-pointer" />         
             <p className='font-bold'>Favoris</p>
           </div> 
         ) : (
-          <div className="flex items-center gap-1 cursor-pointer" >
-            <Icon icon="solar:star-bold" width={30} height={30} className="text-gray cursor-pointer" onClick={() => addToFavorite(food)} />         
+          <div className="flex items-center gap-1 cursor-pointer" onClick={() => addToFavorite(food)} >
+            <Icon icon="solar:star-bold" width={30} height={30} className="text-gray cursor-pointer"/>         
             <p className='font-bold'>Favoris</p>
           </div>
         )}
