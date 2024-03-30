@@ -1,5 +1,4 @@
 import {
-  Navigate,
   Route,
   BrowserRouter as Router,
   Routes,
@@ -15,8 +14,7 @@ export default function App() {
       </div>
       <div className="pl-[80px]">
         <Routes>
-          <Route path="/" element={<Navigate to="/nutrition" />} />
-          <Route path="/nutrition" Component={NutritionPage} />
+          <Route path="/" Component={NutritionPage}/>
         </Routes>
       </div>
     </Router>
