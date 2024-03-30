@@ -11,9 +11,6 @@ export default function Sidebar() {
         <NavLink to="sport" className="relative">
           <Icon icon="mingcute:fitness-fill" width={40} height={40} className="text-red cursor-pointer" />
         </NavLink>
-        <NavLink to="finance" className="relative">
-          <Icon icon="healthicons:money-bag" width={40} height={40} className="text-yellow cursor-pointer" />
-        </NavLink>
       </div>
     </nav>
   )
