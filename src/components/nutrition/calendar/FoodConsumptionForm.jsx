@@ -147,7 +147,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
             </div>     
          )}
         </div>
-        <button type="submit" disabled={!isFormValid} className='flex font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10 mx-auto' onClick={handleSubmit}>Confirm</button>
+        <button type="submit" disabled={!isFormValid} className={`flex font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10 mx-auto transition ${!isFormValid && 'brightness-90'}`} onClick={handleSubmit}>Confirm</button>
       </div>
     </div>
   )

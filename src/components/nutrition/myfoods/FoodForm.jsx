@@ -4,26 +4,33 @@ import { useNutrition } from "../../../utils/NutritionContext";
 
 export default function FoodForm({ food, close }) {
   const { handleAddFood, handleUpdateFood } = useNutrition();
-  const [isProportionInputVisible, setIsProportionInputVisible] = useState(false)
+  const [isProportionInputVisible, setIsProportionInputVisible] = useState(food?.unity === 'Portion')
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [file, setFile] = useState(null);
 
   const [formData, setFormData] = useState({
     id: 0,
     name: '',
-    kcal: null,
-    prot: null,
-    carb: null,
-    fat: null,
+    kcal: 0,
+    prot: 0,
+    carb: 0,
+    fat: 0,
     unity: 'Gram',
     proportion: 1,
     is_favorite: false,
   })
-  const [file, setFile] = useState(null);
 
   useEffect(() => {
     if (food) {
       setFormData(food)
     }
   }, [food])
+
+  useEffect(() => {
+    const { name, kcal, prot, carb, fat, proportion } = formData;
+    const isValid = name !== '' && kcal !== null && prot !== null && carb !== null && fat !== null && proportion > 0;
+    setIsFormValid(isValid);
+  }, [formData]);
 
   const handleChange = (e) => {
 	  const { name, value } = e.target;
@@ -197,7 +204,7 @@ export default function FoodForm({ food, close }) {
             </div>
           </div>          
         </div>
-        <button type="submit" className='font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10'>Confirm</button>
+        <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10 ${!isFormValid && 'brightness-90'}`}>Confirm</button>
       </form>
     </div>
   )
