@@ -3,11 +3,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNutrition } from '../../../utils/NutritionContext';
 import FoodImage from '../global/FoodImage';
 import MacroItem from '../global/MacroItem';
+import MacroPie from '../global/MacroPie';
 
 function FoodCard({food, editBtnClicked}) {
   const { handleUpdateFood } = useNutrition();
+  const [foodMacros, setFoodMacros] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null)
+
+  useEffect(() => {
+    const macros = getFoodMacros();
+    setFoodMacros(macros);
+  }, [food])
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -22,6 +29,15 @@ function FoodCard({food, editBtnClicked}) {
       document.removeEventListener('click', handleClickOutside);
     }
   }, [isOpen]);
+
+  const getFoodMacros = () => {
+    return {
+      kcal: food.kcal,
+      prot: food.prot,
+      fat: food.fat,
+      carb: food.carb,
+    }
+  }
 
   const addToFavorite = (food) => {
     const foodFavorite = { ...food, is_favorite: 1, is_active: 1, };
@@ -71,10 +87,8 @@ function FoodCard({food, editBtnClicked}) {
         )}
       </div>
       <div className="absolute -top-[20px] left-0 w-full flex justify-between items-center px-3">
-        {food.is_favorite ? (         
-          <Icon icon="solar:star-bold" width={30} height={30} className="text-yellow cursor-pointer" onClick={() => removeFromFavorite(food)} />         
-        ) : (
-          <Icon icon="solar:star-bold" width={30} height={30} className="text-gray cursor-pointer" onClick={() => addToFavorite(food)} />         
+        {foodMacros && (
+          <div className='w-14 h-14'><MacroPie macros={foodMacros} /></div>
         )}
         <FoodImage image={food.image} size="xl" />
         <Icon icon="solar:menu-dots-bold" width="30" height="30" className='text-blue cursor-pointer' onClick={() => setIsOpen(true)} />
