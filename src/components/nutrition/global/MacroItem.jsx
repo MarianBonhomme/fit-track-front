@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export default function MacroItem({ macro, value, isRounded, showUnity }) {
+export default function MacroItem({ macro, value, isRounded, showUnity, css }) {
   const [color, setColor] = useState('');
 
   useEffect(() => {
@@ -17,12 +17,12 @@ export default function MacroItem({ macro, value, isRounded, showUnity }) {
 
   return (
     isRounded ? (
-      <div className={`w-[50px] h-[50px] text-sm flex flex-col justify-center items-center text-primary rounded-full bg-${color}`} >
+      <div className={`w-[50px] h-[50px] text-sm flex flex-col justify-center items-center text-primary rounded-full bg-${color} ${css && css}`} >
         <p className='font-bold'>{Math.round(value)}</p>
         {showUnity && (<p>{macro}</p>)}
       </div>
     ) : (
-      <div className={`w-[110px] h-[30px] flex justify-center items-center gap-1 text-primary text-sm rounded-lg mx-auto bg-${color}`} >
+      <div className={`w-[110px] h-[30px] flex justify-center items-center gap-1 text-primary text-sm rounded-lg mx-auto bg-${color} ${css && css}`} >
         <p className="font-bold">{Math.round(value)}</p>
         {showUnity && (<p>{macro}</p>)}
       </div>

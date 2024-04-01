@@ -68,16 +68,16 @@ export default function RankingCard() {
                     <Icon icon="streamline:crown-solid" width="25" height="25" className="text-blue" />
                   </div>
                 )}
-                <div className={`absolute top-0 right-0 bg-blue pl-2 pb-1 pr-1 rounded-bl-full`}>
+                <div className={`absolute top-0 right-0 bg-blue px-2 py-1 rounded-b-full`}>
                   <p className="text-xs text-primary font-bold">{index + 1}</p>
                 </div>              
                 <FoodImage image={food.image} size="md" />
                 <div className="w-full">
                   <p>{food.name}</p>
-                  <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center justify-between">
                     <QuantityUnity quantity={food.totalQuantity} unity={food.unity} quantityStyle={'text-2xl font-bold'} unityStyle={'text-sm'} />
                     {filter !== 'totalQuantity' && (
-                      <MacroItem macro={filter} value={food[filter]} isRounded={false} />
+                      <MacroItem macro={filter} value={food[filter]} isRounded={false} css="mr-0" />
                     )}
                   </div>
                 </div>
