@@ -121,6 +121,7 @@ export default function FoodForm({ food, close }) {
                   onChange={handleChange}
                   className='max-w-20 px-3 py-1 rounded-md bg-green text-primary font-bold'
                   required
+                  min="0"
                 />
               </div>
               <div className='flex flex-col'>
@@ -133,6 +134,7 @@ export default function FoodForm({ food, close }) {
                   onChange={handleChange}
                   className='max-w-20 px-3 py-1 rounded-md bg-purple text-primary font-bold'
                   required
+                  min="0"
                 />
               </div>
               <div className='flex flex-col'>
@@ -145,6 +147,7 @@ export default function FoodForm({ food, close }) {
                   onChange={handleChange}
                   className='max-w-20 px-3 py-1 rounded-md bg-orange text-primary font-bold'
                   required
+                  min="0"
                 />
               </div>
               <div className='flex flex-col'>
@@ -157,6 +160,7 @@ export default function FoodForm({ food, close }) {
                   onChange={handleChange}
                   className='max-w-20 px-3 py-1 rounded-md bg-yellow text-primary font-bold'
                   required
+                  min="0"
                 />
               </div>
             </div>
@@ -188,6 +192,7 @@ export default function FoodForm({ food, close }) {
                 onChange={handleChange}
                 className='max-w-20 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
                 required
+                min="1"
               />
             </div>
           </div>          

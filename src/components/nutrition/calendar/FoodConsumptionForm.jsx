@@ -1,10 +1,10 @@
 import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
 import { useNutrition } from '../../../utils/NutritionContext';
-import FoodImage from './../global/FoodImage';
 import { sortFoodsByFavoritesAndInactives } from '../../../utils/NutritionService';
 import { useTheme } from '../../../utils/ThemeContext';
 import MacroItem from '../global/MacroItem';
+import FoodImage from './../global/FoodImage';
 
 export default function FoodConsumptionForm({ foodConsumption, close }) {
   const { isDarkMode } = useTheme();
@@ -12,7 +12,8 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
   const [sortedFoods, setSortedFoods] = useState();
   const [selectedFood, setSelectedFood] = useState();
   const [isFoodsListVisible, setIsFoodsListVisible] = useState(!foodConsumption);
-  const [quantity, setQuantity] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [isFormValid, setIsFormValid] = useState(true);
   const [formData, setFormData] = useState({
     id: foodConsumption ? foodConsumption.id : null,
     food_id: selectedFood ? selectedFood.id : 1,
@@ -37,6 +38,11 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
   }, [selectedFood, quantity])
 
   const handleChangeQuantity = (event) => {
+    if (event.target.value < 1) {
+      setIsFormValid(false);
+    } else {
+      setIsFormValid(true);
+    }    
     setQuantity(event.target.value);
   };
 
@@ -55,8 +61,8 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
       } else {
         handleAddFoodConsumption(formData)
       }
-    }
-	  close();
+    }    
+    close();
 	};
 
   const isFoodAlreadyInDate = (foodId) => {
@@ -105,7 +111,14 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                 </div>
                 <div className='flex flex-col items-center gap-3'>
                   <p>Quantity</p>
-                  <input type="number" className={`max-w-20 px-3 py-1 rounded-md ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`} value={quantity} onChange={handleChangeQuantity} />
+                  <input 
+                    type="number" 
+                    className={`max-w-20 px-3 py-1 rounded-md ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`} 
+                    value={quantity} 
+                    onChange={handleChangeQuantity}   
+                    required                 
+                    min="1"
+                  />
                 </div>
               </div>
             ) : (
@@ -134,7 +147,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
             </div>     
          )}
         </div>
-        <button type="submit" className='flex font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10 mx-auto' onClick={handleSubmit}>Confirm</button>
+        <button type="submit" disabled={!isFormValid} className='flex font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10 mx-auto' onClick={handleSubmit}>Confirm</button>
       </div>
     </div>
   )
