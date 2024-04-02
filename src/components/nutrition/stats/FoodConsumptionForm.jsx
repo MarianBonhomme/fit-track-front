@@ -4,7 +4,7 @@ import { useNutrition } from '../../../utils/NutritionContext';
 import { sortFoodsByFavoritesAndInactives } from '../../../utils/NutritionService';
 import { useTheme } from '../../../utils/ThemeContext';
 import MacroItem from '../global/MacroItem';
-import FoodImage from './../global/FoodImage';
+import FoodImage from '../global/FoodImage';
 
 export default function FoodConsumptionForm({ foodConsumption, close }) {
   const { isDarkMode } = useTheme();
