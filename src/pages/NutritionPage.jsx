@@ -1,12 +1,12 @@
+import { useState } from 'react';
+import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import MyFoodsDashboard from '../components/nutrition/MyFoodsDashboard';
 import { useTheme } from '../utils/ThemeContext';
 import StatsDashboard from './../components/nutrition/StatsDashboard';
-import { DarkModeSwitch } from 'react-toggle-dark-mode';
-import { useNutrition } from '../utils/NutritionContext';
 
 export default function NutritionPage() { 
   const { isDarkMode, toggleDarkMode } = useTheme();
-  const { activeDashboard, setActiveDashboard } = useNutrition();
+  const [activeDashboard, setActiveDashboard] = useState('stats');
 
   return (
     <div className='p-5'>

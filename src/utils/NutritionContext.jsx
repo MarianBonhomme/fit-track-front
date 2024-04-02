@@ -10,7 +10,6 @@ export const NutritionProvider = ({ children }) => {
   const [currentDay, setCurrentDay] = useState()
   const [dailyFoodConsumptions, setDailyFoodConsumptions] = useState([]);
   const [daysIndicatedCount, setDaysIndicatedCount] = useState(0);
-  const [activeDashboard, setActiveDashboard] = useState('stats');
 
   useEffect(() => {
     fetchFoods();
@@ -144,7 +143,6 @@ export const NutritionProvider = ({ children }) => {
         currentDay,
         dailyFoodConsumptions,
         daysIndicatedCount,
-        activeDashboard,
         handleAddFood,
         handleUpdateFood,
         handleAddFoodConsumption,
@@ -152,7 +150,6 @@ export const NutritionProvider = ({ children }) => {
         handleDeleteFoodConsumption,
         incrementCurrentDay,
         decrementCurrentDay,
-        setActiveDashboard,
       }}
     >
       {children}

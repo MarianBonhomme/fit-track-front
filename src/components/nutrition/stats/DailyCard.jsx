@@ -11,7 +11,7 @@ import { getFormattedDate } from '../../../utils/DateService';
 import MacroItem from '../global/MacroItem';
 
 export default function DailyCard() {
-  const { currentDay, dailyFoodConsumptions, incrementCurrentDay, decrementCurrentDay, setActiveDashboard } = useNutrition();
+  const { currentDay, dailyFoodConsumptions, incrementCurrentDay, decrementCurrentDay } = useNutrition();
   const [sortedDailyFoodConsumptions, setSortedDailyFoodConsumptions] = useState([]);
   const [isFoodConsumptionFormVisible, setIsFoodConsumptionFormVisible] = useState(false);
   const [foodConsumptionToUpdate, setFoodConsumptionToUpdate] = useState(null);
@@ -64,7 +64,6 @@ export default function DailyCard() {
         <div className="flex justify-between items-center">
           <AddButton btnClicked={() => openFoodConsumptionForm(null)}/>
           <CardTitle text={currentDay && getFormattedDate(currentDay)} className="justify-self-start"/>
-          <Icon icon="solar:calendar-bold" width="50" height="50" className="text-blue cursor-pointer" onClick={() => setActiveDashboard('calendar')} />
         </div>
         <div className="flex justify-center items-center gap-5 mb-3">
           <Icon icon="ic:round-chevron-left" width="50" height="50" className="text-dark cursor-pointer" onClick={decrementCurrentDay} />
