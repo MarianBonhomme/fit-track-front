@@ -148,6 +148,7 @@ export const NutritionProvider = ({ children }) => {
         handleAddFoodConsumption,
         handleUpdateFoodConsumption,
         handleDeleteFoodConsumption,
+        setCurrentDay,
         incrementCurrentDay,
         decrementCurrentDay,
       }}

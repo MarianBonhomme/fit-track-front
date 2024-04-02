@@ -11,7 +11,7 @@ import { getFormattedDate } from '../../../utils/DateService';
 import MacroItem from '../global/MacroItem';
 
 export default function DailyCard() {
-  const { currentDay, dailyFoodConsumptions, incrementCurrentDay, decrementCurrentDay } = useNutrition();
+  const { currentDay, dailyFoodConsumptions, incrementCurrentDay, decrementCurrentDay, setCurrentDay } = useNutrition();
   const [sortedDailyFoodConsumptions, setSortedDailyFoodConsumptions] = useState([]);
   const [isFoodConsumptionFormVisible, setIsFoodConsumptionFormVisible] = useState(false);
   const [foodConsumptionToUpdate, setFoodConsumptionToUpdate] = useState(null);
@@ -58,12 +58,18 @@ export default function DailyCard() {
     setIsFoodConsumptionFormVisible(false);
   }
 
+  const goToToday = () => {
+    const today = new Date();
+    setCurrentDay(today);
+  }
+
   return (
     <>
       <div className="bg-primary px-4 py-3 shadow-custom rounded-3xl rounded-tl-none relative">
         <div className="flex justify-between items-center">
           <AddButton btnClicked={() => openFoodConsumptionForm(null)}/>
           <CardTitle text={currentDay && getFormattedDate(currentDay)} className="justify-self-start"/>
+          <p className={`bg-red text-primary font-bold px-3 py-2 rounded-full ${currentDay && getFormattedDate(currentDay) === 'Today' ? 'opacity-0' : 'cursor-pointer'}`} onClick={goToToday}>Today</p>
         </div>
         <div className="flex justify-center items-center gap-5 mb-3">
           <Icon icon="ic:round-chevron-left" width="50" height="50" className="text-dark cursor-pointer" onClick={decrementCurrentDay} />
