@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { getFoods, addFood, updateFood, getFoodConsumptions, getFoodsWithTotalQuantity, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getDatesCount } from './NutritionService';
+import { getFoods, addFood, updateFood, getFoodConsumptions, getFoodsWithTotalQuantity, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getDatesCount, deleteFood } from './NutritionService';
 
 const NutritionContext = createContext();
 
@@ -93,6 +93,15 @@ export const NutritionProvider = ({ children }) => {
     }
   };
 
+  const handleDeleteFood = async (foodToDelete) => {
+    try {
+      await deleteFood(foodToDelete);
+      setFoods((prevFoods) => prevFoods.filter((food) => food.id !== foodToDelete.id));
+    } catch (error) {
+      console.error(`Error deleting foodConsumption with id ${foodToDelete.id}:`, error);
+    }
+  };
+
   const handleAddFoodConsumption = async (newFoodConsumption) => {
     try {
       const addedFoodConsumption = await addFoodConsumption(newFoodConsumption);
@@ -145,6 +154,7 @@ export const NutritionProvider = ({ children }) => {
         daysIndicatedCount,
         handleAddFood,
         handleUpdateFood,
+        handleDeleteFood,
         handleAddFoodConsumption,
         handleUpdateFoodConsumption,
         handleDeleteFoodConsumption,

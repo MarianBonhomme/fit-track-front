@@ -6,7 +6,7 @@ import MacroItem from '../global/MacroItem';
 import MacroPie from '../global/MacroPie';
 
 function FoodCard({food, editBtnClicked}) {
-  const { handleUpdateFood } = useNutrition();
+  const { handleUpdateFood, handleDeleteFood } = useNutrition();
   const [foodMacros, setFoodMacros] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null)
@@ -62,28 +62,43 @@ function FoodCard({food, editBtnClicked}) {
     handleUpdateFood(foodInactive);
     setIsOpen(false);
   }
+
+  const deleteFood = (food) => {
+    const confirm = window.confirm("Are your sure to delete this food ? All stats and data associated with will be deleted.")
+    if (confirm) {
+      handleDeleteFood(food);
+    }
+  }
   
   return (
     <div ref={ref} className={`bg-primary relative w-[300px] mt-[50px] pt-[80px] shadow-custom rounded-2xl p-4 ${!food.is_active && 'opacity-60'}`}>
       <div className={`absolute -top-5 -right-5 flex flex-col gap-1 bg-primary rounded-2xl p-3 z-50 shadow-custom ${isOpen ? '' : 'hidden'}`}>   
-        <div className="flex items-center gap-1 cursor-pointer" onClick={() => food.is_favorite ? removeFromFavorite(food) : addToFavorite(food)} >
-          <Icon icon="solar:star-bold" width={30} height={30} className={`${food.is_favorite ? 'text-yellow' : 'text-gray'} cursor-pointer`} />         
-          <p className='font-bold'>Favoris</p>
-        </div>
-        <div className="flex items-center gap-1 cursor-pointer" onClick={editBtnClicked} >
-          <Icon icon="mage:settings-fill" width={30} height={30} className="text-blue cursor-pointer" />
-          <p className='font-bold'>Edit</p>
-        </div>
         {food.is_active ? (  
-          <div className="flex items-center gap-1 cursor-pointer" onClick={() => setInactive(food)} >       
-            <Icon icon="ic:round-delete" width={30} height={30} className="text-red cursor-pointer"/>
-            <p className='font-bold'>Disable</p>      
-          </div>  
+          <>
+            <div className="flex items-center gap-1 cursor-pointer" onClick={() => food.is_favorite ? removeFromFavorite(food) : addToFavorite(food)} >
+              <Icon icon="solar:star-bold" width={30} height={30} className={`${food.is_favorite ? 'text-yellow' : 'text-gray'} cursor-pointer`} />         
+              <p className='font-bold'>Favoris</p>
+            </div>
+            <div className="flex items-center gap-1 cursor-pointer" onClick={editBtnClicked} >
+              <Icon icon="mage:settings-fill" width={30} height={30} className="text-blue cursor-pointer" />
+              <p className='font-bold'>Edit</p>
+            </div>
+            <div className="flex items-center gap-1 cursor-pointer" onClick={() => setInactive(food)} >       
+              <Icon icon="ic:round-delete" width={30} height={30} className="text-red cursor-pointer"/>
+              <p className='font-bold'>Disable</p>      
+            </div>  
+          </>
         ) : (
-          <div className="flex items-center gap-1 cursor-pointer" onClick={() => setActive(food)} >
-            <Icon icon="mingcute:arrow-up-fill" width={30} height={30} className="text-purple cursor-pointer" /> 
-            <p className='font-bold'>Enable</p> 
-          </div>    
+         <>
+            <div className="flex items-center gap-1 cursor-pointer" onClick={() => setActive(food)} >
+              <Icon icon="mingcute:arrow-up-fill" width={30} height={30} className="text-purple cursor-pointer" /> 
+              <p className='font-bold'>Enable</p> 
+            </div>  
+            <div className="flex items-center gap-1 cursor-pointer" onClick={() => deleteFood(food)} >
+              <Icon icon="ic:round-delete" width={30} height={30} className="text-red cursor-pointer" /> 
+              <p className='font-bold'>Delete</p> 
+            </div> 
+          </>    
         )}
       </div>
       <div className="absolute -top-[20px] left-0 w-full flex justify-between items-center px-3">

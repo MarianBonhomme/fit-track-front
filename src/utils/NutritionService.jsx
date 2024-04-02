@@ -58,6 +58,16 @@ const updateFood = async (foodToUpdate) => {
   }
 };
 
+const deleteFood = async (foodToDelete) => {
+  try {
+    const response = await axios.delete(`${BASE_URL}/food/${foodToDelete.id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error deleting food with id ${foodToDelete.id}:`, error);
+    throw error;
+  }
+};
+
 const getFoodConsumptions = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/foodConsumption`);
@@ -163,4 +173,4 @@ const sortFoodConsumptionsByFavorites = (foodConsumptions) => {
   return sortedFoodConsumptions;
 }
 
-export { getFoods, getFoodById, addFood, updateFood, getFoodConsumptions, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getDatesCount, getFoodsWithTotalQuantity, calculateMacros, sortFoodsByFavoritesAndInactives, sortFoodConsumptionsByFavorites };
+export { getFoods, getFoodById, addFood, updateFood, deleteFood, getFoodConsumptions, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getDatesCount, getFoodsWithTotalQuantity, calculateMacros, sortFoodsByFavoritesAndInactives, sortFoodConsumptionsByFavorites };
