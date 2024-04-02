@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import CalendarDashboard from '../components/nutrition/CalendarDashboard';
 import MyFoodsDashboard from '../components/nutrition/MyFoodsDashboard';
 import { useTheme } from '../utils/ThemeContext';
 import StatsDashboard from './../components/nutrition/StatsDashboard';
@@ -16,7 +14,6 @@ export default function NutritionPage() {
         <ul className='flex font-bold'>
           <li className={`${activeDashboard === 'stats' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActiveDashboard('stats')} >Statistics</li>
           <li className={`${activeDashboard === 'myfoods' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActiveDashboard('myfoods')} >My Foods</li>
-          <li className={`${activeDashboard === 'calendar' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActiveDashboard('calendar')} >Calendar</li>
         </ul>
         <DarkModeSwitch
           checked={isDarkMode}
@@ -29,9 +26,6 @@ export default function NutritionPage() {
       )}
       {activeDashboard === 'myfoods' && (
         <MyFoodsDashboard />
-      )}
-      {activeDashboard === 'calendar' && (
-        <CalendarDashboard />
       )}
     </div>
   );
