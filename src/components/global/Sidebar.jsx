@@ -8,9 +8,9 @@ export default function Sidebar() {
         <NavLink to="/" className="relative">
           <Icon icon="fa-solid:apple-alt" width={40} height={40} className="text-green cursor-pointer" />
         </NavLink>
-        {/* <NavLink to="sport" className="relative">
-          <Icon icon="mingcute:fitness-fill" width={40} height={40} className="text-red cursor-pointer" />
-        </NavLink> */}
+        <NavLink to="sport" className="relative">
+          <Icon icon="material-symbols:fitness-center-rounded" width={40} height={40} className="text-red cursor-pointer" />
+        </NavLink>
       </div>
     </nav>
   )
