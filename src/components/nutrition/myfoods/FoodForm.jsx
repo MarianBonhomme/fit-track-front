@@ -15,6 +15,7 @@ export default function FoodForm({ food, close }) {
     prot: 0,
     carb: 0,
     fat: 0,
+    price: 0,
     unity: 'Gram',
     proportion: 1,
     is_favorite: false,
@@ -73,6 +74,7 @@ export default function FoodForm({ food, close }) {
     newFormData.append('prot', formData.prot);
     newFormData.append('carb', formData.carb);
     newFormData.append('fat', formData.fat);
+    newFormData.append('price', formData.price);
     newFormData.append('unity', formData.unity);
     newFormData.append('proportion', formData.proportion);
     newFormData.append('is_favorite', formData.is_favorite);
@@ -174,6 +176,19 @@ export default function FoodForm({ food, close }) {
             <p className='mt-2 text-gray font-bold'>Toutes les quantités sont à renseigner pour 100g</p>
           </div>
           <div className="flex gap-5">
+            <div className="flex flex-col">
+              <label htmlFor="price">Price</label>
+              <input
+                type="number"
+                id="price"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                className='max-w-20 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
+                required
+                min="0"
+              />
+            </div>
             <div className='flex flex-col'>
               <label htmlFor="unity">Unity</label>
               <select
