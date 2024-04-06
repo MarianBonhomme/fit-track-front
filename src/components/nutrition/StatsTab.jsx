@@ -6,7 +6,7 @@ import MacroChartCard from './stats/MacroChartCard';
 import MacroRepartitionCard from './stats/MacroRepartitionCard';
 import RankingCard from './stats/RankingCard';
 
-export default function StatsDashboard() {
+export default function StatsTab() {
   const { foodsWithTotalQuantity } = useNutrition();
   const [foodsForCountCards, setFoodsForCountCards] = useState([]);
   const colors = ["purple", "yellow", "orange", "green"]
