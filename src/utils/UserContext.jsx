@@ -1,11 +1,22 @@
-import { createContext, useContext, useState } from "react";
-import { signin, signup } from "./UserService"
+import { createContext, useContext, useEffect, useState } from "react";
+import { signin, signup, getUserById } from "./UserService"
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const storedUser = localStorage.getItem('user')
   const [user, setUser] = useState(storedUser)
+
+  useEffect(() => {
+    if(storedUser) {
+      fetchUser();
+    }
+  }, [])
+
+  const fetchUser = async () => {
+    const userFetched = await getUserById(storedUser);
+    setUser(userFetched)
+  }
 
   const handleSignin = async (user) => {
     try {

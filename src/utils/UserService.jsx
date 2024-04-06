@@ -22,4 +22,14 @@ const signup = async (user) => {
   }
 }
 
-export { signin, signup };
+const getUserById = async (userId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/user/${userId}`)
+    return response.data
+  } catch (error) {
+    console.error("Error signin:", error)
+    throw error;
+  }
+}
+
+export { signin, signup, getUserById };

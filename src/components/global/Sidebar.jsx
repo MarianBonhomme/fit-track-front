@@ -32,6 +32,7 @@ export default function Sidebar() {
           className="text-red cursor-pointer"
           onClick={handleSignout}
         />
+        {user.pseudo}
       </div>
     </nav>
   );
