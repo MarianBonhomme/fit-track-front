@@ -5,6 +5,7 @@ import SportDashboard from '../components/sport/SportDashboard';
 import { DashboardProvider, useDashboard } from "../utils/DashboardContext";
 import { NutritionProvider } from "../utils/NutritionContext";
 import { ThemeProvider } from "../utils/ThemeContext";
+import SettingsDashboard from "../components/settings/SettingsDashboard";
 
 export default function DashboardPage() {
   return (
@@ -30,6 +31,9 @@ function DashboardPageContent() {
         }
         {activeDashboard === "sport" && 
           <SportDashboard />
+        }
+        {activeDashboard === "settings" && 
+          <SettingsDashboard />
         }
       </div>
     </ThemeProvider>

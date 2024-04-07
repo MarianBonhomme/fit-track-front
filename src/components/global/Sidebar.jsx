@@ -30,7 +30,7 @@ export default function Sidebar() {
           width={40}
           height={40}
           className="text-red cursor-pointer"
-          onClick={handleSignout}
+          onClick={() => setActiveDashboard("settings")}
         />
         {user.pseudo}
       </div>
