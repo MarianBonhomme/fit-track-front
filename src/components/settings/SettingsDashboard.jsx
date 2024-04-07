@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
-import { useAvatar } from '../../utils/settings/AvatarContext';
-import { useTheme } from '../../utils/global/ThemeContext';
 import AddButton from '../nutrition/global/AddButton';
 import AvatarCard from './avatars/AvatarCard';
 import AvatarForm from './avatars/AvatarForm';
+import { useUser } from '../../utils/user/UserContext';
 
 export default function SettingsDashboard() {
-  const { isDarkMode, toggleDarkMode } = useTheme();
-  const { avatars } = useAvatar();
+  const { avatars, isDarkMode, toggleDarkMode } = useUser();
   const [isAvatarFormDisplayed, setIsAvatarFormDisplayed] = useState(false);
 
   return (

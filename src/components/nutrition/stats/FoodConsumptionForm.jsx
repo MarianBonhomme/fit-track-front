@@ -2,12 +2,12 @@ import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
 import { useNutrition } from '../../../utils/nutrition/NutritionContext';
 import { sortFoodsByFavoritesAndInactives } from '../../../utils/nutrition/NutritionService';
-import { useTheme } from '../../../utils/global/ThemeContext';
 import MacroItem from '../global/MacroItem';
 import FoodImage from '../global/FoodImage';
+import { useUser } from '../../../utils/user/UserContext';
 
 export default function FoodConsumptionForm({ foodConsumption, close }) {
-  const { isDarkMode } = useTheme();
+  const { isDarkMode } = useUser();
   const { foods, dailyFoodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption, currentDay } = useNutrition();
   const [sortedFoods, setSortedFoods] = useState();
   const [selectedFood, setSelectedFood] = useState();

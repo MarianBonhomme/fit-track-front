@@ -4,7 +4,6 @@ import NutritionPage from "../components/nutrition/NutritionDashboard";
 import SportDashboard from '../components/sport/SportDashboard';
 import { DashboardProvider, useDashboard } from "../utils/global/DashboardContext";
 import { NutritionProvider } from "../utils/nutrition/NutritionContext";
-import { ThemeProvider } from "../utils/global/ThemeContext";
 import SettingsDashboard from "../components/settings/SettingsDashboard";
 
 export default function DashboardPage() {
@@ -19,7 +18,7 @@ function DashboardPageContent() {
   const { activeDashboard } = useDashboard();
 
   return (
-    <ThemeProvider>
+    <>
       <div className="h-screen w-[80px] bg-primary fixed top-0 left-0">
         <Sidebar />
       </div>
@@ -36,6 +35,6 @@ function DashboardPageContent() {
           <SettingsDashboard />
         }
       </div>
-    </ThemeProvider>
+    </>
   );
 }

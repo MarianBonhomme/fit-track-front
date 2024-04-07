@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { useAvatar } from '../../../utils/settings/AvatarContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { useUser } from '../../../utils/user/UserContext';
 
 export default function AvatarForm({ close }) {
-  const { handleAddAvatar } = useAvatar();
+  const { handleAddAvatar } = useUser();
   const [name, setName] = useState('');
   const [file, setFile] = useState(null);
 

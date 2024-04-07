@@ -6,15 +6,12 @@ import {
 } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
-import { UserProvider, useUser } from "./utils/settings/UserContext";
-import { AvatarProvider } from './utils/settings/AvatarContext';
+import { UserProvider, useUser } from "./utils/user/UserContext";
 
 export default function App() {
   return (
     <UserProvider>
-      <AvatarProvider>
-        <AppContent />
-      </AvatarProvider>     
+      <AppContent />  
     </UserProvider>
   );
 }

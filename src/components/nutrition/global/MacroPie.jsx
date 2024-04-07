@@ -3,12 +3,12 @@ import { Chart } from 'chart.js/auto';
 import React, { useMemo, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import '../../../index.scss';
-import { useTheme } from '../../../utils/global/ThemeContext';
+import { useUser } from '../../../utils/user/UserContext';
 
 Chart.register(CategoryScale);
 
 export default function MacroPie({macros}) {
-  const { colors } = useTheme();
+  const { themeColors } = useUser();
 
   const data = useMemo(() => {
     return {
@@ -16,13 +16,13 @@ export default function MacroPie({macros}) {
       datasets: [
         {
           data: [macros.prot, macros.carb, macros.fat],
-          backgroundColor: [colors.purple, colors.yellow, colors.orange],
+          backgroundColor: [themeColors.purple, themeColors.yellow, themeColors.orange],
           borderWidth: 0,
           hoverOffset: 10,
         },
       ],
     };
-  }, [macros, colors]);
+  }, [macros, themeColors]);
 
   return (
     <Pie data={data} /> 

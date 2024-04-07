@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useDashboard } from "../../utils/global/DashboardContext";
-import { useUser } from "../../utils/settings/UserContext";
+import { useUser } from "../../utils/user/UserContext";
 import AvatarImage from './../settings/avatars/AvatarImage';
 
 export default function Sidebar() {

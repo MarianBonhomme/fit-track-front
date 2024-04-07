@@ -32,4 +32,14 @@ const getUserById = async (userId) => {
   }
 }
 
-export { signin, signup, getUserById };
+const updateUser = async (userToUpdate) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/user/${userToUpdate.id}`, userToUpdate);
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating user with id ${userToUpdate.id}:`, error);
+    throw error;
+  }
+};
+
+export { signin, signup, getUserById, updateUser };

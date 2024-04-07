@@ -1,9 +1,9 @@
 import { Bar } from "react-chartjs-2";
 import CardTitle from "../../global/CardTitle";
-import { useTheme } from "../../../utils/global/ThemeContext";
+import { useUser } from "../../../utils/user/UserContext";
 
 export default function MacroChartCard() {
-  const { colors } = useTheme();
+  const { themeColors } = useUser();
 
   const data = {
     labels: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
@@ -11,19 +11,19 @@ export default function MacroChartCard() {
       {
         label: 'Proteines',
         data: [80, 70, 90, 75, 85, 80, 95],
-        backgroundColor: colors.purple,
+        backgroundColor: themeColors.purple,
         barPercentage: 0.9,
       },
       {
         label: 'Glucides',
         data: [150, 130, 160, 140, 155, 150, 170],
-        backgroundColor: colors.yellow,
+        backgroundColor: themeColors.yellow,
         barPercentage: 0.9,
       },
       {
         label: 'Lipides',
         data: [50, 45, 55, 48, 52, 50, 58],
-        backgroundColor: colors.orange,
+        backgroundColor: themeColors.orange,
         barPercentage: 0.9,
       },
     ],
