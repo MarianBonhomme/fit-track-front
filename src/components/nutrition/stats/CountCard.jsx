@@ -1,4 +1,4 @@
-import { useNutrition } from "../../../utils/NutritionContext";
+import { useNutrition } from "../../../utils/nutrition/NutritionContext";
 import CardTitle from "../../global/CardTitle";
 import { Icon } from '@iconify/react';
 

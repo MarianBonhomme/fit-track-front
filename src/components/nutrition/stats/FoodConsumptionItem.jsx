@@ -1,10 +1,10 @@
 import { Icon } from '@iconify/react'
 import React, { useEffect, useState } from 'react'
-import { useNutrition } from '../../../utils/NutritionContext'
+import { useNutrition } from '../../../utils/nutrition/NutritionContext'
 import FoodImage from '../global/FoodImage'
 import QuantityUnity from '../global/QuantityUnity'
 import MacroItem from '../global/MacroItem'
-import { calculateMacros } from '../../../utils/NutritionService'
+import { calculateMacros } from '../../../utils/nutrition/NutritionService'
 
 export default function FoodConsumptionItem({consumption, clicked}) {
   const { handleDeleteFoodConsumption } = useNutrition();

@@ -1,13 +1,13 @@
 import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
-import { useNutrition } from '../../../utils/NutritionContext';
-import { sortFoodConsumptionsByFavorites } from '../../../utils/NutritionService';
+import { useNutrition } from '../../../utils/nutrition/NutritionContext';
+import { sortFoodConsumptionsByFavorites } from '../../../utils/nutrition/NutritionService';
 import CardTitle from '../../global/CardTitle';
 import FoodConsumptionForm from './FoodConsumptionForm';
 import FoodConsumptionItem from './FoodConsumptionItem';
 import AddButton from '../global/AddButton';
 import MacroPie from '../global/MacroPie';
-import { getFormattedDate } from '../../../utils/DateService';
+import { getFormattedDate } from '../../../utils/global/DateService';
 import MacroItem from '../global/MacroItem';
 
 export default function DailyCard() {

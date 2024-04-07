@@ -1,6 +1,6 @@
 import { Bar } from "react-chartjs-2";
 import CardTitle from "../../global/CardTitle";
-import { useTheme } from "../../../utils/ThemeContext";
+import { useTheme } from "../../../utils/global/ThemeContext";
 
 export default function MacroChartCard() {
   const { colors } = useTheme();

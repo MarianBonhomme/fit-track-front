@@ -1,8 +1,8 @@
 import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
-import { useNutrition } from '../../../utils/NutritionContext';
-import { sortFoodsByFavoritesAndInactives } from '../../../utils/NutritionService';
-import { useTheme } from '../../../utils/ThemeContext';
+import { useNutrition } from '../../../utils/nutrition/NutritionContext';
+import { sortFoodsByFavoritesAndInactives } from '../../../utils/nutrition/NutritionService';
+import { useTheme } from '../../../utils/global/ThemeContext';
 import MacroItem from '../global/MacroItem';
 import FoodImage from '../global/FoodImage';
 

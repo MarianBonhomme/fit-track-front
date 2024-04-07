@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import React, { useEffect, useRef, useState } from 'react';
-import { useNutrition } from '../../../utils/NutritionContext';
+import { useNutrition } from '../../../utils/nutrition/NutritionContext';
 import FoodImage from '../global/FoodImage';
 import MacroItem from '../global/MacroItem';
 import MacroPie from '../global/MacroPie';

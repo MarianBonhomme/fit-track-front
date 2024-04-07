@@ -1,10 +1,10 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
-import { useNutrition } from "../../../utils/NutritionContext";
+import { useNutrition } from "../../../utils/nutrition/NutritionContext";
 import CardTitle from "../../global/CardTitle";
 import FoodImage from "../global/FoodImage";
 import QuantityUnity from "../global/QuantityUnity";
-import { calculateMacros } from "../../../utils/NutritionService";
+import { calculateMacros } from "../../../utils/nutrition/NutritionService";
 import MacroItem from "../global/MacroItem";
 
 export default function RankingCard() {

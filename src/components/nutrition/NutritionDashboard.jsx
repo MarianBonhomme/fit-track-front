@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
-import { useTheme } from '../../utils/ThemeContext';
+import { useTheme } from '../../utils/global/ThemeContext';
 import MyFoodsTab from './MyFoodsTab';
 import StatsTab from './StatsTab';
 

@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
-import { UserProvider, useUser } from "./utils/UserContext";
+import { UserProvider, useUser } from "./utils/user/UserContext";
 
 export default function App() {
   return (

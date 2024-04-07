@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNutrition } from "../../../utils/NutritionContext";
+import { useNutrition } from "../../../utils/nutrition/NutritionContext";
 import CardTitle from "../../global/CardTitle";
 import MacroPie from '../global/MacroPie';
 import MacroItem from "../global/MacroItem";

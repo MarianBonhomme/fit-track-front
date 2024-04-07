@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
-import { useDashboard } from "../../utils/DashboardContext";
-import { useUser } from "../../utils/UserContext";
+import { useDashboard } from "../../utils/global/DashboardContext";
+import { useUser } from "../../utils/user/UserContext";
 
 export default function Sidebar() {
   const { setActiveDashboard } = useDashboard();

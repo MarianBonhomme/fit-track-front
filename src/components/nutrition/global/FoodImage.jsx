@@ -1,5 +1,5 @@
 import React from 'react'
-import { getimagePathFormatted } from '../../../utils/ImageService'
+import { getimagePathFormatted } from '../../../utils/global/ImageService'
 
 export default function FoodImage({ image, size }) {
   return (

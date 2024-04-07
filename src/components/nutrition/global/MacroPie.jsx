@@ -3,7 +3,7 @@ import { Chart } from 'chart.js/auto';
 import React, { useMemo, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import '../../../index.scss';
-import { useTheme } from '../../../utils/ThemeContext';
+import { useTheme } from '../../../utils/global/ThemeContext';
 
 Chart.register(CategoryScale);
 

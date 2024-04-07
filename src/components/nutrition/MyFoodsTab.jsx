@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
-import { useNutrition } from '../../utils/NutritionContext';
-import { sortFoodsByFavoritesAndInactives } from '../../utils/NutritionService';
+import { useNutrition } from '../../utils/nutrition/NutritionContext';
+import { sortFoodsByFavoritesAndInactives } from '../../utils/nutrition/NutritionService';
 import AddButton from './global/AddButton';
 import FoodCard from './myfoods/FoodCard';
 import FoodForm from './myfoods/FoodForm';

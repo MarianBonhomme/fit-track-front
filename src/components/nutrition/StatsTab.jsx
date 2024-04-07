@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNutrition } from '../../utils/NutritionContext';
+import { useNutrition } from '../../utils/nutrition/NutritionContext';
 import CountCard from './stats/CountCard';
 import DailyCard from './stats/DailyCard';
 import MacroChartCard from './stats/MacroChartCard';

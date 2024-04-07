@@ -2,9 +2,9 @@ import React from "react";
 import Sidebar from "../components/global/Sidebar";
 import NutritionPage from "../components/nutrition/NutritionDashboard";
 import SportDashboard from '../components/sport/SportDashboard';
-import { DashboardProvider, useDashboard } from "../utils/DashboardContext";
-import { NutritionProvider } from "../utils/NutritionContext";
-import { ThemeProvider } from "../utils/ThemeContext";
+import { DashboardProvider, useDashboard } from "../utils/global/DashboardContext";
+import { NutritionProvider } from "../utils/nutrition/NutritionContext";
+import { ThemeProvider } from "../utils/global/ThemeContext";
 import SettingsDashboard from "../components/settings/SettingsDashboard";
 
 export default function DashboardPage() {
