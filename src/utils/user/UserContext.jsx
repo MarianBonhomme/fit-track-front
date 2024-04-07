@@ -1,21 +1,35 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { signin, signup, getUserById } from "./UserService"
+import { getAvatarById } from "../avatar/AvatarService";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const storedUser = localStorage.getItem('user')
   const [user, setUser] = useState(storedUser)
+  const [userAvatar, setUserAvatar] = useState(null);
 
   useEffect(() => {
-    if(storedUser) {
+    if (storedUser) {
       fetchUser();
     }
   }, [])
 
+  useEffect(() => {
+    console.log(user)
+    if (user && user.avatar_id) {
+      fetchUserAvatar();
+    }
+  }, [user])
+
   const fetchUser = async () => {
     const userFetched = await getUserById(storedUser);
     setUser(userFetched)
+  }
+
+  const fetchUserAvatar = async () => {
+    const fetchedUserAvatar = await getAvatarById(user.avatar_id)
+    setUserAvatar(fetchedUserAvatar);
   }
 
   const handleSignin = async (user) => {
@@ -47,6 +61,7 @@ export const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         user,
+        userAvatar,
         handleSignin,
         handleSignup,
         handleSignout,

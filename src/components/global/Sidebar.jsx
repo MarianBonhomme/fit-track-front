@@ -1,10 +1,11 @@
 import { Icon } from "@iconify/react";
 import { useDashboard } from "../../utils/global/DashboardContext";
 import { useUser } from "../../utils/user/UserContext";
+import AvatarImage from "./AvatarImage";
 
 export default function Sidebar() {
   const { setActiveDashboard } = useDashboard();
-  const { user, handleSignout } = useUser();
+  const { userAvatar } = useUser();
 
   return (
     <nav className="h-screen flex flex-col justify-between items-center py-10">
@@ -25,14 +26,7 @@ export default function Sidebar() {
         />
       </div>
       <div className="flex flex-col gap-10">
-        <Icon
-          icon="uil:signout"
-          width={40}
-          height={40}
-          className="text-red cursor-pointer"
-          onClick={() => setActiveDashboard("settings")}
-        />
-        {user.pseudo}
+        <AvatarImage image={userAvatar?.image} size={'sm'} clicked={() => setActiveDashboard("settings")} />        
       </div>
     </nav>
   );
