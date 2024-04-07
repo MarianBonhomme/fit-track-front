@@ -7,11 +7,14 @@ import {
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
 import { UserProvider, useUser } from "./utils/user/UserContext";
+import { AvatarProvider } from './utils/avatar/AvatarContext';
 
 export default function App() {
   return (
     <UserProvider>
-      <AppContent />
+      <AvatarProvider>
+        <AppContent />
+      </AvatarProvider>     
     </UserProvider>
   );
 }
