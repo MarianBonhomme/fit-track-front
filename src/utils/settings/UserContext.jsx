@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { signin, signup, getUserById } from "./UserService"
-import { getAvatarById } from "../avatar/AvatarService";
+import { getAvatarById } from "./AvatarService";
 
 const UserContext = createContext();
 
@@ -16,7 +16,6 @@ export const UserProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    console.log(user)
     if (user && user.avatar_id) {
       fetchUserAvatar();
     }

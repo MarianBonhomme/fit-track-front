@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useUser } from '../../utils/user/UserContext';
+import { useUser } from '../../utils/settings/UserContext';
 
 export default function SignupForm() {
   const {handleSignup} = useUser();

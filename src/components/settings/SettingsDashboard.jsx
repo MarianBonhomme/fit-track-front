@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
-import { useAvatar } from '../../utils/avatar/AvatarContext';
+import { useAvatar } from '../../utils/settings/AvatarContext';
 import { useTheme } from '../../utils/global/ThemeContext';
 import AddButton from '../nutrition/global/AddButton';
 import AvatarCard from './avatars/AvatarCard';

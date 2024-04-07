@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
-import { UserProvider, useUser } from "./utils/user/UserContext";
-import { AvatarProvider } from './utils/avatar/AvatarContext';
+import { UserProvider, useUser } from "./utils/settings/UserContext";
+import { AvatarProvider } from './utils/settings/AvatarContext';
 
 export default function App() {
   return (

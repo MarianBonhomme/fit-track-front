@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useAvatar } from '../../../utils/avatar/AvatarContext'
+import { useAvatar } from '../../../utils/settings/AvatarContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 export default function AvatarForm({ close }) {
