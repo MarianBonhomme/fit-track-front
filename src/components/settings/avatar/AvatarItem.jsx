@@ -1,10 +1,10 @@
 import React from 'react'
 import { getimagePathFormatted } from '../../../utils/global/ImageService'
 
-export default function AvatarImage({ image, size, clicked }) {
+export default function AvatarItem({ avatar, size, clicked }) {
   return (
     <img 
-      src={image ? `http://localhost:3000/${getimagePathFormatted(image)}` : 'src/assets/images/avatar-default.jpg'} 
+      src={`http://localhost:3000/${getimagePathFormatted(avatar.image)}`} 
       className={`img-size-${size}`}
       onClick={clicked}
     />

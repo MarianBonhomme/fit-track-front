@@ -3,6 +3,7 @@ import { signin, signup, getUserById, updateUser } from "./UserService"
 import { getAvatars, getAvatarById, addAvatar } from "./AvatarService";
 import { lightColors } from './../../assets/colors/lightColors';
 import { darkColors } from './../../assets/colors/darkColors';
+import { getColorById, getColors } from "./ColorService";
 
 const UserContext = createContext();
 
@@ -10,7 +11,9 @@ export const UserProvider = ({ children }) => {
   const storedUser = localStorage.getItem('user')
   const [user, setUser] = useState(storedUser)
   const [avatars, setAvatars] = useState([]);
+  const [colors, setColors] = useState([]);
   const [userAvatar, setUserAvatar] = useState(null);
+  const [userColor, setUserColor] = useState(null);
 
   const storedTheme = localStorage.getItem('theme')
   const [isDarkMode, setIsDarkMode] = useState(storedTheme === 'true');
@@ -27,8 +30,18 @@ export const UserProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
+    fetchColors();
+  }, [])
+
+  useEffect(() => {
     if (user && user.avatar_id) {
       fetchUserAvatar();
+    }
+  }, [user])
+
+  useEffect(() => {
+    if (user && user.color_id) {
+      fetchUserColor();
     }
   }, [user])
 
@@ -63,6 +76,7 @@ export const UserProvider = ({ children }) => {
     const userFetched = await getUserById(storedUser);
     setUser(userFetched)
   }
+
   const fetchAvatars = async () => {
     const fetchedAvatars = await getAvatars();
     setAvatars(fetchedAvatars)
@@ -71,6 +85,16 @@ export const UserProvider = ({ children }) => {
   const fetchUserAvatar = async () => {
     const fetchedUserAvatar = await getAvatarById(user.avatar_id)
     setUserAvatar(fetchedUserAvatar);
+  }
+
+  const fetchColors = async () => {
+    const fetchedColors = await getColors();
+    setColors(fetchedColors)
+  }  
+
+  const fetchUserColor = async () => {
+    const fetchedUserColor = await getColorById(user.color_id ?? 0)
+    setUserColor(fetchedUserColor);
   }
 
   const handleSignin = async (user) => {
@@ -107,16 +131,28 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const handleUpdateUser = async (userToUpdate) => {
+    try {
+      const updatedUser = await updateUser(userToUpdate);
+      setUser(updatedUser);
+    } catch (error) {
+      console.error('Error updating user:', error)
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
         user,
         avatars,
+        colors,
         userAvatar,
+        userColor,
         handleSignin,
         handleSignup,
         handleSignout,
         handleAddAvatar,
+        handleUpdateUser,
         isDarkMode, 
         themeColors,
         toggleDarkMode 
