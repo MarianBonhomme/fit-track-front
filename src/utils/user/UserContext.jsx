@@ -35,7 +35,7 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     if (user) {
-      setIsDarkMode(user.isDarkTheme);
+      setIsDarkMode(user.dark_theme);
     }
     if (user && user.avatar_id) {
       fetchUserAvatar();
@@ -56,7 +56,7 @@ export const UserProvider = ({ children }) => {
   const toggleDarkMode = async () => {
     const userToUpdate = {
       ...user,
-      isDarkTheme: !isDarkMode,
+      dark_theme: !isDarkMode,
     }
     try {
       const updatedUser = await updateUser(userToUpdate);
