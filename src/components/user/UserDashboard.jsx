@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import AvatarForm from './avatar/AvatarForm';
 import { useUser } from '../../utils/user/UserContext';
-import CardTitle from './../global/CardTitle';
+import CardTitle from '../global/CardTitle';
 import AvatarItem from './avatar/AvatarItem';
 import ColorItem from './avatar/ColorItem';
 
-export default function SettingsDashboard() {
-  const { user, avatars, colors, userAvatar, userColor, isDarkMode, toggleDarkMode, handleUpdateUser } = useUser();
+export default function UserDashboard() {
+  const { user, avatars, colors, handleUpdateUser } = useUser();
   const [isAvatarFormDisplayed, setIsAvatarFormDisplayed] = useState(false);
 
   const changeAvatar = (avatar) => {
@@ -26,13 +26,13 @@ export default function SettingsDashboard() {
           <CardTitle text="Profile" />
           <p>Avatar</p>
         </div>
-        <div className='w-full'>
+        <div className='w-full flex flex-col gap-20'>
           <div className='flex flex-wrap gap-10'>
             {avatars && avatars.map((avatar) => (
               <AvatarItem key={avatar.id} avatar={avatar} size={'xl'} clicked={() => changeAvatar(avatar)} />
             ))}
           </div>
-          <div className='flex flex-wrap gap-5'>
+          <div className='flex flex-wrap gap-10'>
             {colors && colors.map((color) => (
               <ColorItem key={color.id} color={color} clicked={() => changeColor(color)} />
             ))}

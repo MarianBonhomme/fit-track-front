@@ -1,9 +1,11 @@
 import { Icon } from "@iconify/react";
 import { useDashboard } from "../../utils/global/DashboardContext";
-import AvatarColor from "../settings/avatar/AvatarColor";
+import AvatarColor from "../user/avatar/AvatarColor";
+import { useUser } from "../../utils/user/UserContext";
 
 export default function Sidebar() {
   const { setActiveDashboard } = useDashboard();
+  const { handleSignout } = useUser();
 
   return (
     <nav className="h-screen flex flex-col justify-between items-center py-10">
@@ -23,8 +25,15 @@ export default function Sidebar() {
           onClick={() => setActiveDashboard("sport")}
         />
       </div>
-      <div className="flex flex-col gap-10">
-        <AvatarColor clicked={() => setActiveDashboard("settings")} />        
+      <div className="flex flex-col items-center gap-10">
+        <AvatarColor clicked={() => setActiveDashboard("user")} />   
+        <Icon
+          icon="majesticons:logout-half-circle"
+          width={40}
+          height={40}
+          className="text-red cursor-pointer"
+          onClick={handleSignout}
+        />     
       </div>
     </nav>
   );

@@ -4,7 +4,7 @@ import NutritionPage from "../components/nutrition/NutritionDashboard";
 import SportDashboard from '../components/sport/SportDashboard';
 import { DashboardProvider, useDashboard } from "../utils/global/DashboardContext";
 import { NutritionProvider } from "../utils/nutrition/NutritionContext";
-import SettingsDashboard from "../components/settings/SettingsDashboard";
+import UserDashboard from "../components/user/UserDashboard";
 import { useUser } from "../utils/user/UserContext";
 import { useNutrition } from "../utils/nutrition/NutritionContext";
 
@@ -35,8 +35,8 @@ function DashboardPageContent() {
         {activeDashboard === "sport" && 
           <SportDashboard />
         }
-        {activeDashboard === "settings" && 
-          <SettingsDashboard />
+        {activeDashboard === "user" && 
+          <UserDashboard />
         }
       </div>
     </>

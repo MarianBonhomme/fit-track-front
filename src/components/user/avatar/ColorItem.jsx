@@ -6,6 +6,6 @@ export default function ColorItem({ color, clicked }) {
   }
 
   return (
-    <div className='w-10 h-10 rounded-full' style={style} onClick={clicked}></div>
+    <div className='w-[100px] h-[100px] rounded-full cursor-pointer border border-primary' style={style} onClick={clicked}></div>
   )
 }
