@@ -4,6 +4,7 @@ import { getFoods, addFood, updateFood, getFoodConsumptions, getFoodsWithTotalQu
 const NutritionContext = createContext();
 
 export const NutritionProvider = ({ children }) => {
+  const [nutritionLoading, setNutritionLoading] = useState(true);
   const [foods, setFoods] = useState([]);
   const [foodsWithTotalQuantity, setFoodsWithTotalQuantity] = useState([]);
   const [foodConsumptions, setFoodConsumptions] = useState([]);
@@ -12,18 +13,17 @@ export const NutritionProvider = ({ children }) => {
   const [daysIndicatedCount, setDaysIndicatedCount] = useState(0);
 
   useEffect(() => {
-    fetchFoods();
-  }, [])
-
-  useEffect(() => {
-    fetchFoodConsumptions();
+    const fetchData = async () => {
+      await fetchFoods();
+      await fetchFoodConsumptions();
+      setNutritionLoading(false);
+    }
+    
+    fetchData();
   }, [])
 
   useEffect(() => {
     fetchFoodsWithTotalQuantity();
-  }, [foodConsumptions])
-
-  useEffect(() => {
     fetchDaysIndicatedCount();
   }, [foodConsumptions])
 
@@ -146,6 +146,7 @@ export const NutritionProvider = ({ children }) => {
   return (
     <NutritionContext.Provider
       value={{
+        nutritionLoading,
         foods,
         foodsWithTotalQuantity,
         foodConsumptions,

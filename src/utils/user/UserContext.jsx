@@ -8,6 +8,7 @@ import { getColorById, getColors } from "./ColorService";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  const [userLoading, setUserLoading] = useState(true)
   const storedUser = localStorage.getItem('user')
   const [user, setUser] = useState(storedUser)
   const [avatars, setAvatars] = useState([]);
@@ -20,34 +21,27 @@ export const UserProvider = ({ children }) => {
   const [themeColors, setThemeColors] = useState(isDarkMode ? darkColors : lightColors);
 
   useEffect(() => {
-    if (storedUser) {
-      fetchUser();
-    }
+    const fetchData = async () => {
+      if (storedUser) {
+        await fetchUser();
+      }
+      await fetchAvatars();
+      await fetchColors();
+      setUserLoading(false);
+    };
+  
+    fetchData();
   }, [])
-
-  useEffect(() => {
-    fetchAvatars();
-  }, [])
-
-  useEffect(() => {
-    fetchColors();
-  }, [])
-
-  useEffect(() => {
-    if (user && user.avatar_id) {
-      fetchUserAvatar();
-    }
-  }, [user])
-
-  useEffect(() => {
-    if (user && user.color_id) {
-      fetchUserColor();
-    }
-  }, [user])
 
   useEffect(() => {
     if (user) {
       setIsDarkMode(user.isDarkTheme);
+    }
+    if (user && user.avatar_id) {
+      fetchUserAvatar();
+    }
+    if (user && user.color_id) {
+      fetchUserColor();
     }
   }, [user])
   
@@ -143,6 +137,7 @@ export const UserProvider = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
+        userLoading,
         user,
         avatars,
         colors,

@@ -5,11 +5,15 @@ import SportDashboard from '../components/sport/SportDashboard';
 import { DashboardProvider, useDashboard } from "../utils/global/DashboardContext";
 import { NutritionProvider } from "../utils/nutrition/NutritionContext";
 import SettingsDashboard from "../components/settings/SettingsDashboard";
+import { useUser } from "../utils/user/UserContext";
+import { useNutrition } from "../utils/nutrition/NutritionContext";
 
 export default function DashboardPage() {
+  const { userLoading } = useUser();
+
   return (
     <DashboardProvider>
-      <DashboardPageContent />
+      {!userLoading && <DashboardPageContent />}
     </DashboardProvider>
   );
 }
@@ -25,7 +29,7 @@ function DashboardPageContent() {
       <div className="pl-[80px]">
         {activeDashboard === "nutrition" && 
           <NutritionProvider>
-            <NutritionPage />
+            <NutritionContent />
           </NutritionProvider>
         }
         {activeDashboard === "sport" && 
@@ -37,4 +41,12 @@ function DashboardPageContent() {
       </div>
     </>
   );
+}
+
+function NutritionContent() {
+  const { nutritionLoading } = useNutrition();
+
+  return (
+    !nutritionLoading && <NutritionPage />
+  )
 }
