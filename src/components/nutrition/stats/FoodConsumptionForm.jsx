@@ -4,10 +4,10 @@ import { useNutrition } from '../../../utils/nutrition/NutritionContext';
 import { sortFoodsByFavoritesAndInactives } from '../../../utils/nutrition/NutritionService';
 import MacroItem from '../global/MacroItem';
 import FoodImage from '../global/FoodImage';
-import { useUser } from '../../../utils/user/UserContext';
+import { useProfile } from '../../../utils/profile/ProfileContext';
 
 export default function FoodConsumptionForm({ foodConsumption, close }) {
-  const { isDarkMode } = useUser();
+  const { isDarkMode } = useProfile();
   const { foods, dailyFoodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption, currentDay } = useNutrition();
   const [sortedFoods, setSortedFoods] = useState();
   const [selectedFood, setSelectedFood] = useState();

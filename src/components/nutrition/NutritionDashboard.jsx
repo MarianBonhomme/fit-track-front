@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import MyFoodsTab from './MyFoodsTab';
 import StatsTab from './StatsTab';
-import { useUser } from '../../utils/user/UserContext';
+import { useProfile } from '../../utils/profile/ProfileContext';
 
 export default function NutritionDashboard() { 
-  const { isDarkMode, toggleDarkMode } = useUser();
+  const { isDarkMode, toggleDarkMode } = useProfile();
   const [activeTab, setActiveTab] = useState('stats');
 
   return (

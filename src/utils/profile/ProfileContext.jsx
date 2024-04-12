@@ -74,7 +74,7 @@ export const ProfileProvider = ({ children }) => {
 
   const fetchUserProfiles = async () => {
     const fetchedUserProfiles = await getProfilesByUserId(user.id);
-    setProfile(fetchedUserProfiles[0])
+    setProfile(fetchedUserProfiles[1])
     setUserProfiles(fetchedUserProfiles)
   }
 

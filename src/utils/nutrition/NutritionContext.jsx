@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getFoods, addFood, updateFood, getFoodConsumptions, getFoodsWithTotalQuantity, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getDatesCount, deleteFood } from './NutritionService';
-import { useUser } from "../user/UserContext";
+import { useProfile } from "../profile/ProfileContext";
 
 const NutritionContext = createContext();
 
 export const NutritionProvider = ({ children }) => {
-  const { user } = useUser();
+  const { profile } = useProfile();
   const [nutritionLoading, setNutritionLoading] = useState(true);
   const [foods, setFoods] = useState([]);
   const [foodsWithTotalQuantity, setFoodsWithTotalQuantity] = useState([]);
@@ -45,17 +45,17 @@ export const NutritionProvider = ({ children }) => {
   }
 
   const fetchFoodConsumptions = async () => {
-    const fetchedFoodConsumptions = await getFoodConsumptions(user.id);
+    const fetchedFoodConsumptions = await getFoodConsumptions(profile.id);
     setFoodConsumptions(fetchedFoodConsumptions);
   }
 
   const fetchDaysIndicatedCount = async () => {
-    const fetchedDaysIndicatedCount = await getDatesCount(user.id);
+    const fetchedDaysIndicatedCount = await getDatesCount(profile.id);
     setDaysIndicatedCount(fetchedDaysIndicatedCount);
   }
 
   const fetchFoodsWithTotalQuantity = async () => {
-    const fetchedFoodsWithTotalQuantity = await getFoodsWithTotalQuantity(user.id);
+    const fetchedFoodsWithTotalQuantity = await getFoodsWithTotalQuantity(profile.id);
     setFoodsWithTotalQuantity(fetchedFoodsWithTotalQuantity);
   }
 
@@ -105,7 +105,7 @@ export const NutritionProvider = ({ children }) => {
   };
 
   const handleAddFoodConsumption = async (newFoodConsumption) => {
-    const newFoodConsumptionWithUser = {...newFoodConsumption, user_id: user.id}
+    const newFoodConsumptionWithUser = {...newFoodConsumption, profile_id: profile.id}
     try {
       const addedFoodConsumption = await addFoodConsumption(newFoodConsumptionWithUser);
       setFoodConsumptions((prevFoodsConsumptions) => [...prevFoodsConsumptions, addedFoodConsumption]);

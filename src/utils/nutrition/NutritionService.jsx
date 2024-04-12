@@ -68,9 +68,9 @@ const deleteFood = async (foodToDelete) => {
   }
 };
 
-const getFoodConsumptions = async (userId) => {
+const getFoodConsumptions = async (profileId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/foodConsumption/${userId}`);
+    const response = await axios.get(`${BASE_URL}/foodConsumption/${profileId}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching all foodConsumptions:", error);
@@ -108,9 +108,9 @@ const deleteFoodConsumption = async (foodConsumptionToDelete) => {
   }
 };
 
-const getDatesCount = async (userId) => {
+const getDatesCount = async (profileId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/foodConsumption/datesCount/${userId}`);
+    const response = await axios.get(`${BASE_URL}/foodConsumption/datesCount/${profileId}`);
     return response.data
   } catch (error) {
     console.error('Error fetching dates count');

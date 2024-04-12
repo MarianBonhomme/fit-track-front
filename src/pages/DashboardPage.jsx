@@ -11,9 +11,7 @@ import { useProfile } from "../utils/profile/ProfileContext";
 
 export default function DashboardPage() {
   const { userLoading } = useUser();
-  const { profileLoading, userProfiles } = useProfile();
-
-  console.log(userProfiles);
+  const { profileLoading } = useProfile();
 
   return (
     <DashboardProvider>
@@ -31,7 +29,7 @@ function DashboardPageContent() {
         <Sidebar />
       </div>
       <div className="pl-[80px]">
-        {/* {activeDashboard === "nutrition" && 
+        {activeDashboard === "nutrition" && 
           <NutritionProvider>
             <NutritionContent />
           </NutritionProvider>
@@ -41,7 +39,7 @@ function DashboardPageContent() {
         }
         {activeDashboard === "user" && 
           <UserDashboard />
-        } */}
+        }
       </div>
     </>
   );

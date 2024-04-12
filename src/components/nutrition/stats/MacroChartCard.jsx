@@ -1,9 +1,9 @@
 import { Bar } from "react-chartjs-2";
 import CardTitle from "../../global/CardTitle";
-import { useUser } from "../../../utils/user/UserContext";
+import { useProfile } from "../../../utils/profile/ProfileContext";
 
 export default function MacroChartCard() {
-  const { themeColors } = useUser();
+  const { themeColors } = useProfile();
 
   const data = {
     labels: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
