@@ -34,8 +34,10 @@ export const ProfileProvider = ({ children }) => {
       setProfileLoading(false);
     };
   
-    fetchData();
-  }, [])
+    if (user) {
+      fetchData();
+    }
+  }, [user])
 
   useEffect(() => {
     if (profile) {
@@ -71,8 +73,9 @@ export const ProfileProvider = ({ children }) => {
   };
 
   const fetchUserProfiles = async () => {
-    const fetchedUserrofiles = await getProfilesByUserId(user.id);
-    setUserProfiles(fetchedUserrofiles)
+    const fetchedUserProfiles = await getProfilesByUserId(user.id);
+    setProfile(fetchedUserProfiles[0])
+    setUserProfiles(fetchedUserProfiles)
   }
 
   const fetchProfile = async () => {
