@@ -1,9 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getFoods, addFood, updateFood, getFoodConsumptions, getFoodsWithTotalQuantity, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getDatesCount, deleteFood } from './NutritionService';
+import { useUser } from "../user/UserContext";
 
 const NutritionContext = createContext();
 
 export const NutritionProvider = ({ children }) => {
+  const { user } = useUser();
   const [nutritionLoading, setNutritionLoading] = useState(true);
   const [foods, setFoods] = useState([]);
   const [foodsWithTotalQuantity, setFoodsWithTotalQuantity] = useState([]);
@@ -43,17 +45,17 @@ export const NutritionProvider = ({ children }) => {
   }
 
   const fetchFoodConsumptions = async () => {
-    const fetchedFoodConsumptions = await getFoodConsumptions();
+    const fetchedFoodConsumptions = await getFoodConsumptions(user.id);
     setFoodConsumptions(fetchedFoodConsumptions);
   }
 
   const fetchDaysIndicatedCount = async () => {
-    const fetchedDaysIndicatedCount = await getDatesCount();
+    const fetchedDaysIndicatedCount = await getDatesCount(user.id);
     setDaysIndicatedCount(fetchedDaysIndicatedCount);
   }
 
   const fetchFoodsWithTotalQuantity = async () => {
-    const fetchedFoodsWithTotalQuantity = await getFoodsWithTotalQuantity();
+    const fetchedFoodsWithTotalQuantity = await getFoodsWithTotalQuantity(user.id);
     setFoodsWithTotalQuantity(fetchedFoodsWithTotalQuantity);
   }
 
@@ -103,8 +105,9 @@ export const NutritionProvider = ({ children }) => {
   };
 
   const handleAddFoodConsumption = async (newFoodConsumption) => {
+    const newFoodConsumptionWithUser = {...newFoodConsumption, user_id: user.id}
     try {
-      const addedFoodConsumption = await addFoodConsumption(newFoodConsumption);
+      const addedFoodConsumption = await addFoodConsumption(newFoodConsumptionWithUser);
       setFoodConsumptions((prevFoodsConsumptions) => [...prevFoodsConsumptions, addedFoodConsumption]);
     } catch (error) {
       console.error('Error adding foodConsumption:', error);
