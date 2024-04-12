@@ -7,11 +7,14 @@ import {
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
 import { UserProvider, useUser } from "./utils/user/UserContext";
+import { ProfileProvider } from "./utils/profile/ProfileContext"
 
 export default function App() {
   return (
     <UserProvider>
-      <AppContent />  
+      <ProfileProvider>
+        <AppContent />  
+      </ProfileProvider>
     </UserProvider>
   );
 }

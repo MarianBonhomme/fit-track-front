@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import AvatarForm from './avatar/AvatarForm';
-import { useUser } from '../../utils/user/UserContext';
 import CardTitle from '../global/CardTitle';
 import AvatarItem from './avatar/AvatarItem';
 import ColorItem from './avatar/ColorItem';
+import { useProfile } from '../../utils/profile/ProfileContext';
 
 export default function UserDashboard() {
-  const { user, avatars, colors, handleUpdateUser } = useUser();
+  const { profile, avatars, colors, handleUpdateProfile } = useProfile();
   const [isAvatarFormDisplayed, setIsAvatarFormDisplayed] = useState(false);
 
   const changeAvatar = (avatar) => {
-    const updatedUser = { ...user, avatar_id: avatar.id }
-    handleUpdateUser(updatedUser)
+    const updatedProfile = { ...profile, avatar_id: avatar.id }
+    handleUpdateProfile(updatedProfile)
   }
 
   const changeColor = (color) => {
-    const updatedUser = { ...user, color_id: color.id }
-    handleUpdateUser(updatedUser)
+    const updatedProfile = { ...profile, color_id: color.id }
+    handleUpdateProfile(updatedProfile)
   } 
 
   return (
