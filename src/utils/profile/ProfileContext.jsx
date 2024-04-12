@@ -72,14 +72,20 @@ export const ProfileProvider = ({ children }) => {
     }
   };
 
+  const switchProfile = async (profile) => {
+    const profileToSwitch = fetchProfile(profile.id);
+    setProfile(profileToSwitch)
+    localStorage.setItem('profile', profile.id)
+  }
+
   const fetchUserProfiles = async () => {
     const fetchedUserProfiles = await getProfilesByUserId(user.id);
-    setProfile(fetchedUserProfiles[1])
+    setProfile(fetchedUserProfiles[0])
     setUserProfiles(fetchedUserProfiles)
   }
 
-  const fetchProfile = async () => {
-    const fetchedProfile = await getProfileById(storedProfile);
+  const fetchProfile = async (profileId) => {
+    const fetchedProfile = await getProfileById(profileId);
     setProfile(fetchedProfile)
   }
 
@@ -135,7 +141,8 @@ export const ProfileProvider = ({ children }) => {
         handleUpdateProfile,
         isDarkMode, 
         themeColors,
-        toggleDarkMode 
+        toggleDarkMode,
+        switchProfile,
       }}
     >
       {children}

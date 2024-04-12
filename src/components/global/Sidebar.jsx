@@ -2,10 +2,12 @@ import { Icon } from "@iconify/react";
 import { useDashboard } from "../../utils/global/DashboardContext";
 import AvatarColor from "../user/avatar/AvatarColor";
 import { useUser } from "../../utils/user/UserContext";
+import { useProfile } from "../../utils/profile/ProfileContext";
 
 export default function Sidebar() {
   const { setActiveDashboard } = useDashboard();
   const { handleSignout } = useUser();
+  const { profileAvatar, profileColor } = useProfile();
 
   return (
     <nav className="h-screen flex flex-col justify-between items-center py-10">
@@ -26,7 +28,7 @@ export default function Sidebar() {
         />
       </div>
       <div className="flex flex-col items-center gap-10">
-        <AvatarColor clicked={() => setActiveDashboard("user")} />   
+        <AvatarColor avatar={profileAvatar} color={profileColor} clicked={() => setActiveDashboard("user")} />   
         <Icon
           icon="majesticons:logout-half-circle"
           width={40}
