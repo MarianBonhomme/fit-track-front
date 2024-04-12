@@ -7,13 +7,15 @@ import { NutritionProvider } from "../utils/nutrition/NutritionContext";
 import UserDashboard from "../components/user/UserDashboard";
 import { useUser } from "../utils/user/UserContext";
 import { useNutrition } from "../utils/nutrition/NutritionContext";
+import { useProfile } from "../utils/profile/ProfileContext";
 
 export default function DashboardPage() {
   const { userLoading } = useUser();
+  const { profileLoading } = useProfile();
 
   return (
     <DashboardProvider>
-      {!userLoading && <DashboardPageContent />}
+      {!userLoading && !profileLoading && <DashboardPageContent />}
     </DashboardProvider>
   );
 }

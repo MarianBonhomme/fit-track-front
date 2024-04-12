@@ -9,6 +9,7 @@ import { getProfileById, getProfilesByUserId, updateProfile } from "./ProfileSer
 const ProfileContext = createContext();
 
 export const ProfileProvider = ({ children }) => {
+  const [profileLoading, setProfileLoading] = useState(true)
   const { user } = useUser();
   const [userProfiles, setUserProfiles] = useState(null);
   const storedProfile = localStorage.getItem('profile')
@@ -30,6 +31,7 @@ export const ProfileProvider = ({ children }) => {
       }
       await fetchAvatars();
       await fetchColors();
+      setProfileLoading(false);
     };
   
     fetchData();
@@ -119,6 +121,7 @@ export const ProfileProvider = ({ children }) => {
   return (
     <ProfileContext.Provider
       value={{
+        profileLoading,
         userProfiles,
         profile,
         avatars,
