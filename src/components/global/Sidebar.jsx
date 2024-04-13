@@ -1,7 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useDashboard } from "../../utils/global/DashboardContext";
 import AvatarColor from "../user/avatar/AvatarColor";
-import { useUser } from "../../utils/user/UserContext";
 import { useProfile } from "../../utils/profile/ProfileContext";
 import { useState } from "react";
 
@@ -18,6 +17,11 @@ export default function Sidebar() {
   const getColorById = (colorId) => {
     const color = colors.find(color => color.id === colorId);
     return color
+  }
+
+  const profileClicked = (profile) => {
+    switchProfile(profile);
+    setIsVisible(false);
   }
 
   return (
@@ -40,11 +44,11 @@ export default function Sidebar() {
       </div>
       <div className="flex flex-col items-center gap-10">
         <div className="relative">
-          <AvatarColor avatar={profileAvatar} color={profileColor} clicked={() => setIsVisible(true)} />  
+          <AvatarColor avatar={profileAvatar} color={profileColor} clicked={() => setIsVisible(!isVisible)} />  
           {isVisible && 
-            <div className="rounded-2xl bg-primary shadow px-5 absolute left-full translate-x-10 -top-1/2">
+            <div className="rounded-2xl bg-primary shadow-custom px-5 absolute left-full translate-x-6 -top-1/2">
               {userProfiles && userProfiles.map((profile) => (
-                <div key={profile.id} className="flex items-center gap-3 py-2 border-b last:border-b-0 border-lightPrimary cursor-pointer" onClick={() => switchProfile(profile)}>
+                <div key={profile.id} className="flex items-center gap-3 py-2 border-b last:border-b-0 border-lightPrimary cursor-pointer" onClick={() => profileClicked(profile)}>
                   <AvatarColor avatar={getAvatarById(profile.avatar_id)} color={getColorById(profile.color_id)} />
                   <p className='text-xl font-bold'>{profile.pseudo}</p>
                 </div>
