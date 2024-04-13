@@ -25,7 +25,7 @@ function DashboardPageContent() {
 
   return (
     <>
-      <div className="h-screen w-[80px] bg-primary fixed top-0 left-0">
+      <div className="h-screen w-[80px] bg-primary fixed top-0 left-0 z-50">
         <Sidebar />
       </div>
       <div className="pl-[80px]">

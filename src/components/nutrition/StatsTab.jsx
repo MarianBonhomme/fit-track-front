@@ -22,7 +22,7 @@ export default function StatsTab() {
   }
 
   return (
-    <div className="flex items-start gap-5 rounded-tl-none rounded-3xl relative z-10">
+    <div className="flex items-start gap-5 rounded-tl-none rounded-3xl relative">
       <div className='w-1/3'>
         <DailyCard />
       </div>
