@@ -22,7 +22,7 @@ export const NutritionProvider = ({ children }) => {
     }
     
     fetchData();
-  }, [])
+  }, [profile])
 
   useEffect(() => {
     fetchFoodsWithTotalQuantity();
