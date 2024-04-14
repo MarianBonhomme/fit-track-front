@@ -5,7 +5,7 @@ export default function AvatarItem({ avatar, size, clicked }) {
   return (
     avatar.image && <img 
       src={`http://localhost:3000/${getimagePathFormatted(avatar.image)}`} 
-      className={`img-size-${size} cursor-pointer`}
+      className={`item-size-${size} cursor-pointer`}
       onClick={clicked}
     />
   )
