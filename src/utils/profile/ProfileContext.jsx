@@ -40,6 +40,7 @@ export const ProfileProvider = ({ children }) => {
   }, [user])
 
   useEffect(() => {
+    fetchUserProfiles();
     if (profile) {
       setIsDarkMode(profile.dark_theme);
     }
@@ -80,7 +81,6 @@ export const ProfileProvider = ({ children }) => {
 
   const fetchUserProfiles = async () => {
     const fetchedUserProfiles = await getProfilesByUserId(user.id);
-    setProfile(fetchedUserProfiles[0])
     setUserProfiles(fetchedUserProfiles)
   }
 
