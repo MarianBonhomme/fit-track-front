@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { signin, signup, getUserById, updateUser } from "./UserService"
+import { darkColors } from './../../assets/colors/darkColors';
+import { lightColors } from './../../assets/colors/lightColors';
 
 const UserContext = createContext();
 
@@ -7,6 +9,10 @@ export const UserProvider = ({ children }) => {
   const [userLoading, setUserLoading] = useState(true)
   const storedUser = localStorage.getItem('user')
   const [user, setUser] = useState(storedUser)
+
+  const storedTheme = localStorage.getItem('theme')
+  const [isDarkMode, setIsDarkMode] = useState(storedTheme === 'true');
+  const [themeColors, setThemeColors] = useState(isDarkMode ? darkColors : lightColors);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,7 +23,34 @@ export const UserProvider = ({ children }) => {
     };
   
     fetchData();
-  }, [])
+  }, [])  
+
+  useEffect(() => {
+    if (user) {
+      setIsDarkMode(user.dark_mode);
+    }
+  }, [user])
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+    const updatedColors = isDarkMode ? darkColors : lightColors;
+    setThemeColors(updatedColors);
+    localStorage.setItem('theme', isDarkMode)
+  }, [isDarkMode]);
+  
+  const toggleDarkMode = async () => {
+    const userToUpdate = {
+      ...user,
+      dark_mode: !isDarkMode,
+    }
+    try {
+      const updatedUser = await updateUser(userToUpdate);
+      setUser(updatedUser)
+    } catch (error) {
+      console.error(`Error updating user with id ${userToUpdate.id}:`, error);
+    }
+  };
 
   const fetchUser = async () => {
     const userFetched = await getUserById(storedUser);
@@ -67,6 +100,9 @@ export const UserProvider = ({ children }) => {
         handleSignup,
         handleSignout,
         handleUpdateUser,
+        toggleDarkMode,
+        isDarkMode,
+        themeColors
       }}
     >
       {children}

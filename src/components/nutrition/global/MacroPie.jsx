@@ -3,12 +3,12 @@ import { Chart } from 'chart.js/auto';
 import React, { useMemo } from 'react';
 import { Pie } from 'react-chartjs-2';
 import '../../../index.scss';
-import { useProfile } from '../../../utils/profile/ProfileContext';
+import { useUser } from '../../../utils/user/UserContext';
 
 Chart.register(CategoryScale);
 
 export default function MacroPie({macros}) {
-  const { themeColors } = useProfile();
+  const { themeColors } = useUser();
 
   const data = useMemo(() => {
     return {

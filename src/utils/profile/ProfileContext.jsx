@@ -1,7 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getAvatars, getAvatarById, addAvatar } from "../profile/AvatarService";
-import { lightColors } from './../../assets/colors/lightColors';
-import { darkColors } from './../../assets/colors/darkColors';
 import { getColorById, getColors } from "../profile/ColorService";
 import { useUser } from "../user/UserContext";
 import { getProfileById, getProfilesByUserId, updateProfile } from "./ProfileService";
@@ -18,10 +16,6 @@ export const ProfileProvider = ({ children }) => {
   const [colors, setColors] = useState([]);
   const [profileAvatar, setProfileAvatar] = useState(null);
   const [profileColor, setProfileColor] = useState(null);
-
-  const storedTheme = localStorage.getItem('theme')
-  const [isDarkMode, setIsDarkMode] = useState(storedTheme === 'true');
-  const [themeColors, setThemeColors] = useState(isDarkMode ? darkColors : lightColors);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,9 +35,6 @@ export const ProfileProvider = ({ children }) => {
 
   useEffect(() => {
     fetchUserProfiles();
-    if (profile) {
-      setIsDarkMode(profile.dark_theme);
-    }
     if (profile && profile.avatar_id) {
       fetchProfileAvatar();
     }
@@ -51,27 +42,6 @@ export const ProfileProvider = ({ children }) => {
       fetchProfileColor();
     }
   }, [profile])
-  
-  useEffect(() => {
-    const root = document.documentElement;
-    root.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-    const updatedColors = isDarkMode ? darkColors : lightColors;
-    setThemeColors(updatedColors);
-    localStorage.setItem('theme', isDarkMode)
-  }, [isDarkMode]);
-
-  const toggleDarkMode = async () => {
-    const profileToUpdate = {
-      ...profile,
-      dark_theme: !isDarkMode,
-    }
-    try {
-      const updatedProfile = await updateProfile(profileToUpdate);
-      setProfile(updatedProfile)
-    } catch (error) {
-      console.error(`Error updating profile with id ${profileToUpdate.id}:`, error);
-    }
-  };
 
   const switchProfile = async (profile) => {
     const profileToSwitch = fetchProfile(profile.id);
@@ -139,9 +109,6 @@ export const ProfileProvider = ({ children }) => {
         profileColor,
         handleAddAvatar,
         handleUpdateProfile,
-        isDarkMode, 
-        themeColors,
-        toggleDarkMode,
         switchProfile,
       }}
     >
