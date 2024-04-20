@@ -8,6 +8,7 @@ import UserDashboard from "../components/user/UserDashboard";
 import { useUser } from "../utils/user/UserContext";
 import { useNutrition } from "../utils/nutrition/NutritionContext";
 import { useProfile } from "../utils/profile/ProfileContext";
+import { SportProvider } from "../utils/sport/SportContext";
 
 export default function DashboardPage() {
   const { userLoading } = useUser();
@@ -35,7 +36,9 @@ function DashboardPageContent() {
           </NutritionProvider>
         }
         {activeDashboard === "sport" && 
-          <SportDashboard />
+          <SportProvider>
+            <SportDashboard />
+          </SportProvider>         
         }
         {activeDashboard === "user" && 
           <UserDashboard />
