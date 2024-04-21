@@ -93,7 +93,7 @@ const updateFoodConsumption = async (foodConsumptionToUpdate) => {
     const response = await axios.put(`${BASE_URL}/foodConsumption/${foodConsumptionToUpdate.id}`, foodConsumptionToUpdate);
     return response.data;
   } catch (error) {
-    console.error(`Error updating food with id ${foodConsumptionToUpdate.id}:`, error);
+    console.error(`Error updating foodConsumption with id ${foodConsumptionToUpdate.id}:`, error);
     throw error;
   }
 };

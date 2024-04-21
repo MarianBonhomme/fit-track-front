@@ -22,4 +22,24 @@ const getTrainingsByProgramId = async (programId) => {
   }
 };
 
-export { getPrograms, getTrainingsByProgramId };
+const updateTraining = async (trainingToUpdate) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/training/${trainingToUpdate.id}`, trainingToUpdate);
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating training with id ${trainingToUpdate.id}:`, error);
+    throw error;
+  }
+};
+
+const updateProgram = async (programToUpdate) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/program/${programToUpdate.id}`, programToUpdate);
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating program with id ${programToUpdate.id}:`, error);
+    throw error;
+  }
+};
+
+export { getPrograms, getTrainingsByProgramId, updateTraining, updateProgram };
