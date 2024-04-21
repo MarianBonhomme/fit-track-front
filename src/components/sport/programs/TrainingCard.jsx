@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getShortDate } from '../../../utils/global/DateService'
 
-export default function TrainingCard({training}) {
+export default function TrainingCard({training, index}) {
   const [cardBackground, setCardBackground] = useState();
 
   useEffect(() => {
@@ -17,16 +17,21 @@ export default function TrainingCard({training}) {
   }, [])
 
   return (
-    <div className={`min-w-20 px-4 py-3 rounded-xl relative ${cardBackground} text-primary text-center`}>
-      <p className="text-sm">{getShortDate(new Date(training.date))}</p>
-      {training.weight > 0 ? (
-        <p className='text-center text-xl font-semibold'>
-          {training.weight}
-          <span className="text-sm font-normal">kg</span>
-        </p>
-      ) : (
-        <p className='text-center text-xl font-semibold'>BW</p>
-      )}
+    <div className={`min-w-28 flex flex-col p-2 rounded-2xl relative ${cardBackground} text-primary text-center font-medium`}>
+      <div className="w-full flex justify-between">
+        <p className='w-5 h-5 flex items-center justify-center rounded-full bg-lightPrimary text-secondary text-xs'>{index + 1}</p>
+        <p className="text-sm">{getShortDate(new Date(training.date))}</p>
+      </div>
+      <p className='text-center text-2xl font-semibold'>
+        {training.weight > 0 ? (
+          <>
+            {training.weight}
+            <span className="text-sm font-normal">kg</span>
+          </>
+        ) : (
+          <span>BW</span>
+        )}
+      </p>
       <p className="text-sm">{training.comment}</p>
     </div>
   )
