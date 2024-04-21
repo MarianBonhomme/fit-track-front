@@ -12,14 +12,14 @@ export default function TrainingCard({training, index}) {
     } else if (!training.is_last && training.is_validate) {
       setCardBackground('bg-green')
     } else {
-      setCardBackground('bg-yellow')
+      setCardBackground('bg-orange')
     }
   }, [])
 
   return (
     <div className={`min-w-28 flex flex-col p-2 rounded-2xl relative ${cardBackground} text-primary text-center font-medium`}>
       <div className="w-full flex justify-between">
-        <p className='w-5 h-5 flex items-center justify-center rounded-full bg-lightPrimary text-secondary text-xs'>{index + 1}</p>
+        <p className='w-5 h-5 flex items-center justify-center rounded-full bg-primary text-secondary text-xs'>{index + 1}</p>
         <p className="text-sm">{getShortDate(new Date(training.date))}</p>
       </div>
       <p className='text-center text-2xl font-semibold'>
