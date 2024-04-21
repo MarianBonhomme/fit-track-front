@@ -1,18 +1,32 @@
-import React, { useEffect } from 'react'
-import { useSport } from '../../utils/sport/SportContext'
+import React, { useState } from 'react'
+import { useUser } from '../../utils/user/UserContext';
+import { DarkModeSwitch } from 'react-toggle-dark-mode';
+import ProgramsTab from './ProgramsTab';
+import ExercisesTab from './ExercisesTab';
 
-export default function SportPage() {
-  const { programs } = useSport();
+export default function SportPage() {  
+  const { isDarkMode, toggleDarkMode } = useUser();
+  const [activeTab, setActiveTab] = useState('programs');
 
-  useEffect(() => {
-    console.log(programs);
-  }, [programs])
-
-  return (    
-    programs && (
-      <div className="flex">
-        {programs.name}
+  return (
+    <div className='p-5'>
+      <div className='flex justify-between'>
+        <ul className='flex font-bold'>
+          <li className={`${activeTab === 'programs' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActiveTab('programs')} >Programs</li>
+          <li className={`${activeTab === 'exercises' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActiveTab('exercises')} >Exercises</li>
+        </ul>
+        <DarkModeSwitch
+          checked={isDarkMode}
+          onChange={toggleDarkMode}
+          size={50}
+        />
       </div>
-    )
-  )
+      {activeTab === 'programs' && (
+        <ProgramsTab />
+      )}
+      {activeTab === 'exercises' && (
+        <ExercisesTab />
+      )}
+    </div>
+  );
 }

@@ -7,7 +7,7 @@ import FoodConsumptionForm from './FoodConsumptionForm';
 import FoodConsumptionItem from './FoodConsumptionItem';
 import AddButton from '../global/AddButton';
 import MacroPie from '../global/MacroPie';
-import { getFormattedDate } from '../../../utils/global/DateService';
+import { getFullDate } from '../../../utils/global/DateService';
 import MacroItem from '../global/MacroItem';
 
 export default function DailyCard() {
@@ -68,8 +68,8 @@ export default function DailyCard() {
       <div className="bg-primary px-4 py-3 shadow-custom rounded-3xl rounded-tl-none relative">
         <div className="flex justify-between items-center">
           <AddButton btnClicked={() => openFoodConsumptionForm(null)}/>
-          <CardTitle text={currentDay && getFormattedDate(currentDay)} className="justify-self-start"/>
-          <p className={`bg-red text-primary font-bold px-3 py-2 rounded-full ${currentDay && getFormattedDate(currentDay) === 'Today' ? 'opacity-0' : 'cursor-pointer'}`} onClick={goToToday}>Today</p>
+          <CardTitle text={currentDay && getFullDate(currentDay)} className="justify-self-start"/>
+          <p className={`bg-red text-primary font-bold px-3 py-2 rounded-full ${currentDay && getFullDate(currentDay) === 'Today' ? 'opacity-0' : 'cursor-pointer'}`} onClick={goToToday}>Today</p>
         </div>
         <div className="flex justify-center items-center gap-5 mb-3">
           <Icon icon="ic:round-chevron-left" width="50" height="50" className="text-dark cursor-pointer" onClick={decrementCurrentDay} />
