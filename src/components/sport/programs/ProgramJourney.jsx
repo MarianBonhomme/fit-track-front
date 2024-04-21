@@ -3,7 +3,7 @@ import { getTrainingsByProgramId } from '../../../utils/sport/SportService'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import TrainingCard from './TrainingCard'
 
-export default function ProgramResume({program}) {
+export default function ProgramJourney({program}) {
   const [trainings, setTrainings] = useState([])
 
   useEffect(() => {
