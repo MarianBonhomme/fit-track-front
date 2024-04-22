@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useProfile } from "../profile/ProfileContext";
-import { getPrograms, getTrainings, updateProgram } from "./SportService";
+import { addProgram, addTraining, getPrograms, getTrainings, updateProgram } from "./SportService";
 
 const SportContext = createContext();
 
@@ -41,6 +41,25 @@ export const SportProvider = ({ children }) => {
     }
   };
 
+  const handleAddProgram = async (newProgram) => {
+    const newProgramWithProfile = {...newProgram, profile_id: profile.id}
+    try {
+      const addedProgram = await addProgram(newProgramWithProfile);
+      setPrograms((prevPrograms) => [...prevPrograms, addedProgram]);
+    } catch (error) {
+      console.error('Error adding program:', error);
+    }
+  };
+
+  const handleAddTraining = async (newTraining) => {
+    try {
+      const addedTraining = await addTraining(newTraining);
+      setTrainings((prevTrainings) => [...prevTrainings, addedTraining]);
+    } catch (error) {
+      console.error('Error adding training:', error);
+    }
+  };
+
   return (
     <SportContext.Provider
       value={{
@@ -48,6 +67,8 @@ export const SportProvider = ({ children }) => {
         programs,
         trainings,
         handleUpdateProgram,
+        handleAddProgram,
+        handleAddTraining,
       }}
     >
       {children}

@@ -105,9 +105,9 @@ export const NutritionProvider = ({ children }) => {
   };
 
   const handleAddFoodConsumption = async (newFoodConsumption) => {
-    const newFoodConsumptionWithUser = {...newFoodConsumption, profile_id: profile.id}
+    const newFoodConsumptionWithProfile = {...newFoodConsumption, profile_id: profile.id}
     try {
-      const addedFoodConsumption = await addFoodConsumption(newFoodConsumptionWithUser);
+      const addedFoodConsumption = await addFoodConsumption(newFoodConsumptionWithProfile);
       setFoodConsumptions((prevFoodsConsumptions) => [...prevFoodsConsumptions, addedFoodConsumption]);
     } catch (error) {
       console.error('Error adding foodConsumption:', error);

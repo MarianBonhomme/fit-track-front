@@ -52,4 +52,24 @@ const updateProgram = async (programToUpdate) => {
   }
 };
 
-export { getPrograms, getTrainings, getTrainingsByProgramId, updateTraining, updateProgram };
+const addTraining = async (newTraining) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/training`, newTraining)
+    return response.data;
+  } catch (error) {
+    console.error("Error adding new training:", error);
+    throw error;
+  }
+};
+
+const addProgram = async (newProgram) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/program`, newProgram)
+    return response.data;
+  } catch (error) {
+    console.error("Error adding new program:", error);
+    throw error;
+  }
+};
+
+export { getPrograms, getTrainings, getTrainingsByProgramId, updateTraining, updateProgram, addTraining, addProgram, };
