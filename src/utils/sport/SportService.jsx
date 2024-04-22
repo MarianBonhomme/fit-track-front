@@ -12,9 +12,19 @@ const getPrograms = async (profileId) => {
   }
 };
 
+const getTrainings = async (profileId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/training/${profileId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching all trainings with profile id:", error);
+    throw error;
+  }
+};
+
 const getTrainingsByProgramId = async (programId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/training/${programId}`);
+    const response = await axios.get(`${BASE_URL}/training/program/${programId}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching all trainings with program id:", error);
@@ -42,4 +52,4 @@ const updateProgram = async (programToUpdate) => {
   }
 };
 
-export { getPrograms, getTrainingsByProgramId, updateTraining, updateProgram };
+export { getPrograms, getTrainings, getTrainingsByProgramId, updateTraining, updateProgram };

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useUser } from '../../utils/user/UserContext';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import ProgramsTab from './ProgramsTab';
-import ExercisesTab from './ExercisesTab';
 
 export default function SportPage() {  
   const { isDarkMode, toggleDarkMode } = useUser();
@@ -13,7 +12,6 @@ export default function SportPage() {
       <div className='flex justify-between'>
         <ul className='flex font-bold'>
           <li className={`${activeTab === 'programs' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActiveTab('programs')} >Programs</li>
-          <li className={`${activeTab === 'exercises' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActiveTab('exercises')} >Exercises</li>
         </ul>
         <DarkModeSwitch
           checked={isDarkMode}
@@ -23,9 +21,6 @@ export default function SportPage() {
       </div>
       {activeTab === 'programs' && (
         <ProgramsTab />
-      )}
-      {activeTab === 'exercises' && (
-        <ExercisesTab />
       )}
     </div>
   );

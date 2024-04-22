@@ -19,8 +19,8 @@ export default function ProgramsTab() {
       if (a.is_favorite !== b.is_favorite) {
         return a.is_favorite ? -1 : 1;
       }
-      if (a.is_finished !== b.is_finished) {
-        return a.is_finished ? 1 : -1;
+      if (a.ended_date !== b.ended_date) {
+        return a.ended_date ? 1 : -1;
       }
       const dateA = new Date(a.starting_date);
       const dateB = new Date(b.starting_date);

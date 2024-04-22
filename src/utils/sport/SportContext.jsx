@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useProfile } from "../profile/ProfileContext";
-import { getPrograms, updateProgram } from "./SportService";
+import { getPrograms, getTrainings, updateProgram } from "./SportService";
 
 const SportContext = createContext();
 
@@ -8,10 +8,12 @@ export const SportProvider = ({ children }) => {
   const { profile } = useProfile();
   const [sportLoading, setSportLoading] = useState(true);
   const [programs, setPrograms] = useState([]);
+  const [trainings, setTrainings] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       await fetchPrograms();
+      await fetchTrainings();
       setSportLoading(false);
     }
     
@@ -21,6 +23,11 @@ export const SportProvider = ({ children }) => {
   const fetchPrograms = async () => {
     const fetchedPrograms = await getPrograms(profile.id);
     setPrograms(fetchedPrograms);
+  }
+
+  const fetchTrainings = async () => {
+    const fetchedTrainings = await getTrainings(profile.id);
+    setTrainings(fetchedTrainings);
   }
 
   const handleUpdateProgram = async (programToUpdate) => {
@@ -39,7 +46,8 @@ export const SportProvider = ({ children }) => {
       value={{
         sportLoading,
         programs,
-        handleUpdateProgram
+        trainings,
+        handleUpdateProgram,
       }}
     >
       {children}
