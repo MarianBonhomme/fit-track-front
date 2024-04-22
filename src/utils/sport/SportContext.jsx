@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useProfile } from "../profile/ProfileContext";
-import { addProgram, addTraining, getPrograms, getTrainings, updateProgram } from "./SportService";
+import { addProgram, addTraining, getPrograms, getTrainings, updateProgram, updateTraining } from "./SportService";
 
 const SportContext = createContext();
 
@@ -51,6 +51,17 @@ export const SportProvider = ({ children }) => {
     }
   };
 
+  const handleUpdateTraining = async (trainingToUpdate) => {
+    try {
+      const updatedTraining = await updateTraining(trainingToUpdate);
+      setTrainings((prevTrainings) =>
+        prevTrainings.map((consumption) => (consumption.id === updatedTraining.id ? updatedTraining : consumption))
+      );
+    } catch (error) {
+      console.error(`Error updating training with id ${trainingToUpdate.id}:`, error);
+    }
+  };
+
   const handleAddTraining = async (newTraining) => {
     try {
       const addedTraining = await addTraining(newTraining);
@@ -68,6 +79,7 @@ export const SportProvider = ({ children }) => {
         trainings,
         handleUpdateProgram,
         handleAddProgram,
+        handleUpdateTraining,
         handleAddTraining,
       }}
     >

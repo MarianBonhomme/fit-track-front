@@ -2,9 +2,10 @@ import React from 'react'
 import { getShortDate } from '../../../utils/global/DateService'
 import { Icon } from '@iconify/react/dist/iconify.js'
 
-export default function TrainingCard({training}) {
+export default function TrainingCard({training, edit}) {
   return (
     <div className="bg-lightPrimary min-w-40 min-h-40 flex flex-col items-center justify-evenly rounded-xl shadow text-secondary relative">
+      <Icon icon="mage:settings-fill" width={20} height={20} className="absolute top-3 left-3 text-gray cursor-pointer" onClick={edit} />
       <p>{getShortDate(new Date(training.date))}</p>
       <div className='flex flex-col items-center'>
         <p className='text-3xl font-bold'>

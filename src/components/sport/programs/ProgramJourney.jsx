@@ -3,12 +3,13 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import TrainingCard from './TrainingCard'
 import { useSport } from '../../../utils/sport/SportContext'
 import { getShortDate } from '../../../utils/global/DateService';
-import CreateTrainingForm from './CreateTrainingForm';
+import TrainingForm from './TrainingForm';
 
 export default function ProgramJourney({program}) {
   const { trainings, handleUpdateProgram } = useSport();
   const [programTrainings, setProgramTrainings] = useState();
   const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false)
+  const [trainingToUpdate, setTrainingToUpdate] = useState(null)
 
   useEffect(() => {
     const filteredTrainings = getProgramTrainings();
@@ -23,6 +24,11 @@ export default function ProgramJourney({program}) {
   const toggleFavorite = () => {
     const programFavorite = { ...program, is_favorite: !program.is_favorite};
     handleUpdateProgram(programFavorite);
+  }
+
+  const editTraining = (training) => {
+    setTrainingToUpdate(training);
+    setIsTrainingFormDisplayed(true);
   }
 
   return (
@@ -58,7 +64,7 @@ export default function ProgramJourney({program}) {
         </div>          
         <div className='flex flex-wrap items-stretch gap-3'>
           {programTrainings && programTrainings.map((training) => (
-            <TrainingCard key={training.id} training={training} />
+            <TrainingCard key={training.id} training={training} edit={() => editTraining(training)} />
           ))}
           {!program.ended_date && (
             <div className='w-40 h-40 flex justify-center items-center cursor-pointer' onClick={() => setIsTrainingFormDisplayed(true)} >
@@ -68,7 +74,7 @@ export default function ProgramJourney({program}) {
         </div>
       </div>
       {isTrainingFormDisplayed && (
-        <CreateTrainingForm program={program} close={() => setIsTrainingFormDisplayed(false)}/>
+        <TrainingForm program={program} training={trainingToUpdate} close={() => setIsTrainingFormDisplayed(false)}/>
       )}
     </>
   )

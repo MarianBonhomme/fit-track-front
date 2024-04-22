@@ -2,16 +2,17 @@ import { useState } from 'react'
 import { useSport } from '../../../utils/sport/SportContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
 
-export default function CreateTrainingForm({ program, close }) {
-  const { handleAddTraining } = useSport();
-  const [difficulty, setDifficulty] = useState(1);
-  const [isValidate, setIsValidate] = useState(1);
+export default function TrainingForm({ program, training, close }) {
+  const { handleAddTraining, handleUpdateTraining } = useSport();
+  const [difficulty, setDifficulty] = useState(training ? training.difficulty : 1);
+  const [isValidate, setIsValidate] = useState(training ? training.is_validate : 1);
 
   const [formData, setFormData] = useState({
+    id: training ? training.id : null,
     program_id: program.id,
-    date: new Date(),
-    weight: 0,
-    comment: '',
+    date: training ? training.date : new Date(),
+    weight: training ? training.weight : 0,
+    comment: training ? training.comment : '',
   })
 
   const handleChange = (e) => {
@@ -29,7 +30,11 @@ export default function CreateTrainingForm({ program, close }) {
       difficulty: difficulty,
       is_validate: isValidate,
     }
-    handleAddTraining(newTraining)
+    if (training) {
+      handleUpdateTraining(newTraining)
+    } else {
+      handleAddTraining(newTraining)
+    }
 	  close();
 	};
 
