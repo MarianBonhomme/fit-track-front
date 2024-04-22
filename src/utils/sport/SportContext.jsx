@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useProfile } from "../profile/ProfileContext";
-import { addProgram, addTraining, getPrograms, getTrainings, updateProgram, updateTraining } from "./SportService";
+import { addProgram, addTraining, deleteTraining, getPrograms, getTrainings, updateProgram, updateTraining } from "./SportService";
 
 const SportContext = createContext();
 
@@ -71,6 +71,15 @@ export const SportProvider = ({ children }) => {
     }
   };
 
+  const handleDeleteTraining = async (trainingToDelete) => {
+    try {
+      await deleteTraining(trainingToDelete);
+      setTrainings((prevTrainings) => prevTrainings.filter((training) => training.id !== trainingToDelete.id));
+    } catch (error) {
+      console.error(`Error deleting training with id ${trainingToDelete.id}:`, error);
+    }
+  };
+
   return (
     <SportContext.Provider
       value={{
@@ -81,6 +90,7 @@ export const SportProvider = ({ children }) => {
         handleAddProgram,
         handleUpdateTraining,
         handleAddTraining,
+        handleDeleteTraining,
       }}
     >
       {children}

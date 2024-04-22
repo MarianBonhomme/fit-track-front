@@ -3,7 +3,7 @@ import { useSport } from '../../../utils/sport/SportContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 export default function TrainingForm({ program, training, close }) {
-  const { handleAddTraining, handleUpdateTraining } = useSport();
+  const { handleAddTraining, handleUpdateTraining, handleDeleteTraining } = useSport();
   const [difficulty, setDifficulty] = useState(training ? training.difficulty : 1);
   const [isValidate, setIsValidate] = useState(training ? training.is_validate : 1);
 
@@ -37,6 +37,14 @@ export default function TrainingForm({ program, training, close }) {
     }
 	  close();
 	};
+
+  const deleteTraining = () => {
+    const confirm = window.confirm('Are your sure ?')
+    if (confirm) {
+      handleDeleteTraining(training);
+      close();
+    }
+  }
 
   return (
     <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-50'>
@@ -105,7 +113,10 @@ export default function TrainingForm({ program, training, close }) {
             />
           </div>       
         </div>        
-        <button type="submit" className={`font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10`}>Confirm</button>
+        <div className='flex items-center gap-5'>
+          {training && (<button className={`font-bold bg-red text-primary px-10 py-3 rounded-3xl mt-10`} onClick={deleteTraining}>Delete</button>)}
+          <button type="submit" className={`font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10`}>Confirm</button>
+        </div>
       </form>
     </div>
   )
