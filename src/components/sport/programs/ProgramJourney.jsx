@@ -24,24 +24,29 @@ export default function ProgramJourney({program}) {
   }
 
   return (
-    <div className={`${program.ended_date ? 'bg-green' : 'bg-blue'} text-primary mb-5 p-5 rounded-3xl rounded-tl-none`}>
+    <div className={`bg-primary text-secondary mb-5 p-5 rounded-3xl rounded-tl-none`}>
       <div className='flex justify-between items-start mb-5'>   
         <div className="flex items-center gap-3">       
           {!program.ended_date && (
-            <Icon icon="solar:star-bold" width={30} height={30} className={`${program.is_favorite ? 'text-yellow' : 'text-primary'} cursor-pointer`} onClick={toggleFavorite} />
+            <Icon icon="solar:star-bold" width={30} height={30} className={`${program.is_favorite ? 'text-yellow' : 'text-lightPrimary'} cursor-pointer`} onClick={toggleFavorite} />
           )} 
           <div>
-            <p className="text-lg font-semibold">{program.name}</p>
-            <p className="text-sm">{program.description}</p>
+            <p className="text-xl font-bold">{program.name}</p>
+            <p className='font-semibold'>{program.description}</p>
           </div>
         </div> 
-        {program.ended_date && (
+        {program.ended_date ? (
           <div>
-            <p class="text-sm mb-2"><span className='font-semibold'>Date de fin:</span> {getShortDate(new Date(program.ended_date))}</p>
+            <div className='flex justify-between items-start gap-5'>
+              <p class="text-sm mb-2"><span className='font-semibold'>Date de fin:</span> {getShortDate(new Date(program.ended_date))}</p>
+              <div className="w-20 text-sm text-center bg-purple text-primary font-semibold rounded-md">Terminé</div>
+            </div>
             {program.ended_reason && (
               <p class="text-sm"><span className='font-semibold'>Commentaire:</span> {program.ended_reason}</p>
             )}
           </div>
+        ) : (
+          <div className="w-20 text-sm text-center bg-orange text-primary font-semibold rounded-md">En cours</div>
         )}
       </div>          
       <div className='flex flex-wrap items-stretch gap-3'>
@@ -49,7 +54,9 @@ export default function ProgramJourney({program}) {
           <TrainingCard key={training.id} training={training} />
         ))}
         {!program.ended_date && (
-          <Icon icon="icon-park-solid:add-one" width="40" height="40" className='text-primary my-auto' />
+          <div className='w-40 h-40 flex justify-center items-center cursor-pointer'>
+            <Icon icon="icon-park-solid:add-one" width="50" height="50" className='text-blue' />
+          </div>
         )}        
       </div>
     </div>

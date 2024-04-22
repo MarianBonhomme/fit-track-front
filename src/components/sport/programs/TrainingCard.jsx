@@ -4,8 +4,8 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 
 export default function TrainingCard({training}) {
   return (
-    <div className="min-w-40 min-h-40 flex flex-col items-center justify-evenly rounded-xl bg-primary shadow text-secondary relative">
-      <p className="bg-blue text-primary text-xs font-semibold px-2 rounded-md max-w-fit">{getShortDate(new Date(training.date))}</p>
+    <div className="bg-lightPrimary min-w-40 min-h-40 flex flex-col items-center justify-evenly rounded-xl shadow text-secondary relative">
+      <p>{getShortDate(new Date(training.date))}</p>
       <div className='flex flex-col items-center'>
         <p className='text-3xl font-bold'>
           {training.weight > 0 ? (
@@ -23,7 +23,7 @@ export default function TrainingCard({training}) {
           <Icon icon="material-symbols:cancel-rounded" width="30" height="30" className='text-red' />
         )}
       </div>
-      <div className="w-full flex justify-center gap-1 text-sm font-bold">
+      <div className='flex justify-center gap-1 text-sm font-bold bg-primary rounded-full mx-auto px-2 py-1'>
         <p class={`flex items-center justify-center h-5 w-5 rounded-full ${training.difficulty === 1 ? 'bg-green text-primary' : 'text-green' }`}>1</p>
         <p class={`flex items-center justify-center h-5 w-5 rounded-full ${training.difficulty === 2 ? 'bg-green text-primary' : 'text-green' }`}>2</p>
         <p class={`flex items-center justify-center h-5 w-5 rounded-full ${training.difficulty === 3 ? 'bg-yellow text-primary' : 'text-yellow' }`}>3</p>
