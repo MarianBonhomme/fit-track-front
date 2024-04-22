@@ -1,21 +1,35 @@
 import React from 'react'
 import { getShortDate } from '../../../utils/global/DateService'
+import { Icon } from '@iconify/react/dist/iconify.js'
 
 export default function TrainingCard({training}) {
   return (
-    <div className={`min-w-28 min-h-20 flex flex-col justify-center items-center px-2 rounded-2xl relative ${training.is_validate ? 'bg-green' : 'bg-orange'} text-primary text-center font-medium`}>
-      <p className="absolute top-0 left-0 text-xs bg-lightPrimary text-secondary rounded-ee-lg px-2">{getShortDate(new Date(training.date))}</p>
-      <p className='text-center text-2xl font-semibold'>
-        {training.weight > 0 ? (
-          <>
-            {training.weight}
-            <span className="text-sm font-normal">kg</span>
-          </>
+    <div className="min-w-40 min-h-40 flex flex-col items-center justify-evenly rounded-xl bg-primary shadow text-secondary relative">
+      <p className="bg-blue text-primary text-xs font-semibold px-2 rounded-md max-w-fit">{getShortDate(new Date(training.date))}</p>
+      <div className='flex flex-col items-center'>
+        <p className='text-3xl font-bold'>
+          {training.weight > 0 ? (
+            <>
+              {training.weight}
+              <span className="text-sm font-normal">kg</span>
+            </>
+          ) : (
+            <span>BW</span>
+          )}
+        </p>
+        {training.is_validate ? (
+          <Icon icon="icon-park-solid:check-one" width="30" height="30" className="text-green" />
         ) : (
-          <span>BW</span>
+          <Icon icon="material-symbols:cancel-rounded" width="30" height="30" className='text-red' />
         )}
-      </p>
-      <p className="text-sm">{training.comment}</p>
+      </div>
+      <div className="w-full flex justify-center gap-1 text-sm font-bold">
+        <p class={`flex items-center justify-center h-5 w-5 rounded-full ${training.difficulty === 1 ? 'bg-green text-primary' : 'text-green' }`}>1</p>
+        <p class={`flex items-center justify-center h-5 w-5 rounded-full ${training.difficulty === 2 ? 'bg-green text-primary' : 'text-green' }`}>2</p>
+        <p class={`flex items-center justify-center h-5 w-5 rounded-full ${training.difficulty === 3 ? 'bg-yellow text-primary' : 'text-yellow' }`}>3</p>
+        <p class={`flex items-center justify-center h-5 w-5 rounded-full ${training.difficulty === 4 ? 'bg-orange text-primary' : 'text-orange' }`}>4</p>
+        <p class={`flex items-center justify-center h-5 w-5 rounded-full ${training.difficulty === 5 ? 'bg-red text-primary' : 'text-red' }`}>5</p>
+      </div>
     </div>
   )
 }

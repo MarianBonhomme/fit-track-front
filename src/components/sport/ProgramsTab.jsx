@@ -32,7 +32,7 @@ export default function ProgramsTab() {
 
   return (    
     <div className='flex gap-5'>
-      <div className="w-2/3 bg-primary px-4 py-3 shadow-custom rounded-3xl rounded-tl-none relative">
+      <div className="w-2/3 shadow-custom relative">
         {sortedPrograms && sortedPrograms.map((program) => (
           <ProgramJourney key={program.id} program={program} />
         ))}
