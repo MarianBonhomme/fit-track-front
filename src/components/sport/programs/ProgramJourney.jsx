@@ -1,15 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import TrainingCard from './TrainingCard'
 import { useSport } from '../../../utils/sport/SportContext'
 import { getShortDate } from '../../../utils/global/DateService';
 import TrainingForm from './TrainingForm';
-import { getLastTraining } from '../../../utils/sport/SportService';
+import { getFirstTraining, getLastTraining } from '../../../utils/sport/SportService';
 
 export default function ProgramJourney({program}) {
   const { handleUpdateProgram, handleDeleteProgram } = useSport();
-  const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false)
-  const [trainingToUpdate, setTrainingToUpdate] = useState(null)
+  const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false);
+  const [trainingToUpdate, setTrainingToUpdate] = useState(null);
+  const [startPerf, setStartPerf] = useState(null);
+  const [bestPerf, setBestPerf] = useState(null);
+
+  useEffect(() => {
+    const firstTraining = getFirstTraining(program);
+    setStartPerf(firstTraining.weight > 0 ? firstTraining.weight : firstTraining.comment)
+    const lastTraining = getLastTraining(program);
+    setBestPerf(lastTraining.weight > 0 ? lastTraining.weight : lastTraining.comment)
+  }, [program])
 
   const toggleFavorite = () => {
     const programFavorite = { ...program, is_favorite: !program.is_favorite};
@@ -75,18 +84,18 @@ export default function ProgramJourney({program}) {
             )}
           </div>
           <div className='flex flex-col gap-1'>
-            {/* {program.starting_date && (    
+            {program.starting_date && (    
               <>
                 <div className="flex items-center gap-2">
                   <div className="w-20 text-sm text-center bg-blue text-primary font-semibold rounded-md">Start</div>
-                  <p>{startPerformance}</p>
+                  <p>{startPerf}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-20 text-sm text-center bg-yellow text-primary font-semibold rounded-md">Best</div>
-                  <p>{bestPerformance}</p>
+                  <p>{bestPerf}</p>
                 </div>
               </>
-            )} */}
+            )}
           </div>
         </div>          
         <div className='flex flex-wrap items-stretch gap-3'>
