@@ -8,12 +8,10 @@ export const SportProvider = ({ children }) => {
   const { profile } = useProfile();
   const [sportLoading, setSportLoading] = useState(true);
   const [programs, setPrograms] = useState([]);
-  const [trainings, setTrainings] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       await fetchPrograms();
-      await fetchTrainings();
       setSportLoading(false);
     }
     
@@ -23,12 +21,6 @@ export const SportProvider = ({ children }) => {
   const fetchPrograms = async () => {
     const fetchedPrograms = await getPrograms(profile.id);
     setPrograms(fetchedPrograms);
-    console.log(programs)
-  }
-
-  const fetchTrainings = async () => {
-    const fetchedTrainings = await getTrainings(profile.id);
-    setTrainings(fetchedTrainings);
   }
 
   const handleUpdateProgram = async (programToUpdate) => {
@@ -59,6 +51,15 @@ export const SportProvider = ({ children }) => {
       setTrainings((prevTrainings) =>
         prevTrainings.map((consumption) => (consumption.id === updatedTraining.id ? updatedTraining : consumption))
       );
+      
+      const programId = updatedTraining.program_id;
+      const existingProgramIndex = programs.findIndex((program) => program.id === programId);
+      const programToUpdate = programs[existingProgramIndex];
+
+      if (programToUpdate.trainings.length === 0) {
+        const updatedProgram = { ...programToUpdate, starting_date: updatedTraining.date };
+        handleUpdateProgram(updatedProgram);
+      }
     } catch (error) {
       console.error(`Error updating training with id ${trainingToUpdate.id}:`, error);
     }
@@ -68,6 +69,15 @@ export const SportProvider = ({ children }) => {
     try {
       const addedTraining = await addTraining(newTraining);
       setTrainings((prevTrainings) => [...prevTrainings, addedTraining]);
+
+      const programId = addedTraining.program_id;
+      const existingProgramIndex = programs.findIndex((program) => program.id === programId);
+      const programToUpdate = programs[existingProgramIndex];
+
+      if (programToUpdate.trainings.length === 0) {
+        const updatedProgram = { ...programToUpdate, starting_date: addedTraining.date };
+        handleUpdateProgram(updatedProgram);
+      }
     } catch (error) {
       console.error('Error adding training:', error);
     }
@@ -87,7 +97,6 @@ export const SportProvider = ({ children }) => {
       value={{
         sportLoading,
         programs,
-        trainings,
         handleUpdateProgram,
         handleAddProgram,
         handleUpdateTraining,

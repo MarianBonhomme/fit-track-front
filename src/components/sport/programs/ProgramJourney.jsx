@@ -1,26 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import TrainingCard from './TrainingCard'
 import { useSport } from '../../../utils/sport/SportContext'
 import { getShortDate } from '../../../utils/global/DateService';
 import TrainingForm from './TrainingForm';
-import { getFirstTrainingWeightOrComment, getLastTrainingWeightOrComment } from '../../../utils/sport/SportService';
 
 export default function ProgramJourney({program}) {
-  const { trainings, handleUpdateProgram } = useSport();
-  const [programTrainings, setProgramTrainings] = useState();
+  const { handleUpdateProgram } = useSport();
   const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false)
   const [trainingToUpdate, setTrainingToUpdate] = useState(null)
-
-  useEffect(() => {
-    const filteredTrainings = getProgramTrainings();
-    setProgramTrainings(filteredTrainings);
-  }, [trainings])
-
-  const getProgramTrainings = () => {
-    const filteredTrainings = trainings.filter(training => training.program_id === program.id);
-    return filteredTrainings;
-  }
 
   const toggleFavorite = () => {
     const programFavorite = { ...program, is_favorite: !program.is_favorite};
@@ -45,37 +33,37 @@ export default function ProgramJourney({program}) {
               <p className='font-semibold'>{program.description}</p>
             </div>
           </div> 
-          <div>
+          <div className='flex flex-col gap-1'>
             {program.starting_date && (
-              <div class="flex items-center gap-2">
-                <div className="w-24 text-sm text-center bg-green text-primary font-semibold rounded-md">Start Date</div>
+              <div className="flex items-center gap-2">
+                <div className="w-20 text-sm text-center bg-green text-primary font-semibold rounded-md">Start</div>
                 <p>{getShortDate(new Date(program.starting_date))}</p>
               </div>
             )}
             {program.ended_date && (   
-              <div class="flex items-center gap-2">
-                <div className="w-24 text-sm text-center bg-red text-primary font-semibold rounded-md">End Date</div>
+              <div className="flex items-center gap-2">
+                <div className="w-20 text-sm text-center bg-red text-primary font-semibold rounded-md">End</div>
                 <p>{getShortDate(new Date(program.ended_date))}</p>
               </div>
             )}
           </div>
-          <div>
-            {program.starting_date && (    
+          <div className='flex flex-col gap-1'>
+            {/* {program.starting_date && (    
               <>
-                <div class="flex items-center gap-2">
-                  <div className="w-40 text-sm text-center bg-blue text-primary font-semibold rounded-md">Start Performance</div>
-                  <p>{getFirstTrainingWeightOrComment(program)}</p>
+                <div className="flex items-center gap-2">
+                  <div className="w-20 text-sm text-center bg-blue text-primary font-semibold rounded-md">Start</div>
+                  <p>{startPerformance}</p>
                 </div>
-                <div class="flex items-center gap-2">
-                  <div className="w-40 text-sm text-center bg-yellow text-primary font-semibold rounded-md">Best Performance</div>
-                  <p>{getLastTrainingWeightOrComment(program)}</p>
+                <div className="flex items-center gap-2">
+                  <div className="w-20 text-sm text-center bg-yellow text-primary font-semibold rounded-md">Best</div>
+                  <p>{bestPerformance}</p>
                 </div>
               </>
-            )}
+            )} */}
           </div>
         </div>          
         <div className='flex flex-wrap items-stretch gap-3'>
-          {programTrainings && programTrainings.map((training) => (
+          {program.trainings && program.trainings.map((training) => (
             <TrainingCard key={training.id} training={training} edit={() => editTraining(training)} />
           ))}
           {!program.ended_date && (
