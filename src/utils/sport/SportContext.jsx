@@ -48,16 +48,14 @@ export const SportProvider = ({ children }) => {
   const handleUpdateTraining = async (trainingToUpdate) => {
     try {
       const updatedTraining = await updateTraining(trainingToUpdate);
-
-      const updatedPrograms = [...programs];
-      updatedPrograms.forEach(program => {
-        const index = program.trainings.findIndex(training => training.id === updatedTraining.id);
-        if (index !== -1) {
-          program.trainings[index] = updatedTraining;
-        }
-      });
+      const updatedTrainingId = updatedTraining.id;
+      const updatedPrograms = programs.map(program => ({
+        ...program,
+        trainings: program.trainings.map(training =>
+          training.id === updatedTrainingId ? updatedTraining : training
+        )
+      }));
       setPrograms(updatedPrograms);
-
     } catch (error) {
       console.error(`Error updating training with id ${trainingToUpdate.id}:`, error);
     }
@@ -66,15 +64,13 @@ export const SportProvider = ({ children }) => {
   const handleAddTraining = async (newTraining) => {
     try {
       const addedTraining = await addTraining(newTraining);
-
-      const programId = addedTraining.program_id;
-      const updatedPrograms = [...programs];
-      const programIndex = updatedPrograms.findIndex(program => program.id === programId);
-      if (programIndex !== -1) {
-        updatedPrograms[programIndex].trainings.push(addedTraining);
-        setPrograms(updatedPrograms);
-      }
-      
+      const addedProgramId = addedTraining.program_id;
+      const updatedPrograms = programs.map(program =>
+        program.id === addedProgramId
+          ? { ...program, trainings: [...program.trainings, addedTraining] }
+          : program
+      );
+      setPrograms(updatedPrograms);
     } catch (error) {
       console.error('Error adding training:', error);
     }
@@ -83,16 +79,12 @@ export const SportProvider = ({ children }) => {
   const handleDeleteTraining = async (trainingToDelete) => {
     try {
       await deleteTraining(trainingToDelete);
-
-      const updatedPrograms = [...programs];
-      updatedPrograms.forEach(program => {
-        const index = program.trainings.findIndex(training => training.id === trainingToDelete.id);
-        if (index !== -1) {
-          program.trainings.splice(index, 1);
-        }
-      });
+      const deletedTrainingId = trainingToDelete.id;
+      const updatedPrograms = programs.map(program => ({
+        ...program,
+        trainings: program.trainings.filter(training => training.id !== deletedTrainingId)
+      }));
       setPrograms(updatedPrograms);
-
     } catch (error) {
       console.error(`Error deleting training with id ${trainingToDelete.id}:`, error);
     }
