@@ -55,6 +55,13 @@ export const SportProvider = ({ children }) => {
           training.id === updatedTrainingId ? updatedTraining : training
         )
       }));
+      updatedPrograms.forEach(program => {
+        program.trainings.sort((a, b) => {
+          const dateA = new Date(a.date).getTime();
+          const dateB = new Date(b.date).getTime();
+          return dateA - dateB;
+        });
+      });
       setPrograms(updatedPrograms);
     } catch (error) {
       console.error(`Error updating training with id ${trainingToUpdate.id}:`, error);
@@ -70,6 +77,13 @@ export const SportProvider = ({ children }) => {
           ? { ...program, trainings: [...program.trainings, addedTraining] }
           : program
       );
+      updatedPrograms.forEach(program => {
+        program.trainings.sort((a, b) => {
+          const dateA = new Date(a.date).getTime();
+          const dateB = new Date(b.date).getTime();
+          return dateA - dateB;
+        });
+      });
       setPrograms(updatedPrograms);
     } catch (error) {
       console.error('Error adding training:', error);
