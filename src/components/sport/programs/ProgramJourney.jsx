@@ -10,14 +10,18 @@ export default function ProgramJourney({program}) {
   const { handleUpdateProgram, handleDeleteProgram } = useSport();
   const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false);
   const [trainingToUpdate, setTrainingToUpdate] = useState(null);
-  const [startPerf, setStartPerf] = useState(null);
-  const [bestPerf, setBestPerf] = useState(null);
+  const [startPerf, setStartPerf] = useState('');
+  const [bestPerf, setBestPerf] = useState('');
 
   useEffect(() => {
     const firstTraining = getFirstTraining(program);
-    setStartPerf(firstTraining.weight > 0 ? firstTraining.weight : firstTraining.comment)
+    if (firstTraining) {
+      setStartPerf(firstTraining.weight > 0 ? firstTraining.weight : firstTraining.comment)
+    }
     const lastTraining = getLastTraining(program);
-    setBestPerf(lastTraining.weight > 0 ? lastTraining.weight : lastTraining.comment)
+    if (lastTraining) {
+      setBestPerf(lastTraining.weight > 0 ? lastTraining.weight : lastTraining.comment)
+    }
   }, [program])
 
   const toggleFavorite = () => {
@@ -58,9 +62,9 @@ export default function ProgramJourney({program}) {
   return (
     <>
       <div className={`bg-primary text-secondary mb-5 p-5 rounded-3xl rounded-tl-none`}>
-        <div className='flex justify-between items-start mb-5'>   
+        <div className='flex justify-between items-start mb-5 relative'>   
+          <Icon icon="maki:cross" width={10} height={10} className="absolute top-0 right-0 text-red cursor-pointer" onClick={deleteProgram} />
           <div className="flex items-center gap-3">       
-            <Icon icon="maki:cross" width={35} height={35} className="text-red cursor-pointer" onClick={deleteProgram} />
             {!program.ended_date && (
               <Icon icon="solar:star-bold" width={30} height={30} className={`${program.is_favorite ? 'text-yellow' : 'text-lightPrimary'} cursor-pointer`} onClick={toggleFavorite} />
             )} 
