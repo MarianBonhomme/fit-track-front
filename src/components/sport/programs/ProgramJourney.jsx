@@ -4,6 +4,7 @@ import TrainingCard from './TrainingCard'
 import { useSport } from '../../../utils/sport/SportContext'
 import { getShortDate } from '../../../utils/global/DateService';
 import TrainingForm from './TrainingForm';
+import { getLastTraining } from '../../../utils/sport/SportService';
 
 export default function ProgramJourney({program}) {
   const { handleUpdateProgram } = useSport();
@@ -18,6 +19,24 @@ export default function ProgramJourney({program}) {
   const editTraining = (training) => {
     setTrainingToUpdate(training);
     setIsTrainingFormDisplayed(true);
+  }
+
+  const stopProgram = () => {
+    const confirm = window.confirm("Are you sure ?");
+    if (confirm) {
+      const lastTraining = getLastTraining(program);
+      const lastTrainingDate = lastTraining.date;
+      const programToStop = {...program, ended_date: lastTrainingDate }
+      handleUpdateProgram(programToStop)
+    }
+  }
+
+  const restartProgram = () => {
+    const confirm = window.confirm("Are you sure ?");
+    if (confirm) {
+      const programToRestart = {...program, ended_date: null }
+      handleUpdateProgram(programToRestart)
+    }
   }
 
   return (
@@ -65,12 +84,21 @@ export default function ProgramJourney({program}) {
         <div className='flex flex-wrap items-stretch gap-3'>
           {program.trainings && program.trainings.map((training) => (
             <TrainingCard key={training.id} training={training} edit={() => editTraining(training)} />
-          ))}
-          {!program.ended_date && (
-            <div className='w-40 h-40 flex justify-center items-center cursor-pointer' onClick={() => setIsTrainingFormDisplayed(true)} >
-              <Icon icon="icon-park-solid:add-one" width="50" height="50" className='text-blue' />
-            </div>
-          )}        
+          ))}          
+          <div className='w-40 h-40 flex justify-center items-center cursor-pointer'>
+            {!program.starting_date ? (
+              <Icon icon="heroicons-solid:play" width="50" height="50" className='text-blue' onClick={() => setIsTrainingFormDisplayed(true)} />
+            ) : (
+              !program.ended_date ? (
+                <>
+                  <Icon icon="icon-park-solid:add-one" width="50" height="50" className='text-blue' onClick={() => setIsTrainingFormDisplayed(true)} />
+                  <Icon icon="carbon:stop-filled" width="50" height="50" className='text-red' onClick={stopProgram} />
+                </>
+              ) : (
+                <Icon icon="solar:restart-circle-bold" width="50" height="50" className='text-blue' onClick={restartProgram} />
+              )
+            )} 
+          </div>      
         </div>
       </div>
       {isTrainingFormDisplayed && (

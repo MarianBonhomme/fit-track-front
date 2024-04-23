@@ -82,7 +82,7 @@ const addProgram = async (newProgram) => {
   }
 };
 
-const getLastTrainingWeightOrComment = (program) => {
+const getLastTraining = (program) => {
   if (!program || !program.trainings || program.trainings.length === 0) {
     return null;
   }
@@ -96,15 +96,11 @@ const getLastTrainingWeightOrComment = (program) => {
   sortedTrainings.sort((a, b) => b.date - a.date);
 
   for (const training of sortedTrainings) {
-    if (training.weight !== 0) {
-      return `${training.weight} kg`;
-    } else {
-      return training.comment;
-    }
+    return training
   }
 }
 
-const getFirstTrainingWeightOrComment = (program) => {
+const getFirstTraining = (program) => {
   if (!program || !program.trainings || program.trainings.length === 0) {
     return null;
   }
@@ -118,12 +114,8 @@ const getFirstTrainingWeightOrComment = (program) => {
   sortedTrainings.sort((a, b) => a.date - b.date);
 
   for (const training of sortedTrainings) {
-    if (training.weight !== 0) {
-      return `${training.weight} kg`;
-    } else {
-      return training.comment;
-    }
+    return training
   }
 }
 
-export { getPrograms, getTrainings, getTrainingsByProgramId, updateTraining, updateProgram, addTraining, deleteTraining, addProgram, getLastTrainingWeightOrComment, getFirstTrainingWeightOrComment };
+export { getPrograms, getTrainings, getTrainingsByProgramId, updateTraining, updateProgram, addTraining, deleteTraining, addProgram, getLastTraining, getFirstTraining };
