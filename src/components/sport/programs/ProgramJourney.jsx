@@ -7,7 +7,7 @@ import TrainingForm from './TrainingForm';
 import { getLastTraining } from '../../../utils/sport/SportService';
 
 export default function ProgramJourney({program}) {
-  const { handleUpdateProgram } = useSport();
+  const { handleUpdateProgram, handleDeleteProgram } = useSport();
   const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false)
   const [trainingToUpdate, setTrainingToUpdate] = useState(null)
 
@@ -39,11 +39,19 @@ export default function ProgramJourney({program}) {
     }
   }
 
+  const deleteProgram = () => {
+    const confirm = window.confirm("Are you sure ?");
+    if (confirm) {
+      handleDeleteProgram(program)
+    }
+  }
+
   return (
     <>
       <div className={`bg-primary text-secondary mb-5 p-5 rounded-3xl rounded-tl-none`}>
         <div className='flex justify-between items-start mb-5'>   
           <div className="flex items-center gap-3">       
+            <Icon icon="maki:cross" width={35} height={35} className="text-red cursor-pointer" onClick={deleteProgram} />
             {!program.ended_date && (
               <Icon icon="solar:star-bold" width={30} height={30} className={`${program.is_favorite ? 'text-yellow' : 'text-lightPrimary'} cursor-pointer`} onClick={toggleFavorite} />
             )} 

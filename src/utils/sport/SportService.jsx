@@ -62,6 +62,16 @@ const addTraining = async (newTraining) => {
   }
 };
 
+const deleteprogram = async (programToDelete) => {
+  try {
+    const response = await axios.delete(`${BASE_URL}/program/${programToDelete.id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error deleting program with id ${programToDelete.id}:`, error);
+    throw error;
+  }
+};
+
 const deleteTraining = async (trainingToDelete) => {
   try {
     const response = await axios.delete(`${BASE_URL}/training/${trainingToDelete.id}`);
@@ -118,4 +128,4 @@ const getFirstTraining = (program) => {
   }
 }
 
-export { getPrograms, getTrainings, getTrainingsByProgramId, updateTraining, updateProgram, addTraining, deleteTraining, addProgram, getLastTraining, getFirstTraining };
+export { getPrograms, getTrainings, getTrainingsByProgramId, updateTraining, updateProgram, addTraining, deleteprogram, deleteTraining, addProgram, getLastTraining, getFirstTraining };

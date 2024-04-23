@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useProfile } from "../profile/ProfileContext";
-import { addProgram, addTraining, deleteTraining, getPrograms, getTrainings, updateProgram, updateTraining } from "./SportService";
+import { addProgram, addTraining, deleteTraining, deleteprogram, getPrograms, getTrainings, updateProgram, updateTraining } from "./SportService";
 
 const SportContext = createContext();
 
@@ -24,7 +24,6 @@ export const SportProvider = ({ children }) => {
   }
 
   const handleUpdateProgram = async (programToUpdate) => {
-    console.log(programToUpdate);
     try {
       const updatedProgram = await updateProgram(programToUpdate);
       setPrograms((prevPrograms) =>
@@ -42,6 +41,15 @@ export const SportProvider = ({ children }) => {
       setPrograms((prevPrograms) => [...prevPrograms, addedProgram]);
     } catch (error) {
       console.error('Error adding program:', error);
+    }
+  };
+  
+  const handleDeleteProgram = async (programToDelete) => {
+    try {
+      await deleteprogram(programToDelete);
+      setPrograms((prevPrograms) => prevPrograms.filter((program) => program.id !== programToDelete.id));
+    } catch (error) {
+      console.error(`Error deleting program with id ${programToDelete.id}:`, error);
     }
   };
 
@@ -111,6 +119,7 @@ export const SportProvider = ({ children }) => {
         programs,
         handleUpdateProgram,
         handleAddProgram,
+        handleDeleteProgram,
         handleUpdateTraining,
         handleAddTraining,
         handleDeleteTraining,
