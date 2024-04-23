@@ -23,6 +23,7 @@ export const SportProvider = ({ children }) => {
   const fetchPrograms = async () => {
     const fetchedPrograms = await getPrograms(profile.id);
     setPrograms(fetchedPrograms);
+    console.log(programs)
   }
 
   const fetchTrainings = async () => {
@@ -31,6 +32,7 @@ export const SportProvider = ({ children }) => {
   }
 
   const handleUpdateProgram = async (programToUpdate) => {
+    console.log(programToUpdate);
     try {
       const updatedProgram = await updateProgram(programToUpdate);
       setPrograms((prevPrograms) =>

@@ -4,6 +4,7 @@ import TrainingCard from './TrainingCard'
 import { useSport } from '../../../utils/sport/SportContext'
 import { getShortDate } from '../../../utils/global/DateService';
 import TrainingForm from './TrainingForm';
+import { getFirstTrainingWeightOrComment, getLastTrainingWeightOrComment } from '../../../utils/sport/SportService';
 
 export default function ProgramJourney({program}) {
   const { trainings, handleUpdateProgram } = useSport();
@@ -44,23 +45,34 @@ export default function ProgramJourney({program}) {
               <p className='font-semibold'>{program.description}</p>
             </div>
           </div> 
-          {program.ended_date ? (
-            <div>
-              <div className='flex justify-between items-start gap-5'>
-                <p className="text-sm mb-2"><span className='font-semibold'>Date de fin:</span> {getShortDate(new Date(program.ended_date))}</p>
-                <div className="w-20 text-sm text-center bg-purple text-primary font-semibold rounded-md">Terminé</div>
+          <div>
+            {program.starting_date && (
+              <div class="flex items-center gap-2">
+                <div className="w-24 text-sm text-center bg-green text-primary font-semibold rounded-md">Start Date</div>
+                <p>{getShortDate(new Date(program.starting_date))}</p>
               </div>
-              {program.ended_reason && (
-                <p className="text-sm"><span className='font-semibold'>Commentaire:</span> {program.ended_reason}</p>
-              )}
-            </div>
-          ) : (
-            program.starting_date ? (
-              <div className="w-20 text-sm text-center bg-orange text-primary font-semibold rounded-md">En cours</div>
-            ) : (
-              <div className="w-20 text-sm text-center bg-blue text-primary font-semibold rounded-md">À faire</div>
-            )
-          )}
+            )}
+            {program.ended_date && (   
+              <div class="flex items-center gap-2">
+                <div className="w-24 text-sm text-center bg-red text-primary font-semibold rounded-md">End Date</div>
+                <p>{getShortDate(new Date(program.ended_date))}</p>
+              </div>
+            )}
+          </div>
+          <div>
+            {program.starting_date && (    
+              <>
+                <div class="flex items-center gap-2">
+                  <div className="w-40 text-sm text-center bg-blue text-primary font-semibold rounded-md">Start Performance</div>
+                  <p>{getFirstTrainingWeightOrComment(program)}</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div className="w-40 text-sm text-center bg-yellow text-primary font-semibold rounded-md">Best Performance</div>
+                  <p>{getLastTrainingWeightOrComment(program)}</p>
+                </div>
+              </>
+            )}
+          </div>
         </div>          
         <div className='flex flex-wrap items-stretch gap-3'>
           {programTrainings && programTrainings.map((training) => (

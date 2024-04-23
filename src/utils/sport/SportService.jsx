@@ -82,4 +82,48 @@ const addProgram = async (newProgram) => {
   }
 };
 
-export { getPrograms, getTrainings, getTrainingsByProgramId, updateTraining, updateProgram, addTraining, deleteTraining, addProgram, };
+const getLastTrainingWeightOrComment = (program) => {
+  if (!program || !program.trainings || program.trainings.length === 0) {
+    return null;
+  }
+
+  const sortedTrainings = [...program.trainings];
+
+  sortedTrainings.forEach(training => {
+    training.date = new Date(training.date);
+  });
+
+  sortedTrainings.sort((a, b) => b.date - a.date);
+
+  for (const training of sortedTrainings) {
+    if (training.weight !== 0) {
+      return `${training.weight} kg`;
+    } else {
+      return training.comment;
+    }
+  }
+}
+
+const getFirstTrainingWeightOrComment = (program) => {
+  if (!program || !program.trainings || program.trainings.length === 0) {
+    return null;
+  }
+
+  const sortedTrainings = [...program.trainings];
+
+  sortedTrainings.forEach(training => {
+    training.date = new Date(training.date);
+  });
+
+  sortedTrainings.sort((a, b) => a.date - b.date);
+
+  for (const training of sortedTrainings) {
+    if (training.weight !== 0) {
+      return `${training.weight} kg`;
+    } else {
+      return training.comment;
+    }
+  }
+}
+
+export { getPrograms, getTrainings, getTrainingsByProgramId, updateTraining, updateProgram, addTraining, deleteTraining, addProgram, getLastTrainingWeightOrComment, getFirstTrainingWeightOrComment };
