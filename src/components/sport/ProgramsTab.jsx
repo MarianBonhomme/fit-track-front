@@ -8,27 +8,48 @@ export default function ProgramsTab() {
   const [sortedPrograms, setSortedPrograms] = useState([])
 
   useEffect(() => {
-    const sortedProgramsByDate = getSortedProgramsByDate();
-    setSortedPrograms(sortedProgramsByDate);
+    const sortedProgramsByStatus = getSortedProgramsByStatus();
+    setSortedPrograms(sortedProgramsByStatus);
   }, [programs])
 
-  const getSortedProgramsByDate = () => {
+  const getSortedProgramsByStatus = () => {
     const programsCopy = [...programs];
 
     programsCopy.sort((a, b) => {
-      if (a.is_favorite !== b.is_favorite) {
-        return a.is_favorite ? -1 : 1;
-      }
-      if (a.ended_date !== b.ended_date) {
-        return a.ended_date ? 1 : -1;
-      }
-      const dateA = new Date(a.starting_date);
-      const dateB = new Date(b.starting_date);
-      return dateA - dateB;
+        // Tri par état (favori, en cours, initial, terminé)
+        const statusOrder = {
+            'ONGOING_FAVORITE': 0,
+            'ONGOING_NON_FAVORITE': 1,
+            'INITIAL': 2,
+            'COMPLETED': 3
+        };
+
+        // Fonction pour obtenir le statut du programme
+        const getProgramStatus = (program) => {
+            if (program.ended_date) {
+                return 'COMPLETED';
+            } else if (program.starting_date) {
+                return program.is_favorite ? 'ONGOING_FAVORITE' : 'ONGOING_NON_FAVORITE';
+            } else {
+                return 'INITIAL';
+            }
+        };
+
+        // Comparaison des statuts
+        const statusA = getProgramStatus(a);
+        const statusB = getProgramStatus(b);
+
+        // Comparaison en fonction de l'ordre défini
+        if (statusOrder[statusA] < statusOrder[statusB]) return -1;
+        if (statusOrder[statusA] > statusOrder[statusB]) return 1;
+        // Si les statuts sont les mêmes, tri par date de début
+        const dateA = new Date(a.starting_date);
+        const dateB = new Date(b.starting_date);
+        return dateA - dateB;
     });
   
     return programsCopy;
-  } 
+};
 
   return (    
     <div className='flex gap-5'>
