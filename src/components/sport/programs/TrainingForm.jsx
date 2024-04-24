@@ -10,7 +10,7 @@ export default function TrainingForm({ program, training, close }) {
   const [formData, setFormData] = useState({
     id: training ? training.id : null,
     program_id: program.id,
-    date: training ? training.date : new Date(),
+    date: training ? training.date.toISOString().split('T')[0] : new Date(),
     weight: training ? training.weight : 0,
     comment: training ? training.comment : '',
   })
