@@ -10,17 +10,17 @@ export default function ProgramJourney({program}) {
   const { handleUpdateProgram, handleDeleteProgram } = useSport();
   const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false);
   const [trainingToUpdate, setTrainingToUpdate] = useState(null);
-  const [startPerf, setStartPerf] = useState('');
-  const [bestPerf, setBestPerf] = useState('');
+  const [lastTraining, setLastTraining] = useState('');
+  const [firstTraining, setFirstTraining] = useState('');
 
   useEffect(() => {
-    const firstTraining = getFirstTraining(program);
-    if (firstTraining) {
-      setStartPerf(firstTraining.weight > 0 ? firstTraining.weight : firstTraining.comment)
+    const first = getFirstTraining(program);
+    if (first) {
+      setFirstTraining(first)
     }
-    const lastTraining = getLastTraining(program);
-    if (lastTraining) {
-      setBestPerf(lastTraining.weight > 0 ? lastTraining.weight : lastTraining.comment)
+    const last = getLastTraining(program);
+    if (last) {
+      setLastTraining(last)
     }
   }, [program])
 
@@ -61,7 +61,7 @@ export default function ProgramJourney({program}) {
 
   return (
     <>
-      <div className={`bg-primary text-secondary mb-5 p-5 rounded-3xl rounded-tl-none`}>
+      <div className={`bg-primary text-secondary mb-5 p-5 rounded-3xl rounded-tl-none relative before:h-full before:w-2 ${program.ended_date ? 'before:bg-orange' : 'before:bg-blue'} before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:rounded-3xl`}>
         <div className='flex justify-between items-start mb-5 relative'>   
           <Icon icon="maki:cross" width={10} height={10} className="absolute top-0 right-0 text-red cursor-pointer" onClick={deleteProgram} />
           <div className="flex items-center gap-3">       
@@ -92,11 +92,11 @@ export default function ProgramJourney({program}) {
               <>
                 <div className="flex items-center gap-2">
                   <div className="w-20 text-sm text-center bg-blue text-primary font-semibold rounded-md">Start</div>
-                  <p>{startPerf}</p>
+                  <p>{lastTraining.weight > 0 ? `${lastTraining.weight}kg` : lastTraining.comment}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-20 text-sm text-center bg-yellow text-primary font-semibold rounded-md">Best</div>
-                  <p>{bestPerf}</p>
+                  <p>{firstTraining.weight > 0 ? `${firstTraining.weight}kg` : firstTraining.comment}</p>
                 </div>
               </>
             )}
