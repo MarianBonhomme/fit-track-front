@@ -4,9 +4,9 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 
 export default function TrainingCard({training, edit}) {
   return (
-    <div className="bg-lightPrimary min-w-40 min-h-40 px-3 flex flex-col items-center justify-evenly rounded-xl shadow text-secondary relative">
-      <Icon icon="mage:settings-fill" width={20} height={20} className="absolute top-3 left-3 text-gray cursor-pointer" onClick={edit} />
-      <p>{getShortDate(new Date(training.date))}</p>
+    <div className="bg-lightPrimary min-w-40 min-h-40 p-2 flex flex-col items-center justify-evenly rounded-xl shadow text-secondary relative">
+      <Icon icon="icon-park-outline:hamburger-button" width={20} height={20} className="absolute top-3 left-3 text-gray cursor-pointer" onClick={edit} />
+      <p className='text-xs px-2 rounded-full bg-blue text-primary font-semibold'>{getShortDate(new Date(training.date))}</p>
       <div className='flex flex-col items-center'>
         <p className='text-3xl font-bold'>
           {training.weight > 0 ? (
@@ -19,9 +19,9 @@ export default function TrainingCard({training, edit}) {
           )}
         </p>
         {training.is_validate ? (
-          <Icon icon="icon-park-solid:check-one" width="30" height="30" className="text-green" />
+          <Icon icon="icon-park-solid:check-one" width="25" height="25" className="text-green" />
         ) : (
-          <Icon icon="material-symbols:cancel-rounded" width="30" height="30" className='text-red' />
+          <Icon icon="material-symbols:cancel-rounded" width="25" height="25" className='text-red' />
         )}
       </div>
       <div className='flex justify-center gap-1 text-sm font-bold bg-primary rounded-full mx-auto px-2 py-1'>

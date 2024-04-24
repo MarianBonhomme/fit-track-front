@@ -4,17 +4,20 @@ import TrainingCard from './TrainingCard'
 import { useSport } from '../../../utils/sport/SportContext'
 import { getShortDate } from '../../../utils/global/DateService';
 import TrainingForm from './TrainingForm';
-import { getFirstTraining, getLastTraining } from '../../../utils/sport/SportService';
+import { getFirstTraining, getLastTraining, getProgramState } from '../../../utils/sport/SportService';
 import { useDraggable } from "react-use-draggable-scroll";
 
 export default function ProgramJourney({program}) {
-  const { handleUpdateProgram, handleDeleteProgram } = useSport();
   const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false);
+  const [isEditDropdownDisplayed, setIsEditDropdownDisplayed] = useState(false);
   const [trainingToUpdate, setTrainingToUpdate] = useState(null);
   const [lastTraining, setLastTraining] = useState('');
   const [firstTraining, setFirstTraining] = useState('');
+  const [programState, setProgramState] = useState();
+  const [programBackground, setProgramBackground] = useState();
   const ref = useRef();
   const { events } = useDraggable(ref);
+  const dropdown = useRef(null)
 
   useEffect(() => {
     const first = getFirstTraining(program);
@@ -25,16 +28,100 @@ export default function ProgramJourney({program}) {
     if (last) {
       setLastTraining(last)
     }
+    const state = getProgramState(program);
+    setProgramState(state)
+
   }, [program])
 
-  const toggleFavorite = () => {
-    const programFavorite = { ...program, is_favorite: !program.is_favorite};
-    handleUpdateProgram(programFavorite);
+  useEffect(() => {
+    const background = getProgramBackground();
+    setProgramBackground(background)
+  }, [programState])
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdown.current && !dropdown.current.contains(event.target)) {
+        setIsEditDropdownDisplayed(false);
+      }
+    };
+  
+    if (isEditDropdownDisplayed) {
+      document.addEventListener('click', handleClickOutside);
+    } else {
+      document.removeEventListener('click', handleClickOutside);
+    }
+  }, [isEditDropdownDisplayed]);
+
+  const getProgramBackground = () => {
+    if (programState === 'COMPLETED') {
+      return 'bg-red';
+    } else if (programState === 'ONGOING') {
+        return 'bg-green';
+    } else {
+        return 'bg-blue';
+    }
   }
 
   const editTraining = (training) => {
     setTrainingToUpdate(training);
     setIsTrainingFormDisplayed(true);
+  }
+
+  return (
+    <>
+      <div className={`bg-primary text-secondary mb-5 p-5 rounded-3xl rounded-tl-none relative before:h-full before:w-2 before:${programBackground} before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:rounded-3xl`}>
+        {isEditDropdownDisplayed &&
+          <EditProgramDropdown program={program} state={programState} />
+        }
+        <div className='flex justify-between items-start mb-5 relative'>   
+          <div className="flex items-center gap-3">   
+            <Icon ref={dropdown} icon="icon-park-outline:hamburger-button" width="25" height="25" className='text-gray cursor-pointer' onClick={() => setIsEditDropdownDisplayed(true)} />    
+            <div>
+              <p className="text-xl font-bold">{program.name}</p>
+              <p className='font-semibold'>{program.description}</p>
+            </div>
+          </div> 
+          <div className="grid grid-cols-2 gap-x-5">
+            <div>
+              {programState !== "INITIAL" && 
+                <StartingDate date={getShortDate(new Date(program.starting_date))} />
+              }
+              {programState === "COMPLETED" &&    
+                <EndedDate date={getShortDate(new Date(program.ended_date))} />
+              }
+            </div>
+            <div>
+              {programState !== "INITIAL" && (    
+                <>
+                  <StartingPerf training={firstTraining} />
+                  <BestPerf training={lastTraining} />
+                </>
+              )}
+            </div>
+          </div>
+        </div>          
+        <div className='flex items-stretch overflow-x-scroll hide-scrollbar gap-3' {...events} ref={ref}>
+          {program.trainings && program.trainings.map((training) => (
+            <TrainingCard key={training.id} training={training} edit={() => editTraining(training)} />
+          ))}        
+          {!program.ended_date && 
+            <AddTrainingButton clicked={() => setIsTrainingFormDisplayed(true)} />  
+          }            
+        </div>
+      </div>
+      {isTrainingFormDisplayed && (
+        <TrainingForm program={program} training={trainingToUpdate} close={() => setIsTrainingFormDisplayed(false)}/>
+      )}
+    </>
+  )
+}
+
+function EditProgramDropdown({program, state}) {
+  const { handleUpdateProgram, handleDeleteProgram } = useSport();
+
+  const toggleFavorite = () => {
+    const programFavorite = { ...program, is_favorite: !program.is_favorite};
+    handleUpdateProgram(programFavorite);
   }
 
   const stopProgram = () => {
@@ -63,71 +150,67 @@ export default function ProgramJourney({program}) {
   }
 
   return (
-    <>
-      <div className={`bg-primary text-secondary mb-5 p-5 rounded-3xl rounded-tl-none relative before:h-full before:w-2 ${program.ended_date ? 'before:bg-orange' : 'before:bg-blue'} before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:rounded-3xl`}>
-        <div className='flex justify-between items-start mb-5 relative'>   
-          <Icon icon="maki:cross" width={10} height={10} className="absolute top-0 right-0 text-red cursor-pointer" onClick={deleteProgram} />
-          <div className="flex items-center gap-3">       
-            {!program.ended_date && (
-              <Icon icon="solar:star-bold" width={30} height={30} className={`${program.is_favorite ? 'text-yellow' : 'text-lightPrimary'} cursor-pointer`} onClick={toggleFavorite} />
-            )} 
-            <div>
-              <p className="text-xl font-bold">{program.name}</p>
-              <p className='font-semibold'>{program.description}</p>
-            </div>
-          </div> 
-          <div className='flex flex-col gap-1'>
-            {program.starting_date && (
-              <div className="flex items-center gap-2">
-                <div className="w-20 text-sm text-center bg-green text-primary font-semibold rounded-md">Start</div>
-                <p>{getShortDate(new Date(program.starting_date))}</p>
-              </div>
-            )}
-            {program.ended_date && (   
-              <div className="flex items-center gap-2">
-                <div className="w-20 text-sm text-center bg-red text-primary font-semibold rounded-md">End</div>
-                <p>{getShortDate(new Date(program.ended_date))}</p>
-              </div>
-            )}
-          </div>
-          <div className='flex flex-col gap-1'>
-            {program.starting_date && (    
-              <>
-                <div className="flex items-center gap-2">
-                  <div className="w-20 text-sm text-center bg-blue text-primary font-semibold rounded-md">Start</div>
-                  <p>{lastTraining.weight > 0 ? `${lastTraining.weight}kg` : lastTraining.comment}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-20 text-sm text-center bg-yellow text-primary font-semibold rounded-md">Best</div>
-                  <p>{firstTraining.weight > 0 ? `${firstTraining.weight}kg` : firstTraining.comment}</p>
-                </div>
-              </>
-            )}
-          </div>
-        </div>          
-        <div className='flex items-stretch overflow-x-scroll hide-scrollbar gap-3' {...events} ref={ref}>
-          {program.trainings && program.trainings.map((training) => (
-            <TrainingCard key={training.id} training={training} edit={() => editTraining(training)} />
-          ))}          
-          <div className='w-40 h-40 flex justify-center items-center cursor-pointer'>
-            {!program.starting_date ? (
-              <Icon icon="heroicons-solid:play" width="50" height="50" className='text-blue' onClick={() => setIsTrainingFormDisplayed(true)} />
-            ) : (
-              !program.ended_date ? (
-                <>
-                  <Icon icon="icon-park-solid:add-one" width="50" height="50" className='text-blue' onClick={() => setIsTrainingFormDisplayed(true)} />
-                  <Icon icon="carbon:stop-filled" width="50" height="50" className='text-red' onClick={stopProgram} />
-                </>
-              ) : (
-                <Icon icon="solar:restart-circle-bold" width="50" height="50" className='text-blue' onClick={restartProgram} />
-              )
-            )} 
-          </div>      
-        </div>
-      </div>
-      {isTrainingFormDisplayed && (
-        <TrainingForm program={program} training={trainingToUpdate} close={() => setIsTrainingFormDisplayed(false)}/>
-      )}
-    </>
+    <div className="absolute top-0 left-5 flex flex-col gap-3 rounded-xl p-5 bg-primary z-10 shadow-custom">
+      {state === 'ONGOING' &&
+       <>
+          <Icon icon="solar:star-bold" width="25" height="25" className={`${program.is_favorite ? 'text-yellow cursor-pointer' : 'text-lightPrimary'}`} onClick={toggleFavorite} />
+          <Icon icon="heroicons:stop-circle-16-solid" width="25" height="25" className='text-orange cursor-pointer' onClick={stopProgram} />
+          <Icon icon="mingcute:delete-fill" width="25" height="25" className='text-red cursor-pointer' onClick={deleteProgram} />
+       </>
+      }
+      {state === 'INITIAL' &&        
+        <Icon icon="mingcute:delete-fill" width="25" height="25" className='text-red cursor-pointer' onClick={deleteProgram} />
+      }
+      {state === 'COMPLETED' &&       
+       <>
+          <Icon icon="iconamoon:restart-bold" width="25" height="25" className='text-blue cursor-pointer' onClick={restartProgram} />
+          <Icon icon="mingcute:delete-fill" width="25" height="25" className='text-red cursor-pointer' onClick={deleteProgram} />
+       </>
+      }
+    </div>
+  )
+}
+
+function AddTrainingButton({clicked}) {
+  return (
+    <div className='min-w-40 min-h-40 bg-lightPrimary rounded-2xl px-3 flex justify-center items-center cursor-pointer' onClick={clicked}>
+      <Icon icon="fluent-emoji-high-contrast:plus" width="25" height="25" className='text-gray'/>
+    </div>  
+  )
+}
+
+function StartingDate({date}) {
+  return (
+    <div className="flex items-center gap-2">
+      <div className="w-20 text-sm text-center bg-green text-primary font-semibold rounded-md">Start</div>
+      <p>{date}</p>
+    </div>
+  )
+}
+
+function EndedDate({date}) {
+  return (
+    <div className="flex items-center gap-2">
+      <div className="w-20 text-sm text-center bg-red text-primary font-semibold rounded-md">End</div>
+      <p>{date}</p>
+    </div>
+  )
+}
+
+function StartingPerf({training}) {
+  return (
+    <div className="flex items-center gap-2">
+      <div className="w-20 text-sm text-center bg-yellow text-primary font-semibold rounded-md">Start</div>
+      <p>{training.weight > 0 ? `${training.weight}kg` : training.comment}</p>
+    </div>
+  )
+}
+
+function BestPerf({training}) {
+  return (
+    <div className="flex items-center gap-2">
+      <div className="w-20 text-sm text-center bg-purple text-primary font-semibold rounded-md">Best</div>
+      <p>{training.weight > 0 ? `${training.weight}kg` : training.comment}</p>
+    </div>
   )
 }
