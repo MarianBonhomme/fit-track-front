@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 
 export default function TrainingCard({training, edit}) {
   return (
-    <div className="bg-lightPrimary min-w-40 min-h-40 flex flex-col items-center justify-evenly rounded-xl shadow text-secondary relative">
+    <div className="bg-lightPrimary min-w-40 min-h-40 px-3 flex flex-col items-center justify-evenly rounded-xl shadow text-secondary relative">
       <Icon icon="mage:settings-fill" width={20} height={20} className="absolute top-3 left-3 text-gray cursor-pointer" onClick={edit} />
       <p>{getShortDate(new Date(training.date))}</p>
       <div className='flex flex-col items-center'>
@@ -15,7 +15,7 @@ export default function TrainingCard({training, edit}) {
               <span className="text-sm font-normal">kg</span>
             </>
           ) : (
-            <span>BW</span>
+            training.comment
           )}
         </p>
         {training.is_validate ? (

@@ -33,6 +33,19 @@
   --gray-color: #5A5B63;
 }
 
+.hide-scrollbar {
+  &::-webkit-scrollbar {
+    width: 0em;
+    height: 0em;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+}
+
 
 .bg-primary {
   background-color: var(--primary-color);

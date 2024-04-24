@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import TrainingCard from './TrainingCard'
 import { useSport } from '../../../utils/sport/SportContext'
 import { getShortDate } from '../../../utils/global/DateService';
 import TrainingForm from './TrainingForm';
 import { getFirstTraining, getLastTraining } from '../../../utils/sport/SportService';
+import { useDraggable } from "react-use-draggable-scroll";
 
 export default function ProgramJourney({program}) {
   const { handleUpdateProgram, handleDeleteProgram } = useSport();
@@ -12,6 +13,8 @@ export default function ProgramJourney({program}) {
   const [trainingToUpdate, setTrainingToUpdate] = useState(null);
   const [lastTraining, setLastTraining] = useState('');
   const [firstTraining, setFirstTraining] = useState('');
+  const ref = useRef();
+  const { events } = useDraggable(ref);
 
   useEffect(() => {
     const first = getFirstTraining(program);
@@ -102,7 +105,7 @@ export default function ProgramJourney({program}) {
             )}
           </div>
         </div>          
-        <div className='flex flex-wrap items-stretch gap-3'>
+        <div className='flex items-stretch overflow-x-scroll hide-scrollbar gap-3' {...events} ref={ref}>
           {program.trainings && program.trainings.map((training) => (
             <TrainingCard key={training.id} training={training} edit={() => editTraining(training)} />
           ))}          
