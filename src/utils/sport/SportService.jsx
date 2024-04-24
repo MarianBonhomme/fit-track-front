@@ -24,7 +24,9 @@ const getTrainings = async (profileId) => {
 
 const getTrainingsByProgramId = async (programId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/training/program/${programId}`);
+    const response = await axios.get(
+      `${BASE_URL}/training/program/${programId}`
+    );
     return response.data;
   } catch (error) {
     console.error("Error fetching all trainings with program id:", error);
@@ -34,27 +36,39 @@ const getTrainingsByProgramId = async (programId) => {
 
 const updateTraining = async (trainingToUpdate) => {
   try {
-    const response = await axios.put(`${BASE_URL}/training/${trainingToUpdate.id}`, trainingToUpdate);
+    const response = await axios.put(
+      `${BASE_URL}/training/${trainingToUpdate.id}`,
+      trainingToUpdate
+    );
     return response.data;
   } catch (error) {
-    console.error(`Error updating training with id ${trainingToUpdate.id}:`, error);
+    console.error(
+      `Error updating training with id ${trainingToUpdate.id}:`,
+      error
+    );
     throw error;
   }
 };
 
 const updateProgram = async (programToUpdate) => {
   try {
-    const response = await axios.put(`${BASE_URL}/program/${programToUpdate.id}`, programToUpdate);
+    const response = await axios.put(
+      `${BASE_URL}/program/${programToUpdate.id}`,
+      programToUpdate
+    );
     return response.data;
   } catch (error) {
-    console.error(`Error updating program with id ${programToUpdate.id}:`, error);
+    console.error(
+      `Error updating program with id ${programToUpdate.id}:`,
+      error
+    );
     throw error;
   }
 };
 
 const addTraining = async (newTraining) => {
   try {
-    const response = await axios.post(`${BASE_URL}/training`, newTraining)
+    const response = await axios.post(`${BASE_URL}/training`, newTraining);
     return response.data;
   } catch (error) {
     console.error("Error adding new training:", error);
@@ -64,27 +78,37 @@ const addTraining = async (newTraining) => {
 
 const deleteprogram = async (programToDelete) => {
   try {
-    const response = await axios.delete(`${BASE_URL}/program/${programToDelete.id}`);
+    const response = await axios.delete(
+      `${BASE_URL}/program/${programToDelete.id}`
+    );
     return response.data;
   } catch (error) {
-    console.error(`Error deleting program with id ${programToDelete.id}:`, error);
+    console.error(
+      `Error deleting program with id ${programToDelete.id}:`,
+      error
+    );
     throw error;
   }
 };
 
 const deleteTraining = async (trainingToDelete) => {
   try {
-    const response = await axios.delete(`${BASE_URL}/training/${trainingToDelete.id}`);
+    const response = await axios.delete(
+      `${BASE_URL}/training/${trainingToDelete.id}`
+    );
     return response.data;
   } catch (error) {
-    console.error(`Error deleting training with id ${trainingToDelete.id}:`, error);
+    console.error(
+      `Error deleting training with id ${trainingToDelete.id}:`,
+      error
+    );
     throw error;
   }
 };
 
 const addProgram = async (newProgram) => {
   try {
-    const response = await axios.post(`${BASE_URL}/program`, newProgram)
+    const response = await axios.post(`${BASE_URL}/program`, newProgram);
     return response.data;
   } catch (error) {
     console.error("Error adding new program:", error);
@@ -99,16 +123,16 @@ const getLastTraining = (program) => {
 
   const sortedTrainings = [...program.trainings];
 
-  sortedTrainings.forEach(training => {
+  sortedTrainings.forEach((training) => {
     training.date = new Date(training.date);
   });
 
   sortedTrainings.sort((a, b) => b.date - a.date);
 
   for (const training of sortedTrainings) {
-    return training
+    return training;
   }
-}
+};
 
 const getFirstTraining = (program) => {
   if (!program || !program.trainings || program.trainings.length === 0) {
@@ -117,15 +141,38 @@ const getFirstTraining = (program) => {
 
   const sortedTrainings = [...program.trainings];
 
-  sortedTrainings.forEach(training => {
+  sortedTrainings.forEach((training) => {
     training.date = new Date(training.date);
   });
 
   sortedTrainings.sort((a, b) => a.date - b.date);
 
   for (const training of sortedTrainings) {
-    return training
+    return training;
   }
-}
+};
 
-export { getPrograms, getTrainings, getTrainingsByProgramId, updateTraining, updateProgram, addTraining, deleteprogram, deleteTraining, addProgram, getLastTraining, getFirstTraining };
+const getProgramState = (program) => {
+  if (program.ended_date) {
+    return 'COMPLETED';
+  } else if (program.starting_date) {
+    return 'ONGOING';
+  } else {
+    return 'INITIAL';
+  }
+};
+
+export {
+  getPrograms,
+  getTrainings,
+  getTrainingsByProgramId,
+  updateTraining,
+  updateProgram,
+  addTraining,
+  deleteprogram,
+  deleteTraining,
+  addProgram,
+  getLastTraining,
+  getFirstTraining,
+  getProgramState,
+};
