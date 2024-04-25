@@ -62,8 +62,8 @@ export default function ProgramJourney({program}) {
     }
   }
 
-  const editTraining = (training) => {
-    setTrainingToUpdate(training);
+  const openTrainingForm = (training) => {
+    training ? setTrainingToUpdate(training) : setTrainingToUpdate(null);
     setIsTrainingFormDisplayed(true);
   }
 
@@ -102,10 +102,10 @@ export default function ProgramJourney({program}) {
         </div>          
         <div className='flex items-stretch overflow-x-scroll hide-scrollbar gap-3' {...events} ref={ref}>
           {program.trainings && program.trainings.map((training) => (
-            <TrainingCard key={training.id} training={training} edit={() => editTraining(training)} />
+            <TrainingCard key={training.id} training={training} edit={() => openTrainingForm(training)} />
           ))}        
           {!program.ended_date && 
-            <AddTrainingButton clicked={() => setIsTrainingFormDisplayed(true)} />  
+            <AddTrainingButton clicked={() => openTrainingForm(null)} />  
           }            
         </div>
       </div>
