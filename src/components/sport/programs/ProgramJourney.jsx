@@ -18,6 +18,13 @@ export default function ProgramJourney({program}) {
   const dropdown = useRef(null)
 
   useEffect(() => {
+    if (ref.current) {
+      const scrollWidth = ref.current.scrollWidth;
+      ref.current.scrollLeft = scrollWidth;
+    }
+  }, []); 
+
+  useEffect(() => {
     const first = getFirstTraining(program);
     if (first) {
       setFirstTraining(first)

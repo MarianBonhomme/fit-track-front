@@ -8,16 +8,14 @@ export default function TrainingCard({training, edit}) {
       <Icon icon="icon-park-outline:hamburger-button" width={20} height={20} className="absolute top-3 left-3 text-gray cursor-pointer" onClick={edit} />
       <p className='text-xs px-2 rounded-full bg-blue text-primary font-semibold'>{getShortDate(new Date(training.date))}</p>
       <div className='flex flex-col items-center'>
-        <p className='text-3xl font-bold'>
-          {training.weight > 0 ? (
-            <>
-              {training.weight}
-              <span className="text-sm font-normal">kg</span>
-            </>
-          ) : (
-            training.comment
-          )}
-        </p>
+        {training.weight > 0 ? (
+          <p className='text-3xl font-bold'>
+            {training.weight}
+            <span className="text-sm font-normal">kg</span>
+          </p>
+        ) : (
+          <p class="text-xl font-bold text-nowrap">{training.comment}</p>
+        )}
         {training.is_validate ? (
           <Icon icon="icon-park-solid:check-one" width="25" height="25" className="text-green" />
         ) : (
