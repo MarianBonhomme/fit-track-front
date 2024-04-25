@@ -6,6 +6,7 @@ import { getShortDate } from '../../../utils/global/DateService';
 import TrainingForm from './TrainingForm';
 import { getFirstTraining, getLastTraining } from '../../../utils/sport/SportService';
 import { useDraggable } from "react-use-draggable-scroll";
+import AddButton from '../../nutrition/global/AddButton';
 
 export default function ProgramJourney({program}) {
   const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false);
@@ -18,11 +19,37 @@ export default function ProgramJourney({program}) {
   const dropdown = useRef(null)
 
   useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            const scrollWidth = ref.current.scrollWidth;
+            ref.current.scrollTo({
+              left: scrollWidth,
+              behavior: 'smooth'
+            });
+          }, 200);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+
     if (ref.current) {
-      const scrollWidth = ref.current.scrollWidth;
-      ref.current.scrollLeft = scrollWidth;
+      observer.observe(ref.current);
     }
-  }, []); 
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const first = getFirstTraining(program);
@@ -56,7 +83,7 @@ export default function ProgramJourney({program}) {
 
   return (
     <>
-      <div className={`bg-primary text-secondary mb-3 last:mb-0 p-5 rounded-3xl relative`}>
+      <div className="bg-primary text-secondary mb-3 last:mb-0 p-5 rounded-3xl relative">
         {isEditDropdownDisplayed &&
           <EditProgramDropdown program={program} state={program.state} />
         }
@@ -92,7 +119,7 @@ export default function ProgramJourney({program}) {
             <TrainingCard key={training.id} training={training} edit={() => openTrainingForm(training)} />
           ))}        
           {program.state !== "COMPLETED" && 
-            <AddTrainingButton clicked={() => openTrainingForm(null)} />  
+            <AddButton clicked={() => openTrainingForm(null)} css={'min-w-40 min-h-40'}/>  
           }            
         </div>
       </div>
@@ -153,14 +180,6 @@ function EditProgramDropdown({program, state}) {
        </>
       }
     </div>
-  )
-}
-
-function AddTrainingButton({clicked}) {
-  return (
-    <div className='min-w-40 min-h-40 bg-lightPrimary rounded-2xl px-3 flex justify-center items-center cursor-pointer' onClick={clicked}>
-      <Icon icon="fluent-emoji-high-contrast:plus" width="25" height="25" className='text-gray'/>
-    </div>  
   )
 }
 

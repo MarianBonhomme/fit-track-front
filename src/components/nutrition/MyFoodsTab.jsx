@@ -41,7 +41,7 @@ export default function MyFoodsTab() {
   return (
     <>
       <div className='w-full flex justify-between items-center bg-primary p-5 rounded-3xl'>
-        <AddButton btnClicked={() => openFoodForm(null)}/>
+        <AddButton clicked={() => openFoodForm(null)} css="h-14 w-14" />
         <div className='flex items-center gap-3'>
           <input
             type="text"
