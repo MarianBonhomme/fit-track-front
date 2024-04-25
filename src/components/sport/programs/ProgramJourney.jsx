@@ -49,7 +49,7 @@ export default function ProgramJourney({program}) {
 
   return (
     <>
-      <div className={`bg-primary text-secondary mb-3 p-5 rounded-3xl relative`}>
+      <div className={`bg-primary text-secondary mb-3 last:mb-0 p-5 rounded-3xl relative`}>
         {isEditDropdownDisplayed &&
           <EditProgramDropdown program={program} state={program.state} />
         }
@@ -64,10 +64,10 @@ export default function ProgramJourney({program}) {
           <div className="grid grid-cols-2 gap-x-5">
             <div>
               {program.state !== "INITIAL" && 
-                <StartingDate date={getShortDate(new Date(program.starting_date))} />
+                <StartingDate date={getShortDate(new Date(firstTraining.date))} />
               }
               {program.state === "COMPLETED" &&    
-                <EndedDate date={getShortDate(new Date(program.ended_date))} />
+                <EndedDate date={getShortDate(new Date(lastTraining.date))} />
               }
             </div>
             <div>
@@ -84,7 +84,7 @@ export default function ProgramJourney({program}) {
           {program.trainings && program.trainings.map((training) => (
             <TrainingCard key={training.id} training={training} edit={() => openTrainingForm(training)} />
           ))}        
-          {!program.ended_date && 
+          {program.state !== "COMPLETED" && 
             <AddTrainingButton clicked={() => openTrainingForm(null)} />  
           }            
         </div>
@@ -107,9 +107,7 @@ function EditProgramDropdown({program, state}) {
   const stopProgram = () => {
     const confirm = window.confirm("Are you sure ?");
     if (confirm) {
-      const lastTraining = getLastTraining(program);
-      const lastTrainingDate = lastTraining.date;
-      const programToStop = {...program, ended_date: lastTrainingDate }
+      const programToStop = {...program, is_completed: 1 }
       handleUpdateProgram(programToStop)
     }
   }
@@ -117,7 +115,7 @@ function EditProgramDropdown({program, state}) {
   const restartProgram = () => {
     const confirm = window.confirm("Are you sure ?");
     if (confirm) {
-      const programToRestart = {...program, ended_date: null }
+      const programToRestart = {...program, is_completed: 0 }
       handleUpdateProgram(programToRestart)
     }
   }

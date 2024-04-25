@@ -11,17 +11,17 @@ export default function ProgramsTab() {
   const [initialPrograms, setInitialPrograms] = useState([]);
 
   useEffect(() => {
-    sortProgramsByStatus();
+    sortProgramsByState();
   }, [programs]);
 
-  const sortProgramsByStatus = () => {
+  const sortProgramsByState = () => {
     const ongoing = [];
     const completed = [];
     const initial = [];
 
     programs.forEach((program) => {
-      program.status = getProgramState(program);
-      switch (program.status) {
+      program.state = getProgramState(program);
+      switch (program.state) {
         case "ONGOING":
           ongoing.push(program);
           break;
@@ -44,7 +44,7 @@ export default function ProgramsTab() {
   return (
     <div className="flex gap-5">
       <div className="w-2/3 shadow-custom relative flex flex-col gap-5">
-        {ongoingPrograms.length > 0 && (
+        {ongoingPrograms && ongoingPrograms.length > 0 && (
           <div className="bg-purple rounded-3xl rounded-ss-none p-5">
             <CardTitle text={"ONGOING"} css="text-primary mb-3" />
             {ongoingPrograms.map((program) => (
@@ -52,7 +52,7 @@ export default function ProgramsTab() {
             ))}
           </div>
         )}
-        {initialPrograms.length > 0 && (
+        {initialPrograms && initialPrograms.length > 0 && (
           <div className="bg-blue rounded-3xl rounded-ss-none p-5">
             <CardTitle text={"INITIAL"} css="text-primary mb-3" />
             {initialPrograms.map((program) => (
@@ -60,7 +60,7 @@ export default function ProgramsTab() {
             ))}
           </div>
         )}
-        {completedPrograms.length > 0 && (
+        {completedPrograms && completedPrograms.length > 0 && (
           <div className="bg-green rounded-3xl rounded-ss-none p-5">
             <CardTitle text={"COMPLETED"} css="text-primary mb-3" />
             {completedPrograms.map((program) => (

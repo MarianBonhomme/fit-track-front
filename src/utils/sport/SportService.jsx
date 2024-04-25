@@ -153,14 +153,22 @@ const getFirstTraining = (program) => {
 };
 
 const getProgramState = (program) => {
-  if (program.ended_date) {
+  if (program.is_completed) {
     return 'COMPLETED';
-  } else if (program.starting_date) {
+  } else if (program.trainings && program.trainings.length > 0) {
     return 'ONGOING';
   } else {
     return 'INITIAL';
   }
 };
+
+const getSortedTrainingsByDate = (program) => {
+  if (!program.trainings || program.trainings.length === 0) {
+    return { ...program, trainings: [] };
+  }
+  const sortedTrainings = [...program.trainings].sort((a, b) => new Date(a.date) - new Date(b.date));
+  return { ...program, trainings: sortedTrainings };
+}
 
 export {
   getPrograms,
@@ -175,4 +183,5 @@ export {
   getLastTraining,
   getFirstTraining,
   getProgramState,
+  getSortedTrainingsByDate
 };

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useProfile } from "../profile/ProfileContext";
-import { addProgram, addTraining, deleteTraining, deleteprogram, getPrograms, getTrainings, updateProgram, updateTraining } from "./SportService";
+import { addProgram, addTraining, deleteTraining, deleteprogram, getPrograms, getSortedTrainingsByDate, getTrainings, updateProgram, updateTraining } from "./SportService";
 
 const SportContext = createContext();
 
@@ -26,8 +26,9 @@ export const SportProvider = ({ children }) => {
   const handleUpdateProgram = async (programToUpdate) => {
     try {
       const updatedProgram = await updateProgram(programToUpdate);
+      const sortedUpdatedProgram = getSortedTrainingsByDate(updatedProgram);
       setPrograms((prevPrograms) =>
-        prevPrograms.map((consumption) => (consumption.id === updatedProgram.id ? updatedProgram : consumption))
+        prevPrograms.map((consumption) => (consumption.id === sortedUpdatedProgram.id ? sortedUpdatedProgram : consumption))
       );
     } catch (error) {
       console.error(`Error updating program with id ${programToUpdate.id}:`, error);
@@ -56,21 +57,21 @@ export const SportProvider = ({ children }) => {
   const handleUpdateTraining = async (trainingToUpdate) => {
     try {
       const updatedTraining = await updateTraining(trainingToUpdate);
-      const updatedTrainingId = updatedTraining.id;
-      const updatedPrograms = programs.map(program => ({
-        ...program,
-        trainings: program.trainings.map(training =>
-          training.id === updatedTrainingId ? updatedTraining : training
-        )
-      }));
-      updatedPrograms.forEach(program => {
-        program.trainings.sort((a, b) => {
-          const dateA = new Date(a.date).getTime();
-          const dateB = new Date(b.date).getTime();
-          return dateA - dateB;
-        });
-      });
-      setPrograms(updatedPrograms);
+      const programToUpdate = programs.find(program => program.id === updatedTraining.program_id);
+      if (!programToUpdate) {
+        console.error(`Program with id ${updatedTraining.program_id} not found.`);
+        return;
+      }
+
+      const updatedTrainings = programToUpdate.trainings.map(training =>
+        training.id === updatedTraining.id ? updatedTraining : training
+      );
+  
+      const updatedProgram = {
+        ...programToUpdate,
+        trainings: updatedTrainings
+      };
+      handleUpdateProgram(updatedProgram);      
     } catch (error) {
       console.error(`Error updating training with id ${trainingToUpdate.id}:`, error);
     }
@@ -79,20 +80,19 @@ export const SportProvider = ({ children }) => {
   const handleAddTraining = async (newTraining) => {
     try {
       const addedTraining = await addTraining(newTraining);
-      const addedProgramId = addedTraining.program_id;
-      const updatedPrograms = programs.map(program =>
-        program.id === addedProgramId
-          ? { ...program, trainings: [...program.trainings, addedTraining] }
-          : program
-      );
-      updatedPrograms.forEach(program => {
-        program.trainings.sort((a, b) => {
-          const dateA = new Date(a.date).getTime();
-          const dateB = new Date(b.date).getTime();
-          return dateA - dateB;
-        });
-      });
-      setPrograms(updatedPrograms);
+      const programToUpdate = programs.find(program => program.id === addedTraining.program_id);
+      if (!programToUpdate) {
+        console.error(`Program with id ${addedTraining.program_id} not found.`);
+        return;
+      }
+  
+      const updatedTrainings = programToUpdate.trainings ? [...programToUpdate.trainings, addedTraining] : [addedTraining];
+      const updatedProgram = {
+        ...programToUpdate,
+        trainings: updatedTrainings
+      };
+  
+      handleUpdateProgram(updatedProgram);
     } catch (error) {
       console.error('Error adding training:', error);
     }
