@@ -10,7 +10,7 @@ export const NutritionProvider = ({ children }) => {
   const [foods, setFoods] = useState([]);
   const [foodsWithTotalQuantity, setFoodsWithTotalQuantity] = useState([]);
   const [foodConsumptions, setFoodConsumptions] = useState([]);
-  const [currentDay, setCurrentDay] = useState()
+  const [currentDay, setCurrentDay] = useState(new Date())
   const [dailyFoodConsumptions, setDailyFoodConsumptions] = useState([]);
   const [daysIndicatedCount, setDaysIndicatedCount] = useState(0);
 
@@ -28,11 +28,6 @@ export const NutritionProvider = ({ children }) => {
     fetchFoodsWithTotalQuantity();
     fetchDaysIndicatedCount();
   }, [foodConsumptions])
-
-  useEffect(() => {
-    const today = new Date();
-    setCurrentDay(today);
-  }, [])
 
   useEffect(() => {
     const filteredFoodConsumptions = filterFoodConsumptionsByDate(currentDay);

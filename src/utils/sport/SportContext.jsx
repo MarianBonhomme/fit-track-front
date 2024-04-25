@@ -8,19 +8,49 @@ export const SportProvider = ({ children }) => {
   const { profile } = useProfile();
   const [sportLoading, setSportLoading] = useState(true);
   const [programs, setPrograms] = useState([]);
+  const [trainings, setTrainings] = useState([]);
+  const [currentDay, setCurrentDay] = useState(new Date())
+  const [dailyTrainings, setDailyTrainings] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       await fetchPrograms();
+      await fetchTrainings();
       setSportLoading(false);
     }
     
     fetchData();
   }, [profile])
 
+  useEffect(() => {
+    const filteredTrainings = filterTrainingsByDate(currentDay);
+    setDailyTrainings(filteredTrainings);
+  }, [trainings, currentDay])
+
   const fetchPrograms = async () => {
     const fetchedPrograms = await getPrograms(profile.id);
     setPrograms(fetchedPrograms);
+  }
+
+  const fetchTrainings = async () => {
+    const fetchedTrainings = await getTrainings(profile.id);
+    setTrainings(fetchedTrainings);
+  }
+
+  const filterTrainingsByDate = (date) => {
+    const dateTrainings = trainings.filter(training => {
+      const trainingDate = new Date(training.date);
+      const trainingDay = trainingDate.getDate();
+      const trainingMonth = trainingDate.getMonth();
+      const trainingYear = trainingDate.getFullYear();
+  
+      const day = date.getDate();
+      const month = date.getMonth();
+      const year = date.getFullYear();
+  
+      return trainingDay === day && trainingMonth === month && trainingYear === year;
+    });
+    return dateTrainings;
   }
 
   const handleUpdateProgram = async (programToUpdate) => {
@@ -112,17 +142,34 @@ export const SportProvider = ({ children }) => {
     }
   };
 
+  const incrementCurrentDay = () => {
+    const nextDay = new Date(currentDay);
+    nextDay.setDate(currentDay.getDate() + 1);
+    setCurrentDay(nextDay);
+  };
+
+  const decrementCurrentDay = () => {
+    const prevDay = new Date(currentDay);
+    prevDay.setDate(currentDay.getDate() - 1);
+    setCurrentDay(prevDay);
+  };
+
   return (
     <SportContext.Provider
       value={{
         sportLoading,
         programs,
+        currentDay,
+        dailyTrainings,
         handleUpdateProgram,
         handleAddProgram,
         handleDeleteProgram,
         handleUpdateTraining,
         handleAddTraining,
-        handleDeleteTraining,
+        handleDeleteTraining,        
+        setCurrentDay,
+        incrementCurrentDay,
+        decrementCurrentDay,
       }}
     >
       {children}
