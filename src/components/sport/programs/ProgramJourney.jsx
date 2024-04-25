@@ -4,7 +4,7 @@ import TrainingCard from './TrainingCard'
 import { useSport } from '../../../utils/sport/SportContext'
 import { getShortDate } from '../../../utils/global/DateService';
 import TrainingForm from './TrainingForm';
-import { getFirstTraining, getLastTraining, getProgramState } from '../../../utils/sport/SportService';
+import { getFirstTraining, getLastTraining } from '../../../utils/sport/SportService';
 import { useDraggable } from "react-use-draggable-scroll";
 
 export default function ProgramJourney({program}) {
@@ -13,8 +13,6 @@ export default function ProgramJourney({program}) {
   const [trainingToUpdate, setTrainingToUpdate] = useState(null);
   const [lastTraining, setLastTraining] = useState('');
   const [firstTraining, setFirstTraining] = useState('');
-  const [programState, setProgramState] = useState();
-  const [programBackground, setProgramBackground] = useState();
   const ref = useRef();
   const { events } = useDraggable(ref);
   const dropdown = useRef(null)
@@ -28,15 +26,7 @@ export default function ProgramJourney({program}) {
     if (last) {
       setLastTraining(last)
     }
-    const state = getProgramState(program);
-    setProgramState(state)
-
   }, [program])
-
-  useEffect(() => {
-    const background = getProgramBackground();
-    setProgramBackground(background)
-  }, [programState])
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -52,16 +42,6 @@ export default function ProgramJourney({program}) {
     }
   }, [isEditDropdownDisplayed]);
 
-  const getProgramBackground = () => {
-    if (programState === 'COMPLETED') {
-      return 'bg-red';
-    } else if (programState === 'ONGOING') {
-        return 'bg-green';
-    } else {
-        return 'bg-blue';
-    }
-  }
-
   const openTrainingForm = (training) => {
     training ? setTrainingToUpdate(training) : setTrainingToUpdate(null);
     setIsTrainingFormDisplayed(true);
@@ -69,9 +49,9 @@ export default function ProgramJourney({program}) {
 
   return (
     <>
-      <div className={`bg-primary text-secondary mb-5 p-5 rounded-3xl rounded-tl-none relative before:h-full before:w-2 before:${programBackground} before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:rounded-3xl`}>
+      <div className={`bg-primary text-secondary mb-3 p-5 rounded-3xl relative`}>
         {isEditDropdownDisplayed &&
-          <EditProgramDropdown program={program} state={programState} />
+          <EditProgramDropdown program={program} state={program.state} />
         }
         <div className='flex justify-between items-start mb-5 relative'>   
           <div className="flex items-center gap-3">   
@@ -83,15 +63,15 @@ export default function ProgramJourney({program}) {
           </div> 
           <div className="grid grid-cols-2 gap-x-5">
             <div>
-              {programState !== "INITIAL" && 
+              {program.state !== "INITIAL" && 
                 <StartingDate date={getShortDate(new Date(program.starting_date))} />
               }
-              {programState === "COMPLETED" &&    
+              {program.state === "COMPLETED" &&    
                 <EndedDate date={getShortDate(new Date(program.ended_date))} />
               }
             </div>
             <div>
-              {programState !== "INITIAL" && (    
+              {program.state !== "INITIAL" && (    
                 <>
                   <StartingPerf training={firstTraining} />
                   <BestPerf training={lastTraining} />
