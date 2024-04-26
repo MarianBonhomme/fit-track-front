@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSport } from '../../../utils/sport/SportContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 export default function DailyTrainings({date}) {
-  const { programs, getTrainingByDate } = useSport();
+  const { programs, getTrainingsByDate } = useSport();
   const [dailyTrainings, setDailyTrainings] = useState([])
 
   useEffect(() => {
-    const dateTrainings = getTrainingByDate(date);
+    const dateTrainings = getTrainingsByDate(date);
     setDailyTrainings(dateTrainings);
-  }, [])
+  }, [date])
 
   const getProgramNameById = (programId) => {
     const program = programs.find(program => program.id === programId);
@@ -19,12 +19,12 @@ export default function DailyTrainings({date}) {
   return (
     dailyTrainings && dailyTrainings.length > 0 && (
       dailyTrainings.map((training) => (
-        <div key={training.id} className="flex items-center justify-between border-b last:border-none last:pb-3 border-lightPrimary p-5">
-          <p className="text-xl">{getProgramNameById(training.program_id)}</p>
+        <div key={training.id} className="border-b last:border-none last:pb-3 border-lightPrimary p-5">
+          <p className="text-center mb-3">{getProgramNameById(training.program_id)}</p>
           <div className='flex flex-col items-center gap-3'>
             <div className='flex items-center gap-3'>
               {training.weight > 0 ? (
-                <p className='text-3xl font-bold'>
+                <p className='text-2xl font-bold'>
                   {training.weight}
                   <span className="text-sm font-normal">kg</span>
                 </p>

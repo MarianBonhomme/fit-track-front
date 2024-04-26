@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useProfile } from "../profile/ProfileContext";
 import { addProgram, addTraining, deleteTraining, deleteprogram, getPrograms, getSortedTrainingsByDate, getTrainings, updateProgram, updateTraining } from "./SportService";
+import moment from 'moment';
 
 const SportContext = createContext();
 
@@ -9,6 +10,7 @@ export const SportProvider = ({ children }) => {
   const [sportLoading, setSportLoading] = useState(true);
   const [programs, setPrograms] = useState([]);
   const [trainings, setTrainings] = useState([]);
+  const [currentWeek, setCurrentWeek] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +22,10 @@ export const SportProvider = ({ children }) => {
     fetchData();
   }, [profile])
 
+  useEffect(() => {
+    setCurrentWeek(initCurrentWeek());
+  }, [])
+
   const fetchPrograms = async () => {
     const fetchedPrograms = await getPrograms(profile.id);
     setPrograms(fetchedPrograms);
@@ -28,6 +34,25 @@ export const SportProvider = ({ children }) => {
   const fetchTrainings = async () => {
     const fetchedTrainings = await getTrainings(profile.id);
     setTrainings(fetchedTrainings);
+  }
+
+  const initCurrentWeek = () => {
+    const today = moment().startOf('day');
+    const startOfWeek = today.clone().startOf('isoWeek');
+    const endOfWeek = today.clone().endOf('isoWeek');
+    return Array.from({ length: 7 }, (_, i) => startOfWeek.clone().add(i, 'day').format());
+  }
+
+  const incrementWeek = () => {
+    setCurrentWeek(prevWeek =>
+      prevWeek.map(day => moment(day).add(1, 'week').toDate())
+    );
+  }
+
+  const decrementWeek = () => {
+    setCurrentWeek(prevWeek =>
+      prevWeek.map(day => moment(day).subtract(1, 'week').toDate())
+    );
   }
 
   const getTrainingsByDate = (date) => {
@@ -40,7 +65,7 @@ export const SportProvider = ({ children }) => {
       const day = date.getDate();
       const month = date.getMonth();
       const year = date.getFullYear();
-  
+
       return trainingDay === day && trainingMonth === month && trainingYear === year;
     });
     return dateTrainings;
@@ -147,6 +172,9 @@ export const SportProvider = ({ children }) => {
         handleAddTraining,
         handleDeleteTraining,
         getTrainingsByDate,
+        currentWeek,
+        incrementWeek,
+        decrementWeek,
       }}
     >
       {children}

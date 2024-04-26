@@ -1,38 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import CardTitle from '../global/CardTitle'
 import moment from 'moment';
 import { getDayOfWeek } from '../../utils/global/DateService';
+import DailyTrainings from './programs/DailyTrainings';
+import AddButton from './../global/AddButton';
+import { useSport } from '../../utils/sport/SportContext';
 
 export default function CalendarTab() {
-  const [currentWeek, setCurrentWeek] = useState([])
-
-  useEffect(() => {
-    setCurrentWeek(getCurrentWeekDates());
-  }, []);
-
-  useEffect(() => {
-    console.log(currentWeek)
-  }, [currentWeek])
-
-  const getCurrentWeekDates = () => {
-    const today = moment().startOf('day');
-    const startOfWeek = today.clone().startOf('isoWeek');
-    const endOfWeek = today.clone().endOf('isoWeek');
-    return Array.from({ length: 7 }, (_, i) => startOfWeek.clone().add(i, 'day').format());
-  };
-
-  const incrementWeek = () => {
-    setCurrentWeek(prevWeek =>
-      prevWeek.map(day => moment(day).add(1, 'week').toDate())
-    );
-  }
-
-  const decrementWeek = () => {
-    setCurrentWeek(prevWeek =>
-      prevWeek.map(day => moment(day).subtract(1, 'week').toDate())
-    );
-  }
+  const { currentWeek, incrementWeek, decrementWeek } = useSport();
 
   return (
     <div className='bg-primary p-4 shadow-custom rounded-3xl rounded-ss-none relative'>
@@ -44,11 +20,13 @@ export default function CalendarTab() {
         <CardTitle text={'Week'} />
       </div>
       <div className="grid grid-cols-7">
-      {currentWeek && currentWeek.length === 7 && currentWeek.map((day, index) => (
-        <div key={index} className="p-5 rounded-3xl bg-lightPrimary">
-          <p className='text-center'>{getDayOfWeek(new Date(day))} {moment(day).format("DD/MM")}</p>
-        </div>
-      ))}
+        {currentWeek && currentWeek.length === 7 && currentWeek.map((day, index) => (
+          <div key={index} className="border-r last:border-none border-lightPrimary">
+            <p className='text-center'>{getDayOfWeek(new Date(day))} {moment(day).format("DD/MM")}</p>
+            <AddButton css={'h-20 m-5'} />
+            <DailyTrainings date={new Date(day)} />
+          </div>
+        ))}
       </div>
     </div>
   )
