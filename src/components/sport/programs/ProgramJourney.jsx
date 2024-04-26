@@ -6,12 +6,10 @@ import { getShortDate } from '../../../utils/global/DateService';
 import { getFirstTraining, getLastTraining } from '../../../utils/sport/SportService';
 import { useDraggable } from "react-use-draggable-scroll";
 import AddButton from '../../global/AddButton';
-import TrainingForm from '../global/TrainingForm';
 
 export default function ProgramJourney({program}) {
-  const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false);
+  const { openTrainingForm } = useSport()
   const [isEditDropdownDisplayed, setIsEditDropdownDisplayed] = useState(false);
-  const [trainingToUpdate, setTrainingToUpdate] = useState(null);
   const [lastTraining, setLastTraining] = useState('');
   const [firstTraining, setFirstTraining] = useState('');
   const ref = useRef();
@@ -76,57 +74,47 @@ export default function ProgramJourney({program}) {
     }
   }, [isEditDropdownDisplayed]);
 
-  const openTrainingForm = (training) => {
-    training ? setTrainingToUpdate(training) : setTrainingToUpdate(null);
-    setIsTrainingFormDisplayed(true);
-  }
-
   return (
-    <>
-      <div className="bg-primary text-secondary mb-3 last:mb-0 p-5 rounded-3xl relative">
-        {isEditDropdownDisplayed &&
-          <EditProgramDropdown program={program} state={program.state} />
-        }
-        <div className='flex justify-between items-start mb-5 relative'>   
-          <div className="flex items-center gap-3">   
-            <Icon ref={dropdown} icon="icon-park-outline:hamburger-button" width="25" height="25" className='text-gray cursor-pointer' onClick={() => setIsEditDropdownDisplayed(true)} />    
-            <div>
-              <p className="text-xl font-bold">{program.name}</p>
-              <p className='font-semibold'>{program.description}</p>
-            </div>
-          </div> 
-          <div className="grid grid-cols-2 gap-x-5">
-            <div>
-              {program.state !== "INITIAL" && 
-                <StartingDate date={getShortDate(new Date(firstTraining.date))} />
-              }
-              {program.state === "COMPLETED" &&    
-                <EndedDate date={getShortDate(new Date(lastTraining.date))} />
-              }
-            </div>
-            <div>
-              {program.state !== "INITIAL" && (    
-                <>
-                  <StartingPerf training={firstTraining} />
-                  <BestPerf training={lastTraining} />
-                </>
-              )}
-            </div>
+    <div className="bg-primary text-secondary mb-3 last:mb-0 p-5 rounded-3xl relative">
+      {isEditDropdownDisplayed &&
+        <EditProgramDropdown program={program} state={program.state} />
+      }
+      <div className='flex justify-between items-start mb-5 relative'>   
+        <div className="flex items-center gap-3">   
+          <Icon ref={dropdown} icon="icon-park-outline:hamburger-button" width="25" height="25" className='text-gray cursor-pointer' onClick={() => setIsEditDropdownDisplayed(true)} />    
+          <div>
+            <p className="text-xl font-bold">{program.name}</p>
+            <p className='font-semibold'>{program.description}</p>
           </div>
-        </div>          
-        <div className='flex items-stretch overflow-x-scroll hide-scrollbar gap-3' {...events} ref={ref}>
-          {program.trainings && program.trainings.map((training) => (
-            <TrainingCard key={training.id} training={training} edit={() => openTrainingForm(training)} />
-          ))}        
-          {program.state !== "COMPLETED" && 
-            <AddButton clicked={() => openTrainingForm(null)} css={'min-w-40 min-h-40'}/>  
-          }            
+        </div> 
+        <div className="grid grid-cols-2 gap-x-5">
+          <div>
+            {program.state !== "INITIAL" && 
+              <StartingDate date={getShortDate(new Date(firstTraining.date))} />
+            }
+            {program.state === "COMPLETED" &&    
+              <EndedDate date={getShortDate(new Date(lastTraining.date))} />
+            }
+          </div>
+          <div>
+            {program.state !== "INITIAL" && (    
+              <>
+                <StartingPerf training={firstTraining} />
+                <BestPerf training={lastTraining} />
+              </>
+            )}
+          </div>
         </div>
+      </div>          
+      <div className='flex items-stretch overflow-x-scroll hide-scrollbar gap-3' {...events} ref={ref}>
+        {program.trainings && program.trainings.map((training) => (
+          <TrainingCard key={training.id} training={training} />
+        ))}        
+        {program.state !== "COMPLETED" && 
+          <AddButton clicked={() => openTrainingForm(null, program.id, null)} css={'min-w-40 min-h-40'}/>  
+        }            
       </div>
-      {isTrainingFormDisplayed && (
-        <TrainingForm programId={program.id} training={trainingToUpdate} close={() => setIsTrainingFormDisplayed(false)}/>
-      )}
-    </>
+    </div>
   )
 }
 

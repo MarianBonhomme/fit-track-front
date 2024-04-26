@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useUser } from '../../utils/user/UserContext';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import ProgramsTab from './ProgramsTab';
 import CreateProgramForm from './programs/CreateProgramForm';
 import CalendarTab from './CalendarTab';
 import AddButton from './../global/AddButton';
+import TrainingForm from './global/TrainingForm';
+import { useSport } from '../../utils/sport/SportContext';
 
 export default function SportPage() {  
   const { isDarkMode, toggleDarkMode } = useUser();
+  const { isTrainingFormDisplayed } = useSport();
   const [activeTab, setActiveTab] = useState('calendar');
-  const [isProgramFormDisplayed, setIsProgramFormDisplayed] = useState(false)
+  const [isProgramFormDisplayed, setIsProgramFormDisplayed] = useState(false)  
 
   return (
     <>
@@ -37,6 +40,9 @@ export default function SportPage() {
       </div>
       {isProgramFormDisplayed && (
         <CreateProgramForm close={() => setIsProgramFormDisplayed(false)}/>
+      )} 
+      {isTrainingFormDisplayed && (
+        <TrainingForm />
       )}
     </>
   );

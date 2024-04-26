@@ -1,18 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSport } from '../../../utils/sport/SportContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
 
-export default function TrainingForm({ programId, training, close }) {
-  const { handleAddTraining, handleUpdateTraining, handleDeleteTraining } = useSport();
-  const [difficulty, setDifficulty] = useState(training ? training.difficulty : 1);
-  const [isValidate, setIsValidate] = useState(training ? training.is_validate : 1);
+export default function TrainingForm() {
+  const { handleAddTraining, handleDeleteTraining, closeTrainingForm, trainingFormData } = useSport();
+  const [difficulty, setDifficulty] = useState(trainingFormData.training ? trainingFormData.training.difficulty : 1);
+  const [isValidate, setIsValidate] = useState(trainingFormData.training ? trainingFormData.training.is_validate : 1);
 
   const [formData, setFormData] = useState({
-    id: training ? training.id : null,
-    program_id: programId,
-    date: training ? training.date.toISOString().split('T')[0] : new Date(),
-    weight: training ? training.weight : 0,
-    comment: training ? training.comment : '',
+    id: trainingFormData.training ? trainingFormData.training.id : null,
+    program_id: trainingFormData.programId && trainingFormData.programId,
+    date: trainingFormData.date ? trainingFormData.date.toISOString().split('T')[0] : new Date(),
+    weight: trainingFormData.training ? trainingFormData.training.weight : 0,
+    comment: trainingFormData.training ? trainingFormData.training.comment : '',
   })
 
   const handleChange = (e) => {
@@ -30,27 +30,23 @@ export default function TrainingForm({ programId, training, close }) {
       difficulty: difficulty,
       is_validate: isValidate,
     }
-    if (training) {
-      handleUpdateTraining(newTraining)
-    } else {
-      handleAddTraining(newTraining)
-    }
-	  close();
+    handleAddTraining(newTraining)
+	  closeTrainingForm();
 	};
 
   const deleteTraining = () => {
     const confirm = window.confirm('Are your sure ?')
     if (confirm) {
-      handleDeleteTraining(training);
-      close();
+      handleDeleteTraining(trainingFormData.training);
+      closeTrainingForm();
     }
   }
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-50'>
+    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-30'>
       <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-primary p-10 relative rounded-2xl'>
-        <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer" onClick={close} />
-        <h3 className='font-bold text-3xl mb-10'>{program.name}</h3>
+        <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer z-50" onClick={closeTrainingForm} />
+        {/* <h3 className='font-bold text-3xl mb-10'>{program.name}</h3> */}
         <div className='w-full flex flex-col items-center relative gap-10'>
           <div className='flex flex-col relative'>
             <label htmlFor="weight">Date</label>
@@ -114,7 +110,7 @@ export default function TrainingForm({ programId, training, close }) {
           </div>       
         </div>        
         <div className='flex items-center gap-5'>
-          {training && (<button className={`font-bold bg-red text-primary px-10 py-3 rounded-3xl mt-10`} onClick={deleteTraining}>Delete</button>)}
+          {trainingFormData && (<button className={`font-bold bg-red text-primary px-10 py-3 rounded-3xl mt-10`} onClick={deleteTraining}>Delete</button>)}
           <button type="submit" className={`font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10`}>Confirm</button>
         </div>
       </form>
