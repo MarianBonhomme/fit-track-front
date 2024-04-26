@@ -128,7 +128,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
               <Icon icon="ion:chevron-up" width="40" height="40" className={`transition ${isFoodsListVisible ? '' : 'rotate-180'} cursor-pointer`}  onClick={() => setIsFoodsListVisible(!isFoodsListVisible)}/>
             )}
           </div>
-         {isFoodsListVisible && (
+          {isFoodsListVisible && (
             <div className='w-full relative top-full h-[50dvh] overflow-y-scroll'>
               {sortedFoods && sortedFoods.map((food) => {
                 return ( food.is_active &&
@@ -145,7 +145,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                 )
               })}
             </div>     
-         )}
+          )}
         </div>
         <button type="submit" disabled={!isFormValid} className={`flex font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10 mx-auto transition ${!isFormValid && 'brightness-90'}`} onClick={handleSubmit}>Confirm</button>
       </div>

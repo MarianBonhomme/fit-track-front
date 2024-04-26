@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import CardTitle from '../global/CardTitle'
 import moment from 'moment';
@@ -8,7 +8,7 @@ import AddButton from './../global/AddButton';
 import { useSport } from '../../utils/sport/SportContext';
 
 export default function CalendarTab() {
-  const { currentWeek, incrementWeek, decrementWeek } = useSport();
+  const { currentWeek, incrementWeek, decrementWeek, openTrainingForm } = useSport();
 
   return (
     <div className='bg-primary p-4 shadow-custom rounded-3xl rounded-ss-none relative'>
@@ -23,7 +23,7 @@ export default function CalendarTab() {
         {currentWeek && currentWeek.length === 7 && currentWeek.map((day, index) => (
           <div key={index} className="border-r last:border-none border-lightPrimary">
             <p className='text-center'>{getDayOfWeek(new Date(day))} {moment(day).format("DD/MM")}</p>
-            <AddButton css={'h-20 m-5'} />
+            <AddButton css={'h-20 m-5'} clicked={() => openTrainingForm(new Date(day), null, null)} />
             <DailyTrainings date={new Date(day)} />
           </div>
         ))}

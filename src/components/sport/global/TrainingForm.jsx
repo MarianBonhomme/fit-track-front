@@ -1,19 +1,34 @@
 import { useEffect, useState } from 'react'
 import { useSport } from '../../../utils/sport/SportContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { useUser } from '../../../utils/user/UserContext';
+import moment from 'moment';
 
 export default function TrainingForm() {
-  const { handleAddTraining, handleDeleteTraining, closeTrainingForm, trainingFormData } = useSport();
+  const { isDarkMode } = useUser();
+  const { programs, handleAddTraining, handleDeleteTraining, closeTrainingForm, trainingFormData } = useSport();
   const [difficulty, setDifficulty] = useState(trainingFormData.training ? trainingFormData.training.difficulty : 1);
-  const [isValidate, setIsValidate] = useState(trainingFormData.training ? trainingFormData.training.is_validate : 1);
+  const [isValidate, setIsValidate] = useState(trainingFormData.training ? trainingFormData.training.is_validate : 1);;
+  const [selectedProgram, setSelectedProgram] = useState(trainingFormData.programId && trainingFormData.programId);
+  const [isProgramsListVisible, setIsProgramsListVisible] = useState();
 
   const [formData, setFormData] = useState({
     id: trainingFormData.training ? trainingFormData.training.id : null,
-    program_id: trainingFormData.programId && trainingFormData.programId,
-    date: trainingFormData.date ? trainingFormData.date.toISOString().split('T')[0] : new Date(),
+    date: trainingFormData.date ? moment(trainingFormData.date).format("YYYY-MM-DD") : new Date(),
     weight: trainingFormData.training ? trainingFormData.training.weight : 0,
     comment: trainingFormData.training ? trainingFormData.training.comment : '',
   })
+
+  useEffect(() => {
+    setSelectedProgram(getProgramById(trainingFormData.programId));
+  }, [trainingFormData])
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      program_id: selectedProgram && selectedProgram.id
+    })
+  }, [selectedProgram])
 
   const handleChange = (e) => {
 	  const { name, value } = e.target;
@@ -42,12 +57,45 @@ export default function TrainingForm() {
     }
   }
 
+  const getProgramById = (programId) => {
+    return programs.find(program => program.id === programId)
+  }
+
+  const selectProgram = (program) => {
+    setSelectedProgram(program);
+    setIsProgramsListVisible(false);
+  }
+
   return (
     <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-30'>
       <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-primary p-10 relative rounded-2xl'>
         <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer z-50" onClick={closeTrainingForm} />
-        {/* <h3 className='font-bold text-3xl mb-10'>{program.name}</h3> */}
-        <div className='w-full flex flex-col items-center relative gap-10'>
+        <div className='flex flex-col items-center relative gap-10'>
+          <div className={`min-w-80 px-5 rounded-xl relative shadow-custom ${isDarkMode ? 'bg-lightPrimary' : 'bg-primary'}`}>
+            <div className='w-full flex justify-between items-center gap-5 py-3'>
+              {selectedProgram ? (
+                <div className="grow flex justify-between items-center">
+                  {selectedProgram.name}
+                </div>
+              ) : (
+                <p className='text-center text-gray font-bold'>Select program</p>
+              )}
+              {(!trainingFormData.training && !trainingFormData.programId) && (
+                <Icon icon="ion:chevron-up" width="40" height="40" className={`transition ${isProgramsListVisible ? '' : 'rotate-180'} cursor-pointer`}  onClick={() => setIsProgramsListVisible(!isProgramsListVisible)}/>
+              )}
+            </div>
+            {isProgramsListVisible && (
+              <div className='w-full absolute top-full left-0 overflow-y-scroll hide-scrollbar bg-lightPrimary rounded-2xl z-50'>
+                {programs && programs.map((program) => {
+                  return ( !program.is_completed &&
+                    <div key={program.id} className={`p-5 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectProgram(program)}>
+                      {program.name}
+                    </div>
+                  )
+                })}
+              </div>     
+            )}
+          </div>
           <div className='flex flex-col relative'>
             <label htmlFor="weight">Date</label>
             <input
@@ -70,7 +118,7 @@ export default function TrainingForm() {
                 name="weight"
                 step="0.01"
                 value={formData.weight}
-  						  onChange={handleChange}
+                onChange={handleChange}
                 className='max-w-28 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
                 required
               />
@@ -108,8 +156,8 @@ export default function TrainingForm() {
               className='max-w-100 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
             />
           </div>       
-        </div>        
-        <div className='flex items-center gap-5'>
+        </div>   
+        <div className='flex justify-center items-center gap-5'>
           {trainingFormData && (<button className={`font-bold bg-red text-primary px-10 py-3 rounded-3xl mt-10`} onClick={deleteTraining}>Delete</button>)}
           <button type="submit" className={`font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10`}>Confirm</button>
         </div>
