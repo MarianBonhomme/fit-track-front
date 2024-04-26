@@ -9,8 +9,6 @@ export const SportProvider = ({ children }) => {
   const [sportLoading, setSportLoading] = useState(true);
   const [programs, setPrograms] = useState([]);
   const [trainings, setTrainings] = useState([]);
-  const [currentDay, setCurrentDay] = useState(new Date())
-  const [dailyTrainings, setDailyTrainings] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,11 +20,6 @@ export const SportProvider = ({ children }) => {
     fetchData();
   }, [profile])
 
-  useEffect(() => {
-    const filteredTrainings = filterTrainingsByDate(currentDay);
-    setDailyTrainings(filteredTrainings);
-  }, [trainings, currentDay])
-
   const fetchPrograms = async () => {
     const fetchedPrograms = await getPrograms(profile.id);
     setPrograms(fetchedPrograms);
@@ -37,7 +30,7 @@ export const SportProvider = ({ children }) => {
     setTrainings(fetchedTrainings);
   }
 
-  const filterTrainingsByDate = (date) => {
+  const getTrainingsByDate = (date) => {
     const dateTrainings = trainings.filter(training => {
       const trainingDate = new Date(training.date);
       const trainingDay = trainingDate.getDate();
@@ -142,34 +135,18 @@ export const SportProvider = ({ children }) => {
     }
   };
 
-  const incrementCurrentDay = () => {
-    const nextDay = new Date(currentDay);
-    nextDay.setDate(currentDay.getDate() + 1);
-    setCurrentDay(nextDay);
-  };
-
-  const decrementCurrentDay = () => {
-    const prevDay = new Date(currentDay);
-    prevDay.setDate(currentDay.getDate() - 1);
-    setCurrentDay(prevDay);
-  };
-
   return (
     <SportContext.Provider
       value={{
         sportLoading,
         programs,
-        currentDay,
-        dailyTrainings,
         handleUpdateProgram,
         handleAddProgram,
         handleDeleteProgram,
         handleUpdateTraining,
         handleAddTraining,
-        handleDeleteTraining,        
-        setCurrentDay,
-        incrementCurrentDay,
-        decrementCurrentDay,
+        handleDeleteTraining,
+        getTrainingsByDate,
       }}
     >
       {children}

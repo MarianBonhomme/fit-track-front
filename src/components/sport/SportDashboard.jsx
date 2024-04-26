@@ -3,10 +3,12 @@ import { useUser } from '../../utils/user/UserContext';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import ProgramsTab from './ProgramsTab';
 import CreateProgramForm from './programs/CreateProgramForm';
+import CalendarTab from './CalendarTab';
+import AddButton from './../global/AddButton';
 
 export default function SportPage() {  
   const { isDarkMode, toggleDarkMode } = useUser();
-  const [activeTab, setActiveTab] = useState('programs');
+  const [activeTab, setActiveTab] = useState('calendar');
   const [isProgramFormDisplayed, setIsProgramFormDisplayed] = useState(false)
 
   return (
@@ -14,15 +16,21 @@ export default function SportPage() {
       <div className='p-5'>
         <div className='flex justify-between items-start'>
           <ul className='flex font-bold'>
-            <li className={`${activeTab === 'programs' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActiveTab('programs')} >Programs</li>
+            <li className={`${activeTab === 'calendar' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActiveTab('calendar')} >Calendar</li>
+            <li className={`${activeTab === 'programs' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-3 px-10 flex gap-5 items-center`} onClick={() => setActiveTab('programs')} >
+              Programs
+              <AddButton css={'w-8 h-8 p-2'} clicked={() => setIsProgramFormDisplayed(true)} />
+            </li>
           </ul>
-          <div className='bg-blue text-primary px-5 py-2 text-sm font-semibold rounded-full cursor-pointer' onClick={() => setIsProgramFormDisplayed(true)}>Create New Program</div>
           <DarkModeSwitch
             checked={isDarkMode}
             onChange={toggleDarkMode}
             size={50}
           />
         </div>
+        {activeTab === 'calendar' && (
+          <CalendarTab />
+        )}
         {activeTab === 'programs' && (
           <ProgramsTab />
         )}

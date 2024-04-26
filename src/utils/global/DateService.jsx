@@ -35,4 +35,9 @@ const getShortDate = (date) => {
   return `${day}/${month}`;
 }
 
-export { getFullDate, getShortDate };
+const getDayOfWeek = (date) => {
+  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  return daysOfWeek[date.getDay()];
+};
+
+export { getFullDate, getShortDate, getDayOfWeek };

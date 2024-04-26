@@ -3,7 +3,6 @@ import { useSport } from "../../utils/sport/SportContext";
 import ProgramJourney from "./programs/ProgramJourney";
 import CardTitle from "./../global/CardTitle";
 import { getProgramState } from "../../utils/sport/SportService";
-import DailyTrainings from "./programs/DailyTrainings";
 
 export default function ProgramsTab() {
   const { programs } = useSport();
@@ -43,34 +42,31 @@ export default function ProgramsTab() {
   };
 
   return (
-    <div className="flex items-start gap-5">
-      <DailyTrainings />
-      <div className="w-2/3 shadow-custom relative flex flex-col gap-5">
-        {ongoingPrograms && ongoingPrograms.length > 0 && (
-          <div className="bg-purple rounded-3xl p-5">
-            <CardTitle text={"ONGOING"} css="text-primary mb-3" />
-            {ongoingPrograms.map((program) => (
-              <ProgramJourney key={program.id} program={program} />
-            ))}
-          </div>
-        )}
-        {initialPrograms && initialPrograms.length > 0 && (
-          <div className="bg-blue rounded-3xl p-5">
-            <CardTitle text={"INITIAL"} css="text-primary mb-3" />
-            {initialPrograms.map((program) => (
-              <ProgramJourney key={program.id} program={program} />
-            ))}
-          </div>
-        )}
-        {completedPrograms && completedPrograms.length > 0 && (
-          <div className="bg-green rounded-3xl p-5">
-            <CardTitle text={"COMPLETED"} css="text-primary mb-3" />
-            {completedPrograms.map((program) => (
-              <ProgramJourney key={program.id} program={program} />
-            ))}
-          </div>
-        )}
-      </div>
+    <div className="flex flex-col gap-5 shadow-custom relative">
+      {ongoingPrograms && ongoingPrograms.length > 0 && (
+        <div className="bg-purple rounded-3xl p-5">
+          <CardTitle text={"ONGOING"} css="text-primary mb-3" />
+          {ongoingPrograms.map((program) => (
+            <ProgramJourney key={program.id} program={program} />
+          ))}
+        </div>
+      )}
+      {initialPrograms && initialPrograms.length > 0 && (
+        <div className="bg-blue rounded-3xl p-5">
+          <CardTitle text={"INITIAL"} css="text-primary mb-3" />
+          {initialPrograms.map((program) => (
+            <ProgramJourney key={program.id} program={program} />
+          ))}
+        </div>
+      )}
+      {completedPrograms && completedPrograms.length > 0 && (
+        <div className="bg-green rounded-3xl p-5">
+          <CardTitle text={"COMPLETED"} css="text-primary mb-3" />
+          {completedPrograms.map((program) => (
+            <ProgramJourney key={program.id} program={program} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
