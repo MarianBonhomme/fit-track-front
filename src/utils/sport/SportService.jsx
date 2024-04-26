@@ -116,7 +116,7 @@ const addProgram = async (newProgram) => {
   }
 };
 
-const getLastTraining = (program) => {
+const getLastTrainingOfProgram = (program) => {
   if (!program || !program.trainings || program.trainings.length === 0) {
     return null;
   }
@@ -134,7 +134,7 @@ const getLastTraining = (program) => {
   }
 };
 
-const getFirstTraining = (program) => {
+const getFirstTrainingOfProgram = (program) => {
   if (!program || !program.trainings || program.trainings.length === 0) {
     return null;
   }
@@ -150,6 +150,27 @@ const getFirstTraining = (program) => {
   for (const training of sortedTrainings) {
     return training;
   }
+};
+
+const getBestTrainingPerformanceOfProgram = (program) => {
+  if (!program || !program.trainings || program.trainings.length === 0) {
+    return null;
+  }
+
+  // Filtrer les poids non nuls
+  const nonZeroWeights = program.trainings.filter(training => training.weight !== 0);
+
+  // Si tous les poids sont à zéro ou si aucun entraînement n'a de poids défini
+  if (nonZeroWeights.length === 0) {
+    // Récupérer le commentaire du dernier entraînement
+    const lastTraining = getLastTrainingOfProgram(program);
+    return lastTraining.comment;
+  }
+
+  // Trouver le poids le plus élevé parmi les poids non nuls
+  const maxWeight = Math.max(...nonZeroWeights.map(training => training.weight));
+
+  return `${maxWeight}kg`;
 };
 
 const getProgramState = (program) => {
@@ -180,8 +201,9 @@ export {
   deleteprogram,
   deleteTraining,
   addProgram,
-  getLastTraining,
-  getFirstTraining,
+  getLastTrainingOfProgram,
+  getFirstTrainingOfProgram,
   getProgramState,
-  getSortedTrainingsByDate
+  getSortedTrainingsByDate,
+  getBestTrainingPerformanceOfProgram,
 };

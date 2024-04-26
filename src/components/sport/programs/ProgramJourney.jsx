@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import TrainingCard from './TrainingCard'
 import { useSport } from '../../../utils/sport/SportContext'
 import { getShortDate } from '../../../utils/global/DateService';
-import { getFirstTraining, getLastTraining } from '../../../utils/sport/SportService';
+import { getBestTrainingPerformanceOfProgram, getFirstTrainingOfProgram, getLastTrainingOfProgram } from '../../../utils/sport/SportService';
 import { useDraggable } from "react-use-draggable-scroll";
 import AddButton from '../../global/AddButton';
 
@@ -12,6 +12,7 @@ export default function ProgramJourney({program}) {
   const [isEditDropdownDisplayed, setIsEditDropdownDisplayed] = useState(false);
   const [lastTraining, setLastTraining] = useState('');
   const [firstTraining, setFirstTraining] = useState('');
+  const [bestPerf, setBestPerf] = useState('');
   const ref = useRef();
   const { events } = useDraggable(ref);
   const dropdown = useRef(null)
@@ -50,13 +51,17 @@ export default function ProgramJourney({program}) {
   }, []);
 
   useEffect(() => {
-    const first = getFirstTraining(program);
+    const first = getFirstTrainingOfProgram(program);
     if (first) {
       setFirstTraining(first)
     }
-    const last = getLastTraining(program);
+    const last = getLastTrainingOfProgram(program);
     if (last) {
       setLastTraining(last)
+    }
+    const best = getBestTrainingPerformanceOfProgram(program);
+    if (best) {
+      setBestPerf(best);
     }
   }, [program])
 
@@ -100,7 +105,7 @@ export default function ProgramJourney({program}) {
             {program.state !== "INITIAL" && (    
               <>
                 <StartingPerf training={firstTraining} />
-                <BestPerf training={lastTraining} />
+                <BestPerf perf={bestPerf} />
               </>
             )}
           </div>
@@ -198,11 +203,11 @@ function StartingPerf({training}) {
   )
 }
 
-function BestPerf({training}) {
+function BestPerf({perf}) {
   return (
     <div className="flex items-center gap-2">
       <div className="w-20 text-sm text-center bg-purple text-primary font-semibold rounded-md">Best</div>
-      <p>{training.weight > 0 ? `${training.weight}kg` : training.comment}</p>
+      <p>{perf}</p>
     </div>
   )
 }
