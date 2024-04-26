@@ -6,7 +6,7 @@ import { getShortDate } from '../../../utils/global/DateService';
 import TrainingForm from './TrainingForm';
 import { getFirstTraining, getLastTraining } from '../../../utils/sport/SportService';
 import { useDraggable } from "react-use-draggable-scroll";
-import AddButton from '../../nutrition/global/AddButton';
+import AddButton from '../../global/AddButton';
 
 export default function ProgramJourney({program}) {
   const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false);

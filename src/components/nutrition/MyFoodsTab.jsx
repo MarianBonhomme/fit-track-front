@@ -2,9 +2,9 @@ import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
 import { useNutrition } from '../../utils/nutrition/NutritionContext';
 import { sortFoodsByFavoritesAndInactives } from '../../utils/nutrition/NutritionService';
-import AddButton from './global/AddButton';
 import FoodCard from './myfoods/FoodCard';
 import FoodForm from './myfoods/FoodForm';
+import AddButton from '../global/AddButton';
 
 export default function MyFoodsTab() {
   const { foods } = useNutrition();
@@ -41,7 +41,7 @@ export default function MyFoodsTab() {
   return (
     <>
       <div className='w-full flex justify-between items-center bg-primary p-5 rounded-3xl'>
-        <AddButton clicked={() => openFoodForm(null)} css="h-14 w-14" />
+        <AddButton clicked={() => openFoodForm(null)} css="h-10 w-10 p-3" />
         <div className='flex items-center gap-3'>
           <input
             type="text"

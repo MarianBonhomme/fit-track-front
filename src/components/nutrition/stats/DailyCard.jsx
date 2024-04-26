@@ -5,10 +5,10 @@ import { sortFoodConsumptionsByFavorites } from '../../../utils/nutrition/Nutrit
 import CardTitle from '../../global/CardTitle';
 import FoodConsumptionForm from './FoodConsumptionForm';
 import FoodConsumptionItem from './FoodConsumptionItem';
-import AddButton from '../global/AddButton';
 import MacroPie from '../global/MacroPie';
 import { getFullDate } from '../../../utils/global/DateService';
 import MacroItem from '../global/MacroItem';
+import AddButton from '../../global/AddButton';
 
 export default function DailyCard() {
   const { currentDay, dailyFoodConsumptions, incrementCurrentDay, decrementCurrentDay, setCurrentDay } = useNutrition();
@@ -63,7 +63,7 @@ export default function DailyCard() {
       <div className="bg-primary px-4 py-3 shadow-custom rounded-3xl rounded-tl-none relative">
         <div className="flex justify-between items-center">
           <CardTitle text={currentDay && getFullDate(currentDay)} />
-          <p className={`bg-red text-primary font-bold px-3 py-2 rounded-full ${currentDay && getFullDate(currentDay) === 'Today' ? 'opacity-0' : 'cursor-pointer'}`} onClick={() => setCurrentDay(new Date())}>Today</p>
+          <p className={`bg-blue text-primary font-bold px-3 py-2 rounded-full ${currentDay && getFullDate(currentDay) === 'Today' ? 'opacity-0' : 'cursor-pointer'}`} onClick={() => setCurrentDay(new Date())}>Today</p>
         </div>
         <div className="flex justify-center items-center gap-5 mb-3">
           <Icon icon="ic:round-chevron-left" width="50" height="50" className="text-dark cursor-pointer" onClick={decrementCurrentDay} />
@@ -82,12 +82,11 @@ export default function DailyCard() {
           )}
           <Icon icon="ic:round-chevron-right" width="50" height="50" className="text-dark cursor-pointer" onClick={incrementCurrentDay} />
         </div>
-        {sortedDailyFoodConsumptions && sortedDailyFoodConsumptions.length > 0 ? (
+        <AddButton clicked={() => openFoodConsumptionForm()} css='w-full mt-10 h-20 mx-auto'/>
+        {sortedDailyFoodConsumptions && sortedDailyFoodConsumptions.length > 0 && (
           sortedDailyFoodConsumptions.map((consumption) => (
             <FoodConsumptionItem key={consumption.id} consumption={consumption} clicked={() => openFoodConsumptionForm(consumption)} />         
           ))
-        ) : (
-          <AddButton clicked={() => openFoodConsumptionForm()} css='w-full mt-10 h-20 mx-auto'/>
         )}
       </div>
   

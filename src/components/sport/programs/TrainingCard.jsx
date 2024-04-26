@@ -14,7 +14,7 @@ export default function TrainingCard({training, edit}) {
             <span className="text-sm font-normal">kg</span>
           </p>
         ) : (
-          <p class="text-xl font-bold text-nowrap">{training.comment}</p>
+          <p className="text-xl font-bold text-nowrap">{training.comment}</p>
         )}
         {training.is_validate ? (
           <Icon icon="icon-park-solid:check-one" width="25" height="25" className="text-green" />
