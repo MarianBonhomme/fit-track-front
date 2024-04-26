@@ -183,6 +183,7 @@ export const SportProvider = ({ children }) => {
         trainings: program.trainings.filter(training => training.id !== deletedTrainingId)
       }));
       setPrograms(updatedPrograms);
+      setTrainings(prevTrainings => prevTrainings.filter(training => training.id !== deletedTrainingId));
     } catch (error) {
       console.error(`Error deleting training with id ${trainingToDelete.id}:`, error);
     }
