@@ -3,10 +3,10 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import TrainingCard from './TrainingCard'
 import { useSport } from '../../../utils/sport/SportContext'
 import { getShortDate } from '../../../utils/global/DateService';
-import TrainingForm from './TrainingForm';
 import { getFirstTraining, getLastTraining } from '../../../utils/sport/SportService';
 import { useDraggable } from "react-use-draggable-scroll";
 import AddButton from '../../global/AddButton';
+import TrainingForm from '../global/TrainingForm';
 
 export default function ProgramJourney({program}) {
   const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false);
@@ -124,7 +124,7 @@ export default function ProgramJourney({program}) {
         </div>
       </div>
       {isTrainingFormDisplayed && (
-        <TrainingForm program={program} training={trainingToUpdate} close={() => setIsTrainingFormDisplayed(false)}/>
+        <TrainingForm programId={program.id} training={trainingToUpdate} close={() => setIsTrainingFormDisplayed(false)}/>
       )}
     </>
   )

@@ -2,14 +2,14 @@ import { useState } from 'react'
 import { useSport } from '../../../utils/sport/SportContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
 
-export default function TrainingForm({ program, training, close }) {
+export default function TrainingForm({ programId, training, close }) {
   const { handleAddTraining, handleUpdateTraining, handleDeleteTraining } = useSport();
   const [difficulty, setDifficulty] = useState(training ? training.difficulty : 1);
   const [isValidate, setIsValidate] = useState(training ? training.is_validate : 1);
 
   const [formData, setFormData] = useState({
     id: training ? training.id : null,
-    program_id: program.id,
+    program_id: programId,
     date: training ? training.date.toISOString().split('T')[0] : new Date(),
     weight: training ? training.weight : 0,
     comment: training ? training.comment : '',

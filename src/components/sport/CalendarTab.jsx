@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import CardTitle from '../global/CardTitle'
 import moment from 'moment';
 import { getDayOfWeek } from '../../utils/global/DateService';
-import DailyTrainings from './programs/DailyTrainings';
+import DailyTrainings from './calendar/DailyTrainings';
 import AddButton from './../global/AddButton';
 import { useSport } from '../../utils/sport/SportContext';
 
