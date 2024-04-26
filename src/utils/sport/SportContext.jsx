@@ -11,6 +11,8 @@ export const SportProvider = ({ children }) => {
   const [programs, setPrograms] = useState([]);
   const [trainings, setTrainings] = useState([]);
   const [currentWeek, setCurrentWeek] = useState([]);
+  const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false);
+  const [trainingFormData, setTrainingFormData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,6 +55,21 @@ export const SportProvider = ({ children }) => {
     setCurrentWeek(prevWeek =>
       prevWeek.map(day => moment(day).subtract(1, 'week').toDate())
     );
+  }
+
+  const openTrainingForm = (date, programId, training) => {
+    const trainingFormData = {
+      date: date,
+      programId: programId,
+      training: training
+    }
+    setTrainingFormData(trainingFormData)
+    setIsTrainingFormDisplayed(true);
+  }
+
+  const closeTrainingForm = () => {
+    setTrainingFormData(null);
+    setIsTrainingFormDisplayed(false);
   }
 
   const getTrainingsByDate = (date) => {
@@ -119,6 +136,10 @@ export const SportProvider = ({ children }) => {
         ...programToUpdate,
         trainings: updatedTrainings
       };
+      
+      setTrainings(prevTrainings => prevTrainings.map(training =>
+        training.id === updatedTraining.id ? updatedTraining : training
+      ));
       handleUpdateProgram(updatedProgram);      
     } catch (error) {
       console.error(`Error updating training with id ${trainingToUpdate.id}:`, error);
@@ -127,6 +148,12 @@ export const SportProvider = ({ children }) => {
 
   const handleAddTraining = async (newTraining) => {
     try {
+      const existingTraining = trainings.find(training => training.id === newTraining.id);
+      if (existingTraining) {
+        handleUpdateTraining(newTraining);
+        return;
+      }
+
       const addedTraining = await addTraining(newTraining);
       const programToUpdate = programs.find(program => program.id === addedTraining.program_id);
       if (!programToUpdate) {
@@ -139,7 +166,8 @@ export const SportProvider = ({ children }) => {
         ...programToUpdate,
         trainings: updatedTrainings
       };
-  
+
+      setTrainings(prevTrainings => prevTrainings.concat(addedTraining));  
       handleUpdateProgram(updatedProgram);
     } catch (error) {
       console.error('Error adding training:', error);
@@ -175,6 +203,10 @@ export const SportProvider = ({ children }) => {
         currentWeek,
         incrementWeek,
         decrementWeek,
+        trainingFormData,
+        isTrainingFormDisplayed,
+        openTrainingForm,
+        closeTrainingForm
       }}
     >
       {children}
