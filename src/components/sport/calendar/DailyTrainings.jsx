@@ -13,7 +13,7 @@ export default function DailyTrainings({date}) {
 
   const getProgramNameById = (programId) => {
     const program = programs.find(program => program.id === programId);
-    return program.name && program.name;
+    return program && program.name && program.name;
   }
 
   return (
