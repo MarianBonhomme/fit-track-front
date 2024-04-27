@@ -13,6 +13,7 @@ export const SportProvider = ({ children }) => {
   const [currentWeek, setCurrentWeek] = useState([]);
   const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false);
   const [trainingFormData, setTrainingFormData] = useState(null);
+  const [isProgramFormDisplayed, setIsProgramFormDisplayed] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,6 +71,16 @@ export const SportProvider = ({ children }) => {
   const closeTrainingForm = () => {
     setTrainingFormData(null);
     setIsTrainingFormDisplayed(false);
+  }
+
+  const openProgramForm = () => {
+    // FormData pour update
+    setIsProgramFormDisplayed(true);
+  }
+
+  const closeProgramForm = () => {
+    // setProgramFormData(null)
+    setIsProgramFormDisplayed(false);
   }
 
   const getTrainingsByDate = (date) => {
@@ -207,7 +218,10 @@ export const SportProvider = ({ children }) => {
         trainingFormData,
         isTrainingFormDisplayed,
         openTrainingForm,
-        closeTrainingForm
+        closeTrainingForm,
+        isProgramFormDisplayed,
+        openProgramForm,
+        closeProgramForm,
       }}
     >
       {children}

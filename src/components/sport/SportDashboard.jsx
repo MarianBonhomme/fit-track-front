@@ -10,9 +10,8 @@ import { useSport } from '../../utils/sport/SportContext';
 
 export default function SportPage() {  
   const { isDarkMode, toggleDarkMode } = useUser();
-  const { isTrainingFormDisplayed } = useSport();
+  const { isTrainingFormDisplayed, isProgramFormDisplayed, openProgramForm } = useSport();
   const [activeTab, setActiveTab] = useState('calendar');
-  const [isProgramFormDisplayed, setIsProgramFormDisplayed] = useState(false)  
 
   return (
     <>
@@ -22,7 +21,7 @@ export default function SportPage() {
             <li className={`${activeTab === 'calendar' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActiveTab('calendar')} >Calendar</li>
             <li className={`${activeTab === 'programs' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-3 px-10 flex gap-5 items-center`} onClick={() => setActiveTab('programs')} >
               Programs
-              <AddButton css={'w-8 h-8 p-2'} clicked={() => setIsProgramFormDisplayed(true)} />
+              <AddButton css={'w-8 h-8 p-2'} clicked={openProgramForm} />
             </li>
           </ul>
           <DarkModeSwitch
@@ -39,7 +38,7 @@ export default function SportPage() {
         )}
       </div>
       {isProgramFormDisplayed && (
-        <CreateProgramForm close={() => setIsProgramFormDisplayed(false)}/>
+        <CreateProgramForm />
       )} 
       {isTrainingFormDisplayed && (
         <TrainingForm />

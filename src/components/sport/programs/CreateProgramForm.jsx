@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useSport } from '../../../utils/sport/SportContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
 
-export default function CreateProgramForm({ close }) {
-  const { handleAddProgram } = useSport();
+export default function CreateProgramForm() {
+  const { handleAddProgram, closeProgramForm } = useSport();
   const [isFormValid, setIsFormValid] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -31,13 +31,13 @@ export default function CreateProgramForm({ close }) {
   const handleSubmit = (e) => {
 	  e.preventDefault();
     handleAddProgram(formData)
-	  close();
+	  closeProgramForm();
 	};
 
   return (
     <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-50'>
       <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-primary p-10 relative rounded-2xl'>
-        <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer" onClick={close} />
+        <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer" onClick={closeProgramForm} />
         <h3 className='font-bold text-3xl mb-10'>Create New Program</h3>
         <div className='w-full flex flex-col items-center relative gap-5'>
           <Icon icon="solar:star-bold" width={40} height={40} className={`text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />      
