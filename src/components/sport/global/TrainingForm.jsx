@@ -3,10 +3,11 @@ import { useSport } from '../../../utils/sport/SportContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useUser } from '../../../utils/user/UserContext';
 import moment from 'moment';
+import AddButton from './../../global/AddButton';
 
 export default function TrainingForm() {
   const { isDarkMode } = useUser();
-  const { programs, handleAddTraining, handleDeleteTraining, closeTrainingForm, trainingFormData } = useSport();
+  const { programs, handleAddTraining, handleDeleteTraining, closeTrainingForm, trainingFormData, openProgramForm } = useSport();
   const [difficulty, setDifficulty] = useState(trainingFormData.training ? trainingFormData.training.difficulty : 1);
   const [isValidate, setIsValidate] = useState(trainingFormData.training ? trainingFormData.training.is_validate : 1);;
   const [selectedProgram, setSelectedProgram] = useState(trainingFormData.programId && trainingFormData.programId);
@@ -86,6 +87,10 @@ export default function TrainingForm() {
             </div>
             {isProgramsListVisible && (
               <div className='w-full absolute top-full left-0 overflow-y-scroll hide-scrollbar bg-lightPrimary rounded-2xl z-50'>
+                <div className='flex justify-center items-center gap-3 cursor-pointer' onClick={openProgramForm}>
+                  <AddButton css={'h-14'} />
+                  <p className='text-gray font-bold'>New Program</p>
+                </div>
                 {programs && programs.map((program) => {
                   return ( !program.is_completed &&
                     <div key={program.id} className={`p-5 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectProgram(program)}>
