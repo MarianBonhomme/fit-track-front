@@ -80,9 +80,10 @@ export default function ProgramJourney({program}) {
   }, [isEditDropdownDisplayed]);
 
   return (
-    <div className="bg-primary text-secondary mb-3 last:mb-0 p-5 rounded-3xl relative">
+    <div className="bg-primary text-secondary pl-10 p-5 rounded-3xl relative">
+      <ProgramStateIndicator state={program.state} />
       {isEditDropdownDisplayed &&
-        <EditProgramDropdown program={program} state={program.state} />
+        <EditProgramDropdown program={program} />
       }
       <div className='flex justify-between items-start mb-5 relative'>   
         <div className="flex items-center gap-3">   
@@ -123,7 +124,26 @@ export default function ProgramJourney({program}) {
   )
 }
 
-function EditProgramDropdown({program, state}) {
+function ProgramStateIndicator(state) {
+  const getBackgroundByState = () => {
+    if (state.state === "ONGOING") {
+      return 'bg-purple'
+    } else if (state.state === "INITIAL" ) {
+      return 'bg-blue'
+    } else {
+      return 'bg-green'
+    }
+  }
+  const background = getBackgroundByState();
+
+  return (
+    <div className={`absolute top-0 left-0 w-5 h-full rounded-full ${background}`}>
+
+    </div>
+  )
+}
+
+function EditProgramDropdown({program}) {
   const { handleUpdateProgram, handleDeleteProgram } = useSport();
 
   const toggleFavorite = () => {
@@ -156,17 +176,17 @@ function EditProgramDropdown({program, state}) {
 
   return (
     <div className="absolute top-0 left-5 flex flex-col gap-3 rounded-xl p-5 bg-primary z-10 shadow-custom">
-      {state === 'ONGOING' &&
+      {program.state === 'ONGOING' &&
        <>
           <Icon icon="solar:star-bold" width="25" height="25" className={`${program.is_favorite ? 'text-yellow cursor-pointer' : 'text-lightPrimary'}`} onClick={toggleFavorite} />
           <Icon icon="heroicons:stop-circle-16-solid" width="25" height="25" className='text-orange cursor-pointer' onClick={stopProgram} />
           <Icon icon="mingcute:delete-fill" width="25" height="25" className='text-red cursor-pointer' onClick={deleteProgram} />
        </>
       }
-      {state === 'INITIAL' &&        
+      {program.state === 'INITIAL' &&        
         <Icon icon="mingcute:delete-fill" width="25" height="25" className='text-red cursor-pointer' onClick={deleteProgram} />
       }
-      {state === 'COMPLETED' &&       
+      {program.state === 'COMPLETED' &&       
        <>
           <Icon icon="iconamoon:restart-bold" width="25" height="25" className='text-blue cursor-pointer' onClick={restartProgram} />
           <Icon icon="mingcute:delete-fill" width="25" height="25" className='text-red cursor-pointer' onClick={deleteProgram} />
