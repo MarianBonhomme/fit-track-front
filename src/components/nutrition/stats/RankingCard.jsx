@@ -6,6 +6,7 @@ import FoodImage from "../global/FoodImage";
 import QuantityUnity from "../global/QuantityUnity";
 import { calculateMacros } from "../../../utils/nutrition/NutritionService";
 import MacroItem from "../global/MacroItem";
+import FlipMove from "react-flip-move";
 
 export default function RankingCard() {
   const { foodsWithTotalQuantity } = useNutrition();
@@ -58,7 +59,7 @@ export default function RankingCard() {
         <div className={`rounded-lg text-center font-bold py-1 ${filter !== 'prot' ? 'bg-lightPrimary text-secondary cursor-pointer' : 'bg-purple text-primary'}`} onClick={() => setFilter('prot')}>Prot</div>
         <div className={`rounded-lg text-center font-bold py-1 ${filter !== 'carb' ? 'bg-lightPrimary text-secondary cursor-pointer' : 'bg-yellow text-primary'}`} onClick={() => setFilter('carb')}>Carb</div>
       </div>
-      <div>
+      <FlipMove enterAnimation="elevator" leaveAnimation="elevator">
         {rankedFoods.map((food, index) => {
           return (
             <div key={food.id} className="border-t border-lightPrimary first:border-none">
@@ -85,7 +86,7 @@ export default function RankingCard() {
             </div>
           )      
         })}
-      </div>
+      </FlipMove>
     </div>
   )
 }

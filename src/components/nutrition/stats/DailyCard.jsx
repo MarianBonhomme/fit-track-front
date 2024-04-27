@@ -9,6 +9,7 @@ import MacroPie from '../global/MacroPie';
 import { getFullDate } from '../../../utils/global/DateService';
 import MacroItem from '../global/MacroItem';
 import AddButton from '../../global/AddButton';
+import FlipMove from 'react-flip-move';
 
 export default function DailyCard() {
   const { currentDay, dailyFoodConsumptions, incrementCurrentDay, decrementCurrentDay, setCurrentDay } = useNutrition();
@@ -84,9 +85,13 @@ export default function DailyCard() {
         </div>
         <AddButton clicked={() => openFoodConsumptionForm()} css='w-full mt-10 h-20 mx-auto'/>
         {sortedDailyFoodConsumptions && sortedDailyFoodConsumptions.length > 0 && (
-          sortedDailyFoodConsumptions.map((consumption) => (
-            <FoodConsumptionItem key={consumption.id} consumption={consumption} clicked={() => openFoodConsumptionForm(consumption)} />         
-          ))
+          <FlipMove>
+            {sortedDailyFoodConsumptions.map((consumption) => (
+              <div key={consumption.id}>
+                <FoodConsumptionItem consumption={consumption} clicked={() => openFoodConsumptionForm(consumption)} /> 
+              </div>        
+            ))}
+          </FlipMove>
         )}
       </div>
   
