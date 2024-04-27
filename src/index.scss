@@ -33,6 +33,10 @@
   --gray-color: #5A5B63;
 }
 
+* {
+  transition: background 0.3s ease-in-out;
+}
+
 .hide-scrollbar {
   &::-webkit-scrollbar {
     width: 0em;
