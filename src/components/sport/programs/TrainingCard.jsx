@@ -8,8 +8,7 @@ export default function TrainingCard({training, hideDate}) {
   const { openTrainingForm } = useSport()
 
   return (
-    <div className="bg-lightPrimary min-w-40 min-h-40 p-2 flex flex-col items-center justify-evenly rounded-xl shadow text-secondary relative">
-      <Icon icon="icon-park-outline:hamburger-button" width={20} height={20} className="absolute top-3 left-3 text-gray cursor-pointer" onClick={() => openTrainingForm(new Date(training.date), training.program_id, training)} />
+    <div className="bg-lightPrimary min-w-40 min-h-40 p-2 flex flex-col items-center justify-evenly rounded-xl shadow text-secondary relative cursor-pointer" onClick={() => openTrainingForm(new Date(training.date), training.program_id, training)}>
       {!hideDate && <p className='text-xs px-2 rounded-full bg-blue text-primary font-semibold'>{getShortDate(new Date(training.date))}</p>}
       <div className='flex flex-col items-center'>
         {training.weight > 0 ? (
