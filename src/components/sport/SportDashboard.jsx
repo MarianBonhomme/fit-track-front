@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useUser } from '../../utils/user/UserContext';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import ProgramsTab from './ProgramsTab';
-import CreateProgramForm from './programs/CreateProgramForm';
+import ProgramForm from './programs/ProgramForm';
 import CalendarTab from './CalendarTab';
 import AddButton from './../global/AddButton';
 import TrainingForm from './global/TrainingForm';
@@ -38,7 +38,7 @@ export default function SportPage() {
         )}
       </div>
       {isProgramFormDisplayed && (
-        <CreateProgramForm />
+        <ProgramForm />
       )} 
       {isTrainingFormDisplayed && (
         <TrainingForm />

@@ -1,16 +1,21 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSport } from '../../../utils/sport/SportContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
 
-export default function CreateProgramForm() {
-  const { handleAddProgram, closeProgramForm } = useSport();
+export default function ProgramForm() {
+  const { handleAddProgram, handleDeleteProgram, closeProgramForm, programFormData } = useSport();
   const [isFormValid, setIsFormValid] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    is_favorite: false,
+    id: programFormData.id ? programFormData.id : null,
+    name: programFormData.name && programFormData.name,
+    description: programFormData.description && programFormData.description,
+    is_favorite: programFormData.is_favorite && programFormData.is_favorite,
   })
+
+  useEffect(() => {
+    setIsFormValid(formData.name !== '')
+  }, [formData])
 
   const toggleIsFavorite = () => {
     setFormData({
@@ -25,14 +30,22 @@ export default function CreateProgramForm() {
       ...formData,
       [name]: value,
     });
-    setIsFormValid(formData.name !== '')
 	};
 
   const handleSubmit = (e) => {
 	  e.preventDefault();
+    console.log('here')
     handleAddProgram(formData)
 	  closeProgramForm();
 	};
+
+  const deleteProgram = () => {
+    const confirm = window.confirm("Are you sure ?");
+    if (confirm) {
+      handleDeleteProgram(formData)
+      closeProgramForm()
+    }
+  }
 
   return (
     <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-50'>
@@ -65,7 +78,10 @@ export default function CreateProgramForm() {
             />
           </div>          
         </div>
-        <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10 ${!isFormValid && 'brightness-90'}`}>Confirm</button>
+        <div className='flex items-center justify-center gap-5'>
+          {programFormData.name && (<button type='button' className={`font-bold bg-red text-primary px-10 py-3 rounded-3xl mt-10`} onClick={deleteProgram}>Delete</button>)}
+          <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10 ${!isFormValid && 'brightness-75'}`}>Confirm</button>
+        </div>
       </form>
     </div>
   )

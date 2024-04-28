@@ -8,14 +8,12 @@ import { useDraggable } from "react-use-draggable-scroll";
 import AddButton from '../../global/AddButton';
 
 export default function ProgramJourney({program}) {
-  const { openTrainingForm } = useSport()
-  const [isEditDropdownDisplayed, setIsEditDropdownDisplayed] = useState(false);
+  const { openTrainingForm, openProgramForm, handleUpdateProgram } = useSport()
   const [lastTraining, setLastTraining] = useState('');
   const [firstTraining, setFirstTraining] = useState('');
   const [bestPerf, setBestPerf] = useState('');
   const ref = useRef();
   const { events } = useDraggable(ref);
-  const dropdown = useRef(null)
 
   useEffect(() => {
     const options = {
@@ -65,30 +63,34 @@ export default function ProgramJourney({program}) {
     }
   }, [program])
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdown.current && !dropdown.current.contains(event.target)) {
-        setIsEditDropdownDisplayed(false);
-      }
-    };
   
-    if (isEditDropdownDisplayed) {
-      document.addEventListener('click', handleClickOutside);
-    } else {
-      document.removeEventListener('click', handleClickOutside);
+  const stopProgram = () => {
+    const confirm = window.confirm("Are you sure ?");
+    if (confirm) {
+      const programToStop = {...program, is_completed: 1 }
+      handleUpdateProgram(programToStop)
     }
-  }, [isEditDropdownDisplayed]);
+  }
+
+  const restartProgram = () => {
+    const confirm = window.confirm("Are you sure ?");
+    if (confirm) {
+      const programToRestart = {...program, is_completed: 0 }
+      handleUpdateProgram(programToRestart)
+    }
+  }
 
   return (
     <div className="bg-primary text-secondary pl-10 p-5 rounded-3xl relative">
       <ProgramStateIndicator state={program.state} />
-      {isEditDropdownDisplayed &&
-        <EditProgramDropdown program={program} />
-      }
       <div className='flex justify-between items-start mb-5 relative'>   
-        <div className="flex items-center gap-3">   
-          <Icon ref={dropdown} icon="icon-park-outline:hamburger-button" width="25" height="25" className='text-gray cursor-pointer' onClick={() => setIsEditDropdownDisplayed(true)} />    
-          <div>
+        <div className="flex items-center gap-3 cursor-pointer">   
+          {program.state === "COMPLETED" ? (
+            <Icon icon="iconamoon:restart-bold" width="25" height="25" className='text-purple' onClick={restartProgram} />
+          ) : program.state === "ONGOING" && (
+            <Icon icon="heroicons:stop-circle-16-solid" width="25" height="25" className='text-orange' onClick={stopProgram} />
+          )}
+          <div onClick={() => openProgramForm(program)}>
             <p className="text-xl font-bold">{program.name}</p>
             <p className='font-semibold'>{program.description}</p>
           </div>
@@ -139,59 +141,6 @@ function ProgramStateIndicator(state) {
   return (
     <div className={`absolute top-0 left-0 w-5 h-full rounded-full ${background}`}>
 
-    </div>
-  )
-}
-
-function EditProgramDropdown({program}) {
-  const { handleUpdateProgram, handleDeleteProgram } = useSport();
-
-  const toggleFavorite = () => {
-    const programFavorite = { ...program, is_favorite: !program.is_favorite};
-    handleUpdateProgram(programFavorite);
-  }
-
-  const stopProgram = () => {
-    const confirm = window.confirm("Are you sure ?");
-    if (confirm) {
-      const programToStop = {...program, is_completed: 1 }
-      handleUpdateProgram(programToStop)
-    }
-  }
-
-  const restartProgram = () => {
-    const confirm = window.confirm("Are you sure ?");
-    if (confirm) {
-      const programToRestart = {...program, is_completed: 0 }
-      handleUpdateProgram(programToRestart)
-    }
-  }
-
-  const deleteProgram = () => {
-    const confirm = window.confirm("Are you sure ?");
-    if (confirm) {
-      handleDeleteProgram(program)
-    }
-  }
-
-  return (
-    <div className="absolute top-0 left-5 flex flex-col gap-3 rounded-xl p-5 bg-primary z-10 shadow-custom">
-      {program.state === 'ONGOING' &&
-       <>
-          <Icon icon="solar:star-bold" width="25" height="25" className={`${program.is_favorite ? 'text-yellow cursor-pointer' : 'text-lightPrimary'}`} onClick={toggleFavorite} />
-          <Icon icon="heroicons:stop-circle-16-solid" width="25" height="25" className='text-orange cursor-pointer' onClick={stopProgram} />
-          <Icon icon="mingcute:delete-fill" width="25" height="25" className='text-red cursor-pointer' onClick={deleteProgram} />
-       </>
-      }
-      {program.state === 'INITIAL' &&        
-        <Icon icon="mingcute:delete-fill" width="25" height="25" className='text-red cursor-pointer' onClick={deleteProgram} />
-      }
-      {program.state === 'COMPLETED' &&       
-       <>
-          <Icon icon="iconamoon:restart-bold" width="25" height="25" className='text-blue cursor-pointer' onClick={restartProgram} />
-          <Icon icon="mingcute:delete-fill" width="25" height="25" className='text-red cursor-pointer' onClick={deleteProgram} />
-       </>
-      }
     </div>
   )
 }
