@@ -10,7 +10,6 @@ export default function TrainingCard({training, isOnCalendar}) {
 
   useEffect(() => {
     const foundProgram = programs.find(program => program.id === training.program_id);
-    console.log(foundProgram.pattern)
     setProgram(foundProgram)
   }, [programs, training])
 
