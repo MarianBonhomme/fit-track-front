@@ -19,7 +19,7 @@ export default function TrainingCard({training, isOnCalendar}) {
       ) : (
         <p className='text-xs px-2 rounded-full bg-blue text-primary font-semibold'>{getShortDate(new Date(training.date))}</p>
       )}
-      <div className='flex flex-col items-center'>
+      <div>
         <div className='flex items-center justify-center gap-2'>
           {training.weight > 0 ? (
             <p className='text-3xl font-bold'>
@@ -36,7 +36,7 @@ export default function TrainingCard({training, isOnCalendar}) {
           )}
         </div>
         {training.comment && (
-          <p className="text-sm text-nowrap">{training.comment}</p>
+          <p className="text-sm text-center line-clamp-1">{training.comment}</p>
         )}
       </div>
       <DifficultyScale difficulty={training.difficulty} />
