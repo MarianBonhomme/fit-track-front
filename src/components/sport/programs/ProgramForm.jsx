@@ -116,5 +116,4 @@ function Patterns({programPattern, clicked}) {
       ))}
     </div>
   )
-
 }

@@ -139,9 +139,7 @@ function ProgramStateIndicator(state) {
   const background = getBackgroundByState();
 
   return (
-    <div className={`absolute top-0 left-0 w-5 h-full rounded-full ${background}`}>
-
-    </div>
+    <div className={`absolute top-0 left-0 w-5 h-full rounded-full ${background}`}></div>
   )
 }
 
