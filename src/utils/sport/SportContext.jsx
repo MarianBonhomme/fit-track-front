@@ -14,6 +14,8 @@ export const SportProvider = ({ children }) => {
   const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false);
   const [trainingFormData, setTrainingFormData] = useState(null);
   const [isProgramFormDisplayed, setIsProgramFormDisplayed] = useState(false);
+  const [programFormData, setProgramFormData] = useState(null);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,13 +75,13 @@ export const SportProvider = ({ children }) => {
     setIsTrainingFormDisplayed(false);
   }
 
-  const openProgramForm = () => {
-    // FormData pour update
+  const openProgramForm = (program) => {
+    setProgramFormData(program)
     setIsProgramFormDisplayed(true);
   }
 
   const closeProgramForm = () => {
-    // setProgramFormData(null)
+    setProgramFormData(null)
     setIsProgramFormDisplayed(false);
   }
 
@@ -112,7 +114,13 @@ export const SportProvider = ({ children }) => {
   };
 
   const handleAddProgram = async (newProgram) => {
+    const existingProgram = programs.find(program => program.id === newProgram.id);
+    if (existingProgram) {
+      handleUpdateProgram(newProgram);
+      return;
+    }
     const newProgramWithProfile = {...newProgram, profile_id: profile.id}
+
     try {
       const addedProgram = await addProgram(newProgramWithProfile);
       setPrograms((prevPrograms) => [...prevPrograms, addedProgram]);
@@ -219,6 +227,7 @@ export const SportProvider = ({ children }) => {
         isTrainingFormDisplayed,
         openTrainingForm,
         closeTrainingForm,
+        programFormData,
         isProgramFormDisplayed,
         openProgramForm,
         closeProgramForm,
