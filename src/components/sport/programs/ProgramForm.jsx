@@ -7,14 +7,15 @@ export default function ProgramForm() {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const [formData, setFormData] = useState({
-    id: programFormData.id ? programFormData.id : null,
-    name: programFormData.name && programFormData.name,
-    description: programFormData.description && programFormData.description,
-    is_favorite: programFormData.is_favorite && programFormData.is_favorite,
+    id: programFormData?.id,
+    name: programFormData?.name,
+    description: programFormData?.description,
+    is_favorite: programFormData?.is_favorite,
+    pattern: programFormData?.pattern
   })
 
   useEffect(() => {
-    setIsFormValid(formData.name !== '')
+    setIsFormValid(formData.name !== '' && formData.pattern)
   }, [formData])
 
   const toggleIsFavorite = () => {
@@ -47,6 +48,10 @@ export default function ProgramForm() {
     }
   }
 
+  const handlePatternClick = (clickedPattern) => {
+    setFormData({...formData, pattern: clickedPattern})
+  }
+
   return (
     <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-50'>
       <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-primary p-10 relative rounded-2xl'>
@@ -76,7 +81,8 @@ export default function ProgramForm() {
 						  onChange={handleChange}
               className='max-w-100 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
             />
-          </div>          
+          </div> 
+          <Patterns programPattern={formData.pattern} clicked={handlePatternClick} />
         </div>
         <div className='flex items-center justify-center gap-5'>
           {programFormData.name && (<button type='button' className={`font-bold bg-red text-primary px-10 py-3 rounded-3xl mt-10`} onClick={deleteProgram}>Delete</button>)}
@@ -85,4 +91,30 @@ export default function ProgramForm() {
       </form>
     </div>
   )
+}
+
+function Patterns({programPattern, clicked}) {
+  const patterns = ['push', 'pull', 'legs', 'abs', 'cardio'];
+  const getBackgroundByPattern = (pattern) => {
+    if (pattern === "push") {
+      return 'bg-red'
+    } else if (pattern === "pull") {
+      return 'bg-green'
+    } else if (pattern === "legs") {
+      return 'bg-purple'
+    } else if (pattern === "abs") {
+      return 'bg-yellow'
+    } else {
+      return 'bg-blue'
+    }
+  }
+
+  return (
+    <div className='flex items-center justify-center gap-3'>
+      {patterns.map((pattern) => (
+        <div onClick={() => clicked(pattern)} className={`px-5 py-2 rounded-lg capitalize ${programPattern === pattern ? `${getBackgroundByPattern(pattern)} cursor-default text-primary font-semibold` : 'bg-lightPrimary text-secondary cursor-pointer'}`}>{pattern}</div>
+      ))}
+    </div>
+  )
+
 }
