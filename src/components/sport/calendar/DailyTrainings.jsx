@@ -12,18 +12,12 @@ export default function DailyTrainings({date}) {
     setDailyTrainings(dateTrainings);
   }, [date, programs])
 
-  const getProgramNameById = (programId) => {
-    const program = programs.find(program => program.id === programId);
-    return program && program.name && program.name;
-  }
-
   return (
     dailyTrainings && dailyTrainings.length > 0 && (
       <FlipMove>
         {dailyTrainings.map((training) => (
-          <div key={training.id} className="border-b last:border-none last:pb-3 border-lightPrimary p-5">
-            <p className="text-lg font-light text-center mb-3">{getProgramNameById(training.program_id)}</p>
-            <TrainingCard hideDate={true} training={training} />
+          <div key={training.id} className='px-3 pb-3 last:pb-0'>
+            <TrainingCard isOnCalendar={true} training={training} />
           </div>
         ))}
       </FlipMove>
