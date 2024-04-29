@@ -4,9 +4,9 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { useUser } from '../../../utils/user/UserContext';
 import moment from 'moment';
 import AddButton from './../../global/AddButton';
+import PatternIndicator from './PatternIndicator';
 
 export default function TrainingForm() {
-  const { isDarkMode } = useUser();
   const { programs, handleAddTraining, handleDeleteTraining, closeTrainingForm, trainingFormData, openProgramForm } = useSport();
   const [difficulty, setDifficulty] = useState(trainingFormData.training ? trainingFormData.training.difficulty : 1);
   const [isValidate, setIsValidate] = useState(trainingFormData.training ? trainingFormData.training.is_validate : 1);;
@@ -72,10 +72,10 @@ export default function TrainingForm() {
       <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-primary p-10 relative rounded-2xl'>
         <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer z-50" onClick={closeTrainingForm} />
         <div className='flex flex-col items-center relative gap-10'>
-          <div className={`min-w-80 px-5 rounded-xl relative shadow-custom ${isDarkMode ? 'bg-lightPrimary' : 'bg-primary'}`}>
+          <div className={`min-w-80 px-5 rounded-xl relative bg-lightPrimary`}>
             <div className='w-full flex justify-between items-center gap-5 py-3'>
               {selectedProgram ? (
-                <div className="grow flex justify-between items-center">
+                <div className="grow flex justify-between items-center relative">
                   {selectedProgram.name}
                 </div>
               ) : (
@@ -93,7 +93,8 @@ export default function TrainingForm() {
                 </div>
                 {programs && programs.map((program) => {
                   return ( !program.is_completed &&
-                    <div key={program.id} className={`p-5 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectProgram(program)}>
+                    <div key={program.id} className={`p-5 border-t border-primary cursor-pointer relative`} onClick={() => selectProgram(program)}>
+                      <PatternIndicator pattern={program.pattern} />
                       {program.name}
                     </div>
                   )

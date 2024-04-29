@@ -3,6 +3,7 @@ import { getShortDate } from '../../../utils/global/DateService'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import DifficultyScale from './../global/DifficultyScale';
 import { useSport } from '../../../utils/sport/SportContext';
+import PatternIndicator from '../global/PatternIndicator';
 
 export default function TrainingCard({training, isOnCalendar}) {
   const { openTrainingForm, programs } = useSport()
@@ -14,10 +15,10 @@ export default function TrainingCard({training, isOnCalendar}) {
   }, [programs, training])
 
   return (
-    <div className="bg-lightPrimary min-w-40 min-h-40 px-2 py-4 flex flex-col items-center justify-between rounded-xl shadow text-secondary relative cursor-pointer" onClick={() => openTrainingForm(new Date(training.date), training.program_id, training)}>
+    <div className="bg-lightPrimary min-w-40 min-h-40 px-2 py-4 flex flex-col items-center justify-between rounded-lg text-secondary relative cursor-pointer" onClick={() => openTrainingForm(new Date(training.date), training.program_id, training)}>
       {isOnCalendar && program && program.pattern ? (        
         <>
-          <ProgramPatternIndicator pattern={program.pattern} />
+          <PatternIndicator pattern={program.pattern} />
           <p className='text-center'>{program.name}</p>
         </>
       ) : (
@@ -45,26 +46,5 @@ export default function TrainingCard({training, isOnCalendar}) {
       </div>
       <DifficultyScale difficulty={training.difficulty} />
     </div>
-  )
-}
-
-function ProgramPatternIndicator({pattern}) {
-  const getBackgroundByPattern = () => {
-    if (pattern === "push") {
-      return 'bg-red'
-    } else if (pattern === "pull") {
-      return 'bg-green'
-    } else if (pattern === "legs") {
-      return 'bg-purple'
-    } else if (pattern === "abs") {
-      return 'bg-yellow'
-    } else {
-      return 'bg-blue'
-    }
-  };
-  const background = getBackgroundByPattern()
-
-  return (
-    <div className={`absolute top-0 left-0 w-3 h-full rounded-full ${background}`}></div>
   )
 }

@@ -6,6 +6,7 @@ import { getShortDate } from '../../../utils/global/DateService';
 import { getBestTrainingPerformanceOfProgram, getFirstTrainingOfProgram, getLastTrainingOfProgram } from '../../../utils/sport/SportService';
 import { useDraggable } from "react-use-draggable-scroll";
 import AddButton from '../../global/AddButton';
+import PatternIndicator from '../global/PatternIndicator';
 
 export default function ProgramJourney({program}) {
   const { openTrainingForm, openProgramForm, handleUpdateProgram } = useSport()
@@ -81,8 +82,8 @@ export default function ProgramJourney({program}) {
   }
 
   return (
-    <div className="bg-primary text-secondary pl-10 p-5 rounded-3xl relative">
-      <ProgramStateIndicator state={program.state} />
+    <div className="bg-primary text-secondary pl-10 p-5 rounded-2xl relative">
+      <PatternIndicator pattern={program.pattern} />
       <div className='flex justify-between items-start mb-5 relative'>   
         <div className="flex items-center gap-3 cursor-pointer">   
           {program.state === "COMPLETED" ? (
