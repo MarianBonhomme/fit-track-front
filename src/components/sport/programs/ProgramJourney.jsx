@@ -87,9 +87,9 @@ export default function ProgramJourney({program}) {
       <div className='flex justify-between items-start mb-5 relative'>   
         <div className="flex items-center gap-3 cursor-pointer">   
           {program.state === "COMPLETED" ? (
-            <Icon icon="iconamoon:restart-bold" width="25" height="25" className='text-purple' onClick={restartProgram} />
+            <Icon icon="iconamoon:restart-bold" width="40" height="40" className='text-purple' onClick={restartProgram} />
           ) : program.state === "ONGOING" && (
-            <Icon icon="heroicons:stop-circle-16-solid" width="25" height="25" className='text-orange' onClick={stopProgram} />
+            <Icon icon="heroicons:stop-circle-16-solid" width="40" height="40" className='text-orange' onClick={stopProgram} />
           )}
           <div onClick={() => openProgramForm(program)}>
             <p className="text-xl font-bold">{program.name}</p>
@@ -120,7 +120,9 @@ export default function ProgramJourney({program}) {
           <TrainingCard key={training.id} training={training} />
         ))}        
         {program.state !== "COMPLETED" && 
-          <AddButton clicked={() => openTrainingForm(null, program.id, null)} css={'min-w-40 min-h-40'}/>  
+          <div className='h-40 flex items-center justify-center'>
+            <AddButton clicked={() => openTrainingForm(null, program.id, null)} css={'w-16 h-16'}/> 
+          </div>
         }            
       </div>
     </div>
