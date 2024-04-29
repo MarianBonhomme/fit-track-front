@@ -71,8 +71,8 @@ function FoodCard({food, editBtnClicked}) {
   }
   
   return (
-    <div ref={ref} className={`bg-primary relative w-[300px] mt-[50px] pt-[80px] shadow-custom rounded-2xl p-4 ${!food.is_active && 'opacity-60'}`}>
-      <div className={`absolute -top-5 -right-5 flex flex-col gap-1 bg-primary rounded-2xl p-3 z-50 shadow-custom ${isOpen ? '' : 'hidden'}`}>   
+    <div ref={ref} className={`bg-primary relative w-[300px] mt-[50px] pt-[80px] rounded-2xl p-4 ${!food.is_active && 'opacity-60'}`}>
+      <div className={`absolute -top-5 -right-5 flex flex-col gap-1 bg-primary rounded-2xl p-3 z-50 ${isOpen ? '' : 'hidden'}`}>   
         {food.is_active ? (  
           <>
             <div className="flex items-center gap-1 cursor-pointer" onClick={() => food.is_favorite ? removeFromFavorite(food) : addToFavorite(food)} >

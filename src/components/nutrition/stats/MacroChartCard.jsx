@@ -45,7 +45,7 @@ export default function MacroChartCard() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center bg-primary px-5 py-2 shadow-custom rounded-3xl">
+    <div className="w-full flex flex-col items-center bg-primary px-5 py-2 rounded-3xl">
       <CardTitle text="Daily Consumption" />
       <Bar data={data} options={options} />
     </div>

@@ -20,9 +20,6 @@ export default {
         blue: 'var(--blue-color)',
         purple: 'var(--purple-color)',
         gray: 'var(--gray-color)',
-      },
-      boxShadow: {
-        custom: 'var(--lightPrimary-color) 0px 0px 5px'
       }
     },
   },

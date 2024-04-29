@@ -38,7 +38,7 @@ export default function CountCard({ food, color }) {
   }
 
   return (
-    <div className={`flex flex-col items-center bg-${color} text-primary px-5 py-3 shadow-custom rounded-3xl`}>
+    <div className={`flex flex-col items-center bg-${color} text-primary px-5 py-3 rounded-3xl`}>
       <CardTitle text={food.name} />
       <div className="grow w-full flex items-center">
         <div className="w-1/3 flex justify-center">

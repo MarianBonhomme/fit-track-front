@@ -61,7 +61,7 @@ export default function DailyCard() {
 
   return (
     <>
-      <div className="bg-primary px-4 py-3 shadow-custom rounded-3xl rounded-tl-none relative">
+      <div className="bg-primary px-4 py-3 rounded-3xl rounded-tl-none relative">
         <div className="flex justify-between items-center">
           <CardTitle text={currentDay && getFullDate(currentDay)} />
           <p className={`bg-blue text-primary font-bold px-3 py-2 rounded-full ${currentDay && getFullDate(currentDay) === 'Today' ? 'opacity-0' : 'cursor-pointer'}`} onClick={() => setCurrentDay(new Date())}>Today</p>

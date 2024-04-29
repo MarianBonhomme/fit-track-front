@@ -11,7 +11,7 @@ export default function CalendarTab() {
   const { currentWeek, incrementWeek, decrementWeek, openTrainingForm } = useSport();
 
   return (
-    <div className='bg-primary p-4 shadow-custom rounded-3xl rounded-ss-none relative'>
+    <div className='bg-primary p-4 rounded-3xl rounded-ss-none relative'>
       <div className="flex justify-between items-center mb-3">
         <div className='flex justify-center items-center'>
           <Icon icon="ic:round-chevron-left" width="50" height="50" className="text-dark cursor-pointer" onClick={decrementWeek} />

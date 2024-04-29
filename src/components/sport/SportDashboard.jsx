@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useUser } from '../../utils/user/UserContext';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import ProgramsTab from './ProgramsTab';
-import ProgramForm from './programs/ProgramForm';
 import CalendarTab from './CalendarTab';
 import AddButton from './../global/AddButton';
 import TrainingForm from './global/TrainingForm';
 import { useSport } from '../../utils/sport/SportContext';
+import ProgramForm from './global/ProgramForm';
 
 export default function SportPage() {  
   const { isDarkMode, toggleDarkMode } = useUser();

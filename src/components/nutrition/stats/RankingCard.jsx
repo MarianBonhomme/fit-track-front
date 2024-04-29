@@ -47,7 +47,7 @@ export default function RankingCard() {
   } 
 
   return (
-    <div className="grow flex flex-col gap-2 bg-primary px-4 pt-3 shadow-custom rounded-3xl">
+    <div className="grow flex flex-col gap-2 bg-primary px-4 pt-3 rounded-3xl">
       <CardTitle text="Top Food" />
       <div className="flex justify-between mt-3">
         <p>Sort by : {filter !== "totalQuantity" && filter}</p>

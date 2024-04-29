@@ -93,7 +93,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
       <div className={`w-full max-w-3xl p-10 relative rounded-2xl ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`}>
         <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer" onClick={close} />
         <h3 className='text-center font-bold text-3xl mb-10'>{foodConsumption ? 'Update FoodConsumption' : 'Create New FoodConsumption'}</h3>
-        <div className={`px-5 rounded-xl relative shadow-custom ${isDarkMode ? 'bg-lightPrimary' : 'bg-primary'}`}>
+        <div className={`px-5 rounded-xl relative ${isDarkMode ? 'bg-lightPrimary' : 'bg-primary'}`}>
           <div className='w-full flex justify-between items-center gap-5 py-3'>
             {selectedFood ? (
               <div className="grow flex justify-between items-center">
