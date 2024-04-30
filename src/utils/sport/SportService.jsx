@@ -116,12 +116,12 @@ const addProgram = async (newProgram) => {
   }
 };
 
-const getLastTrainingOfProgram = (program) => {
-  if (!program || !program.trainings || program.trainings.length === 0) {
+const getLastTraining = (trainings) => {
+  if (!trainings || trainings.length === 0) {
     return null;
   }
 
-  const sortedTrainings = [...program.trainings];
+  const sortedTrainings = [...trainings];
 
   sortedTrainings.forEach((training) => {
     training.date = new Date(training.date);
@@ -129,9 +129,7 @@ const getLastTrainingOfProgram = (program) => {
 
   sortedTrainings.sort((a, b) => b.date - a.date);
 
-  for (const training of sortedTrainings) {
-    return training;
-  }
+  return sortedTrainings[0];
 };
 
 const getFirstTrainingOfProgram = (program) => {
@@ -157,17 +155,25 @@ const getBestTrainingPerformanceOfProgram = (program) => {
     return null;
   }
 
-  // Filtrer les poids non nuls
-  const nonZeroWeights = program.trainings.filter(training => training.weight !== 0);
+  // Filtrer les entraînements validés
+  const validatedTrainings = program.trainings.filter(training => training.is_validate);
 
-  // Si tous les poids sont à zéro ou si aucun entraînement n'a de poids défini
-  if (nonZeroWeights.length === 0) {
-    // Récupérer le commentaire du dernier entraînement
-    const lastTraining = getLastTrainingOfProgram(program);
-    return lastTraining.comment;
+  // Si aucun entraînement validé n'existe
+  if (validatedTrainings.length === 0) {
+    return "Aucun entraînement validé trouvé";
   }
 
-  // Trouver le poids le plus élevé parmi les poids non nuls
+  // Filtrer les entraînements avec des poids non nuls
+  const nonZeroWeights = validatedTrainings.filter(training => training.weight !== 0);
+
+  // Si tous les poids sont à zéro pour les entraînements validés
+  if (nonZeroWeights.length === 0) {
+    // Récupérer le commentaire du dernier entraînement validé
+    const lastValidatedTraining = getLastTraining(validatedTrainings);
+    return lastValidatedTraining.comment;
+  }
+
+  // Trouver le poids le plus élevé parmi les poids non nuls des entraînements validés
   const maxWeight = Math.max(...nonZeroWeights.map(training => training.weight));
 
   return `${maxWeight}kg`;
@@ -201,7 +207,7 @@ export {
   deleteprogram,
   deleteTraining,
   addProgram,
-  getLastTrainingOfProgram,
+  getLastTraining,
   getFirstTrainingOfProgram,
   getProgramState,
   getSortedTrainingsByDate,

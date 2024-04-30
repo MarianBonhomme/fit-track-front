@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import TrainingCard from './TrainingCard'
 import { useSport } from '../../../utils/sport/SportContext'
 import { getShortDate } from '../../../utils/global/DateService';
-import { getBestTrainingPerformanceOfProgram, getFirstTrainingOfProgram, getLastTrainingOfProgram } from '../../../utils/sport/SportService';
+import { getBestTrainingPerformanceOfProgram, getFirstTrainingOfProgram, getLastTraining } from '../../../utils/sport/SportService';
 import { useDraggable } from "react-use-draggable-scroll";
 import AddButton from '../../global/AddButton';
 import PatternIndicator from '../global/PatternIndicator';
@@ -54,10 +54,12 @@ export default function ProgramJourney({program}) {
     if (first) {
       setFirstTraining(first)
     }
-    const last = getLastTrainingOfProgram(program);
-    if (last) {
-      setLastTraining(last)
-    }
+    if (program.trainings) {
+      const last = getLastTraining(program.trainings);
+      if (last) {
+        setLastTraining(last)
+      }
+    }    
     const best = getBestTrainingPerformanceOfProgram(program);
     if (best) {
       setBestPerf(best);
@@ -126,23 +128,6 @@ export default function ProgramJourney({program}) {
         }            
       </div>
     </div>
-  )
-}
-
-function ProgramStateIndicator(state) {
-  const getBackgroundByState = () => {
-    if (state.state === "ONGOING") {
-      return 'bg-purple'
-    } else if (state.state === "INITIAL" ) {
-      return 'bg-blue'
-    } else {
-      return 'bg-green'
-    }
-  }
-  const background = getBackgroundByState();
-
-  return (
-    <div className={`absolute top-0 left-0 w-5 h-full rounded-full ${background}`}></div>
   )
 }
 

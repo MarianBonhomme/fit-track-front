@@ -35,7 +35,6 @@ export default function ProgramForm() {
 
   const handleSubmit = (e) => {
 	  e.preventDefault();
-    console.log('here')
     handleAddProgram(formData)
 	  closeProgramForm();
 	};
