@@ -8,7 +8,7 @@ import { useUser } from '../../../utils/user/UserContext';
 
 export default function FoodConsumptionForm({ foodConsumption, close }) {
   const { isDarkMode } = useUser();
-  const { foods, dailyFoodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption, currentDay } = useNutrition();
+  const { foods, dailyFoodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption } = useNutrition();
   const [sortedFoods, setSortedFoods] = useState();
   const [selectedFood, setSelectedFood] = useState();
   const [isFoodsListVisible, setIsFoodsListVisible] = useState(!foodConsumption);
@@ -18,7 +18,6 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
     id: foodConsumption ? foodConsumption.id : null,
     food_id: selectedFood ? selectedFood.id : 1,
     quantity: quantity,
-    date: currentDay
   })
 
   useEffect(() => {
@@ -26,14 +25,13 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
       setSelectedFood(foodConsumption.food)
       setQuantity(foodConsumption.quantity)
     }
-  }, [foodConsumption, currentDay])
+  }, [foodConsumption])
 
   useEffect(() => {
     setFormData({
       id: foodConsumption ? foodConsumption.id : null,
       food_id: selectedFood ? selectedFood.id : 1,
       quantity: quantity,
-      date: currentDay
     })
   }, [selectedFood, quantity])
 

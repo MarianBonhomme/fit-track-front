@@ -26,7 +26,7 @@ const addFood = async (newFood) => {
   try {
     const response = await axios.post(`${BASE_URL}/food`, newFood, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     });
     return response.data;
@@ -41,14 +41,14 @@ const updateFood = async (foodToUpdate) => {
     let id;
 
     if (foodToUpdate instanceof FormData) {
-      id = foodToUpdate.get('id');
+      id = foodToUpdate.get("id");
     } else {
       id = foodToUpdate.id;
     }
 
     const response = await axios.put(`${BASE_URL}/food/${id}}`, foodToUpdate, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     });
     return response.data;
@@ -70,7 +70,9 @@ const deleteFood = async (foodToDelete) => {
 
 const getFoodConsumptions = async (profileId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/foodConsumption/${profileId}`);
+    const response = await axios.get(
+      `${BASE_URL}/foodConsumption/${profileId}`
+    );
     return response.data;
   } catch (error) {
     console.error("Error fetching all foodConsumptions:", error);
@@ -80,7 +82,10 @@ const getFoodConsumptions = async (profileId) => {
 
 const addFoodConsumption = async (newFoodConsumption) => {
   try {
-    const response = await axios.post(`${BASE_URL}/foodConsumption`, newFoodConsumption);
+    const response = await axios.post(
+      `${BASE_URL}/foodConsumption`,
+      newFoodConsumption
+    );
     return response.data;
   } catch (error) {
     console.error("Error adding new foodConsumption:", error);
@@ -90,43 +95,58 @@ const addFoodConsumption = async (newFoodConsumption) => {
 
 const updateFoodConsumption = async (foodConsumptionToUpdate) => {
   try {
-    const response = await axios.put(`${BASE_URL}/foodConsumption/${foodConsumptionToUpdate.id}`, foodConsumptionToUpdate);
+    const response = await axios.put(
+      `${BASE_URL}/foodConsumption/${foodConsumptionToUpdate.id}`,
+      foodConsumptionToUpdate
+    );
     return response.data;
   } catch (error) {
-    console.error(`Error updating foodConsumption with id ${foodConsumptionToUpdate.id}:`, error);
+    console.error(
+      `Error updating foodConsumption with id ${foodConsumptionToUpdate.id}:`,
+      error
+    );
     throw error;
   }
 };
 
 const deleteFoodConsumption = async (foodConsumptionToDelete) => {
   try {
-    const response = await axios.delete(`${BASE_URL}/foodConsumption/${foodConsumptionToDelete.id}`);
+    const response = await axios.delete(
+      `${BASE_URL}/foodConsumption/${foodConsumptionToDelete.id}`
+    );
     return response.data;
   } catch (error) {
-    console.error(`Error deleting foodConsumption with id ${foodConsumptionToDelete.id}:`, error);
+    console.error(
+      `Error deleting foodConsumption with id ${foodConsumptionToDelete.id}:`,
+      error
+    );
     throw error;
   }
 };
 
 const getDatesCount = async (profileId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/foodConsumption/datesCount/${profileId}`);
-    return response.data
+    const response = await axios.get(
+      `${BASE_URL}/foodConsumption/datesCount/${profileId}`
+    );
+    return response.data;
   } catch (error) {
-    console.error('Error fetching dates count');
+    console.error("Error fetching dates count");
     throw error;
   }
-}
+};
 
 const getFoodsWithTotalQuantity = async (userId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/food/totalQuantity/${userId}`);
+    const response = await axios.get(
+      `${BASE_URL}/food/totalQuantity/${userId}`
+    );
     return response.data;
   } catch (error) {
     console.error("Error fetching all foods with totalQuantity:", error);
     throw error;
   }
-}
+};
 
 const calculateMacros = (food, quantity) => {
   return {
@@ -134,8 +154,8 @@ const calculateMacros = (food, quantity) => {
     prot: (quantity * food.proportion * food.prot) / 100,
     carb: (quantity * food.proportion * food.carb) / 100,
     fat: (quantity * food.proportion * food.fat) / 100,
-  }
-}
+  };
+};
 
 const sortFoodsByFavoritesAndInactives = (foods) => {
   const sortedFoods = [...foods];
@@ -155,7 +175,7 @@ const sortFoodsByFavoritesAndInactives = (foods) => {
   });
 
   return sortedFoods;
-}
+};
 
 const sortFoodConsumptionsByFavorites = (foodConsumptions) => {
   const sortedFoodConsumptions = [...foodConsumptions];
@@ -171,6 +191,21 @@ const sortFoodConsumptionsByFavorites = (foodConsumptions) => {
   });
 
   return sortedFoodConsumptions;
-}
+};
 
-export { getFoods, getFoodById, addFood, updateFood, deleteFood, getFoodConsumptions, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getDatesCount, getFoodsWithTotalQuantity, calculateMacros, sortFoodsByFavoritesAndInactives, sortFoodConsumptionsByFavorites };
+export {
+  getFoods,
+  getFoodById,
+  addFood,
+  updateFood,
+  deleteFood,
+  getFoodConsumptions,
+  addFoodConsumption,
+  updateFoodConsumption,
+  deleteFoodConsumption,
+  getDatesCount,
+  getFoodsWithTotalQuantity,
+  calculateMacros,
+  sortFoodsByFavoritesAndInactives,
+  sortFoodConsumptionsByFavorites,
+};
