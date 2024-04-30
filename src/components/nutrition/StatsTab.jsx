@@ -5,6 +5,7 @@ import DailyCard from './stats/DailyCard';
 import MacroChartCard from './stats/MacroChartCard';
 import MacroRepartitionCard from './stats/MacroRepartitionCard';
 import RankingCard from './stats/RankingCard';
+import CalendarCard from './stats/CalendarCard';
 
 export default function StatsTab() {
   const { foodsWithTotalQuantity } = useNutrition();
@@ -30,12 +31,13 @@ export default function StatsTab() {
         <div className='w-3/4 grid gap-5'>
           <MacroChartCard />
           <div className='grid grid-cols-2 gap-5'>
+            <CalendarCard />
             <MacroRepartitionCard />
-            <div className="grid grid-cols-2 gap-5">
+            {/* <div className="grid grid-cols-2 gap-5">
               {foodsForCountCards && foodsForCountCards.map((food, index) => (
                 <CountCard key={food.id} food={food} color={colors[index]} />
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="w-1/4 flex items-stretch">

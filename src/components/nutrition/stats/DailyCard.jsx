@@ -12,11 +12,12 @@ import AddButton from '../../global/AddButton';
 import FlipMove from 'react-flip-move';
 
 export default function DailyCard() {
-  const { currentDay, dailyFoodConsumptions, incrementCurrentDay, decrementCurrentDay, setCurrentDay, day, toggleValidateDay } = useNutrition();
+  const { currentDay, days, dailyFoodConsumptions, incrementCurrentDay, decrementCurrentDay, setCurrentDay, toggleValidateDay, getDayByDate } = useNutrition();
   const [sortedDailyFoodConsumptions, setSortedDailyFoodConsumptions] = useState([]);
   const [isFoodConsumptionFormVisible, setIsFoodConsumptionFormVisible] = useState(false);
   const [foodConsumptionToUpdate, setFoodConsumptionToUpdate] = useState(null);
   const [dailyMacros, setDailyMacros] = useState(null);
+  const [daily, setDaily] = useState();
 
   useEffect(() => {
     const macros = getDailyMacros();
@@ -24,6 +25,10 @@ export default function DailyCard() {
     const sortedFoodConsumptions = sortFoodConsumptionsByFavorites(dailyFoodConsumptions);
     setSortedDailyFoodConsumptions(sortedFoodConsumptions);
   }, [dailyFoodConsumptions])
+
+  useEffect(() => {
+    setDaily(getDayByDate(currentDay))
+  }, [currentDay, days])
 
   const getDailyMacros = () => {
     var macros = null;
@@ -85,9 +90,9 @@ export default function DailyCard() {
         </div>
         <AddButton clicked={() => openFoodConsumptionForm()} css='w-full mt-10 h-20 mx-auto'/>
         <div className='flex justify-end mt-5'>
-          {day && sortedDailyFoodConsumptions.length > 0 &&
-            <p className={`${day.is_validate ? 'bg-red' : 'bg-green'} text-primary text-sm font-bold px-3 py-2 rounded-full cursor-pointer`} onClick={toggleValidateDay}>
-              {day.is_validate ? 'Disable day' : 'Valid day'}
+          {daily && sortedDailyFoodConsumptions.length > 0 &&
+            <p className={`${daily.is_validate ? 'bg-red' : 'bg-blue'} text-primary text-sm font-bold px-3 py-2 rounded-full cursor-pointer`} onClick={toggleValidateDay}>
+              {daily.is_validate ? 'Disable day' : 'Valid day'}
             </p>
           }
         </div>

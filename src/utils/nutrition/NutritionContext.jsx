@@ -13,7 +13,8 @@ import {
   getFoodsWithTotalQuantityOnlyValidated,
 } from "./NutritionService";
 import { useProfile } from "../profile/ProfileContext";
-import { addOrGetDay, getDayByDate, updateDay } from "../global/DayService";
+import { addDay, deleteDay, getDayByDate, getDays, updateDay } from "../global/DayService";
+import moment from 'moment';
 
 const NutritionContext = createContext();
 
@@ -26,13 +27,14 @@ export const NutritionProvider = ({ children }) => {
   const [foodConsumptions, setFoodConsumptions] = useState([]);
   const [currentDay, setCurrentDay] = useState(new Date());
   const [dailyFoodConsumptions, setDailyFoodConsumptions] = useState([]);
-  const [day, setDay] = useState();
+  const [days, setDays] = useState();
   const [daysIndicatedCount, setDaysIndicatedCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       await fetchFoods();
       await fetchFoodConsumptions();
+      await fetchDays();
       setNutritionLoading(false);
     };
 
@@ -43,14 +45,12 @@ export const NutritionProvider = ({ children }) => {
     fetchFoodsWithTotalQuantity();
     fetchFoodsWithTotalQuantityValidated();
     fetchDaysIndicatedCount();
-  }, [foodConsumptions, day]);
+  }, [foodConsumptions, days]);
 
   useEffect(() => {
     const fetch = async () => {
       const filteredFoodConsumptions = filterFoodConsumptionsByDate(currentDay);
       setDailyFoodConsumptions(filteredFoodConsumptions);
-      const fetchedDay = await getDayByDate(currentDay);
-      setDay(fetchedDay);
     }
 
     fetch()
@@ -64,6 +64,11 @@ export const NutritionProvider = ({ children }) => {
   const fetchFoodConsumptions = async () => {
     const fetchedFoodConsumptions = await getFoodConsumptions(profile.id);
     setFoodConsumptions(fetchedFoodConsumptions);
+  };
+
+  const fetchDays = async () => {
+    const fetchedDays = await getDays(profile.id);
+    setDays(fetchedDays);
   };
 
   const fetchDaysIndicatedCount = async () => {
@@ -188,11 +193,22 @@ export const NutritionProvider = ({ children }) => {
   const handleDeleteFoodConsumption = async (foodConsumptionToDelete) => {
     try {
       await deleteFoodConsumption(foodConsumptionToDelete);
-      setFoodConsumptions((prevFoodConsumptions) =>
-        prevFoodConsumptions.filter(
+      setFoodConsumptions((prevFoodConsumptions) => {
+        const updatedFoodConsumptions = prevFoodConsumptions.filter(
           (consumption) => consumption.id !== foodConsumptionToDelete.id
-        )
-      );
+        );
+  
+        const hasOtherConsumptionWithSameDayId = updatedFoodConsumptions.some(
+          (consumption) => consumption.day_id === foodConsumptionToDelete.day_id
+        );
+  
+        if (!hasOtherConsumptionWithSameDayId) {
+          console.log(foodConsumptionToDelete)
+          handleDeleteDay(foodConsumptionToDelete.day);
+        }
+  
+        return updatedFoodConsumptions;
+      });
     } catch (error) {
       console.error(
         `Error deleting foodConsumption with id ${foodConsumptionToDelete.id}:`,
@@ -200,6 +216,22 @@ export const NutritionProvider = ({ children }) => {
       );
     }
   };
+
+  const handleDeleteDay = async (dayToDelete) => {
+    try {
+      await deleteDay(dayToDelete);
+      setDays((prevDays) =>
+        prevDays.filter(
+          (day) => day.id !== dayToDelete.id
+        )
+      );
+    } catch (error) {
+      console.error(
+        `Error deleting day with id ${dayToDelete.id}:`,
+        error
+      );
+    }
+  }
 
   const incrementCurrentDay = () => {
     const nextDay = new Date(currentDay);
@@ -214,10 +246,34 @@ export const NutritionProvider = ({ children }) => {
   };
 
   const toggleValidateDay = async () => {
+    const day = getDayByDate(currentDay);
     const dayToUpdate = {...day, is_validate: !day.is_validate};
     const updatedDay = await updateDay(dayToUpdate);
-    setDay(updatedDay);
+    setDays((prevDays) =>
+      prevDays.map((day) =>
+        day.id === updatedDay.id
+          ? updatedDay
+          : day
+      )
+    );
   }
+  
+  const addOrGetDay = async (date) => {
+    const day = await getDayByDate(date);
+    if (day) {
+      return day
+    } else {
+      const createdDay = await addDay({date: date});
+      setDays((prevDays) => [...prevDays, createdDay]);
+      return createdDay
+    }
+  }
+
+  const getDayByDate = (date) => {
+    const formattedDate = moment(date);
+    const foundDay = days.find(day => moment(day.date).isSame(formattedDate, 'day'));
+    return foundDay;
+  } 
 
   return (
     <NutritionContext.Provider
@@ -228,7 +284,7 @@ export const NutritionProvider = ({ children }) => {
         foodsWithTotalQuantityValidated,
         foodConsumptions,
         currentDay,
-        day,
+        days,
         dailyFoodConsumptions,
         daysIndicatedCount,
         handleAddFood,
@@ -241,6 +297,7 @@ export const NutritionProvider = ({ children }) => {
         incrementCurrentDay,
         decrementCurrentDay,
         toggleValidateDay,
+        getDayByDate,
       }}
     >
       {children}

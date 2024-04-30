@@ -2,6 +2,16 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:3000";
 
+const getDays = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/day`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching all days:", error);
+    throw error;
+  }
+}
+
 const addDay = async (newDay) => {
   try {
     const response = await axios.post(`${BASE_URL}/day`, newDay);
@@ -22,6 +32,16 @@ const updateDay = async (dayToUpdate) => {
   }
 }
 
+const deleteDay = async (dayToDelete) => {
+  try {
+    const response = await axios.delete(`${BASE_URL}/day/${dayToDelete.id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error deleting day with id ${dayToDelete.id}:`, error);
+    throw error;
+  }
+}
+
 const getDayByDate = async (date) => {
   try {
     const response = await axios.get(`${BASE_URL}/day/date/${date}`);
@@ -32,14 +52,4 @@ const getDayByDate = async (date) => {
   }
 }
 
-const addOrGetDay = async (date) => {
-  const day = await getDayByDate(date);
-  if (day) {
-    return day
-  } else {
-    const createdDay = await addDay({date: date});
-    return createdDay
-  }
-}
-
-export { addOrGetDay, getDayByDate, updateDay } 
+export { getDays, addDay, updateDay, deleteDay, getDayByDate } 
