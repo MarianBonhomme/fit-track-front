@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getFoods, addFood, updateFood, getFoodConsumptions, getFoodsWithTotalQuantity, addFoodConsumption, updateFoodConsumption, deleteFoodConsumption, getDatesCount, deleteFood } from './NutritionService';
 import { useProfile } from "../profile/ProfileContext";
+import { addOrGetDay } from "../global/DayService";
 
 const NutritionContext = createContext();
 
@@ -56,7 +57,7 @@ export const NutritionProvider = ({ children }) => {
 
   const filterFoodConsumptionsByDate = (date) => {
     const consumptions = foodConsumptions.filter(consumption => {
-      const consumptionDate = new Date(consumption.date);
+      const consumptionDate = new Date(consumption.day.date);
       const consumptionDay = consumptionDate.getDate();
       const consumptionMonth = consumptionDate.getMonth();
       const consumptionYear = consumptionDate.getFullYear();
@@ -100,13 +101,18 @@ export const NutritionProvider = ({ children }) => {
   };
 
   const handleAddFoodConsumption = async (newFoodConsumption) => {
-    const newFoodConsumptionWithProfile = {...newFoodConsumption, profile_id: profile.id}
-    try {
-      const addedFoodConsumption = await addFoodConsumption(newFoodConsumptionWithProfile);
-      setFoodConsumptions((prevFoodsConsumptions) => [...prevFoodsConsumptions, addedFoodConsumption]);
+    try {      
+      const createdDay = await addOrGetDay(currentDay);
+      const newFoodConsumptionWithProfileAndDay = {...newFoodConsumption, profile_id: profile.id, day_id: createdDay.id}
+      try {
+        const addedFoodConsumption = await addFoodConsumption(newFoodConsumptionWithProfileAndDay);
+        setFoodConsumptions((prevFoodsConsumptions) => [...prevFoodsConsumptions, addedFoodConsumption]);
+      } catch (error) {
+        console.error('Error adding foodConsumption:', error);
+      }
     } catch (error) {
       console.error('Error adding foodConsumption:', error);
-    }
+    }   
   };
 
   const handleUpdateFoodConsumption = async (foodConsumptionToUpdate) => {
