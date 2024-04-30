@@ -10,6 +10,7 @@ import {
   deleteFoodConsumption,
   getDatesCount,
   deleteFood,
+  getFoodsWithTotalQuantityOnlyValidated,
 } from "./NutritionService";
 import { useProfile } from "../profile/ProfileContext";
 import { addOrGetDay, getDayByDate, updateDay } from "../global/DayService";
@@ -21,6 +22,7 @@ export const NutritionProvider = ({ children }) => {
   const [nutritionLoading, setNutritionLoading] = useState(true);
   const [foods, setFoods] = useState([]);
   const [foodsWithTotalQuantity, setFoodsWithTotalQuantity] = useState([]);
+  const [foodsWithTotalQuantityValidated, setFoodsWithTotalQuantityValidated] = useState([]);
   const [foodConsumptions, setFoodConsumptions] = useState([]);
   const [currentDay, setCurrentDay] = useState(new Date());
   const [dailyFoodConsumptions, setDailyFoodConsumptions] = useState([]);
@@ -39,8 +41,9 @@ export const NutritionProvider = ({ children }) => {
 
   useEffect(() => {
     fetchFoodsWithTotalQuantity();
+    fetchFoodsWithTotalQuantityValidated();
     fetchDaysIndicatedCount();
-  }, [foodConsumptions]);
+  }, [foodConsumptions, day]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -73,6 +76,13 @@ export const NutritionProvider = ({ children }) => {
       profile.id
     );
     setFoodsWithTotalQuantity(fetchedFoodsWithTotalQuantity);
+  };
+
+  const fetchFoodsWithTotalQuantityValidated = async () => {
+    const fetchedFoodsWithTotalQuantityValidated = await getFoodsWithTotalQuantityOnlyValidated(
+      profile.id
+    );
+    setFoodsWithTotalQuantityValidated(fetchedFoodsWithTotalQuantityValidated);
   };
 
   const filterFoodConsumptionsByDate = (date) => {
@@ -215,6 +225,7 @@ export const NutritionProvider = ({ children }) => {
         nutritionLoading,
         foods,
         foodsWithTotalQuantity,
+        foodsWithTotalQuantityValidated,
         foodConsumptions,
         currentDay,
         day,

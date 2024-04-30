@@ -86,8 +86,8 @@ export default function DailyCard() {
         <AddButton clicked={() => openFoodConsumptionForm()} css='w-full mt-10 h-20 mx-auto'/>
         <div className='flex justify-end mt-5'>
           {day && sortedDailyFoodConsumptions.length > 0 &&
-            <p className={`${day.is_validate ? 'bg-red' : 'bg-green'} text-primary font-bold px-3 py-2 rounded-full`} onClick={toggleValidateDay}>
-              {day.is_validate ? 'Désactiver' : 'Activer'}
+            <p className={`${day.is_validate ? 'bg-red' : 'bg-green'} text-primary text-sm font-bold px-3 py-2 rounded-full cursor-pointer`} onClick={toggleValidateDay}>
+              {day.is_validate ? 'Disable day' : 'Valid day'}
             </p>
           }
         </div>

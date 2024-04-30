@@ -148,6 +148,18 @@ const getFoodsWithTotalQuantity = async (userId) => {
   }
 };
 
+const getFoodsWithTotalQuantityOnlyValidated = async (userId) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/food/totalQuantity/validated/${userId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching all foods with totalQuantity:", error);
+    throw error;
+  }
+};
+
 const calculateMacros = (food, quantity) => {
   return {
     kcal: (quantity * food.proportion * food.kcal) / 100,
@@ -205,6 +217,7 @@ export {
   deleteFoodConsumption,
   getDatesCount,
   getFoodsWithTotalQuantity,
+  getFoodsWithTotalQuantityOnlyValidated,
   calculateMacros,
   sortFoodsByFavoritesAndInactives,
   sortFoodConsumptionsByFavorites,

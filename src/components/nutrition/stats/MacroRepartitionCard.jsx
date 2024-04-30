@@ -5,14 +5,14 @@ import MacroPie from '../global/MacroPie';
 import MacroItem from "../global/MacroItem";
 
 export default function MacroRepartitionCard() {
-  const { foodsWithTotalQuantity, daysIndicatedCount } = useNutrition();
+  const { foodsWithTotalQuantityValidated, daysIndicatedCount } = useNutrition();
   const [averageMacros, setAverageMacros] = useState(null);
   const [dailyAvgMacro, setDailyAvgMacros] = useState(null);
 
   useEffect(() => {
     const macros = getAverageMacros()
     setAverageMacros(macros);
-  }, [foodsWithTotalQuantity]);
+  }, [foodsWithTotalQuantityValidated]);
 
   const getAverageMacros = () => {
     let avgKcal = 0;
@@ -21,7 +21,7 @@ export default function MacroRepartitionCard() {
     let avgFat = 0;
     let totalFoods = 0;
 
-    foodsWithTotalQuantity.forEach(food => {
+    foodsWithTotalQuantityValidated.forEach(food => {
       let quantity = food.totalQuantity;
       avgKcal += (food.kcal * food.proportion * quantity / 100) / daysIndicatedCount;
       avgProt += (food.prot * food.proportion * quantity / 100) / daysIndicatedCount;
