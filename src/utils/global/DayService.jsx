@@ -12,6 +12,16 @@ const addDay = async (newDay) => {
   }
 }
 
+const updateDay = async (dayToUpdate) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/day/${dayToUpdate.id}`, dayToUpdate);
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating day with id ${dayToUpdate.id}:`, error);
+    throw error;
+  }
+}
+
 const getDayByDate = async (date) => {
   try {
     const response = await axios.get(`${BASE_URL}/day/date/${date}`);
@@ -32,4 +42,4 @@ const addOrGetDay = async (date) => {
   }
 }
 
-export { addOrGetDay } 
+export { addOrGetDay, getDayByDate, updateDay } 
