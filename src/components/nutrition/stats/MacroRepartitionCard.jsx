@@ -3,6 +3,7 @@ import { useNutrition } from "../../../utils/nutrition/NutritionContext";
 import CardTitle from "../../global/CardTitle";
 import MacroPie from '../global/MacroPie';
 import MacroItem from "../global/MacroItem";
+import AddButton from './../../global/AddButton';
 
 export default function MacroRepartitionCard() {
   const { foodsWithTotalQuantityValidated, daysIndicatedCount } = useNutrition();
@@ -10,8 +11,10 @@ export default function MacroRepartitionCard() {
   const [dailyAvgMacro, setDailyAvgMacros] = useState(null);
 
   useEffect(() => {
-    const macros = getAverageMacros()
-    setAverageMacros(macros);
+    if (daysIndicatedCount > 0) {
+      const macros = getAverageMacros()
+      setAverageMacros(macros);
+    }
   }, [foodsWithTotalQuantityValidated]);
 
   const getAverageMacros = () => {
@@ -51,22 +54,29 @@ export default function MacroRepartitionCard() {
   return (
     <div className="flex flex-col items-center bg-primary px-5 py-3 rounded-3xl">
       <CardTitle text="Total Macro Repartition" />
-      <div className="w-full flex justify-center items-center">
-        {dailyAvgMacro && (
-          <div className="w-1/3 flex flex-col items-center gap-3">
-            <p className="font-bold text-center">Daily Average</p>
-            <MacroItem macro='kcal' value={dailyAvgMacro.kcal} isRounded={false} showUnity={true} />
-            <MacroItem macro='prot' value={dailyAvgMacro.prot} isRounded={false} showUnity={true} />
-            <MacroItem macro='fat' value={dailyAvgMacro.fat} isRounded={false} showUnity={true} />
-            <MacroItem macro='carb' value={dailyAvgMacro.carb} isRounded={false} showUnity={true} />
-          </div>
-        )}
-        {averageMacros && (
-          <div className="w-2/3">
-            <MacroPie macros={averageMacros} />
-          </div>
-        )}  
-      </div>
+      {daysIndicatedCount > 0 ? (
+        <div className="w-full flex justify-center items-center">
+          {dailyAvgMacro && (
+            <div className="w-1/3 flex flex-col items-center gap-3">
+              <p className="text-sm">Daily Average</p>
+              <MacroItem macro='kcal' value={dailyAvgMacro.kcal} isRounded={false} showUnity={true} />
+              <MacroItem macro='prot' value={dailyAvgMacro.prot} isRounded={false} showUnity={true} />
+              <MacroItem macro='fat' value={dailyAvgMacro.fat} isRounded={false} showUnity={true} />
+              <MacroItem macro='carb' value={dailyAvgMacro.carb} isRounded={false} showUnity={true} />
+            </div>
+          )}
+          {averageMacros && (
+            <div className="w-2/3">
+              <MacroPie macros={averageMacros} />
+            </div>
+          )}  
+        </div>
+      ) : (
+        <div className="text-gray font-bold text-center my-auto flex flex-col gap-5 px-10">
+          <AddButton css={'size-14 mx-auto'} />
+          Add and valid food consumption to see stats
+        </div>
+      )}
     </div>
   );
 }

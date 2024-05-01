@@ -16,7 +16,7 @@ export default function StatsTab() {
   }, [foodsWithTotalQuantity]);
 
   const getColor = (index) => {
-    const colors = ["purple", "yellow", "orange", "green", "blue", "red"];
+    const colors = ["yellow", "green", "purple", "orange", "red", "blue"];
     const colorIndex = index % colors.length;
     return colors[colorIndex];
 }
@@ -27,17 +27,17 @@ export default function StatsTab() {
         <DailyCard />
       </div>
       <div className="w-2/3 flex gap-5 sticky top-20">
-        <div className='w-3/4 grid gap-5'>
+        <div className='w-2/3 grid gap-5'>
           <MacroChartCard />
-          <div className='grid grid-cols-2 gap-5'>
-            <CalendarCard />
-            <MacroRepartitionCard />
-          </div>
+          <CalendarCard />
         </div>
-        <div className="w-1/4 grid gap-5">
-          {foodsForCountCards && foodsForCountCards.map((food, index) => (
-            <CountCard key={food.id} food={food} color={getColor(index)} />
-          ))}
+        <div className="w-1/3 grid gap-5">
+          <MacroRepartitionCard />
+          <div className='grid grid-cols-2 gap-5'>
+            {foodsForCountCards && foodsForCountCards.map((food, index) => (
+              <CountCard key={food.id} food={food} color={getColor(index)} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

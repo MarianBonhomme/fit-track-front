@@ -46,7 +46,7 @@ export default function CountCard({ food, color }) {
             <Icon icon="ic:round-minus" width={25} height={25} className="text-primary cursor-pointer" onClick={decrementFoodConsumptionInDaily} />
           )}
         </div>
-        <p className="w-1/3 text-center text-5xl font-bold">{food.totalQuantity}</p>
+        <p className="w-1/3 text-center text-3xl font-bold">{food.totalQuantity}</p>
         <div className="w-1/3 flex justify-center">
           <Icon icon="ic:round-plus" width={25} height={25} className="text-primary cursor-pointer" onClick={incrementFoodConsumptionInDaily} />
         </div>

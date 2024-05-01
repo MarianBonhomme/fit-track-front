@@ -45,7 +45,7 @@ export const NutritionProvider = ({ children }) => {
     fetchFoodsWithTotalQuantity();
     fetchFoodsWithTotalQuantityValidated();
     fetchDaysIndicatedCount();
-  }, [foodConsumptions, days]);
+  }, [foods, foodConsumptions, days]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -264,7 +264,12 @@ export const NutritionProvider = ({ children }) => {
       return day
     } else {
       const createdDay = await addDay({date: date});
-      setDays((prevDays) => [...prevDays, createdDay]);
+      const updatedDays = [...days, createdDay];
+      // Trier le tableau days en fonction des dates
+      updatedDays.sort((a, b) => {
+        return new Date(a.date) - new Date(b.date);
+      });
+      setDays(updatedDays);      
       return createdDay
     }
   }
