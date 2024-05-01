@@ -102,8 +102,6 @@ function Streaks() {
   const { days } = useNutrition();
   const [currentStreak, setCurrentStreak] = useState(0);
 
-  console.log(days)
-
   useEffect(() => {
     if (days && days.length > 0) {
       const streak = calculateCurrentStreak()

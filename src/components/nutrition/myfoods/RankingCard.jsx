@@ -29,22 +29,18 @@ export default function RankingCard() {
       const totalMacros = calculateMacros(food, food.totalQuantity);
       return { ...food, ...totalMacros};
     })
-    return foods
+    const filteredFoods = foods.filter(food => food.totalQuantity > 0)
+    return filteredFoods
   }
 
   const getTopFoodsBy = (criteria) => {
     const sortedFoods = sortBy(criteria);
-    const topFoods = getTop(sortedFoods);
-    return topFoods;
+    return sortedFoods;
   }
 
   const sortBy = (criteria) => {
     return [...foodsWithTotalMacros].sort((a, b) => b[criteria] - a[criteria]);
   }
-
-  const getTop = (foods) => {
-    return foods.slice(0, 7);
-  } 
 
   return (
     <div className="grow flex flex-col gap-2 bg-primary px-4 pt-3 rounded-3xl">

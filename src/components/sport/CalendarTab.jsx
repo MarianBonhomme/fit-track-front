@@ -1,6 +1,5 @@
 import React from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
-import CardTitle from '../global/CardTitle'
 import moment from 'moment';
 import { getDayOfWeek } from '../../utils/global/DateService';
 import DailyTrainings from './calendar/DailyTrainings';

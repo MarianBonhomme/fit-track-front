@@ -203,7 +203,6 @@ export const NutritionProvider = ({ children }) => {
         );
   
         if (!hasOtherConsumptionWithSameDayId) {
-          console.log(foodConsumptionToDelete)
           handleDeleteDay(foodConsumptionToDelete.day);
         }
   
