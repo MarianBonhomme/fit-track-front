@@ -84,18 +84,18 @@ export default function ProgramJourney({program}) {
   }
 
   return (
-    <div className="bg-primary text-secondary pl-10 p-5 rounded-2xl relative">
+    <div className="bg-primary text-secondary p-5 rounded-2xl relative">
       <PatternIndicator pattern={program.pattern} />
-      <div className='flex justify-between items-start mb-5 relative'>   
+      <div className='flex justify-between items-start relative mb-3'>   
         <div className="flex items-center gap-3 cursor-pointer">   
           {program.state === "COMPLETED" ? (
-            <Icon icon="iconamoon:restart-bold" width="40" height="40" className='text-purple' onClick={restartProgram} />
+            <Icon icon="iconamoon:restart-bold" width="25" height="25" className='text-purple' onClick={restartProgram} />
           ) : program.state === "ONGOING" && (
-            <Icon icon="heroicons:stop-circle-16-solid" width="40" height="40" className='text-orange' onClick={stopProgram} />
+            <Icon icon="heroicons:stop-circle-16-solid" width="25" height="25" className='text-orange' onClick={stopProgram} />
           )}
           <div onClick={() => openProgramForm(program)}>
-            <p className="text-xl font-bold">{program.name}</p>
-            <p className='font-semibold'>{program.description}</p>
+            <p className="font-bold">{program.name}</p>
+            <p className='text-sm'>{program.description}</p>
           </div>
         </div> 
         <div className="grid grid-cols-2 gap-x-5">
@@ -122,8 +122,8 @@ export default function ProgramJourney({program}) {
           <TrainingCard key={training.id} training={training} />
         ))}        
         {program.state !== "COMPLETED" && 
-          <div className='h-40 flex items-center justify-center'>
-            <AddButton clicked={() => openTrainingForm(null, program.id, null)} css={'w-16 h-16'}/> 
+          <div className='flex items-center justify-center'>
+            <AddButton clicked={() => openTrainingForm(null, program.id, null)} css={'size-8 p-2'}/> 
           </div>
         }            
       </div>
@@ -133,8 +133,8 @@ export default function ProgramJourney({program}) {
 
 function StartingDate({date}) {
   return (
-    <div className="flex items-center gap-2">
-      <div className="w-20 text-sm text-center bg-green text-primary font-semibold rounded-md">Start</div>
+    <div className="flex items-center gap-2 text-sm">
+      <div className="w-12 text-xs text-center bg-green text-primary font-semibold rounded-md">Start</div>
       <p>{date}</p>
     </div>
   )
@@ -142,8 +142,8 @@ function StartingDate({date}) {
 
 function EndedDate({date}) {
   return (
-    <div className="flex items-center gap-2">
-      <div className="w-20 text-sm text-center bg-red text-primary font-semibold rounded-md">End</div>
+    <div className="flex items-center gap-2 text-sm">
+      <div className="w-12 text-xs text-center bg-red text-primary font-semibold rounded-md">End</div>
       <p>{date}</p>
     </div>
   )
@@ -151,8 +151,8 @@ function EndedDate({date}) {
 
 function StartingPerf({training}) {
   return (
-    <div className="flex items-center gap-2">
-      <div className="w-20 text-sm text-center bg-yellow text-primary font-semibold rounded-md">Start</div>
+    <div className="flex items-center gap-2 text-sm">
+      <div className="w-12 text-xs text-center bg-yellow text-primary font-semibold rounded-md">Start</div>
       <p>{training.weight > 0 ? `${training.weight}kg` : training.comment}</p>
     </div>
   )
@@ -160,8 +160,8 @@ function StartingPerf({training}) {
 
 function BestPerf({perf}) {
   return (
-    <div className="flex items-center gap-2">
-      <div className="w-20 text-sm text-center bg-purple text-primary font-semibold rounded-md">Best</div>
+    <div className="flex items-center gap-2 text-sm">
+      <div className="w-12 text-xs text-center bg-purple text-primary font-semibold rounded-md">Best</div>
       <p>{perf}</p>
     </div>
   )

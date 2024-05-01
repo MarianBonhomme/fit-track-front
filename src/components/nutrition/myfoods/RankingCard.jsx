@@ -51,7 +51,7 @@ export default function RankingCard() {
       <CardTitle text="Top Food" />
       <div className="flex justify-between mt-3">
         <p>Sort by : {filter !== "totalQuantity" && filter}</p>
-        <Icon icon="maki:cross" width={20} height={20} className={`text-red cursor-pointer transition ${filter !== 'totalQuantity' ? '' : 'opacity-0'}`} onClick={() => setFilter('totalQuantity')} />
+        <Icon icon="maki:cross" width={15} height={15} className={`text-red cursor-pointer transition ${filter !== 'totalQuantity' ? '' : 'opacity-0'}`} onClick={() => setFilter('totalQuantity')} />
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div className={`rounded-lg text-center font-bold py-1 ${filter !== 'kcal' ? 'bg-lightPrimary text-secondary cursor-pointer' : 'bg-green text-primary'}`} onClick={() => setFilter('kcal')}>Kcal</div>
@@ -64,10 +64,8 @@ export default function RankingCard() {
           return (
             <div key={food.id} className="border-t border-lightPrimary first:border-none">
               <div className='flex items-center gap-3 px-3 py-5 relative'>                
-                {index === 0 && (
-                  <div className="absolute top-0 -left-3 -rotate-45">
-                    <Icon icon="streamline:crown-solid" width="25" height="25" className="text-blue" />
-                  </div>
+                {index === 0 && (                  
+                  <p className="absolute top-0 -left-3 -rotate-45 text-2xl">👑</p>
                 )}
                 <div className={`absolute top-0 right-0 bg-blue px-2 py-1 rounded-b-full`}>
                   <p className="text-xs text-primary font-bold">{index + 1}</p>
@@ -76,7 +74,7 @@ export default function RankingCard() {
                 <div className="w-full">
                   <p>{food.name}</p>
                   <div className="flex items-center justify-between">
-                    <QuantityUnity quantity={food.totalQuantity} unity={food.unity} quantityStyle={'text-2xl font-bold'} unityStyle={'text-sm'} />
+                    <QuantityUnity quantity={food.totalQuantity} unity={food.unity} quantityStyle={'font-bold'} unityStyle={'text-xs'} />
                     {filter !== 'totalQuantity' && (
                       <MacroItem macro={filter} value={food[filter]} isRounded={false} css="mr-0" />
                     )}

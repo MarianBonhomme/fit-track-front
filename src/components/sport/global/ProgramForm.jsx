@@ -53,11 +53,11 @@ export default function ProgramForm() {
 
   return (
     <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-50'>
-      <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-primary p-10 relative rounded-2xl'>
-        <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer" onClick={closeProgramForm} />
-        <h3 className='font-bold text-3xl mb-10'>Create New Program</h3>
-        <div className='w-full flex flex-col items-center relative gap-5'>
-          <Icon icon="solar:star-bold" width={40} height={40} className={`text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />      
+      <form onSubmit={handleSubmit} className='w-full max-w-xl flex flex-col items-center bg-primary p-10 relative rounded-2xl'>
+        <Icon icon="maki:cross" width={25} height={25} className="absolute right-10 top-10 text-red cursor-pointer" onClick={closeProgramForm} />
+        <Icon icon="solar:star-bold" width={25} height={25} className={`absolute left-10 right-10 text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />   
+        <h3 className='font-bold mb-10'>Create New Program</h3>
+        <div className='w-full flex flex-col items-center relative gap-5'>   
           <div className='flex flex-col relative'>
             <label htmlFor="name">Name</label>
             <input
@@ -84,8 +84,8 @@ export default function ProgramForm() {
           <Patterns programPattern={formData.pattern} clicked={handlePatternClick} />
         </div>
         <div className='flex items-center justify-center gap-5'>
-          {programFormData.name && (<button type='button' className={`font-bold bg-red text-primary px-10 py-3 rounded-3xl mt-10`} onClick={deleteProgram}>Delete</button>)}
-          <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10 ${!isFormValid && 'brightness-75'}`}>Confirm</button>
+          {programFormData.name && (<button type='button' className={`font-bold bg-red text-primary px-5 py-3 text-sm rounded-3xl mt-10`} onClick={deleteProgram}>Delete</button>)}
+          <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 text-sm rounded-3xl mt-10 ${!isFormValid && 'brightness-75'}`}>Confirm</button>
         </div>
       </form>
     </div>

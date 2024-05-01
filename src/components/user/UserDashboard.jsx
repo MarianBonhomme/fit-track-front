@@ -49,7 +49,7 @@ export default function UserDashboard() {
           <div className='w-2/3 flex flex-col items-center gap-10 bg-primary rounded-3xl p-4'>
             <CardTitle text="Current Profile"/>
             <AvatarColor avatar={profileAvatar} color={profileColor} colorSize={"3xl"} avatarSize={"xl"} />
-            <p className='text-3xl font-bold'>{profile.pseudo}</p>
+            <p className='font-bold'>{profile.pseudo}</p>
             <DarkModeSwitch
               checked={isDarkMode}
               onChange={toggleDarkMode}

@@ -1,10 +1,11 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import React, { useEffect, useState } from 'react'
 import { useNutrition } from '../../../utils/nutrition/NutritionContext';
+import CardTitle from './../../global/CardTitle';
 
 export default function CalendarCard() {
-  const { currentDay, setCurrentDay, getDayByDate } = useNutrition();
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const { currentDate, setCurrentDate, getDayByDate } = useNutrition();
+  const [currentDay, setCurrentDay] = useState(new Date());
 
   const daysInMonth = (date) => {
     const year = date.getFullYear();
@@ -20,15 +21,15 @@ export default function CalendarCard() {
   };
 
   const handleDayClick = (dateClicked) => {
-    setCurrentDay(new Date(dateClicked))
+    setCurrentDate(new Date(dateClicked))
   };
 
-  const isCurrentDay = (date) => {
-    if (!currentDay) return false;
+  const isCurrentDate = (date) => {
+    if (!currentDate) return false;
     return (
-      date.getDate() === currentDay.getDate() &&
-      date.getMonth() === currentDay.getMonth() &&
-      date.getFullYear() === currentDay.getFullYear()
+      date.getDate() === currentDate.getDate() &&
+      date.getMonth() === currentDate.getMonth() &&
+      date.getFullYear() === currentDate.getFullYear()
     );
   };
 
@@ -44,18 +45,18 @@ export default function CalendarCard() {
 
   const renderCalendar = () => {
     const days = [];
-    const daysCount = daysInMonth(currentDate);
-    const firstDay = firstDayOfMonth(currentDate);
+    const daysCount = daysInMonth(currentDay);
+    const firstDay = firstDayOfMonth(currentDay);
 
     for (let i = 0; i < firstDay; i++) {
       days.push(<div key={`empty-${i}`} className="empty-day"></div>);
     }
 
     for (let i = 1; i <= daysCount; i++) {
-      const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
+      const date = new Date(currentDay.getFullYear(), currentDay.getMonth(), i);
       const day = getDayByDate(date);
       let cellStyle = `p-2 cursor-pointer rounded-lg`;
-      if (isCurrentDay(date)) cellStyle += ' bg-lightPrimary';
+      if (isCurrentDate(date)) cellStyle += ' bg-lightPrimary';
       let pelletStyle = `p-4 w-5 h-5 flex items-center justify-center m-auto rounded-full ${getPelletStyle(day)}`;
       days.push(
         <div key={i} className={cellStyle} onClick={() => handleDayClick(date)}>
@@ -72,9 +73,9 @@ export default function CalendarCard() {
   return (
     <div className="flex flex-col items-center bg-primary px-5 py-3 rounded-3xl text-center">
       <div className="w-full flex items-center justify-between mb-5">
-        <Icon icon="ic:round-chevron-left" width="30" height="30" className="text-dark cursor-pointer" onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1))} />
-        <p className='text-xl'>{currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
-        <Icon icon="ic:round-chevron-right" width="30" height="30" className="text-dark cursor-pointer" onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1))} />
+        <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={() => setCurrentDay(new Date(currentDay.getFullYear(), currentDay.getMonth() - 1))} />
+        <CardTitle text={currentDay.toLocaleString('default', { month: 'long', year: 'numeric' })} />
+        <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={() => setCurrentDay(new Date(currentDay.getFullYear(), currentDay.getMonth() + 1))} />
       </div>
       <div className="w-full grid grid-cols-7 mb-3">
         <div className="day-label">Mon</div>

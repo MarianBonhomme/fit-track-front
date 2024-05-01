@@ -71,44 +71,46 @@ function FoodCard({food, editBtnClicked}) {
   }
   
   return (
-    <div ref={ref} className={`bg-primary relative w-[300px] mt-[50px] pt-[80px] rounded-2xl p-4 ${!food.is_active && 'opacity-60'}`}>
+    <div ref={ref} className={`bg-primary relative w-[270px] mt-[50px] pt-[50px] rounded-2xl p-4 ${!food.is_active && 'opacity-60'}`}>
       <div className={`absolute -top-5 -right-5 flex flex-col gap-1 bg-primary rounded-2xl p-3 z-50 ${isOpen ? '' : 'hidden'}`}>   
         {food.is_active ? (  
           <>
             <div className="flex items-center gap-1 cursor-pointer" onClick={() => food.is_favorite ? removeFromFavorite(food) : addToFavorite(food)} >
-              <Icon icon="solar:star-bold" width={30} height={30} className={`${food.is_favorite ? 'text-yellow' : 'text-gray'} cursor-pointer`} />         
-              <p className='font-bold'>Favoris</p>
+              <Icon icon="solar:star-bold" width={25} height={25} className={`${food.is_favorite ? 'text-yellow' : 'text-gray'} cursor-pointer`} />         
+              <p className='font-semibold'>Favoris</p>
             </div>
             <div className="flex items-center gap-1 cursor-pointer" onClick={editBtnClicked} >
-              <Icon icon="mage:settings-fill" width={30} height={30} className="text-blue cursor-pointer" />
-              <p className='font-bold'>Edit</p>
+              <Icon icon="mage:settings-fill" width={25} height={25} className="text-blue cursor-pointer" />
+              <p className='font-semibold'>Edit</p>
             </div>
             <div className="flex items-center gap-1 cursor-pointer" onClick={() => setInactive(food)} >       
-              <Icon icon="ic:round-delete" width={30} height={30} className="text-red cursor-pointer"/>
-              <p className='font-bold'>Disable</p>      
+              <Icon icon="ic:round-delete" width={25} height={25} className="text-red cursor-pointer"/>
+              <p className='font-semibold'>Disable</p>      
             </div>  
           </>
         ) : (
          <>
             <div className="flex items-center gap-1 cursor-pointer" onClick={() => setActive(food)} >
-              <Icon icon="mingcute:arrow-up-fill" width={30} height={30} className="text-purple cursor-pointer" /> 
-              <p className='font-bold'>Enable</p> 
+              <Icon icon="mingcute:arrow-up-fill" width={25} height={25} className="text-purple cursor-pointer" /> 
+              <p className='font-semibold'>Enable</p> 
             </div>  
             <div className="flex items-center gap-1 cursor-pointer" onClick={() => deleteFood(food)} >
-              <Icon icon="ic:round-delete" width={30} height={30} className="text-red cursor-pointer" /> 
-              <p className='font-bold'>Delete</p> 
+              <Icon icon="ic:round-delete" width={25} height={25} className="text-red cursor-pointer" /> 
+              <p className='font-semibold'>Delete</p> 
             </div> 
           </>    
         )}
       </div>
       <div className="absolute -top-[20px] left-0 w-full flex justify-between items-center px-3">
         {foodMacros && (
-          <div className='w-14 h-14'><MacroPie macros={foodMacros} /></div>
+          <div className='size-10'>
+            <MacroPie macros={foodMacros} />
+          </div>
         )}
-        <FoodImage image={food.image} size="xl" />
-        <Icon icon="solar:menu-dots-bold" width="30" height="30" className='text-blue cursor-pointer' onClick={() => setIsOpen(true)} />
+        <FoodImage image={food.image} size="lg" />
+        <Icon icon="solar:menu-dots-bold" width="25" height="25" className='text-blue cursor-pointer' onClick={() => setIsOpen(true)} />
       </div>
-      <h3 className="text-xl text-center font-bold my-3">{food.name}</h3>	
+      <h3 className="text-center font-bold my-3">{food.name}</h3>	
       <div className="grid grid-cols-2 gap-2">
         <MacroItem macro={'kcal'} value={food.kcal} isRounded={false} showUnity={true} />
         <MacroItem macro={'fat'} value={food.fat} isRounded={false} showUnity={true} />

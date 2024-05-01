@@ -69,8 +69,8 @@ export default function TrainingForm() {
 
   return (
     <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-30'>
-      <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-primary p-10 relative rounded-2xl'>
-        <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer z-50" onClick={closeTrainingForm} />
+      <form onSubmit={handleSubmit} className='w-full max-w-xl flex flex-col items-center bg-primary p-10 relative rounded-2xl'>
+        <Icon icon="maki:cross" width={25} height={25} className="absolute right-10 top-10 text-red cursor-pointer z-50" onClick={closeTrainingForm} />
         <div className='flex flex-col items-center relative gap-10'>
           <div className={`min-w-80 px-5 rounded-xl relative bg-lightPrimary`}>
             <div className='w-full flex justify-between items-center gap-5 py-3'>
@@ -82,7 +82,7 @@ export default function TrainingForm() {
                 <p className='text-center text-gray font-bold'>Select program</p>
               )}
               {(!trainingFormData.training && !trainingFormData.programId) && (
-                <Icon icon="ion:chevron-up" width="40" height="40" className={`transition ${isProgramsListVisible ? '' : 'rotate-180'} cursor-pointer`}  onClick={() => setIsProgramsListVisible(!isProgramsListVisible)}/>
+                <Icon icon="ion:chevron-up" width="25" height="25" className={`transition ${isProgramsListVisible ? '' : 'rotate-180'} cursor-pointer`}  onClick={() => setIsProgramsListVisible(!isProgramsListVisible)}/>
               )}
             </div>
             {isProgramsListVisible && (
@@ -132,12 +132,12 @@ export default function TrainingForm() {
             </div>
           </div> 
           <div className='flex flex-col relative'>
-            <div className="flex border border-lightPrimary rounded-xl overflow-hidden">
+            <div className="flex border border-lightPrimary rounded-full overflow-hidden">
               <div className={`px-5 py-3 ${!isValidate ? 'bg-lightPrimary' : 'cursor-pointer'}`} onClick={() => setIsValidate(0)}>
-                <Icon icon="material-symbols:cancel-rounded" width="40" height="40" className='text-red' />
+                <Icon icon="material-symbols:cancel-rounded" width="25" height="25" className='text-red' />
               </div>
               <div className={`px-5 py-3 ${isValidate ? 'bg-lightPrimary' : 'cursor-pointer'}`} onClick={() => setIsValidate(1)}>
-                <Icon icon="icon-park-solid:check-one" width="40" height="40" className="text-green" />
+                <Icon icon="icon-park-solid:check-one" width="25" height="25" className="text-green" />
               </div>
             </div>
           </div>
@@ -164,8 +164,8 @@ export default function TrainingForm() {
           </div>       
         </div>   
         <div className='flex justify-center items-center gap-5'>
-          {trainingFormData && (<button className={`font-bold bg-red text-primary px-10 py-3 rounded-3xl mt-10`} onClick={deleteTraining}>Delete</button>)}
-          <button type="submit" className={`font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10`}>Confirm</button>
+          {trainingFormData && (<button className={`font-bold bg-red text-primary px-5 py-3 text-sm rounded-3xl mt-10`} onClick={deleteTraining}>Delete</button>)}
+          <button type="submit" className={`font-bold bg-blue text-primary px-5 py-3 text-sm rounded-3xl mt-10`}>Confirm</button>
         </div>
       </form>
     </div>

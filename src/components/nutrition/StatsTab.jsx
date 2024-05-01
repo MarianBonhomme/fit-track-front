@@ -4,23 +4,22 @@ import CountCard from './stats/CountCard';
 import DailyCard from './stats/DailyCard';
 import MacroChartCard from './stats/MacroChartCard';
 import MacroRepartitionCard from './stats/MacroRepartitionCard';
-import RankingCard from './stats/RankingCard';
 import CalendarCard from './stats/CalendarCard';
 
 export default function StatsTab() {
   const { foodsWithTotalQuantity } = useNutrition();
   const [foodsForCountCards, setFoodsForCountCards] = useState([]);
-  const colors = ["purple", "yellow", "orange", "green"]
 
   useEffect(() => {
-    const foodsCountCard = getPortionFoods();
-    setFoodsForCountCards(foodsCountCard)
+    const protionFoods = foodsWithTotalQuantity.filter((food) => food.unity == 'Portion');;
+    setFoodsForCountCards(protionFoods)
   }, [foodsWithTotalQuantity]);
 
-  const getPortionFoods = () => {
-    const portionFoods = foodsWithTotalQuantity.filter((food) => food.unity == 'Portion');
-    return portionFoods.slice(0, 4);
-  }
+  const getColor = (index) => {
+    const colors = ["purple", "yellow", "orange", "green", "blue", "red"];
+    const colorIndex = index % colors.length;
+    return colors[colorIndex];
+}
 
   return (
     <div className="flex items-start gap-5 rounded-tl-none rounded-3xl relative">
@@ -33,15 +32,12 @@ export default function StatsTab() {
           <div className='grid grid-cols-2 gap-5'>
             <CalendarCard />
             <MacroRepartitionCard />
-            {/* <div className="grid grid-cols-2 gap-5">
-              {foodsForCountCards && foodsForCountCards.map((food, index) => (
-                <CountCard key={food.id} food={food} color={colors[index]} />
-              ))}
-            </div> */}
           </div>
         </div>
-        <div className="w-1/4 flex items-stretch">
-          <RankingCard />
+        <div className="w-1/4 grid gap-5">
+          {foodsForCountCards && foodsForCountCards.map((food, index) => (
+            <CountCard key={food.id} food={food} color={getColor(index)} />
+          ))}
         </div>
       </div>
     </div>

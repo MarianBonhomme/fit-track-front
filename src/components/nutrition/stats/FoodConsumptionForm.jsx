@@ -18,7 +18,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
     id: foodConsumption ? foodConsumption.id : null,
     food_id: selectedFood ? selectedFood.id : 1,
     quantity: quantity,
-  })
+  })  
 
   useEffect(() => {
     if (foodConsumption) {
@@ -88,18 +88,18 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
 
   return (
     <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-start pt-20 z-50'>
-      <div className={`w-full max-w-3xl p-10 relative rounded-2xl ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`}>
-        <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer" onClick={close} />
-        <h3 className='text-center font-bold text-3xl mb-10'>{foodConsumption ? 'Update FoodConsumption' : 'Create New FoodConsumption'}</h3>
+      <div className={`w-full max-w-xl p-10 relative rounded-2xl ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`}>
+        <Icon icon="maki:cross" width={25} height={25} className="absolute right-10 top-10 text-red cursor-pointer" onClick={close} />
+        <h3 className='text-center font-bold mb-10'>{foodConsumption ? 'Update FoodConsumption' : 'Create New FoodConsumption'}</h3>
         <div className={`px-5 rounded-xl relative ${isDarkMode ? 'bg-lightPrimary' : 'bg-primary'}`}>
           <div className='w-full flex justify-between items-center gap-5 py-3'>
             {selectedFood ? (
               <div className="grow flex justify-between items-center">
                 <div className='flex items-center gap-5'>
-                  <FoodImage image={selectedFood.image} size="xl" />
-                  <div>
-                    <p className='text-lg mb-2'>{selectedFood.name}</p>
-                    <div className="flex justify-center items-center gap-3 text-lg">
+                  <FoodImage image={selectedFood.image} size="lg" />
+                  <div className='space-y-1'>
+                    <p className='font-semibold'>{selectedFood.name}</p>
+                    <div className="flex space-x-3">
                       <MacroItem macro={'kcal'} value={selectedFood.kcal} isRounded={true} showUnity={true} />
                       <MacroItem macro={'prot'} value={selectedFood.prot} isRounded={true} showUnity={true} />
                       <MacroItem macro={'fat'} value={selectedFood.fat} isRounded={true} showUnity={true} />
@@ -123,17 +123,19 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
               <p className='text-center text-gray font-bold'>Select food</p>
             )}
             {!foodConsumption && (
-              <Icon icon="ion:chevron-up" width="40" height="40" className={`transition ${isFoodsListVisible ? '' : 'rotate-180'} cursor-pointer`}  onClick={() => setIsFoodsListVisible(!isFoodsListVisible)}/>
+              <Icon icon="ion:chevron-up" width="25" height="25" className={`transition ${isFoodsListVisible ? '' : 'rotate-180'} cursor-pointer`}  onClick={() => setIsFoodsListVisible(!isFoodsListVisible)}/>
             )}
           </div>
           {isFoodsListVisible && (
-            <div className='w-full relative top-full h-[50dvh] overflow-y-scroll'>
+            <div className='w-full relative top-full h-[50dvh] overflow-y-scroll hide-scrollbar'>
               {sortedFoods && sortedFoods.map((food) => {
                 return ( food.is_active &&
                   <div key={food.id} className={`flex items-center justify-between gap-3 p-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
-                    <FoodImage image={food.image} size="lg" />
-                    <p>{food.name}</p>
-                    <div className="flex justify-center items-center gap-3 text-lg">
+                    <div className='flex space-x-5 items-center'>
+                      <FoodImage image={food.image} size="md" />
+                      <p>{food.name}</p>
+                    </div>
+                    <div className="flex space-x-3">
                       <MacroItem macro={'kcal'} value={food.kcal} isRounded={true} showUnity={true} />
                       <MacroItem macro={'prot'} value={food.prot} isRounded={true} showUnity={true} />
                       <MacroItem macro={'fat'} value={food.fat} isRounded={true} showUnity={true} />
@@ -145,7 +147,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
             </div>     
           )}
         </div>
-        <button type="submit" disabled={!isFormValid} className={`flex font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10 mx-auto transition ${!isFormValid && 'brightness-90'}`} onClick={handleSubmit}>Confirm</button>
+        <button type="submit" disabled={!isFormValid} className={`flex font-bold bg-blue text-primary px-5 py-3 rounded-3xl mt-10 mx-auto transition ${!isFormValid && 'brightness-90'}`} onClick={handleSubmit}>Confirm</button>
       </div>
     </div>
   )

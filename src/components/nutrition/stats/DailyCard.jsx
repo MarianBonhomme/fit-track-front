@@ -12,7 +12,7 @@ import AddButton from '../../global/AddButton';
 import FlipMove from 'react-flip-move';
 
 export default function DailyCard() {
-  const { currentDay, days, dailyFoodConsumptions, incrementCurrentDay, decrementCurrentDay, setCurrentDay, toggleValidateDay, getDayByDate } = useNutrition();
+  const { currentDate, days, dailyFoodConsumptions, incrementCurrentDate, decrementCurrentDate, setCurrentDate, toggleValidateDay, getDayByDate } = useNutrition();
   const [sortedDailyFoodConsumptions, setSortedDailyFoodConsumptions] = useState([]);
   const [isFoodConsumptionFormVisible, setIsFoodConsumptionFormVisible] = useState(false);
   const [foodConsumptionToUpdate, setFoodConsumptionToUpdate] = useState(null);
@@ -27,8 +27,8 @@ export default function DailyCard() {
   }, [dailyFoodConsumptions])
 
   useEffect(() => {
-    setDaily(getDayByDate(currentDay))
-  }, [currentDay, days])
+    setDaily(getDayByDate(currentDate))
+  }, [currentDate, days])
 
   const getDailyMacros = () => {
     var macros = null;
@@ -68,11 +68,23 @@ export default function DailyCard() {
     <>
       <div className="bg-primary px-4 py-3 rounded-3xl rounded-tl-none relative">
         <div className="flex justify-between items-center">
-          <CardTitle text={currentDay && getFullDate(currentDay)} />
-          <p className={`bg-blue text-primary font-bold px-3 py-2 rounded-full ${currentDay && getFullDate(currentDay) === 'Today' ? 'opacity-0' : 'cursor-pointer'}`} onClick={() => setCurrentDay(new Date())}>Today</p>
+          <div className={`flex items-center gap-2 ${currentDate && getFullDate(currentDate) === 'Today' ? 'opacity-0' : 'cursor-pointer'}`} onClick={() => setCurrentDate(new Date())}>
+            <Icon icon="ion:calendar" width="25" height="25" className='text-blue' />
+            <p className='text-sm/3'>Today</p>
+          </div>
+          <CardTitle text={currentDate && getFullDate(currentDate)} />
+          <div>
+            {daily && sortedDailyFoodConsumptions.length > 0 && (
+              daily.is_validate ? (
+                <Icon icon="material-symbols:cancel-rounded" width="25" height="25" className='text-red cursor-pointer' onClick={toggleValidateDay} />
+              ) : (
+                <Icon icon="icon-park-solid:check-one" width="25" height="25" className="text-green cursor-pointer" onClick={toggleValidateDay} />
+              )
+            )}
+          </div>
         </div>
-        <div className="flex justify-center items-center gap-5 mb-3">
-          <Icon icon="ic:round-chevron-left" width="50" height="50" className="text-dark cursor-pointer" onClick={decrementCurrentDay} />
+        <div className="flex justify-center items-center gap-5">
+          <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={decrementCurrentDate} />
           {dailyMacros && (
             <div className='flex items-center gap-5'>
               <div className='w-[80px] h-[80px]'>
@@ -86,18 +98,11 @@ export default function DailyCard() {
               </div>
             </div>
           )}
-          <Icon icon="ic:round-chevron-right" width="50" height="50" className="text-dark cursor-pointer" onClick={incrementCurrentDay} />
+          <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={incrementCurrentDate} />
         </div>
-        <AddButton clicked={() => openFoodConsumptionForm()} css='w-full mt-10 h-20 mx-auto'/>
-        <div className='flex justify-end mt-5'>
-          {daily && sortedDailyFoodConsumptions.length > 0 &&
-            <p className={`${daily.is_validate ? 'bg-red' : 'bg-blue'} text-primary text-sm font-bold px-3 py-2 rounded-full cursor-pointer`} onClick={toggleValidateDay}>
-              {daily.is_validate ? 'Disable day' : 'Valid day'}
-            </p>
-          }
-        </div>
+        <AddButton clicked={() => openFoodConsumptionForm()} css='w-full mt-5 h-20 mx-auto'/>
         {sortedDailyFoodConsumptions && sortedDailyFoodConsumptions.length > 0 && (
-          <FlipMove>
+          <FlipMove className='divide-y divide-lightPrimary'>
             {sortedDailyFoodConsumptions.map((consumption) => (
               <div key={consumption.id}>
                 <FoodConsumptionItem consumption={consumption} clicked={() => openFoodConsumptionForm(consumption)} /> 

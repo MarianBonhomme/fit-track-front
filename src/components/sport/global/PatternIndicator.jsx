@@ -17,6 +17,6 @@ export default function PatternIndicator({pattern}) {
   const background = getBackgroundByPattern()
 
   return (
-    <div className={`absolute top-0 left-0 w-3 h-full rounded-full ${background}`}></div>
+    <div className={`absolute top-0 left-0 w-2 h-full rounded-full ${background}`}></div>
   )
 }

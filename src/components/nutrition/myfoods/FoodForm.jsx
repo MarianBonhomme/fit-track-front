@@ -87,9 +87,10 @@ export default function FoodForm({ food, close }) {
 
   return (
     <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-50'>
-      <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center bg-primary p-10 relative rounded-2xl'>
-        <Icon icon="maki:cross" width={35} height={35} className="absolute right-10 top-10 text-red cursor-pointer" onClick={close} />
-        <h3 className='font-bold text-3xl mb-10'>{food ? 'Update Food' : 'Create New Food'}</h3>
+      <form onSubmit={handleSubmit} className='w-full max-w-xl flex flex-col items-center bg-primary p-10 relative rounded-2xl'>
+        <Icon icon="maki:cross" width={25} height={25} className="absolute right-10 top-10 text-red cursor-pointer" onClick={close} />
+        <Icon icon="solar:star-bold" width={25} height={25} className={`absolute left-10 top-10 text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />  
+        <h3 className='font-bold mb-10'>{food ? 'Update Food' : 'Create New Food'}</h3>
         <div className='w-full flex flex-col items-center relative gap-10'>     
           <div className='flex flex-col relative'>
             <label htmlFor="image">Image</label>
@@ -102,9 +103,6 @@ export default function FoodForm({ food, close }) {
             />
           </div>     
           <div className='flex flex-col relative'>
-            <div className="absolute -left-1/4 top-1/3">
-              <Icon icon="solar:star-bold" width={30} height={30} className={`text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />  
-            </div>
             <label htmlFor="name">Name</label>
             <input
               type="text"
@@ -204,7 +202,7 @@ export default function FoodForm({ food, close }) {
             </div>
           </div>          
         </div>
-        <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-10 py-3 rounded-3xl mt-10 ${!isFormValid && 'brightness-90'}`}>Confirm</button>
+        <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 text-sm rounded-3xl mt-10 ${!isFormValid && 'brightness-90'}`}>Confirm</button>
       </form>
     </div>
   )

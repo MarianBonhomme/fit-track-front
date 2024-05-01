@@ -27,7 +27,7 @@ export default function SportPage() {
           <DarkModeSwitch
             checked={isDarkMode}
             onChange={toggleDarkMode}
-            size={50}
+            size={30}
           />
         </div>
         {activeTab === 'calendar' && (

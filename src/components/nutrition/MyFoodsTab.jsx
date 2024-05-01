@@ -5,6 +5,7 @@ import { sortFoodsByFavoritesAndInactives } from '../../utils/nutrition/Nutritio
 import FoodCard from './myfoods/FoodCard';
 import FoodForm from './myfoods/FoodForm';
 import AddButton from '../global/AddButton';
+import RankingCard from './myfoods/RankingCard';
 
 export default function MyFoodsTab() {
   const { foods } = useNutrition();
@@ -39,30 +40,35 @@ export default function MyFoodsTab() {
   }
 
   return (
-    <>
-      <div className='w-full flex justify-between items-center bg-primary p-5 rounded-3xl'>
-        <AddButton clicked={() => openFoodForm(null)} css="h-10 w-10 p-3" />
-        <div className='flex items-center gap-3'>
-          <input
-            type="text"
-            placeholder="Search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-lightPrimary text-secondary rounded-xl px-4 py-2 "
-          />
-          <Icon icon="maki:cross" width={20} height={20} className={`text-red cursor-pointer transition ${searchQuery ? '' : 'opacity-0'}`} onClick={() => setSearchQuery('')} />
+    <div className='w-full flex gap-5'>
+      <div className='w-3/4'>
+        <div className='w-full flex justify-between items-center bg-primary p-5 rounded-3xl'>
+          <AddButton clicked={() => openFoodForm(null)} css="h-10 w-10 p-3" />
+          <div className='flex items-center gap-3'>
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-lightPrimary text-secondary rounded-xl px-4 py-2 "
+            />
+            <Icon icon="maki:cross" width={15} height={15} className={`text-red cursor-pointer transition ${searchQuery ? '' : 'opacity-0'}`} onClick={() => setSearchQuery('')} />
+          </div>
         </div>
-      </div>
-      <div className='flex flex-wrap gap-x-5'>
-        {filteredFoods && (
-          filteredFoods.map((food) => (
-            <FoodCard food={food} key={food.id} editBtnClicked={() => openFoodForm(food)} />
-          ))
+        <div className='flex flex-wrap gap-x-5'>
+          {filteredFoods && (
+            filteredFoods.map((food) => (
+              <FoodCard food={food} key={food.id} editBtnClicked={() => openFoodForm(food)} />
+            ))
+          )}
+        </div>
+        {isFoodFormDisplayed && (
+          <FoodForm food={foodToUpdate} close={() => setIsFoodFormDisplayed(false)}/>
         )}
       </div>
-      {isFoodFormDisplayed && (
-        <FoodForm food={foodToUpdate} close={() => setIsFoodFormDisplayed(false)}/>
-      )}
-    </>
+      <div className="w-1/4">
+        <RankingCard />
+      </div>
+    </div>
   );
 }

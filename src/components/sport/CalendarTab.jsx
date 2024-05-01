@@ -11,23 +11,21 @@ export default function CalendarTab() {
   const { currentWeek, incrementWeek, decrementWeek, openTrainingForm } = useSport();
 
   return (
-    <div className='bg-primary p-4 rounded-3xl rounded-ss-none relative'>
-      <div className="flex justify-between items-center mb-3">
-        <div className='flex justify-center items-center'>
-          <Icon icon="ic:round-chevron-left" width="50" height="50" className="text-dark cursor-pointer" onClick={decrementWeek} />
-          <Icon icon="ic:round-chevron-right" width="50" height="50" className="text-dark cursor-pointer" onClick={incrementWeek} />
+    <div className='bg-primary p-5 rounded-3xl rounded-ss-none relative'>
+      <div className="flex">
+        <Icon icon="ic:round-chevron-left" width="30" height="30" className="text-dark cursor-pointer" onClick={decrementWeek} />
+        <div className="w-full grid grid-cols-7 divide-x divide-lightPrimary">
+          {currentWeek && currentWeek.length === 7 && currentWeek.map((day, index) => (
+            <div key={index} className='space-y-3'>
+              <p className='text-center'>{getDayOfWeek(new Date(day))} {moment(day).format("DD/MM")}</p>
+              <AddButton css={'flex mx-auto size-8 p-2'} clicked={() => openTrainingForm(new Date(day), null, null)} />
+              <DailyTrainings date={new Date(day)} />
+            </div>
+          ))}
         </div>
-        <CardTitle text={'Week'} />
+        <Icon icon="ic:round-chevron-right" width="30" height="30" className="text-dark cursor-pointer" onClick={incrementWeek} />
       </div>
-      <div className="grid grid-cols-7">
-        {currentWeek && currentWeek.length === 7 && currentWeek.map((day, index) => (
-          <div key={index} className="border-r last:border-none border-lightPrimary">
-            <p className='text-center'>{getDayOfWeek(new Date(day))} {moment(day).format("DD/MM")}</p>
-            <AddButton css={'h-20 m-5'} clicked={() => openTrainingForm(new Date(day), null, null)} />
-            <DailyTrainings date={new Date(day)} />
-          </div>
-        ))}
-      </div>
+      
     </div>
   )
 }

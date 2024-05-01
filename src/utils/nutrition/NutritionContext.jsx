@@ -25,7 +25,7 @@ export const NutritionProvider = ({ children }) => {
   const [foodsWithTotalQuantity, setFoodsWithTotalQuantity] = useState([]);
   const [foodsWithTotalQuantityValidated, setFoodsWithTotalQuantityValidated] = useState([]);
   const [foodConsumptions, setFoodConsumptions] = useState([]);
-  const [currentDay, setCurrentDay] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [dailyFoodConsumptions, setDailyFoodConsumptions] = useState([]);
   const [days, setDays] = useState();
   const [daysIndicatedCount, setDaysIndicatedCount] = useState(0);
@@ -49,12 +49,12 @@ export const NutritionProvider = ({ children }) => {
 
   useEffect(() => {
     const fetch = async () => {
-      const filteredFoodConsumptions = filterFoodConsumptionsByDate(currentDay);
+      const filteredFoodConsumptions = filterFoodConsumptionsByDate(currentDate);
       setDailyFoodConsumptions(filteredFoodConsumptions);
     }
 
     fetch()
-  }, [foodConsumptions, currentDay]);
+  }, [foodConsumptions, currentDate]);
 
   const fetchFoods = async () => {
     const fetchedFoods = await getFoods();
@@ -148,7 +148,7 @@ export const NutritionProvider = ({ children }) => {
 
   const handleAddFoodConsumption = async (newFoodConsumption) => {
     try {
-      const createdDay = await addOrGetDay(currentDay);
+      const createdDay = await addOrGetDay(currentDate);
       const newFoodConsumptionWithProfileAndDay = {
         ...newFoodConsumption,
         profile_id: profile.id,
@@ -233,20 +233,20 @@ export const NutritionProvider = ({ children }) => {
     }
   }
 
-  const incrementCurrentDay = () => {
-    const nextDay = new Date(currentDay);
-    nextDay.setDate(currentDay.getDate() + 1);
-    setCurrentDay(nextDay);
+  const incrementCurrentDate = () => {
+    const nextDay = new Date(currentDate);
+    nextDay.setDate(currentDate.getDate() + 1);
+    setCurrentDate(nextDay);
   };
 
-  const decrementCurrentDay = () => {
-    const prevDay = new Date(currentDay);
-    prevDay.setDate(currentDay.getDate() - 1);
-    setCurrentDay(prevDay);
+  const decrementCurrentDate = () => {
+    const prevDay = new Date(currentDate);
+    prevDay.setDate(currentDate.getDate() - 1);
+    setCurrentDate(prevDay);
   };
 
   const toggleValidateDay = async () => {
-    const day = getDayByDate(currentDay);
+    const day = getDayByDate(currentDate);
     const dayToUpdate = {...day, is_validate: !day.is_validate};
     const updatedDay = await updateDay(dayToUpdate);
     setDays((prevDays) =>
@@ -283,7 +283,7 @@ export const NutritionProvider = ({ children }) => {
         foodsWithTotalQuantity,
         foodsWithTotalQuantityValidated,
         foodConsumptions,
-        currentDay,
+        currentDate,
         days,
         dailyFoodConsumptions,
         daysIndicatedCount,
@@ -293,9 +293,9 @@ export const NutritionProvider = ({ children }) => {
         handleAddFoodConsumption,
         handleUpdateFoodConsumption,
         handleDeleteFoodConsumption,
-        setCurrentDay,
-        incrementCurrentDay,
-        decrementCurrentDay,
+        setCurrentDate,
+        incrementCurrentDate,
+        decrementCurrentDate,
         toggleValidateDay,
         getDayByDate,
       }}
