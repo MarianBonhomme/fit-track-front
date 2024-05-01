@@ -5,7 +5,7 @@ import CardTitle from './../../global/CardTitle';
 import moment from 'moment';
 
 export default function CalendarCard() {
-  const { currentDate, setCurrentDate, getDayByDate, days } = useNutrition();
+  const { currentDate, setCurrentDate, findDayByDate, days } = useNutrition();
   const [currentDay, setCurrentDay] = useState(new Date());
 
   const daysInMonth = (date) => {
@@ -54,7 +54,7 @@ export default function CalendarCard() {
 
     for (let i = 1; i <= daysCount; i++) {
       const date = new Date(currentDay.getFullYear(), currentDay.getMonth(), i);
-      const day = getDayByDate(date)
+      const day = findDayByDate(date)
       let cellStyle = `relative p-3 cursor-pointer rounded-lg`;
       if (isCurrentDate(date)) cellStyle += ' bg-lightPrimary';
       let pelletStyle = `p-4 w-5 h-5 flex items-center justify-center m-auto rounded-full ${isToday(date) && 'bg-blue text-primary font-semibold'}`;

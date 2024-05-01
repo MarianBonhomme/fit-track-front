@@ -13,7 +13,7 @@ import {
   getFoodsWithTotalQuantityOnlyValidated,
 } from "./NutritionService";
 import { useProfile } from "../profile/ProfileContext";
-import { addDay, deleteDay, getDayByDate, getDays, updateDay } from "../global/DayService";
+import { addDay, deleteDay, getDayByDateAndProfile, getDays, updateDay } from "../global/DayService";
 import moment from 'moment';
 
 const NutritionContext = createContext();
@@ -67,7 +67,7 @@ export const NutritionProvider = ({ children }) => {
   };
 
   const fetchDays = async () => {
-    const fetchedDays = await getDays(profile.id);
+    const fetchedDays = await getDays(profile);
     setDays(fetchedDays);
   };
 
@@ -151,7 +151,6 @@ export const NutritionProvider = ({ children }) => {
       const createdDay = await addOrGetDay(currentDate);
       const newFoodConsumptionWithProfileAndDay = {
         ...newFoodConsumption,
-        profile_id: profile.id,
         day_id: createdDay.id,
       };
       try {
@@ -245,7 +244,7 @@ export const NutritionProvider = ({ children }) => {
   };
 
   const toggleValidateDay = async () => {
-    const day = getDayByDate(currentDate);
+    const day = findDayByDate(currentDate);
     const dayToUpdate = {...day, is_validate: !day.is_validate};
     const updatedDay = await updateDay(dayToUpdate);
     setDays((prevDays) =>
@@ -258,11 +257,11 @@ export const NutritionProvider = ({ children }) => {
   }
   
   const addOrGetDay = async (date) => {
-    const day = await getDayByDate(date);
+    const day = await getDayByDateAndProfile(date, profile);
     if (day) {
       return day
     } else {
-      const createdDay = await addDay({date: date});
+      const createdDay = await addDay({date: date, profile_id: profile.id});
       const updatedDays = [...days, createdDay];
       // Trier le tableau days en fonction des dates
       updatedDays.sort((a, b) => {
@@ -273,9 +272,9 @@ export const NutritionProvider = ({ children }) => {
     }
   }
 
-  const getDayByDate = (date) => {
+  const findDayByDate = (date) => {
     const formattedDate = moment(date);
-    const foundDay = days.find(day => moment(day.date).isSame(formattedDate, 'day'));
+    const foundDay = days.find(day => moment(day.date).isSame(formattedDate, 'day') && day.profile_id === profile.id);
     return foundDay;
   } 
 
@@ -301,7 +300,7 @@ export const NutritionProvider = ({ children }) => {
         incrementCurrentDate,
         decrementCurrentDate,
         toggleValidateDay,
-        getDayByDate,
+        findDayByDate,
       }}
     >
       {children}

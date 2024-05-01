@@ -14,7 +14,7 @@ import MacroItem from '../global/MacroItem';
 
 export default function DailyCard() {
   const { profile } = useProfile();
-  const { currentDate, days, dailyFoodConsumptions, incrementCurrentDate, decrementCurrentDate, setCurrentDate, toggleValidateDay, getDayByDate } = useNutrition();
+  const { currentDate, days, dailyFoodConsumptions, incrementCurrentDate, decrementCurrentDate, setCurrentDate, toggleValidateDay, findDayByDate } = useNutrition();
   const [sortedDailyFoodConsumptions, setSortedDailyFoodConsumptions] = useState([]);
   const [isFoodConsumptionFormVisible, setIsFoodConsumptionFormVisible] = useState(false);
   const [foodConsumptionToUpdate, setFoodConsumptionToUpdate] = useState(null);
@@ -29,7 +29,7 @@ export default function DailyCard() {
   }, [dailyFoodConsumptions])
 
   useEffect(() => {
-    setDaily(getDayByDate(currentDate))
+    setDaily(findDayByDate(currentDate))
   }, [currentDate, days])
 
   const getDailyMacros = () => {

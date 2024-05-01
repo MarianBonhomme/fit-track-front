@@ -2,9 +2,9 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:3000";
 
-const getDays = async () => {
+const getDays = async (profile) => {
   try {
-    const response = await axios.get(`${BASE_URL}/day`);
+    const response = await axios.get(`${BASE_URL}/day/${profile.id}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching all days:", error);
@@ -42,9 +42,9 @@ const deleteDay = async (dayToDelete) => {
   }
 }
 
-const getDayByDate = async (date) => {
+const getDayByDateAndProfile = async (date, profile) => {
   try {
-    const response = await axios.get(`${BASE_URL}/day/date/${date}`);
+    const response = await axios.get(`${BASE_URL}/day/date/${date}/${profile.id}`);
     return response.data;
   } catch (error) {
     console.error("Error adding new day:", error);
@@ -52,4 +52,4 @@ const getDayByDate = async (date) => {
   }
 }
 
-export { getDays, addDay, updateDay, deleteDay, getDayByDate } 
+export { getDays, addDay, updateDay, deleteDay, getDayByDateAndProfile } 
