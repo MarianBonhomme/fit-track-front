@@ -5,13 +5,15 @@ import { sortFoodConsumptionsByFavorites } from '../../../utils/nutrition/Nutrit
 import CardTitle from '../../global/CardTitle';
 import FoodConsumptionForm from './FoodConsumptionForm';
 import FoodConsumptionItem from './FoodConsumptionItem';
-import MacroPie from '../global/MacroPie';
 import { getFullDate } from '../../../utils/global/DateService';
-import MacroItem from '../global/MacroItem';
 import AddButton from '../../global/AddButton';
 import FlipMove from 'react-flip-move';
+import DailyMacroProgressBar from '../global/DailyMacroProgressBar';
+import { useProfile } from '../../../utils/profile/ProfileContext';
+import MacroItem from '../global/MacroItem';
 
 export default function DailyCard() {
+  const { profile } = useProfile();
   const { currentDate, days, dailyFoodConsumptions, incrementCurrentDate, decrementCurrentDate, setCurrentDate, toggleValidateDay, getDayByDate } = useNutrition();
   const [sortedDailyFoodConsumptions, setSortedDailyFoodConsumptions] = useState([]);
   const [isFoodConsumptionFormVisible, setIsFoodConsumptionFormVisible] = useState(false);
@@ -72,7 +74,9 @@ export default function DailyCard() {
             <Icon icon="ion:calendar" width="25" height="25" className='text-blue' />
             <p className='text-sm/3'>Today</p>
           </div>
+          <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={decrementCurrentDate} />
           <CardTitle text={currentDate && getFullDate(currentDate)} />
+          <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={incrementCurrentDate} />
           <div>
             {daily && sortedDailyFoodConsumptions.length > 0 && (
               daily.is_validate ? (
@@ -83,22 +87,21 @@ export default function DailyCard() {
             )}
           </div>
         </div>
-        <div className="flex justify-center items-center gap-5">
-          <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={decrementCurrentDate} />
+        <div className="flex justify-center items-center gap-5 mt-5">
           {dailyMacros && (
             <div className='flex items-center gap-5'>
-              <div className='w-[80px] h-[80px]'>
-                <MacroPie macros={dailyMacros} />
-              </div>
               <div className="grid grid-cols-2 gap-3">
                 <MacroItem macro={'kcal'} value={dailyMacros.kcal} isRounded={false} showUnity={true} />
                 <MacroItem macro={'fat'} value={dailyMacros.fat} isRounded={false} showUnity={true} />
                 <MacroItem macro={'prot'} value={dailyMacros.prot} isRounded={false} showUnity={true} />
                 <MacroItem macro={'carb'} value={dailyMacros.carb} isRounded={false} showUnity={true} />
               </div>
+              <DailyMacroProgressBar maxValue={profile.dailyKcal} value={dailyMacros.kcal} macro={'kcal'} />
+              <DailyMacroProgressBar maxValue={profile.dailyProt} value={dailyMacros.prot} macro={'prot'} />
+              <DailyMacroProgressBar maxValue={profile.dailyFat} value={dailyMacros.fat} macro={'fat'} />
+              <DailyMacroProgressBar maxValue={profile.dailyCarb} value={dailyMacros.carb} macro={'carb'} />
             </div>
           )}
-          <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={incrementCurrentDate} />
         </div>
         <AddButton clicked={() => openFoodConsumptionForm()} css='w-full mt-5 h-20 mx-auto'/>
         {sortedDailyFoodConsumptions && sortedDailyFoodConsumptions.length > 0 && (

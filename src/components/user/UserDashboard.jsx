@@ -34,7 +34,28 @@ export default function UserDashboard() {
   }
 
   return (
-    <div className="p-5">     
+    <div className="p-5 space-y-5">   
+      <div className="p-5 bg-primary rounded-3xl space-y-5">
+        <CardTitle text={"Daily Macros Goals"} />
+        <div className="grid grid-cols-4">
+          <div>
+            <CardTitle text={"Kcal"} />
+            {profile.dailyKcal}
+          </div>
+          <div>
+            <CardTitle text={"Prot"} />
+            {profile.dailyProt}
+          </div>
+          <div>
+            <CardTitle text={"Fat"} />
+            {profile.dailyFat}
+          </div>
+          <div>
+            <CardTitle text={"Carb"} />
+            {profile.dailyCarb}
+          </div>
+        </div>
+      </div>  
       <div className="grid grid-cols-2 gap-5">
         <div className="flex justify-center gap-5">
           <div className='w-1/3 bg-primary rounded-3xl p-4'>
