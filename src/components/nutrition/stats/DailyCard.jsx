@@ -89,17 +89,19 @@ export default function DailyCard() {
         </div>
         <div className="flex justify-center items-center gap-5 mt-5">
           {dailyMacros && (
-            <div className='flex items-center gap-5'>
+            <div className='flex items-center space-x-5'>
               <div className="grid grid-cols-2 gap-3">
                 <MacroItem macro={'kcal'} value={dailyMacros.kcal} isRounded={false} showUnity={true} />
                 <MacroItem macro={'fat'} value={dailyMacros.fat} isRounded={false} showUnity={true} />
                 <MacroItem macro={'prot'} value={dailyMacros.prot} isRounded={false} showUnity={true} />
                 <MacroItem macro={'carb'} value={dailyMacros.carb} isRounded={false} showUnity={true} />
               </div>
-              <DailyMacroProgressBar maxValue={profile.dailyKcal} value={dailyMacros.kcal} macro={'kcal'} />
-              <DailyMacroProgressBar maxValue={profile.dailyProt} value={dailyMacros.prot} macro={'prot'} />
-              <DailyMacroProgressBar maxValue={profile.dailyFat} value={dailyMacros.fat} macro={'fat'} />
-              <DailyMacroProgressBar maxValue={profile.dailyCarb} value={dailyMacros.carb} macro={'carb'} />
+              <div className='flex items-center space-x-3'>
+                <DailyMacroProgressBar maxValue={profile.dailyKcal} value={dailyMacros.kcal} macro={'kcal'} />
+                <DailyMacroProgressBar maxValue={profile.dailyProt} value={dailyMacros.prot} macro={'prot'} />
+                <DailyMacroProgressBar maxValue={profile.dailyFat} value={dailyMacros.fat} macro={'fat'} />
+                <DailyMacroProgressBar maxValue={profile.dailyCarb} value={dailyMacros.carb} macro={'carb'} />
+              </div>
             </div>
           )}
         </div>
