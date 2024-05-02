@@ -63,7 +63,7 @@ export default function CalendarCard() {
           <div className={pelletStyle}>
             {i}
           </div>
-          <div className={`absolute top-0 left-0 ${day && day.is_validate ? '' : 'opacity-0'} `}>🔥</div>
+          <div className={`absolute top-0 left-0 ${day && day.count_for_stats ? '' : 'opacity-0'} `}>🔥</div>
         </div>
       );
     }
@@ -127,7 +127,7 @@ function Streaks() {
       const previousDate = moment(previousNutritionDay.date);
   
       if (currentDate.diff(previousDate, 'days') === 1) {
-        if (currentNutritionDay.is_validate) {
+        if (currentNutritionDay.count_for_stats) {
           streak++;
         } else {
           break;

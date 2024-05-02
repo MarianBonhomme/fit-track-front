@@ -269,7 +269,7 @@ export const NutritionProvider = ({ children }) => {
 
   const toggleValidateDay = async () => {
     const day = findDayByDate(currentDate);
-    const dayToUpdate = {...day, is_validate: !day.is_validate};
+    const dayToUpdate = {...day, count_for_stats: !day.count_for_stats};
     const updatedDay = await updateDay(dayToUpdate);
     setDays((prevDays) =>
       prevDays.map((day) =>

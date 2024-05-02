@@ -80,7 +80,7 @@ export default function DailyCard() {
           <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={incrementCurrentDate} />
           <div>
             {daily && sortedDailyFoodConsumptions.length > 0 && (
-              daily.is_validate ? (
+              daily.count_for_stats ? (
                 <Icon icon="material-symbols:cancel-rounded" width="25" height="25" className='text-red cursor-pointer' onClick={toggleValidateDay} />
               ) : (
                 <Icon icon="icon-park-solid:check-one" width="25" height="25" className="text-green cursor-pointer" onClick={toggleValidateDay} />
