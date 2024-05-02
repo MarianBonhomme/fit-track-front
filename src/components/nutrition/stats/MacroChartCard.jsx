@@ -104,7 +104,7 @@ export default function MacroChartCard() {
     <div className="w-full flex flex-col items-center bg-primary px-5 py-2 rounded-3xl">
       <div className="flex justify-between items-center gap-5">
         <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={decrementMonth} />
-        <CardTitle text="Daily Consumption" />
+        <CardTitle text="Daily Macro Consumption" />
         <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={incrementMonth} />
       </div>
       <div className="flex items-center justify-evenly my-3 gap-3">
