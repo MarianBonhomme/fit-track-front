@@ -29,6 +29,7 @@ export const NutritionProvider = ({ children }) => {
   const [dailyFoodConsumptions, setDailyFoodConsumptions] = useState([]);
   const [days, setDays] = useState();
   const [daysIndicatedCount, setDaysIndicatedCount] = useState(0);
+  const [currentMonth, setCurrentMonth] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,6 +56,10 @@ export const NutritionProvider = ({ children }) => {
 
     fetch()
   }, [foodConsumptions, currentDate]);
+
+  useEffect(() => {
+    setCurrentMonth(initCurrentMonth());
+  }, [])
 
   const fetchFoods = async () => {
     const fetchedFoods = await getFoods();
@@ -108,6 +113,25 @@ export const NutritionProvider = ({ children }) => {
       );
     });
     return consumptions;
+  };
+  
+  const initCurrentMonth = () => {
+    const today = moment().startOf('month');
+    const startOfMonth = today.clone().startOf('month');
+    const endOfMonth = today.clone().endOf('month');
+    return Array.from({ length: endOfMonth.diff(startOfMonth, 'days') + 1 }, (_, i) => startOfMonth.clone().add(i, 'day').format());
+  };
+  
+  const incrementMonth = () => {
+    setCurrentMonth(prevMonth =>
+      prevMonth.map(day => moment(day).add(1, 'month').toDate())
+    );
+  };
+  
+  const decrementMonth = () => {
+    setCurrentMonth(prevMonth =>
+      prevMonth.map(day => moment(day).subtract(1, 'month').toDate())
+    );
   };
 
   const handleAddFood = async (newFood) => {
@@ -286,10 +310,14 @@ export const NutritionProvider = ({ children }) => {
         foodsWithTotalQuantity,
         foodsWithTotalQuantityValidated,
         foodConsumptions,
+        filterFoodConsumptionsByDate,
         currentDate,
         days,
         dailyFoodConsumptions,
-        daysIndicatedCount,
+        daysIndicatedCount,        
+        currentMonth,
+        incrementMonth,
+        decrementMonth,
         handleAddFood,
         handleUpdateFood,
         handleDeleteFood,
