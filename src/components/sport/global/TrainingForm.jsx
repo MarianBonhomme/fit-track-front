@@ -9,7 +9,7 @@ import PatternIndicator from './PatternIndicator';
 export default function TrainingForm() {
   const { programs, handleAddTraining, handleDeleteTraining, closeTrainingForm, trainingFormData, openProgramForm } = useSport();
   const [difficulty, setDifficulty] = useState(trainingFormData.training ? trainingFormData.training.difficulty : 1);
-  const [isValidate, setIsValidate] = useState(trainingFormData.training ? trainingFormData.training.is_validate : 1);;
+  const [isValidated, setisValidated] = useState(trainingFormData.training ? trainingFormData.training.is_validated : 1);;
   const [selectedProgram, setSelectedProgram] = useState(trainingFormData.programId && trainingFormData.programId);
   const [isProgramsListVisible, setIsProgramsListVisible] = useState();
 
@@ -44,7 +44,7 @@ export default function TrainingForm() {
     const newTraining = {
       ...formData,
       difficulty: difficulty,
-      is_validate: isValidate,
+      is_validated: isValidated,
     }
     handleAddTraining(newTraining)
 	  closeTrainingForm();
@@ -133,10 +133,10 @@ export default function TrainingForm() {
           </div> 
           <div className='flex flex-col relative'>
             <div className="flex border border-lightPrimary rounded-full overflow-hidden">
-              <div className={`px-5 py-3 ${!isValidate ? 'bg-lightPrimary' : 'cursor-pointer'}`} onClick={() => setIsValidate(0)}>
+              <div className={`px-5 py-3 ${!isValidated ? 'bg-lightPrimary' : 'cursor-pointer'}`} onClick={() => setisValidated(0)}>
                 <Icon icon="material-symbols:cancel-rounded" width="25" height="25" className='text-red' />
               </div>
-              <div className={`px-5 py-3 ${isValidate ? 'bg-lightPrimary' : 'cursor-pointer'}`} onClick={() => setIsValidate(1)}>
+              <div className={`px-5 py-3 ${isValidated ? 'bg-lightPrimary' : 'cursor-pointer'}`} onClick={() => setisValidated(1)}>
                 <Icon icon="icon-park-solid:check-one" width="25" height="25" className="text-green" />
               </div>
             </div>

@@ -34,7 +34,7 @@ export default function TrainingCard({training, isOnCalendar}) {
           ) : (
             <p className="text-xl font-bold text-nowrap">BW</p>
           )}
-          {training.is_validate ? (
+          {training.is_validated ? (
             <Icon icon="icon-park-solid:check-one" width="25" height="25" className="text-green" />
           ) : (
             <Icon icon="material-symbols:cancel-rounded" width="25" height="25" className='text-red' />

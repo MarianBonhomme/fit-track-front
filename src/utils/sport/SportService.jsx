@@ -156,7 +156,7 @@ const getBestTrainingPerformanceOfProgram = (program) => {
   }
 
   // Filtrer les entraînements validés
-  const validatedTrainings = program.trainings.filter(training => training.is_validate);
+  const validatedTrainings = program.trainings.filter(training => training.is_validated);
 
   // Si aucun entraînement validé n'existe
   if (validatedTrainings.length === 0) {
