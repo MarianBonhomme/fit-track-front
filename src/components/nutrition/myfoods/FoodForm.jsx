@@ -10,7 +10,7 @@ export default function FoodForm({ food, close }) {
   const [file, setFile] = useState(null);
 
   const [formData, setFormData] = useState({
-    id: food ? food.id : undefined,
+    id: food && food.id,
     name: '',
     kcal: 0,
     prot: 0,
