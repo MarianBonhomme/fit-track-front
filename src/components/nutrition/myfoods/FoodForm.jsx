@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
 import { useEffect, useState } from "react";
 import { useNutrition } from "../../../utils/nutrition/NutritionContext";
+import { getColorByMacro } from '../../../utils/global/MacroService';
 
 export default function FoodForm({ food, close }) {
   const { handleAddFood, handleUpdateFood } = useNutrition();
@@ -124,7 +125,7 @@ export default function FoodForm({ food, close }) {
                   name="kcal"
                   value={formData.kcal}
                   onChange={handleChange}
-                  className='max-w-20 px-3 py-1 rounded-md bg-green text-primary font-bold'
+                  className={`max-w-20 px-3 py-1 rounded-md bg-${getColorByMacro('kcal')} text-primary font-bold`}
                   required
                   min="0"
                 />
@@ -137,7 +138,7 @@ export default function FoodForm({ food, close }) {
                   name="prot"
                   value={formData.prot}
                   onChange={handleChange}
-                  className='max-w-20 px-3 py-1 rounded-md bg-purple text-primary font-bold'
+                  className={`max-w-20 px-3 py-1 rounded-md bg-${getColorByMacro('prot')} text-primary font-bold`}
                   required
                   min="0"
                 />
@@ -150,7 +151,7 @@ export default function FoodForm({ food, close }) {
                   name="fat"
                   value={formData.fat}
                   onChange={handleChange}
-                  className='max-w-20 px-3 py-1 rounded-md bg-orange text-primary font-bold'
+                  className={`max-w-20 px-3 py-1 rounded-md bg-${getColorByMacro('fat')} text-primary font-bold`}
                   required
                   min="0"
                 />
@@ -163,7 +164,7 @@ export default function FoodForm({ food, close }) {
                   name="carb"
                   value={formData.carb}
                   onChange={handleChange}
-                  className='max-w-20 px-3 py-1 rounded-md bg-yellow text-primary font-bold'
+                  className={`max-w-20 px-3 py-1 rounded-md bg-${getColorByMacro('carb')} text-primary font-bold`}
                   required
                   min="0"
                 />

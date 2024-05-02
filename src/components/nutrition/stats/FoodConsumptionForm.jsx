@@ -5,6 +5,7 @@ import { sortFoodsByFavoritesAndInactives } from '../../../utils/nutrition/Nutri
 import MacroItem from '../global/MacroItem';
 import FoodImage from '../global/FoodImage';
 import { useUser } from '../../../utils/user/UserContext';
+import { macros } from '../../../utils/global/MacroService';
 
 export default function FoodConsumptionForm({ foodConsumption, close }) {
   const { isDarkMode } = useUser();
@@ -100,10 +101,9 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                   <div className='space-y-1'>
                     <p className='font-semibold'>{selectedFood.name}</p>
                     <div className="flex space-x-3">
-                      <MacroItem macro={'kcal'} value={selectedFood.kcal} isRounded={true} showUnity={true} />
-                      <MacroItem macro={'prot'} value={selectedFood.prot} isRounded={true} showUnity={true} />
-                      <MacroItem macro={'fat'} value={selectedFood.fat} isRounded={true} showUnity={true} />
-                      <MacroItem macro={'carb'} value={selectedFood.carb} isRounded={true} showUnity={true} />
+                      {macros.map((macro) => (
+                        <MacroItem key={macro} macro={macro} value={selectedFood[macro]} isRounded={true} showUnity={true} />
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -136,10 +136,9 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                       <p>{food.name}</p>
                     </div>
                     <div className="flex space-x-3">
-                      <MacroItem macro={'kcal'} value={food.kcal} isRounded={true} showUnity={true} />
-                      <MacroItem macro={'prot'} value={food.prot} isRounded={true} showUnity={true} />
-                      <MacroItem macro={'fat'} value={food.fat} isRounded={true} showUnity={true} />
-                      <MacroItem macro={'carb'} value={food.carb} isRounded={true} showUnity={true} />
+                      {macros.map((macro) => (
+                        <MacroItem key={macro} macro={macro} value={food[macro]} isRounded={true} showUnity={true} />
+                      ))}
                     </div>
                   </div>
                 )

@@ -4,6 +4,7 @@ import CardTitle from "../../global/CardTitle";
 import MacroPie from '../global/MacroPie';
 import MacroItem from "../global/MacroItem";
 import AddButton from './../../global/AddButton';
+import { macros } from "../../../utils/global/MacroService";
 
 export default function MacroRepartitionCard() {
   const { foodsWithTotalQuantityValidated, daysIndicatedCount } = useNutrition();
@@ -58,11 +59,10 @@ export default function MacroRepartitionCard() {
         <div className="w-full flex justify-center items-center">
           {dailyAvgMacro && (
             <div className="w-1/3 flex flex-col items-center gap-3">
-              <p className="text-sm">Daily Average</p>
-              <MacroItem macro='kcal' value={dailyAvgMacro.kcal} isRounded={false} showUnity={true} />
-              <MacroItem macro='prot' value={dailyAvgMacro.prot} isRounded={false} showUnity={true} />
-              <MacroItem macro='fat' value={dailyAvgMacro.fat} isRounded={false} showUnity={true} />
-              <MacroItem macro='carb' value={dailyAvgMacro.carb} isRounded={false} showUnity={true} />
+              <p className="text-sm">Daily Average</p>          
+              {macros.map((macro) => (
+                <MacroItem key={macro} macro={macro} value={dailyAvgMacro[macro]} isRounded={false} showUnity={true} />
+              ))}
             </div>
           )}
           {averageMacros && (

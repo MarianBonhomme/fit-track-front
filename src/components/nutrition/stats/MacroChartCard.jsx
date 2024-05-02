@@ -1,4 +1,4 @@
-import { Bar, Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import CardTitle from "../../global/CardTitle";
 import { useUser } from "../../../utils/user/UserContext";
 import { useNutrition } from "../../../utils/nutrition/NutritionContext";
@@ -6,6 +6,7 @@ import moment from 'moment';
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useState } from "react";
 import { useProfile } from "../../../utils/profile/ProfileContext";
+import { getColorByMacro, macros } from "../../../utils/global/MacroService";
 
 export default function MacroChartCard() {
   const { themeColors } = useUser();
@@ -13,7 +14,6 @@ export default function MacroChartCard() {
   const { currentMonth, incrementMonth, decrementMonth, filterFoodConsumptionsByDate } = useNutrition();
   const [activeMacro, setActiveMacro] = useState('prot');
   const [maxMacros, setMaxMacros] = useState();
-  const macros = ['kcal', 'prot', 'fat', 'carb']
 
   useEffect(() => {
     if (profile) {
@@ -35,21 +35,6 @@ export default function MacroChartCard() {
 
     return value;
   };
-
-  const getColorByMacro = (macro) => {
-    switch (macro) {
-      case 'kcal':
-        return 'green'
-      case 'prot':
-        return 'purple'
-      case 'fat':
-        return 'orange'
-      case 'carb':
-        return 'yellow'
-      default:
-        break;
-    }
-  }
 
   const data = {
     labels: currentMonth && currentMonth.map((day) => moment(day).format("DD/MM")),

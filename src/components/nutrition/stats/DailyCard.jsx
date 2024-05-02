@@ -11,6 +11,7 @@ import FlipMove from 'react-flip-move';
 import DailyMacroProgressBar from '../global/DailyMacroProgressBar';
 import { useProfile } from '../../../utils/profile/ProfileContext';
 import MacroItem from '../global/MacroItem';
+import { macros } from '../../../utils/global/MacroService';
 
 export default function DailyCard() {
   const { profile } = useProfile();
@@ -91,16 +92,14 @@ export default function DailyCard() {
           {dailyMacros && (
             <div className='flex items-center space-x-5'>
               <div className="grid grid-cols-2 gap-3">
-                <MacroItem macro={'kcal'} value={dailyMacros.kcal} isRounded={false} showUnity={true} />
-                <MacroItem macro={'fat'} value={dailyMacros.fat} isRounded={false} showUnity={true} />
-                <MacroItem macro={'prot'} value={dailyMacros.prot} isRounded={false} showUnity={true} />
-                <MacroItem macro={'carb'} value={dailyMacros.carb} isRounded={false} showUnity={true} />
+                {macros.map((macro) => (
+                  <MacroItem key={macro} macro={macro} value={dailyMacros[macro]} isRounded={false} showUnity={true} />
+                ))}
               </div>
               <div className='flex items-center space-x-3'>
-                <DailyMacroProgressBar maxValue={profile.dailyKcal} value={dailyMacros.kcal} macro={'kcal'} />
-                <DailyMacroProgressBar maxValue={profile.dailyProt} value={dailyMacros.prot} macro={'prot'} />
-                <DailyMacroProgressBar maxValue={profile.dailyFat} value={dailyMacros.fat} macro={'fat'} />
-                <DailyMacroProgressBar maxValue={profile.dailyCarb} value={dailyMacros.carb} macro={'carb'} />
+                {macros.map((macro) => (
+                  <DailyMacroProgressBar key={macro} maxValue={profile[`daily${macro.charAt(0).toUpperCase()}${macro.slice(1)}`]} value={dailyMacros[macro]} macro={macro} />
+                ))}
               </div>
             </div>
           )}

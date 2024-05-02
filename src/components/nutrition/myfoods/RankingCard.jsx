@@ -7,6 +7,7 @@ import QuantityUnity from "../global/QuantityUnity";
 import { calculateMacros } from "../../../utils/nutrition/NutritionService";
 import MacroItem from "../global/MacroItem";
 import FlipMove from "react-flip-move";
+import { getColorByMacro, macros } from "../../../utils/global/MacroService";
 
 export default function RankingCard() {
   const { foodsWithTotalQuantity } = useNutrition();
@@ -50,10 +51,9 @@ export default function RankingCard() {
         <Icon icon="maki:cross" width={15} height={15} className={`text-red cursor-pointer transition ${filter !== 'totalQuantity' ? '' : 'opacity-0'}`} onClick={() => setFilter('totalQuantity')} />
       </div>
       <div className="grid grid-cols-2 gap-3">
-        <div className={`rounded-lg text-center font-bold py-1 ${filter !== 'kcal' ? 'bg-lightPrimary text-secondary cursor-pointer' : 'bg-green text-primary'}`} onClick={() => setFilter('kcal')}>Kcal</div>
-        <div className={`rounded-lg text-center font-bold py-1 ${filter !== 'fat' ? 'bg-lightPrimary text-secondary cursor-pointer' : 'bg-orange text-primary'}`} onClick={() => setFilter('fat')}>Fat</div>
-        <div className={`rounded-lg text-center font-bold py-1 ${filter !== 'prot' ? 'bg-lightPrimary text-secondary cursor-pointer' : 'bg-purple text-primary'}`} onClick={() => setFilter('prot')}>Prot</div>
-        <div className={`rounded-lg text-center font-bold py-1 ${filter !== 'carb' ? 'bg-lightPrimary text-secondary cursor-pointer' : 'bg-yellow text-primary'}`} onClick={() => setFilter('carb')}>Carb</div>
+        {macros.map((macro) => (
+          <div key={macro} className={`rounded-lg text-center font-bold py-1 ${filter === macro ? 'bg-lightPrimary text-secondary' : `bg-${getColorByMacro(macro)} text-primary cursor-pointer`}`} onClick={() => setFilter(macro)}>{macro}</div>
+        ))}
       </div>
       <FlipMove enterAnimation="elevator" leaveAnimation="elevator">
         {rankedFoods.map((food, index) => {

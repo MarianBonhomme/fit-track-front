@@ -4,6 +4,7 @@ import { useNutrition } from '../../../utils/nutrition/NutritionContext';
 import FoodImage from '../global/FoodImage';
 import MacroItem from '../global/MacroItem';
 import MacroPie from '../global/MacroPie';
+import { macros } from '../../../utils/global/MacroService';
 
 function FoodCard({food, editBtnClicked}) {
   const { handleUpdateFood, handleDeleteFood } = useNutrition();
@@ -112,10 +113,9 @@ function FoodCard({food, editBtnClicked}) {
       </div>
       <h3 className="text-center font-bold my-3">{food.name}</h3>	
       <div className="grid grid-cols-2 gap-2">
-        <MacroItem macro={'kcal'} value={food.kcal} isRounded={false} showUnity={true} />
-        <MacroItem macro={'fat'} value={food.fat} isRounded={false} showUnity={true} />
-        <MacroItem macro={'prot'} value={food.prot} isRounded={false} showUnity={true} />
-        <MacroItem macro={'carb'} value={food.carb} isRounded={false} showUnity={true} />
+        {macros.map((macro) => (
+          <MacroItem key={macro} macro={macro} value={food[macro]} isRounded={false} showUnity={true} />
+        ))}
       </div>
     </div>
   )
