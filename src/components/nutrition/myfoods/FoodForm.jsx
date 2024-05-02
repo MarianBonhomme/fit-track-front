@@ -4,13 +4,13 @@ import { useNutrition } from "../../../utils/nutrition/NutritionContext";
 import { getColorByMacro } from '../../../utils/global/MacroService';
 
 export default function FoodForm({ food, close }) {
-  const { handleAddFood, handleUpdateFood } = useNutrition();
+  const { handleAddFood, handleUpdateFood, handleDeleteFood } = useNutrition();
   const [isProportionInputVisible, setIsProportionInputVisible] = useState(food?.unity === 'Portion')
   const [isFormValid, setIsFormValid] = useState(false);
   const [file, setFile] = useState(null);
 
   const [formData, setFormData] = useState({
-    id: 0,
+    id: food ? food.id : undefined,
     name: '',
     kcal: 0,
     prot: 0,
@@ -85,6 +85,13 @@ export default function FoodForm({ food, close }) {
     }
 	  close();
 	};
+
+  const deleteFood = () => {
+    const confirm = window.confirm("Are your sure to delete this food ? All stats and data associated with will be deleted.")
+    if (confirm) {
+      handleDeleteFood(food);
+    }
+  }
 
   return (
     <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-50'>
@@ -203,7 +210,10 @@ export default function FoodForm({ food, close }) {
             </div>
           </div>          
         </div>
-        <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 text-sm rounded-3xl mt-10 ${!isFormValid && 'brightness-90'}`}>Confirm</button>
+        <div className='flex items-center justify-center gap-3'>
+          {food && <button type="submit" disabled={!isFormValid} className={`font-bold bg-red text-primary px-5 py-3 text-sm rounded-3xl mt-10 ${!isFormValid && 'brightness-90'}`} onClick={deleteFood}>Delete</button>}
+          <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 text-sm rounded-3xl mt-10 ${!isFormValid && 'brightness-90'}`}>Confirm</button>
+        </div>
       </form>
     </div>
   )
