@@ -9,7 +9,7 @@ export default function NutritionDashboard() {
   const [activeTab, setActiveTab] = useState('stats');
 
   return (
-    <div className='p-5'>
+    <div className='p-3 sm:p-5'>
       <div className='flex justify-between'>
         <ul className='flex font-bold'>
           <li className={`${activeTab === 'stats' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActiveTab('stats')} >Statistics</li>

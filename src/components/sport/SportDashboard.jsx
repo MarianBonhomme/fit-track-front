@@ -15,7 +15,7 @@ export default function SportPage() {
 
   return (
     <>
-      <div className='p-5'>
+      <div className='p-3 sm:p-5'>
         <div className='flex justify-between items-start'>
           <ul className='flex font-bold'>
             <li className={`${activeTab === 'calendar' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActiveTab('calendar')} >Calendar</li>

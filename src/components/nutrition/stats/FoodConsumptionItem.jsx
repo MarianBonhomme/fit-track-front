@@ -19,7 +19,7 @@ export default function FoodConsumptionItem({consumption, clicked}) {
   return (
     <div className="flex justify-between p-3 sm:p-5 max-sm:gap-3">
       <div className='flex items-center gap-3 sm:gap-5 cursor-pointer' onClick={clicked}>
-        <FoodImage image={consumption.food.image} size="md" />
+        <FoodImage image={consumption.food.image} size="lg" />
         <div>
           <p className='font-bold'>{consumption.food.name}</p>
           <QuantityUnity quantity={consumption.quantity} unity={consumption.food.unity} />

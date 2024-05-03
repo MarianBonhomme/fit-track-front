@@ -27,7 +27,7 @@ export default function StatsTab() {
         <DailyCard />
       </div>
       <div className="w-full sm:w-2/3 flex max-sm:flex-col gap-5 sticky top-20">
-        <div className='w-full sm:w-2/3 grid gap-5'>
+        <div className='w-full sm:w-2/3 flex flex-col sm:grid gap-5'>
           <MacroChartCard />
           <CalendarCard />
         </div>
