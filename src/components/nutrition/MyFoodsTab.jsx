@@ -40,8 +40,8 @@ export default function MyFoodsTab() {
   }
 
   return (
-    <div className='w-full flex gap-5'>
-      <div className='w-3/4'>
+    <div className='w-full flex max-sm:flex-col gap-5'>
+      <div className='w-full sm:w-3/4'>
         <div className='w-full flex justify-between items-center bg-primary p-5 rounded-3xl'>
           <AddButton clicked={() => openFoodForm(null)} css="h-10 w-10 p-3" />
           <div className='flex items-center gap-3'>
@@ -55,7 +55,7 @@ export default function MyFoodsTab() {
             <Icon icon="maki:cross" width={15} height={15} className={`text-red cursor-pointer transition ${searchQuery ? '' : 'opacity-0'}`} onClick={() => setSearchQuery('')} />
           </div>
         </div>
-        <div className='flex flex-wrap gap-x-5'>
+        <div className='flex flex-wrap max-sm:justify-center gap-x-5'>
           {filteredFoods && (
             filteredFoods.map((food) => (
               <FoodCard food={food} key={food.id} editBtnClicked={() => openFoodForm(food)} />
@@ -66,7 +66,7 @@ export default function MyFoodsTab() {
           <FoodForm food={foodToUpdate} close={() => setIsFoodFormDisplayed(false)}/>
         )}
       </div>
-      <div className="w-1/4">
+      <div className="w-full sm:w-1/4">
         <RankingCard />
       </div>
     </div>
