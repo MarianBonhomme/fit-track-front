@@ -69,11 +69,10 @@ export default function DailyCard() {
 
   return (
     <>
-      <div className="bg-primary px-4 py-3 rounded-3xl rounded-tl-none relative">
+      <div className="bg-primary max-sm:p-3 sm:px-4 sm:py-3 rounded-3xl rounded-tl-none relative">
         <div className="flex justify-between items-center">
-          <div className={`flex items-center gap-2 ${currentDate && getFullDate(currentDate) === 'Today' ? 'opacity-0' : 'cursor-pointer'}`} onClick={() => setCurrentDate(new Date())}>
+          <div className={`${currentDate && getFullDate(currentDate) === 'Today' ? 'opacity-0' : 'cursor-pointer'}`} onClick={() => setCurrentDate(new Date())}>
             <Icon icon="ion:calendar" width="25" height="25" className='text-blue' />
-            <p className='text-sm/3'>Today</p>
           </div>
           <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={decrementCurrentDate} />
           <CardTitle text={currentDate && getFullDate(currentDate)} />
@@ -90,7 +89,7 @@ export default function DailyCard() {
         </div>
         <div className="flex justify-center items-center gap-5 mt-5">
           {dailyMacros && (
-            <div className='flex items-center space-x-5'>
+            <div className='flex max-sm:flex-col-reverse items-center gap-5'>
               <div className="grid grid-cols-2 gap-3">
                 {macros.map((macro) => (
                   <MacroItem key={macro} macro={macro} value={dailyMacros[macro]} isRounded={false} showUnity={true} />
@@ -104,7 +103,7 @@ export default function DailyCard() {
             </div>
           )}
         </div>
-        <AddButton clicked={() => openFoodConsumptionForm()} css='w-full mt-5 h-20 mx-auto'/>
+        <AddButton clicked={() => openFoodConsumptionForm()} css='w-full mt-5 h-14 sm:h-20 mx-auto'/>
         {sortedDailyFoodConsumptions && sortedDailyFoodConsumptions.length > 0 && (
           <FlipMove className='divide-y divide-lightPrimary'>
             {sortedDailyFoodConsumptions.map((consumption) => (

@@ -17,17 +17,17 @@ export default function FoodConsumptionItem({consumption, clicked}) {
   }, [consumption]);
 
   return (
-    <div className="flex justify-between p-5">
-      <div className='flex items-center gap-5 cursor-pointer' onClick={clicked}>
+    <div className="flex justify-between p-3 sm:p-5 max-sm:gap-3">
+      <div className='flex items-center gap-3 sm:gap-5 cursor-pointer' onClick={clicked}>
         <FoodImage image={consumption.food.image} size="md" />
         <div>
           <p className='font-bold'>{consumption.food.name}</p>
           <QuantityUnity quantity={consumption.quantity} unity={consumption.food.unity} />
         </div>
       </div>
-      <div className="flex gap-5 items-center">
+      <div className="flex gap-3 sm:gap-5 items-center">
         {consumptionMacros && (
-          <div className="flex space-x-3">            
+          <div className="grid grid-cols-2 sm:flex gap-1 sm:gap-3">            
             {macros.map((macro) => (
               <MacroItem key={macro} macro={macro} value={consumptionMacros[macro]} isRounded={true} />
             ))}

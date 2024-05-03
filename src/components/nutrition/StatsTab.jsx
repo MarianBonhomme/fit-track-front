@@ -22,16 +22,16 @@ export default function StatsTab() {
 }
 
   return (
-    <div className="sm:flex items-start gap-5 rounded-tl-none rounded-3xl relative">
-      <div className='sm:w-1/3'>
+    <div className="flex max-sm:flex-col items-start gap-5 rounded-tl-none rounded-3xl relative">
+      <div className='w-full sm:w-1/3'>
         <DailyCard />
       </div>
-      <div className="sm:w-2/3 flex gap-5 sticky top-20">
-        <div className='sm:w-2/3 grid gap-5'>
+      <div className="w-full sm:w-2/3 flex max-sm:flex-col gap-5 sticky top-20">
+        <div className='w-full sm:w-2/3 grid gap-5'>
           <MacroChartCard />
           <CalendarCard />
         </div>
-        <div className="sm:w-1/3 grid gap-5">
+        <div className="w-full sm:w-1/3 grid gap-5">
           <MacroRepartitionCard />
           <div className='grid grid-cols-2 gap-5'>
             {foodsForCountCards && foodsForCountCards.map((food, index) => (
