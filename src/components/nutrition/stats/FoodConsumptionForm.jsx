@@ -88,10 +88,10 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
   }
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-start pt-20 z-50'>
-      <div className={`w-full max-w-xl p-10 relative rounded-2xl ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`}>
-        <Icon icon="maki:cross" width={25} height={25} className="absolute right-10 top-10 text-red cursor-pointer" onClick={close} />
-        <h3 className='text-center font-bold mb-10'>{foodConsumption ? 'Update FoodConsumption' : 'Create New FoodConsumption'}</h3>
+    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center sm:items-start p-5 sm:pt-20 z-50'>
+      <div className={`w-full max-w-xl px-3 py-5 sm:p-10 relative rounded-2xl ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`}>
+        <Icon icon="maki:cross" className="absolute top-5 right-5 sm:right-10 sm:top-10 text-red cursor-pointer size-[20px] sm:size-[25px]" onClick={close} />
+        <h3 className='text-center font-bold mb-5 sm:mb-10'>{foodConsumption ? 'Update FoodConsumption' : 'Add Consumption'}</h3>
         <div className={`px-5 rounded-xl relative ${isDarkMode ? 'bg-lightPrimary' : 'bg-primary'}`}>
           <div className='w-full flex justify-between items-center gap-5 py-3'>
             {selectedFood ? (
@@ -107,7 +107,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                     </div>
                   </div>
                 </div>
-                <div className='flex flex-col items-center gap-3'>
+                <div className='max-sm:hidden flex flex-col items-center gap-3'>
                   <p>Quantity</p>
                   <input 
                     type="number" 
@@ -123,30 +123,59 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
               <p className='text-center text-gray font-bold'>Select food</p>
             )}
             {!foodConsumption && (
-              <Icon icon="ion:chevron-up" width="25" height="25" className={`transition ${isFoodsListVisible ? '' : 'rotate-180'} cursor-pointer`}  onClick={() => setIsFoodsListVisible(!isFoodsListVisible)}/>
+              <>
+                <Icon icon="ion:chevron-up" width="25" height="25" className={`transition ${isFoodsListVisible ? '' : 'rotate-180'} cursor-pointer max-sm:hidden`}  onClick={() => setIsFoodsListVisible(!isFoodsListVisible)}/>
+                <Icon icon="ion:chevron-up" width="25" height="25" className={`transition ${isFoodsListVisible ? '' : 'rotate-180'} cursor-pointer absolute top-3 right-3 sm:hidden`}  onClick={() => setIsFoodsListVisible(!isFoodsListVisible)}/>
+              </>
             )}
-          </div>
+          </div>          
+          {selectedFood && (
+            <div className='flex sm:hidden flex-col items-center gap-1 pb-3'>
+              <p>Quantity</p>
+              <input 
+                type="number" 
+                className={`max-w-20 px-3 py-1 rounded-md ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`} 
+                value={quantity} 
+                onChange={handleChangeQuantity}   
+                required                 
+                min="1"
+              />
+            </div>
+          )}
           {isFoodsListVisible && (
             <div className='w-full relative top-full h-[50dvh] overflow-y-scroll hide-scrollbar'>
               {sortedFoods && sortedFoods.map((food) => {
                 return ( food.is_active &&
-                  <div key={food.id} className={`flex items-center justify-between gap-3 p-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
-                    <div className='flex space-x-5 items-center'>
-                      <FoodImage image={food.image} size="md" />
-                      <p>{food.name}</p>
+                  <>
+                    <div key={food.id} className={`max-sm:hidden flex items-center justify-between gap-3 p-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
+                      <div className='flex gap-5 items-center'>
+                        <FoodImage image={food.image} size="md" />
+                        <p>{food.name}</p>
+                      </div>
+                      <div className="flex gap-3">
+                        {macros.map((macro) => (
+                          <MacroItem key={macro} macro={macro} value={food[macro]} isRounded={true} showUnity={true} />
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex space-x-3">
-                      {macros.map((macro) => (
-                        <MacroItem key={macro} macro={macro} value={food[macro]} isRounded={true} showUnity={true} />
-                      ))}
+                    <div key={food.id} className={`flex sm:hidden items-center justify-between gap-3 py-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
+                      <FoodImage image={food.image} size="lg" />
+                      <div>
+                        <p className='mb-1'>{food.name}</p>
+                        <div className="flex gap-3">
+                          {macros.map((macro) => (
+                            <MacroItem key={macro} macro={macro} value={food[macro]} isRounded={true} showUnity={true} />
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </>
                 )
               })}
             </div>     
           )}
         </div>
-        <button type="submit" disabled={!isFormValid} className={`flex font-bold bg-blue text-primary px-5 py-3 rounded-3xl mt-10 mx-auto transition ${!isFormValid && 'brightness-90'}`} onClick={handleSubmit}>Confirm</button>
+        <button type="submit" disabled={!isFormValid} className={`flex font-bold bg-blue text-primary px-5 py-3 rounded-3xl mt-5 sm:mt-10 mx-auto transition ${!isFormValid && 'brightness-90'}`} onClick={handleSubmit}>Confirm</button>
       </div>
     </div>
   )
