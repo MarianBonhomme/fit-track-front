@@ -25,26 +25,22 @@ export default function Sidebar() {
   }
 
   return (
-    <nav className="h-screen w-[80px] bg-primary fixed top-0 left-0 z-40 flex flex-col justify-between items-center py-10">
-      <div className="flex flex-col gap-10">
+    <nav className="h-[70px] sm:h-screen max-sm:w-screen sm:w-[80px] bg-primary fixed bottom-0 sm:top-0 left-0 z-40 flex sm:flex-col justify-between items-center max-sm:px-10 sm:py-10">
+      <div className="flex sm:flex-col gap-10">
         <Icon
           icon="fa-solid:apple-alt"
-          width={35}
-          height={35}
-          className="text-green cursor-pointer"
+          className="text-green cursor-pointer size-[35px]"
           onClick={() => setActiveDashboard("nutrition")}
         />
         <Icon
           icon="material-symbols:fitness-center-rounded"
-          width={35}
-          height={35}
-          className="text-purple cursor-pointer"
+          className="text-purple cursor-pointer size-[35px]"
           onClick={() => setActiveDashboard("sport")}
         />
       </div>
-      <div className="flex flex-col items-center gap-10">
+      <div className="flex sm:flex-col items-center gap-10">
         <div className="relative">
-          <AvatarColor avatar={profileAvatar} color={profileColor} clicked={() => setIsVisible(!isVisible)} colorSize={'md'} avatarSize={'xs'} />  
+          <AvatarColor avatar={profileAvatar} color={profileColor} clicked={() => setIsVisible(!isVisible)} colorSize={'md'} avatarSize={'xs'} />
           {isVisible && 
             <div className="rounded-2xl bg-primary px-3 absolute left-full translate-x-6 -top-1/2">
               {userProfiles && userProfiles.map((profile) => (
@@ -58,9 +54,7 @@ export default function Sidebar() {
         </div>    
         <Icon
           icon="fluent:settings-24-filled"
-          width={35}
-          height={35}
-          className="text-gray cursor-pointer"
+          className="text-gray cursor-pointer size-[35px]"
           onClick={() => setActiveDashboard('user')}
         />   
       </div>

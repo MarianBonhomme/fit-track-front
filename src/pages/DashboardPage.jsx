@@ -27,7 +27,7 @@ function DashboardPageContent() {
   return (
     <>
       <Sidebar />
-      <div className="pl-[80px]">
+      <div className="sm:pl-[80px]">
         {activeDashboard === "nutrition" && 
           <NutritionProvider>
             <NutritionContent />
