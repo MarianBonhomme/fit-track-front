@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSport } from '../../../utils/sport/SportContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { useUser } from '../../../utils/user/UserContext';
 import moment from 'moment';
 import AddButton from './../../global/AddButton';
 import PatternIndicator from './PatternIndicator';
@@ -68,7 +67,7 @@ export default function TrainingForm() {
   }
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-30'>
+    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-50'>
       <form onSubmit={handleSubmit} className='w-full max-w-xl flex flex-col items-center bg-primary p-10 relative rounded-2xl'>
         <Icon icon="maki:cross" width={25} height={25} className="absolute right-10 top-10 text-red cursor-pointer z-50" onClick={closeTrainingForm} />
         <div className='flex flex-col items-center relative gap-10'>

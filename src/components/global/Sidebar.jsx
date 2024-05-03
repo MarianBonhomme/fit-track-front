@@ -25,7 +25,7 @@ export default function Sidebar() {
   }
 
   return (
-    <nav className="h-screen flex flex-col justify-between items-center py-10 relative">
+    <nav className="h-screen w-[80px] bg-primary fixed top-0 left-0 z-40 flex flex-col justify-between items-center py-10">
       <div className="flex flex-col gap-10">
         <Icon
           icon="fa-solid:apple-alt"
