@@ -94,11 +94,11 @@ export default function FoodForm({ food, close }) {
   }
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-50'>
-      <form onSubmit={handleSubmit} className='w-full max-w-xl flex flex-col items-center bg-primary p-10 relative rounded-2xl'>
-        <Icon icon="maki:cross" width={25} height={25} className="absolute right-10 top-10 text-red cursor-pointer" onClick={close} />
-        <Icon icon="solar:star-bold" width={25} height={25} className={`absolute left-10 top-10 text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />  
-        <h3 className='font-bold mb-10'>{food ? 'Update Food' : 'Create New Food'}</h3>
+    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center sm:items-start p-5 sm:pt-20 z-50'>
+      <form onSubmit={handleSubmit} className='w-full max-w-xl flex flex-col items-center bg-primary px-3 py-5 sm:p-10 relative rounded-2xl'>
+        <Icon icon="maki:cross" className="absolute top-5 right-5 sm:right-10 sm:top-10 text-red cursor-pointer size-[20px] sm:size-[25px]" onClick={close} />
+        <Icon icon="solar:star-bold" className={`absolute top-5 left-5 sm:right-10 sm:top-10 size-[20px] sm:size-[25px] text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />  
+        <h3 className='font-bold mb-10'>{food ? 'Update Food' : 'Create Food'}</h3>
         <div className='w-full flex flex-col items-center relative gap-10'>     
           <div className='flex flex-col relative'>
             <label htmlFor="image">Image</label>
@@ -123,7 +123,7 @@ export default function FoodForm({ food, close }) {
             />
           </div>
           <div className='flex flex-col items-center'>
-            <div className="flex gap-5">
+            <div className="grid grid-cols-2 sm:flex gap-3 sm:gap-5">
               <div className='flex flex-col'>
                 <label htmlFor="kcal">Kcals</label>
                 <input
@@ -177,7 +177,7 @@ export default function FoodForm({ food, close }) {
                 />
               </div>
             </div>
-            <p className='mt-2 text-gray font-bold'>Toutes les quantités sont à renseigner pour 100g</p>
+            <p className='mt-2 text-center text-gray font-bold'>Toutes les quantités sont à renseigner pour 100g</p>
           </div>
           <div className="flex gap-5">
             <div className='flex flex-col'>
