@@ -69,7 +69,7 @@ export default function DailyCard() {
 
   return (
     <>
-      <div className="bg-primary max-sm:p-3 sm:px-4 sm:py-3 rounded-3xl rounded-tl-none relative">
+      <div className="bg-primary max-sm:p-3 sm:px-4 sm:py-3 rounded-3xl sm:rounded-tl-none relative">
         <div className="flex justify-between items-center">
           <div className={`${currentDate && getFullDate(currentDate) === 'Today' ? 'opacity-0' : 'cursor-pointer'}`} onClick={() => setCurrentDate(new Date())}>
             <Icon icon="ion:calendar" width="25" height="25" className='text-blue' />

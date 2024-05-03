@@ -72,7 +72,7 @@ export default function CalendarCard() {
   };
 
   return (
-    <div className="flex max-sm:flex-col bg-primary px-5 py-3 rounded-3xl text-center gap-5">
+    <div className="flex max-sm:flex-col bg-primary px-5 py-3 rounded-3xl max-sm:rounded-ss-none text-center gap-5">
       <div className="sm:w-1/4 flex flex-col justify-evenly">
         <Streaks />
       </div>
