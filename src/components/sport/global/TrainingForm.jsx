@@ -67,7 +67,7 @@ export default function TrainingForm() {
   }
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center sm:items-start p-5 sm:pt-20 z-50'>
+    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center sm:items-start p-5 sm:pt-20 z-40'>
       <form onSubmit={handleSubmit} className='w-full max-w-xl flex flex-col items-center bg-primary px-3 py-5 sm:p-10 relative rounded-2xl'>
         <Icon icon="maki:cross" className="absolute top-5 right-5 sm:right-10 sm:top-10 text-red cursor-pointer size-[20px] sm:size-[25px]" onClick={closeTrainingForm} />
         <h3 className='font-bold mb-5 sm:mb-10'>Add Training</h3>
@@ -82,18 +82,18 @@ export default function TrainingForm() {
                 <p className='text-center text-gray font-bold'>Select program</p>
               )}
               {(!trainingFormData.training && !trainingFormData.programId) && (
-                <Icon icon="ion:chevron-up" width="25" height="25" className={`transition ${isProgramsListVisible ? '' : 'rotate-180'} cursor-pointer`}  onClick={() => setIsProgramsListVisible(!isProgramsListVisible)}/>
+                <Icon icon="ion:chevron-up" width={25} height={25} className={`transition ${isProgramsListVisible ? '' : 'rotate-180'} cursor-pointer`}  onClick={() => setIsProgramsListVisible(!isProgramsListVisible)}/>
               )}
             </div>
             {isProgramsListVisible && (
               <div className='w-full absolute top-full left-0 overflow-y-scroll hide-scrollbar bg-lightPrimary rounded-2xl z-50'>
-                <div className='flex justify-center items-center gap-3 cursor-pointer' onClick={openProgramForm}>
-                  <AddButton css={'h-14'} />
-                  <p className='text-gray font-bold'>New Program</p>
+                <div className='flex justify-center items-center gap-3 cursor-pointer max-sm:py-3' onClick={openProgramForm}>
+                  <AddButton css={'sm:h-14'} />
+                  <p className='text-gray max-sm:text-sm font-bold'>New Program</p>
                 </div>
                 {programs && programs.map((program) => {
                   return ( !program.is_completed &&
-                    <div key={program.id} className={`p-5 border-t border-primary cursor-pointer relative`} onClick={() => selectProgram(program)}>
+                    <div key={program.id} className={`pl-5 p-3 sm:p-5 border-t border-primary cursor-pointer relative`} onClick={() => selectProgram(program)}>
                       <PatternIndicator pattern={program.pattern} />
                       {program.name}
                     </div>
