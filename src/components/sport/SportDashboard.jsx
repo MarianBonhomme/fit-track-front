@@ -19,8 +19,8 @@ export default function SportPage() {
       <div className='p-3 sm:p-5'>
         <div className='flex justify-between items-start'>
           <ul className='flex font-bold'>
-            <li className={`${activeTab === 'calendar' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl sm:py-5 sm:px-10`} onClick={() => setActiveTab('calendar')} >Calendar</li>
-            <li className={`${activeTab === 'programs' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl sm:py-3 sm:px-10 flex gap-5 items-center`} onClick={() => setActiveTab('programs')} >
+            <li className={`${activeTab === 'calendar' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-4 px-6 sm:py-5 sm:px-10`} onClick={() => setActiveTab('calendar')} >Calendar</li>
+            <li className={`${activeTab === 'programs' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-2 px-6 sm:py-3 sm:px-10 flex gap-5 items-center`} onClick={() => setActiveTab('programs')} >
               Programs
               <AddButton css={'w-8 h-8 p-2'} clicked={openProgramForm} />
             </li>
