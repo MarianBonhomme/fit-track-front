@@ -56,7 +56,7 @@ export default function ProgramForm() {
       <form onSubmit={handleSubmit} className='w-full max-w-xl flex flex-col items-center bg-primary px-3 py-5 sm:p-10 relative rounded-2xl'>
         <Icon icon="maki:cross" className="absolute top-5 right-5 sm:right-10 sm:top-10 text-red cursor-pointer size-[20px] sm:size-[25px]" onClick={closeProgramForm} />
         <Icon icon="solar:star-bold" className={`absolute top-5 left-5 sm:right-10 sm:top-10 size-[20px] sm:size-[25px] text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />   
-        <h3 className='font-bold mb-10'>Create New Program</h3>
+        <h3 className='font-bold mb-5 sm:mb-10'>Create New Program</h3>
         <div className='w-full flex flex-col items-center relative gap-5'>   
           <div className='flex flex-col relative'>
             <label htmlFor="name">Name</label>
@@ -83,9 +83,9 @@ export default function ProgramForm() {
           </div> 
           <Patterns programPattern={formData.pattern} clicked={handlePatternClick} />
         </div>
-        <div className='flex items-center justify-center gap-5'>
-          {programFormData.name && (<button type='button' className={`font-bold bg-red text-primary px-5 py-3 text-sm rounded-3xl mt-10`} onClick={deleteProgram}>Delete</button>)}
-          <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 text-sm rounded-3xl mt-10 ${!isFormValid && 'brightness-75'}`}>Confirm</button>
+        <div className='flex items-center justify-center gap-5 mt-5 sm:mt-10'>
+          {programFormData.name && (<button type='button' className={`font-bold bg-red text-primary px-5 py-3 text-sm rounded-3xl`} onClick={deleteProgram}>Delete</button>)}
+          <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 text-sm rounded-3xl ${!isFormValid && 'brightness-75'}`}>Confirm</button>
         </div>
       </form>
     </div>

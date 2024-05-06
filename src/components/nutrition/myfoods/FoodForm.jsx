@@ -98,8 +98,8 @@ export default function FoodForm({ food, close }) {
       <form onSubmit={handleSubmit} className='w-full max-w-xl flex flex-col items-center bg-primary px-3 py-5 sm:p-10 relative rounded-2xl'>
         <Icon icon="maki:cross" className="absolute top-5 right-5 sm:right-10 sm:top-10 text-red cursor-pointer size-[20px] sm:size-[25px]" onClick={close} />
         <Icon icon="solar:star-bold" className={`absolute top-5 left-5 sm:right-10 sm:top-10 size-[20px] sm:size-[25px] text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />  
-        <h3 className='font-bold mb-10'>{food ? 'Update Food' : 'Create Food'}</h3>
-        <div className='w-full flex flex-col items-center relative gap-10'>     
+        <h3 className='font-bold mb-5 sm:mb-10'>{food ? 'Update Food' : 'Create Food'}</h3>
+        <div className='w-full flex flex-col items-center relative gap-5'>     
           <div className='flex flex-col relative'>
             <label htmlFor="image">Image</label>
             <input
@@ -210,9 +210,9 @@ export default function FoodForm({ food, close }) {
             </div>
           </div>          
         </div>
-        <div className='flex items-center justify-center gap-3'>
-          {food && <button type="submit" disabled={!isFormValid} className={`font-bold bg-red text-primary px-5 py-3 text-sm rounded-3xl mt-10 ${!isFormValid && 'brightness-90'}`} onClick={deleteFood}>Delete</button>}
-          <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 text-sm rounded-3xl mt-10 ${!isFormValid && 'brightness-90'}`}>Confirm</button>
+        <div className='flex items-center justify-center gap-3 mt-5 sm:mt-10'>
+          {food && <button type="submit" disabled={!isFormValid} className={`font-bold bg-red text-primary px-5 py-3 text-sm rounded-3xl ${!isFormValid && 'brightness-90'}`} onClick={deleteFood}>Delete</button>}
+          <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 text-sm rounded-3xl ${!isFormValid && 'brightness-90'}`}>Confirm</button>
         </div>
       </form>
     </div>
