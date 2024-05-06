@@ -22,23 +22,23 @@ export default function StatsTab() {
 }
 
   return (
-    <div className="flex max-sm:flex-col items-start gap-5 rounded-tl-none rounded-3xl relative">
+    <div className="flex max-sm:flex-col items-start gap-3 sm:gap-5 rounded-tl-none rounded-3xl relative">
       <div className='sm:hidden'>
         <CalendarCard />
       </div>
       <div className='w-full sm:w-1/3'>
         <DailyCard />
       </div>
-      <div className="w-full sm:w-2/3 flex max-sm:flex-col gap-5 sticky top-20">
+      <div className="w-full sm:w-2/3 flex max-sm:flex-col gap-3 sm:gap-5 sticky top-20">
         <div className='w-full sm:w-2/3 flex flex-col sm:grid gap-5'>
           <MacroChartCard />
           <div className='max-sm:hidden'>
             <CalendarCard />
           </div>
         </div>
-        <div className="w-full sm:w-1/3 grid gap-5">
+        <div className="w-full sm:w-1/3 grid gap-3 sm:gap-5">
           <MacroRepartitionCard />
-          <div className='grid grid-cols-2 gap-5'>
+          <div className='grid grid-cols-2 gap-3 sm:gap-5'>
             {foodsForCountCards && foodsForCountCards.map((food, index) => (
               <CountCard key={food.id} food={food} color={getColor(index)} />
             ))}

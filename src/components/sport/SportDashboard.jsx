@@ -7,6 +7,7 @@ import AddButton from './../global/AddButton';
 import TrainingForm from './global/TrainingForm';
 import { useSport } from '../../utils/sport/SportContext';
 import ProgramForm from './global/ProgramForm';
+import ProfileIcon from '../user/ProfileIcon';
 
 export default function SportPage() {  
   const { isDarkMode, toggleDarkMode } = useUser();
@@ -18,17 +19,22 @@ export default function SportPage() {
       <div className='p-3 sm:p-5'>
         <div className='flex justify-between items-start'>
           <ul className='flex font-bold'>
-            <li className={`${activeTab === 'calendar' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-5 px-10`} onClick={() => setActiveTab('calendar')} >Calendar</li>
-            <li className={`${activeTab === 'programs' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-3 px-10 flex gap-5 items-center`} onClick={() => setActiveTab('programs')} >
+            <li className={`${activeTab === 'calendar' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl sm:py-5 sm:px-10`} onClick={() => setActiveTab('calendar')} >Calendar</li>
+            <li className={`${activeTab === 'programs' ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl sm:py-3 sm:px-10 flex gap-5 items-center`} onClick={() => setActiveTab('programs')} >
               Programs
               <AddButton css={'w-8 h-8 p-2'} clicked={openProgramForm} />
             </li>
           </ul>
-          <DarkModeSwitch
-            checked={isDarkMode}
-            onChange={toggleDarkMode}
-            size={30}
-          />
+          <div className='sm:flex items-center justify-center gap-5'>
+            <div className='max-sm:hidden'>
+              <DarkModeSwitch
+                checked={isDarkMode}
+                onChange={toggleDarkMode}
+                size={35}
+              />
+            </div>
+            <ProfileIcon />
+          </div>
         </div>
         {activeTab === 'calendar' && (
           <CalendarTab />
