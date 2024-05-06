@@ -10,6 +10,7 @@ export const SportProvider = ({ children }) => {
   const [sportLoading, setSportLoading] = useState(true);
   const [programs, setPrograms] = useState([]);
   const [trainings, setTrainings] = useState([]);
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [currentWeek, setCurrentWeek] = useState([]);
   const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false);
   const [trainingFormData, setTrainingFormData] = useState(null);
@@ -59,6 +60,18 @@ export const SportProvider = ({ children }) => {
       prevWeek.map(day => moment(day).subtract(1, 'week').toDate())
     );
   }
+  
+  const incrementCurrentDate = () => {
+    const nextDay = new Date(currentDate);
+    nextDay.setDate(currentDate.getDate() + 1);
+    setCurrentDate(nextDay);
+  };
+
+  const decrementCurrentDate = () => {
+    const prevDay = new Date(currentDate);
+    prevDay.setDate(currentDate.getDate() - 1);
+    setCurrentDate(prevDay);
+  };
 
   const openTrainingForm = (date, programId, training) => {
     const trainingFormData = {
@@ -223,6 +236,9 @@ export const SportProvider = ({ children }) => {
         currentWeek,
         incrementWeek,
         decrementWeek,
+        currentDate,
+        incrementCurrentDate,
+        decrementCurrentDate,
         trainingFormData,
         isTrainingFormDisplayed,
         openTrainingForm,
