@@ -119,12 +119,12 @@ export default function ProgramJourney({program}) {
       </div>        
       <div className='sm:hidden'>   
         <div className="flex justify-between mb-1">
-          {program.state === "COMPLETED" ? (
-            <Icon icon="iconamoon:restart-bold" width="30" height="30" className='text-purple' onClick={restartProgram} />
-          ) : program.state === "ONGOING" && (
-            <Icon icon="heroicons:stop-circle-16-solid" width="30" height="30" className='text-orange' onClick={stopProgram} />
-          )}
           <div class="flex gap-x-3">
+            {program.state === "COMPLETED" ? (
+              <Icon icon="iconamoon:restart-bold" width="30" height="30" className='text-purple' onClick={restartProgram} />
+            ) : program.state === "ONGOING" && (
+              <Icon icon="heroicons:stop-circle-16-solid" width="30" height="30" className='text-orange' onClick={stopProgram} />
+            )}
             {program.state !== "INITIAL" && 
               <StartingDate date={getShortDate(new Date(firstTraining.date))} />
             }
@@ -139,7 +139,7 @@ export default function ProgramJourney({program}) {
             </div>
           )}
         </div>
-        <div className="flex items-center gap-3 cursor-pointer mb-3">   
+        <div className="flex items-center cursor-pointer mb-3">   
           <div onClick={() => openProgramForm(program)}>
             <p className="font-bold">{program.name}</p>
             <p className='text-sm'>{program.description}</p>

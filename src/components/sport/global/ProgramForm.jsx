@@ -52,10 +52,10 @@ export default function ProgramForm() {
   }
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center z-50'>
-      <form onSubmit={handleSubmit} className='w-full max-w-xl flex flex-col items-center bg-primary p-10 relative rounded-2xl'>
-        <Icon icon="maki:cross" width={25} height={25} className="absolute right-10 top-10 text-red cursor-pointer" onClick={closeProgramForm} />
-        <Icon icon="solar:star-bold" width={25} height={25} className={`absolute left-10 right-10 text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />   
+    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center sm:items-start p-5 sm:pt-20 z-50'>
+      <form onSubmit={handleSubmit} className='w-full max-w-xl flex flex-col items-center bg-primary px-3 py-5 sm:p-10 relative rounded-2xl'>
+        <Icon icon="maki:cross" className="absolute top-5 right-5 sm:right-10 sm:top-10 text-red cursor-pointer size-[20px] sm:size-[25px]" onClick={closeProgramForm} />
+        <Icon icon="solar:star-bold" className={`absolute top-5 left-5 sm:right-10 sm:top-10 size-[20px] sm:size-[25px] text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />   
         <h3 className='font-bold mb-10'>Create New Program</h3>
         <div className='w-full flex flex-col items-center relative gap-5'>   
           <div className='flex flex-col relative'>
@@ -109,7 +109,7 @@ function Patterns({programPattern, clicked}) {
   }
 
   return (
-    <div className='flex items-center justify-center gap-3'>
+    <div className='flex max-sm:flex-wrap items-center justify-center gap-3'>
       {patterns.map((pattern) => (
         <div onClick={() => clicked(pattern)} className={`px-5 py-2 rounded-lg capitalize ${programPattern === pattern ? `${getBackgroundByPattern(pattern)} cursor-default text-primary font-semibold` : 'bg-lightPrimary text-secondary cursor-pointer'}`}>{pattern}</div>
       ))}
