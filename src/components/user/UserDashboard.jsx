@@ -9,7 +9,7 @@ import { useUser } from '../../utils/user/UserContext';
 
 export default function UserDashboard() {
   const { isDarkMode, toggleDarkMode } = useUser();
-  const { userProfiles, profile, profileAvatar, profileColor, avatars, colors, handleUpdateProfile } = useProfile();
+  const { profile, profileAvatar, profileColor, avatars, colors, handleUpdateProfile } = useProfile();
 
   const changeAvatar = (avatar) => {
     const updatedProfile = { ...profile, avatar_id: avatar.id }
@@ -20,16 +20,6 @@ export default function UserDashboard() {
     const updatedProfile = { ...profile, color_id: color.id }
     handleUpdateProfile(updatedProfile)
   } 
-
-  const getAvatarById = (avatarId) => {
-    const avatar = avatars.find(avatar => avatar.id === avatarId);
-    return avatar
-  }
-
-  const getColorById = (colorId) => {
-    const color = colors.find(color => color.id === colorId);
-    return color
-  }
 
   return ( 
     <div className="grid sm:grid-cols-2 gap-3 sm:gap-5 p-3 sm:p-5">
