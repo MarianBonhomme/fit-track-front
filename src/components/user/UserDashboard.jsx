@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import AvatarForm from './avatar/AvatarForm';
 import CardTitle from '../global/CardTitle';
 import AvatarItem from './avatar/AvatarItem';
 import ColorItem from './avatar/ColorItem';
@@ -10,8 +9,7 @@ import { useUser } from '../../utils/user/UserContext';
 
 export default function UserDashboard() {
   const { isDarkMode, toggleDarkMode } = useUser();
-  const { userProfiles, profile, profileAvatar, profileColor, avatars, colors, handleUpdateProfile, switchProfile } = useProfile();
-  const [isAvatarFormDisplayed, setIsAvatarFormDisplayed] = useState(false);
+  const { userProfiles, profile, profileAvatar, profileColor, avatars, colors, handleUpdateProfile } = useProfile();
 
   const changeAvatar = (avatar) => {
     const updatedProfile = { ...profile, avatar_id: avatar.id }
@@ -35,49 +33,40 @@ export default function UserDashboard() {
 
   return (
     <div className="p-5 space-y-5">   
-      <div className="p-5 bg-primary rounded-3xl space-y-5">
-        <CardTitle text={"Daily Macros Goals"} />
-        <div className="grid grid-cols-4">
-          <div>
-            <CardTitle text={"Kcal"} />
-            {profile.dailyKcal}
-          </div>
-          <div>
-            <CardTitle text={"Prot"} />
-            {profile.dailyProt}
-          </div>
-          <div>
-            <CardTitle text={"Fat"} />
-            {profile.dailyFat}
-          </div>
-          <div>
-            <CardTitle text={"Carb"} />
-            {profile.dailyCarb}
-          </div>
-        </div>
-      </div>  
       <div className="grid grid-cols-2 gap-5">
-        <div className="flex justify-center gap-5">
-          <div className='w-1/3 bg-primary rounded-3xl p-4'>
-            <CardTitle text="Profiles" />
-            {userProfiles && userProfiles.map((profile) => (
-              <div key={profile.id} className="flex items-center gap-5 py-5 border-b last:border-b-0 border-lightPrimary cursor-pointer" onClick={() => switchProfile(profile)}>
-                <AvatarColor avatar={getAvatarById(profile.avatar_id)} color={getColorById(profile.color_id)} colorSize={"md"} avatarSize={"xs"} />
-                <p className='text-xl font-bold'>{profile.pseudo}</p>
-              </div>
-            ))}
-          </div>  
-          <div className='w-2/3 flex flex-col items-center gap-10 bg-primary rounded-3xl p-4'>
+        <div className='grid grid-cols-2 gap-5'>
+          <div className='flex flex-col items-center justify-between bg-primary rounded-3xl p-5'>
             <CardTitle text="Current Profile"/>
-            <AvatarColor avatar={profileAvatar} color={profileColor} colorSize={"3xl"} avatarSize={"xl"} />
-            <p className='font-bold'>{profile.pseudo}</p>
+            <div className='space-y-3 text-center'>
+              <AvatarColor avatar={profileAvatar} color={profileColor} colorSize={"3xl"} avatarSize={"xl"} />
+              <p className='font-bold'>{profile.pseudo}</p>
+            </div>
             <DarkModeSwitch
               checked={isDarkMode}
               onChange={toggleDarkMode}
               size={50}
             />
-          </div>                  
-        </div>
+          </div>
+          <div className="flex flex-col items-center justify-between bg-primary rounded-3xl p-5">
+            <CardTitle text={"Daily Macros Goals"} />
+            <div>
+              <CardTitle text={"Kcal"} />
+              {profile.dailyKcal}
+            </div>
+            <div>
+              <CardTitle text={"Prot"} />
+              {profile.dailyProt}
+            </div>
+            <div>
+              <CardTitle text={"Fat"} />
+              {profile.dailyFat}
+            </div>
+            <div>
+              <CardTitle text={"Carb"} />
+              {profile.dailyCarb}
+            </div>
+          </div>
+        </div> 
         <div className='w-full flex flex-col gap-20'>
           <div className='flex flex-wrap gap-10'>
             {avatars && avatars.map((avatar) => (
@@ -91,10 +80,6 @@ export default function UserDashboard() {
           </div>
         </div>
       </div>
-      
-      {isAvatarFormDisplayed && (
-        <AvatarForm close={() => setIsAvatarFormDisplayed(false)}/>
-      )}
     </div>
   )
 }
