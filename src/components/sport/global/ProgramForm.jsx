@@ -110,8 +110,8 @@ function Patterns({programPattern, clicked}) {
 
   return (
     <div className='flex max-sm:flex-wrap items-center justify-center gap-3'>
-      {patterns.map((pattern) => (
-        <div onClick={() => clicked(pattern)} className={`px-5 py-2 rounded-lg capitalize ${programPattern === pattern ? `${getBackgroundByPattern(pattern)} cursor-default text-primary font-semibold` : 'bg-lightPrimary text-secondary cursor-pointer'}`}>{pattern}</div>
+      {patterns.map((pattern, index) => (
+        <div key={index} onClick={() => clicked(pattern)} className={`px-5 py-2 rounded-lg capitalize ${programPattern === pattern ? `${getBackgroundByPattern(pattern)} cursor-default text-primary font-semibold` : 'bg-lightPrimary text-secondary cursor-pointer'}`}>{pattern}</div>
       ))}
     </div>
   )
