@@ -1,6 +1,7 @@
 import axios from "axios";
+import { environment } from "../../../environment";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = environment.API_URL || "http://localhost:3000";
 
 const getDays = async (profile) => {
   try {
