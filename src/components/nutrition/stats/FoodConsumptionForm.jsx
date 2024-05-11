@@ -146,8 +146,8 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
             <div className='w-full relative top-full h-[50dvh] overflow-y-scroll hide-scrollbar'>
               {sortedFoods && sortedFoods.map((food) => {
                 return ( food.is_active &&
-                  <>
-                    <div key={food.id} className={`max-sm:hidden flex items-center justify-between gap-3 p-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
+                  <div key={food.id}>
+                    <div className={`max-sm:hidden flex items-center justify-between gap-3 p-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
                       <div className='flex gap-5 items-center'>
                         <FoodImage image={food.image} size="md" />
                         <p>{food.name}</p>
@@ -158,7 +158,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                         ))}
                       </div>
                     </div>
-                    <div key={food.id} className={`flex sm:hidden items-center justify-between gap-3 py-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
+                    <div className={`flex sm:hidden items-center justify-between gap-3 py-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
                       <FoodImage image={food.image} size="lg" />
                       <div>
                         <p className='mb-1'>{food.name}</p>
@@ -169,7 +169,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                         </div>
                       </div>
                     </div>
-                  </>
+                  </div>
                 )
               })}
             </div>     
