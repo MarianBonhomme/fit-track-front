@@ -119,7 +119,7 @@ export default function ProgramJourney({program}) {
       </div>        
       <div className='sm:hidden'>   
         <div className="flex justify-between mb-1">
-          <div class="flex gap-x-3">
+          <div className="flex gap-x-3">
             {program.state === "COMPLETED" ? (
               <Icon icon="iconamoon:restart-bold" width="30" height="30" className='text-purple' onClick={restartProgram} />
             ) : program.state === "ONGOING" && (
@@ -133,7 +133,7 @@ export default function ProgramJourney({program}) {
             }
           </div>
           {program.state !== "INITIAL" && (    
-            <div class="flex gap-x-3">
+            <div className="flex gap-x-3">
               <StartingPerf training={firstTraining} />
               <BestPerf perf={bestPerf} />
             </div>
