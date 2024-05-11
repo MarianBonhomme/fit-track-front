@@ -25,7 +25,9 @@ export const SportProvider = ({ children }) => {
       setSportLoading(false);
     }
     
-    fetchData();
+    if (profile && profile.id) {
+      fetchData();
+    }
   }, [profile])
 
   useEffect(() => {

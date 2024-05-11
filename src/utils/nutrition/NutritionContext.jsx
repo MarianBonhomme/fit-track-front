@@ -39,7 +39,9 @@ export const NutritionProvider = ({ children }) => {
       setNutritionLoading(false);
     };
 
-    fetchData();
+    if (profile && profile.id) {
+      fetchData();
+    }
   }, [profile]);
 
   useEffect(() => {

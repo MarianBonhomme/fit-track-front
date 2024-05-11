@@ -22,6 +22,8 @@ export const ProfileProvider = ({ children }) => {
       await fetchUserProfiles();
       if (storedProfile) {
         await fetchProfile(storedProfile)
+      } else if (userProfiles && userProfiles.length > 0) {
+        fetchProfile(userProfiles[0].id)
       }
       await fetchAvatars();
       await fetchColors();
@@ -34,7 +36,9 @@ export const ProfileProvider = ({ children }) => {
   }, [user])
 
   useEffect(() => {
-    fetchUserProfiles();
+    if (profile && profile.id) {
+      fetchUserProfiles();
+    }
     if (profile && profile.avatar_id) {
       fetchProfileAvatar();
     }
@@ -44,9 +48,7 @@ export const ProfileProvider = ({ children }) => {
   }, [profile])
 
   const switchProfile = async (profile) => {
-    const profileToSwitch = fetchProfile(profile.id);
-    setProfile(profileToSwitch)
-    localStorage.setItem('profile', profile.id)
+    fetchProfile(profile.id);
   }
 
   const fetchUserProfiles = async () => {
@@ -57,6 +59,7 @@ export const ProfileProvider = ({ children }) => {
   const fetchProfile = async (profileId) => {
     const fetchedProfile = await getProfileById(profileId);
     setProfile(fetchedProfile)
+    localStorage.setItem('profile', fetchedProfile.id)
   }
 
   const fetchAvatars = async () => {
