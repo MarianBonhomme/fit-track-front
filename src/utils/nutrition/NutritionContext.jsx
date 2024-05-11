@@ -45,9 +45,11 @@ export const NutritionProvider = ({ children }) => {
   }, [profile]);
 
   useEffect(() => {
-    fetchFoodsWithTotalQuantity();
-    fetchFoodsWithTotalQuantityValidated();
-    fetchDaysIndicatedCount();
+    if (profile && profile.id) {
+      fetchFoodsWithTotalQuantity();
+      fetchFoodsWithTotalQuantityValidated();
+      fetchDaysIndicatedCount();
+    }
   }, [foods, foodConsumptions, days]);
 
   useEffect(() => {
