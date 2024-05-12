@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import {
-  getFoods,
   addFood,
   updateFood,
   getFoodConsumptions,
@@ -10,7 +9,6 @@ import {
   deleteFoodConsumption,
   getDatesCount,
   deleteFood,
-  getFoodsWithTotalQuantityOnlyValidated,
 } from "./NutritionService";
 import { useProfile } from "../profile/ProfileContext";
 import { addDay, deleteDay, getDayByDateAndProfile, getDays, updateDay } from "../global/DayService";
@@ -21,9 +19,7 @@ const NutritionContext = createContext();
 export const NutritionProvider = ({ children }) => {
   const { profile } = useProfile();
   const [nutritionLoading, setNutritionLoading] = useState(true);
-  const [foods, setFoods] = useState([]);
   const [foodsWithTotalQuantity, setFoodsWithTotalQuantity] = useState([]);
-  const [foodsWithTotalQuantityValidated, setFoodsWithTotalQuantityValidated] = useState([]);
   const [foodConsumptions, setFoodConsumptions] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [dailyFoodConsumptions, setDailyFoodConsumptions] = useState([]);
@@ -33,7 +29,6 @@ export const NutritionProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetchFoods();
       await fetchFoodConsumptions();
       await fetchDays();
       setNutritionLoading(false);
@@ -47,10 +42,9 @@ export const NutritionProvider = ({ children }) => {
   useEffect(() => {
     if (profile && profile.id) {
       fetchFoodsWithTotalQuantity();
-      fetchFoodsWithTotalQuantityValidated();
       fetchDaysIndicatedCount();
     }
-  }, [foods, foodConsumptions, days]);
+  }, [foodConsumptions, days]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -64,11 +58,6 @@ export const NutritionProvider = ({ children }) => {
   useEffect(() => {
     setCurrentMonth(initCurrentMonth());
   }, [])
-
-  const fetchFoods = async () => {
-    const fetchedFoods = await getFoods();
-    setFoods(fetchedFoods);
-  };
 
   const fetchFoodConsumptions = async () => {
     const fetchedFoodConsumptions = await getFoodConsumptions(profile.id);
@@ -90,13 +79,6 @@ export const NutritionProvider = ({ children }) => {
       profile.id
     );
     setFoodsWithTotalQuantity(fetchedFoodsWithTotalQuantity);
-  };
-
-  const fetchFoodsWithTotalQuantityValidated = async () => {
-    const fetchedFoodsWithTotalQuantityValidated = await getFoodsWithTotalQuantityOnlyValidated(
-      profile.id
-    );
-    setFoodsWithTotalQuantityValidated(fetchedFoodsWithTotalQuantityValidated);
   };
 
   const filterFoodConsumptionsByDate = (date) => {
@@ -141,8 +123,7 @@ export const NutritionProvider = ({ children }) => {
   const handleAddFood = async (newFood) => {
     try {
       const addedFood = await addFood(newFood);
-      console.log(addedFood)
-      setFoods((prevFoods) => [...prevFoods, addedFood]);
+      setFoodsWithTotalQuantity((prevFoods) => [...prevFoods, addedFood]);
     } catch (error) {
       console.error("Error adding food:", error);
     }
@@ -150,8 +131,8 @@ export const NutritionProvider = ({ children }) => {
 
   const handleUpdateFood = async (foodToUpdate) => {
     try {
-      const updatedFood = await updateFood(foodToUpdate);
-      setFoods((prevFoods) =>
+      const updatedFood = await updateFood(foodToUpdate, profile.id);
+      setFoodsWithTotalQuantity((prevFoods) =>
         prevFoods.map((food) =>
           food.id === updatedFood.id ? updatedFood : food
         )
@@ -164,7 +145,7 @@ export const NutritionProvider = ({ children }) => {
   const handleDeleteFood = async (foodToDelete) => {
     try {
       await deleteFood(foodToDelete);
-      setFoods((prevFoods) =>
+      setFoodsWithTotalQuantity((prevFoods) =>
         prevFoods.filter((food) => food.id !== foodToDelete.id)
       );
     } catch (error) {
@@ -311,9 +292,7 @@ export const NutritionProvider = ({ children }) => {
     <NutritionContext.Provider
       value={{
         nutritionLoading,
-        foods,
         foodsWithTotalQuantity,
-        foodsWithTotalQuantityValidated,
         foodConsumptions,
         filterFoodConsumptionsByDate,
         currentDate,

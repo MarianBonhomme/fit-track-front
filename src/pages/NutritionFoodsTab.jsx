@@ -9,7 +9,7 @@ import { sortFoodsByFavoritesAndInactives } from '../utils/nutrition/NutritionSe
 
 
 export default function NutritionFoodsTab() {
-  const { foods } = useNutrition();
+  const { foodsWithTotalQuantity } = useNutrition();
   const [sortedFoods, setSortedFoods] = useState();
   const [isFoodFormDisplayed, setIsFoodFormDisplayed] = useState(false)
   const [foodToUpdate, setFoodToUpdate] = useState(null);
@@ -17,10 +17,10 @@ export default function NutritionFoodsTab() {
   const [filteredFoods, setFilteredFoods] = useState();
 
   useEffect(() => {
-    const sortedFoods = sortFoodsByFavoritesAndInactives(foods);
+    const sortedFoods = sortFoodsByFavoritesAndInactives(foodsWithTotalQuantity);
     setSortedFoods(sortedFoods);
     setFilteredFoods(sortedFoods);
-  }, [foods])
+  }, [foodsWithTotalQuantity])
 
   useEffect(() => {
     if (sortedFoods) {

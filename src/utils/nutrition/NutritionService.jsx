@@ -3,22 +3,15 @@ import { environment } from "../../../environment";
 
 const BASE_URL = environment.API_URL || "http://localhost:3000";
 
-const getFoods = async () => {
-  try {
-    const response = await axios.get(`${BASE_URL}/food`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching all foods:", error);
-    throw error;
-  }
-};
 
-const getFoodById = async (id) => {
+const getFoodsWithTotalQuantity = async (userId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/food/${id}`);
+    const response = await axios.get(
+      `${BASE_URL}/food/${userId}`
+    );
     return response.data;
   } catch (error) {
-    console.error(`Error fetching food with id ${id}:`, error);
+    console.error("Error fetching all foods with totalQuantity:", error);
     throw error;
   }
 };
@@ -37,7 +30,7 @@ const addFood = async (newFood) => {
   }
 };
 
-const updateFood = async (foodToUpdate) => {
+const updateFood = async (foodToUpdate, profileId) => {
   try {
     let id;
 
@@ -47,7 +40,7 @@ const updateFood = async (foodToUpdate) => {
       id = foodToUpdate.id;
     }
 
-    const response = await axios.put(`${BASE_URL}/food/${id}}`, foodToUpdate, {
+    const response = await axios.put(`${BASE_URL}/food/${id}/${profileId}`, foodToUpdate, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -137,30 +130,6 @@ const getDatesCount = async (profileId) => {
   }
 };
 
-const getFoodsWithTotalQuantity = async (userId) => {
-  try {
-    const response = await axios.get(
-      `${BASE_URL}/food/totalQuantity/${userId}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching all foods with totalQuantity:", error);
-    throw error;
-  }
-};
-
-const getFoodsWithTotalQuantityOnlyValidated = async (userId) => {
-  try {
-    const response = await axios.get(
-      `${BASE_URL}/food/totalQuantity/validated/${userId}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching all foods with totalQuantity:", error);
-    throw error;
-  }
-};
-
 const calculateMacros = (food, quantity) => {
   return {
     kcal: (quantity * food.proportion * food.kcal) / 100,
@@ -207,8 +176,6 @@ const sortFoodConsumptionsByFavorites = (foodConsumptions) => {
 };
 
 export {
-  getFoods,
-  getFoodById,
   addFood,
   updateFood,
   deleteFood,
@@ -218,7 +185,6 @@ export {
   deleteFoodConsumption,
   getDatesCount,
   getFoodsWithTotalQuantity,
-  getFoodsWithTotalQuantityOnlyValidated,
   calculateMacros,
   sortFoodsByFavoritesAndInactives,
   sortFoodConsumptionsByFavorites,

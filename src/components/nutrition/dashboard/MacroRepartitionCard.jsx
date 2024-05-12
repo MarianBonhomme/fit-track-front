@@ -7,16 +7,17 @@ import AddButton from './../../global/AddButton';
 import { macros } from "../../../utils/global/MacroService";
 
 export default function MacroRepartitionCard() {
-  const { foodsWithTotalQuantityValidated, daysIndicatedCount } = useNutrition();
+  const { foodsWithTotalQuantity, daysIndicatedCount } = useNutrition();
   const [averageMacros, setAverageMacros] = useState(null);
   const [dailyAvgMacro, setDailyAvgMacros] = useState(null);
+
 
   useEffect(() => {
     if (daysIndicatedCount > 0) {
       const macros = getAverageMacros()
       setAverageMacros(macros);
     }
-  }, [foodsWithTotalQuantityValidated]);
+  }, [foodsWithTotalQuantity]);
 
   const getAverageMacros = () => {
     let avgKcal = 0;
@@ -25,8 +26,8 @@ export default function MacroRepartitionCard() {
     let avgFat = 0;
     let totalFoods = 0;
 
-    foodsWithTotalQuantityValidated.forEach(food => {
-      let quantity = food.totalQuantity;
+    foodsWithTotalQuantity.forEach(food => {
+      let quantity = food.totalQuantityValidated;
       avgKcal += (food.kcal * food.proportion * quantity / 100) / daysIndicatedCount;
       avgProt += (food.prot * food.proportion * quantity / 100) / daysIndicatedCount;
       avgCarb += (food.carb * food.proportion * quantity / 100) / daysIndicatedCount;
