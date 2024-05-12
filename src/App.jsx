@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import { UserProvider, useUser } from "./utils/user/UserContext";
-import { ProfileProvider } from "./utils/profile/ProfileContext";
+import { ProfileProvider, useProfile } from "./utils/profile/ProfileContext";
 import NutritionPage from "./pages/NutritionPage";
 import { NutritionProvider } from "./utils/nutrition/NutritionContext";
 import { SportProvider } from "./utils/sport/SportContext";
@@ -18,14 +18,23 @@ export default function App() {
   return (
     <UserProvider>
       <ProfileProvider>
-        <NutritionProvider>
-          <SportProvider>
-            <AppContent />
-          </SportProvider>
-        </NutritionProvider>
+        <AppBootstrapper />
       </ProfileProvider>
     </UserProvider>
   );
+}
+
+function AppBootstrapper() {
+  const { profileLoading } = useProfile();
+
+  return (
+    !profileLoading && 
+      <NutritionProvider>
+        <SportProvider>
+          <AppContent />
+        </SportProvider>
+      </NutritionProvider>
+  )
 }
 
 function AppContent() {
