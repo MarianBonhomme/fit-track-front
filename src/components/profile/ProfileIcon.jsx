@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AvatarColor from './avatar/AvatarColor'
+import AvatarColor from './AvatarColor'
 import { useProfile } from '../../utils/profile/ProfileContext';
 
 export default function ProfileIcon() {

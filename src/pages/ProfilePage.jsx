@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import CardTitle from '../global/CardTitle';
-import AvatarItem from './avatar/AvatarItem';
-import ColorItem from './avatar/ColorItem';
-import { useProfile } from '../../utils/profile/ProfileContext';
-import AvatarColor from './avatar/AvatarColor';
+import React from 'react';
+import { useProfile } from '../utils/profile/ProfileContext';
+import { useUser } from '../utils/user/UserContext';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
-import { useUser } from '../../utils/user/UserContext';
+import AvatarColor from '../components/profile/AvatarColor';
+import AvatarItem from '../components/profile/AvatarItem';
+import ColorItem from '../components/profile/ColorItem';
+import CardTitle from '../components/global/CardTitle';
 
-export default function UserDashboard() {
+
+export default function ProfilePage() {
   const { isDarkMode, toggleDarkMode } = useUser();
   const { profile, profileAvatar, profileColor, avatars, colors, handleUpdateProfile } = useProfile();
 

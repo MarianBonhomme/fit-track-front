@@ -1,13 +1,14 @@
 import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
-import { useNutrition } from '../../utils/nutrition/NutritionContext';
-import { sortFoodsByFavoritesAndInactives } from '../../utils/nutrition/NutritionService';
-import FoodCard from './myfoods/FoodCard';
-import FoodForm from './myfoods/FoodForm';
-import AddButton from '../global/AddButton';
-import RankingCard from './myfoods/RankingCard';
+import { useNutrition } from '../utils/nutrition/NutritionContext';
+import AddButton from '../components/global/AddButton';
+import FoodCard from '../components/nutrition/foods/FoodCard';
+import FoodForm from '../components/nutrition/foods/FoodForm';
+import RankingCard from '../components/nutrition/foods/RankingCard';
+import { sortFoodsByFavoritesAndInactives } from '../utils/nutrition/NutritionService';
 
-export default function MyFoodsTab() {
+
+export default function NutritionFoodsTab() {
   const { foods } = useNutrition();
   const [sortedFoods, setSortedFoods] = useState();
   const [isFoodFormDisplayed, setIsFoodFormDisplayed] = useState(false)

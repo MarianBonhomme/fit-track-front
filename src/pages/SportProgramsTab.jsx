@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useSport } from "../../utils/sport/SportContext";
-import ProgramJourney from "./programs/ProgramJourney";
-import { getProgramState } from "../../utils/sport/SportService";
+import { useSport } from "../utils/sport/SportContext";
+import ProgramJourney from "../components/sport/programs/ProgramJourney";
+import { getProgramState } from "../utils/sport/SportService";
 import FlipMove from 'react-flip-move';
 
-export default function ProgramsTab() {
+export default function SportProgramsTab() {
   const { programs } = useSport();
   const [sortedPrograms, setSortedPrograms] = useState([]);
 

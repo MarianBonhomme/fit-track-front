@@ -1,6 +1,6 @@
 import React from 'react'
-import { getimagePathFormatted } from '../../../utils/global/ImageService'
-import { environment } from '../../../../environment'
+import { getimagePathFormatted } from '../../utils/global/ImageService'
+import { environment } from '../../../environment'
 
 export default function AvatarItem({ avatar, size, clicked }) {
   const BASE_URL = environment.API_URL ||'http://localhost:3000'

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import moment from 'moment';
-import { getDayOfWeek } from '../../utils/global/DateService';
-import DailyTrainings from './calendar/DailyTrainings';
-import AddButton from './../global/AddButton';
-import { useSport } from '../../utils/sport/SportContext';
+import { getDayOfWeek } from '../utils/global/DateService';
+import DailyTrainings from '../components/sport/calendar/DailyTrainings';
+import AddButton from '../components/global/AddButton';
+import { useSport } from '../utils/sport/SportContext';
 
-export default function CalendarTab() {
+export default function SportCalendarTab() {
   const { currentWeek, incrementWeek, decrementWeek, openTrainingForm, currentDate, incrementCurrentDate, decrementCurrentDate } = useSport();
 
   return (

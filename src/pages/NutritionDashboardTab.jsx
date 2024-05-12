@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useNutrition } from '../../utils/nutrition/NutritionContext';
-import CountCard from './stats/CountCard';
-import DailyCard from './stats/DailyCard';
-import MacroChartCard from './stats/MacroChartCard';
-import MacroRepartitionCard from './stats/MacroRepartitionCard';
-import CalendarCard from './stats/CalendarCard';
+import { useNutrition } from '../utils/nutrition/NutritionContext';
+import CountCard from '../components/nutrition/dashboard/CountCard';
+import DailyCard from '../components/nutrition/dashboard/DailyCard';
+import MacroChartCard from '../components/nutrition/dashboard/MacroChartCard';
+import MacroRepartitionCard from '../components/nutrition/dashboard/MacroRepartitionCard';
+import CalendarCard from '../components/nutrition/dashboard/CalendarCard';
 
-export default function StatsTab() {
+export default function NutritionDashboardTab() {
   const { foodsWithTotalQuantity } = useNutrition();
   const [foodsForCountCards, setFoodsForCountCards] = useState([]);
 
