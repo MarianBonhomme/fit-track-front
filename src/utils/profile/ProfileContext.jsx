@@ -7,7 +7,7 @@ import { getProfileById, getProfilesByUserId, updateProfile } from "./ProfileSer
 const ProfileContext = createContext();
 
 export const ProfileProvider = ({ children }) => {
-  const [profileLoading, setProfileLoading] = useState(true)
+  const [profileLoading, setProfileLoading] = useState(false)
   const { user } = useUser();
   const [userProfiles, setUserProfiles] = useState(null);
   const storedProfile = localStorage.getItem('profile')
@@ -19,6 +19,7 @@ export const ProfileProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setProfileLoading(true);
       await fetchUserProfiles();
       if (storedProfile) {
         await fetchProfile(storedProfile)

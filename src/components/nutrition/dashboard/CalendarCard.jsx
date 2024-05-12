@@ -5,7 +5,7 @@ import CardTitle from './../../global/CardTitle';
 import moment from 'moment';
 
 export default function CalendarCard() {
-  const { currentDate, setCurrentDate, findDayByDate, days } = useNutrition();
+  const { currentDate, setCurrentDate, findDayByDate } = useNutrition();
   const [currentDay, setCurrentDay] = useState(new Date());
 
   const daysInMonth = (date) => {

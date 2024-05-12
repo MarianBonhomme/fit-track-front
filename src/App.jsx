@@ -42,7 +42,7 @@ function AppContent() {
 
   return (
     <Router>
-      <Sidebar />
+      {user && <Sidebar />}
       <div className="sm:pl-[80px] max-sm pb-[70px]">
         <Routes>
           <Route path="/auth" element={!user ? <AuthPage /> : <Navigate to="/nutrition" />} />
