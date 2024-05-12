@@ -26,11 +26,11 @@ export default function RankingCard() {
   }, [filter, foodsWithTotalMacros])
   
   const getFoodsWithTotalMacros = () => {
-    const foods = foodsWithTotalQuantity.map((food) => {
+    const foodsWithMacros = foodsWithTotalQuantity.map((food) => {
       const totalMacros = calculateMacros(food, food.totalQuantity);
       return { ...food, ...totalMacros};
     })
-    const filteredFoods = foods.filter(food => food.totalQuantity > 0)
+    const filteredFoods = foodsWithMacros.filter(food => food.totalQuantity > 0)
     return filteredFoods
   }
 

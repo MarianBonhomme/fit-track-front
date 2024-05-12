@@ -9,7 +9,7 @@ import { macros } from '../../../utils/global/MacroService';
 
 export default function FoodConsumptionForm({ foodConsumption, close }) {
   const { isDarkMode } = useUser();
-  const { foods, dailyFoodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption } = useNutrition();
+  const { foodsWithTotalQuantity, dailyFoodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption } = useNutrition();
   const [sortedFoods, setSortedFoods] = useState();
   const [selectedFood, setSelectedFood] = useState();
   const [isFoodsListVisible, setIsFoodsListVisible] = useState(!foodConsumption);
@@ -46,9 +46,9 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
   };
 
   useEffect(() => {
-    const sorted = sortFoodsByFavoritesAndInactives(foods);
+    const sorted = sortFoodsByFavoritesAndInactives(foodsWithTotalQuantity);
     setSortedFoods(sorted);
-  }, [foods])
+  }, [foodsWithTotalQuantity])
 
   const handleSubmit = () => {
     if (foodConsumption) {
