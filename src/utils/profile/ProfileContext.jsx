@@ -18,13 +18,18 @@ export const ProfileProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetchUserProfiles();
-      await fetchAvatars();
-      await fetchColors();
-      if (userProfiles && userProfiles.length > 0) {
-        setProfile(userProfiles[0])
+      try {
+        const fetchedProfiles = await fetchUserProfiles();
+        if (fetchedProfiles && fetchedProfiles.length > 0) {
+          setProfile(fetchedProfiles[0]);
+        }
+        await fetchAvatars();
+        await fetchColors();
+      } catch (error) {
+        
+      } finally {
+        setProfileLoading(false);
       }
-      setProfileLoading(false);
     };
   
     if (!userLoading && user && user.id) {
@@ -49,8 +54,14 @@ export const ProfileProvider = ({ children }) => {
   }
 
   const fetchUserProfiles = async () => {
-    const fetchedUserProfiles = await getProfilesByUserId(user.id);
-    setUserProfiles(fetchedUserProfiles)
+    try {
+      const fetchedUserProfiles = await getProfilesByUserId(user.id);
+      setUserProfiles(fetchedUserProfiles);
+      return fetchedUserProfiles;
+    } catch (error) {
+      console.error('Error fetching user profiles:', error);
+      throw error;
+    }
   }
 
   const fetchProfile = async (profileId) => {
