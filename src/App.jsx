@@ -18,40 +18,45 @@ export default function App() {
   return (
     <UserProvider>
       <ProfileProvider>
-        <AppBootstrapper />
+        <AppContent />
       </ProfileProvider>
     </UserProvider>
   );
 }
 
-function AppBootstrapper() {
+function AppContent() {
+  const { user } = useUser();
   const { profileLoading } = useProfile();
 
   return (
     !profileLoading && 
-      <NutritionProvider>
-        <SportProvider>
-          <AppContent />
-        </SportProvider>
-      </NutritionProvider>
+      <Router>
+        {user && <Sidebar />}
+        <div className="sm:pl-[80px] max-sm pb-[70px]">
+          <Routes>
+            <Route path="/auth" element={!user ? <AuthPage /> : <Navigate to="/nutrition" />} />
+            <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/auth" />} />
+            <Route path="*" element={<Navigate to="/auth" />} />
+            <Route path="/nutrition" element={
+              user ? 
+                <NutritionProvider>
+                  <NutritionPage />
+                </NutritionProvider> 
+                  : 
+                <Navigate to="/auth" />
+              } 
+            />
+            <Route path="/sport" element={
+              user ? 
+                <SportProvider>
+                  <SportPage />
+                </SportProvider> 
+                  : 
+                <Navigate to="/auth" />
+              } 
+            />
+          </Routes>
+        </div>
+      </Router>
   )
-}
-
-function AppContent() {
-  const { user } = useUser();
-
-  return (
-    <Router>
-      {user && <Sidebar />}
-      <div className="sm:pl-[80px] max-sm pb-[70px]">
-        <Routes>
-          <Route path="/auth" element={!user ? <AuthPage /> : <Navigate to="/nutrition" />} />
-          <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/auth" />} />
-          <Route path="/nutrition" element={user ? <NutritionPage /> : <Navigate to="/auth" />} />
-          <Route path="/sport" element={user ? <SportPage /> : <Navigate to="/auth" />} />
-          <Route path="*" element={<Navigate to="/auth" />} />
-        </Routes>
-      </div>
-    </Router>
-  );
 }
