@@ -39,21 +39,21 @@ function AppContentContent() {
 
   return (
     !profileLoading && profile && profile.id &&
-      // <NutritionProvider>
-      //   <SportProvider>  
+      <NutritionProvider>
+        <SportProvider>  
           <Router>
             {user && <Sidebar />}
             <div className="sm:pl-[80px] max-sm pb-[70px]">
               <Routes>
                 <Route path="/auth" element={!user ? <AuthPage /> : <Navigate to="/profile" />} />
                 <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/auth" />} />
-                {/* <Route path="/nutrition" element={user ? <NutritionPage /> : <Navigate to="/auth" />} />
-                <Route path="/sport" element={user ? <SportPage /> : <Navigate to="/auth" />} /> */}
+                <Route path="/nutrition" element={user ? <NutritionPage /> : <Navigate to="/auth" />} />
+                <Route path="/sport" element={user ? <SportPage /> : <Navigate to="/auth" />} />
                 <Route path="*" element={<Navigate to="/auth" />} />
               </Routes>
             </div>
           </Router>
-        //</SportProvider>
-      //</NutritionProvider>
+        </SportProvider>
+      </NutritionProvider>
   )
 }
