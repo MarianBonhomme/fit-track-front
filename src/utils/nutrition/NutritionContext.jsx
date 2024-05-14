@@ -27,6 +27,8 @@ export const NutritionProvider = ({ children }) => {
   const [daysIndicatedCount, setDaysIndicatedCount] = useState(0);
   const [currentMonth, setCurrentMonth] = useState([]);
 
+  console.log(profile)
+
   useEffect(() => {
     const fetchData = async () => {
       await fetchFoodConsumptions();
