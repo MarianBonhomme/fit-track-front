@@ -8,7 +8,7 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [userLoading, setUserLoading] = useState(true)
   const storedUser = localStorage.getItem('user')
-  const [user, setUser] = useState(storedUser)
+  const [user, setUser] = useState(null)
 
   const storedTheme = localStorage.getItem('theme')
   const [isDarkMode, setIsDarkMode] = useState(storedTheme === 'true');
