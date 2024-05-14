@@ -19,11 +19,11 @@ export const ProfileProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       await fetchUserProfiles();
+      await fetchAvatars();
+      await fetchColors();
       if (userProfiles && userProfiles.length > 0) {
         setProfile(userProfiles[0])
       }
-      await fetchAvatars();
-      await fetchColors();
       setProfileLoading(false);
     };
   
