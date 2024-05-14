@@ -17,7 +17,7 @@ import moment from 'moment';
 const NutritionContext = createContext();
 
 export const NutritionProvider = ({ children }) => {
-  const { profile } = useProfile();
+  const { profile, profileLoading } = useProfile();
   const [nutritionLoading, setNutritionLoading] = useState(true);
   const [foodsWithTotalQuantity, setFoodsWithTotalQuantity] = useState([]);
   const [foodConsumptions, setFoodConsumptions] = useState([]);
@@ -27,8 +27,6 @@ export const NutritionProvider = ({ children }) => {
   const [daysIndicatedCount, setDaysIndicatedCount] = useState(0);
   const [currentMonth, setCurrentMonth] = useState([]);
 
-  console.log(profile)
-
   useEffect(() => {
     const fetchData = async () => {
       await fetchFoodConsumptions();
@@ -36,13 +34,13 @@ export const NutritionProvider = ({ children }) => {
       setNutritionLoading(false);
     };
 
-    if (profile && profile.id) {
+    if (!profileLoading) {
       fetchData();
     }
   }, [profile]);
 
   useEffect(() => {
-    if (profile && profile.id) {
+    if (!profileLoading) {
       fetchFoodsWithTotalQuantity();
       fetchDaysIndicatedCount();
     }
