@@ -28,6 +28,7 @@ export const ProfileProvider = ({ children }) => {
       }
       await fetchAvatars();
       await fetchColors();
+      console.log(profile)
       setProfileLoading(false);
     };
   

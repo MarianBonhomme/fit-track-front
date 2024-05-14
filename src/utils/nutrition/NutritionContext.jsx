@@ -34,13 +34,13 @@ export const NutritionProvider = ({ children }) => {
       setNutritionLoading(false);
     };
 
-    if (!profileLoading) {
+    if (!profileLoading && profile && profile.id) {
       fetchData();
     }
   }, [profile]);
 
   useEffect(() => {
-    if (!profileLoading) {
+    if (!profileLoading && profile && profile.id) {
       fetchFoodsWithTotalQuantity();
       fetchDaysIndicatedCount();
     }
