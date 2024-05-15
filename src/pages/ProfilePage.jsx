@@ -12,7 +12,7 @@ import DailyMacroGoal from '../components/profile/DailyMacroGoal';
 
 export default function ProfilePage() {
   const { isDarkMode, toggleDarkMode } = useUser();
-  const { profile, profileAvatar, profileColor, avatars, colors, handleUpdateProfile, profileLoading } = useProfile();
+  const { profile, avatars, colors, handleUpdateProfile, profileLoading, userProfiles, switchProfile } = useProfile();
 
   const changeAvatar = (avatar) => {
     const updatedProfile = { ...profile, avatar_id: avatar.id }
@@ -30,7 +30,7 @@ export default function ProfilePage() {
         <div className='grid sm:grid-cols-2 gap-3 sm:gap-5'>
           <div className='flex flex-col items-center max-sm:gap-5 justify-between bg-primary rounded-3xl p-5 relative'>
             <div className='space-y-3 text-center'>
-              <AvatarColor avatar={profileAvatar} color={profileColor} colorSize={"3xl"} avatarSize={"xl"} />
+              <AvatarColor avatar={profile.avatar} color={profile.color} colorSize={"3xl"} avatarSize={"xl"} />
               <p className='text-xl font-bold'>{profile.pseudo}</p>
             </div>
             <div className="absolute top-5 left-5">
@@ -39,6 +39,15 @@ export default function ProfilePage() {
                 onChange={toggleDarkMode}
                 size={50}
               />
+            </div>
+            <div className="absolute top-5 right-5">
+              {userProfiles && userProfiles.map((userProfile) => (
+                userProfile.id !== profile.id ? (
+                  <div key={userProfile.id} onClick={() => switchProfile(userProfile)}>
+                    <AvatarColor avatar={userProfile.avatar} color={userProfile.color} colorSize={"md"} avatarSize={"sm"} />
+                  </div>
+                ) : null
+              ))}
             </div>
           </div>
           <div className="flex flex-col items-center justify-between bg-primary rounded-3xl p-5">

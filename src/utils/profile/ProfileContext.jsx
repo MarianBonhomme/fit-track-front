@@ -13,8 +13,6 @@ export const ProfileProvider = ({ children }) => {
   const [profile, setProfile] = useState()
   const [avatars, setAvatars] = useState([]);
   const [colors, setColors] = useState([]);
-  const [profileAvatar, setProfileAvatar] = useState(null);
-  const [profileColor, setProfileColor] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,27 +34,6 @@ export const ProfileProvider = ({ children }) => {
       fetchData();
     }
   }, [user])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (profile && profile.avatar_id) {
-          fetchProfileAvatar();
-        }
-        if (profile && profile.color_id) {
-          fetchProfileColor();
-        }
-      } catch (error) {
-        
-      } finally {
-        setProfileLoading(false);
-      }
-    }
-
-    if (!userLoading && user && user.id) {
-      fetchData();
-    }
-  }, [profile])
 
   const switchProfile = async (profile) => {
     fetchProfile(profile.id);
@@ -83,20 +60,10 @@ export const ProfileProvider = ({ children }) => {
     setAvatars(fetchedAvatars)
   }  
 
-  const fetchProfileAvatar = async () => {
-    const fetchedProfileAvatar = await getAvatarById(profile.avatar_id)
-    setProfileAvatar(fetchedProfileAvatar);
-  }
-
   const fetchColors = async () => {
     const fetchedColors = await getColors();
     setColors(fetchedColors)
   }  
-
-  const fetchProfileColor = async () => {
-    const fetchedProfileColor = await getColorById(profile.color_id ?? 0)
-    setProfileColor(fetchedProfileColor);
-  }
 
   const handleAddAvatar = async (newAvatar) => {
     try {
@@ -111,6 +78,11 @@ export const ProfileProvider = ({ children }) => {
     try {
       const updatedProfile = await updateProfile(profileToUpdate);
       setProfile(updatedProfile);
+      setUserProfiles((prevUserProfiles) => 
+        prevUserProfiles.map((userProfile) =>
+          updatedProfile.id === userProfile.id ? updatedProfile : userProfile
+        )
+      )
     } catch (error) {
       console.error('Error updating profile:', error)
     }
@@ -124,8 +96,6 @@ export const ProfileProvider = ({ children }) => {
         profile,
         avatars,
         colors,
-        profileAvatar,
-        profileColor,
         handleAddAvatar,
         handleUpdateProfile,
         switchProfile,
