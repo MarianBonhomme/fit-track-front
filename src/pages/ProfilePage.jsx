@@ -6,6 +6,8 @@ import AvatarColor from '../components/profile/AvatarColor';
 import AvatarItem from '../components/profile/AvatarItem';
 import ColorItem from '../components/profile/ColorItem';
 import CardTitle from '../components/global/CardTitle';
+import { macros } from '../utils/global/MacroService';
+import DailyMacroGoal from '../components/profile/DailyMacroGoal';
 
 
 export default function ProfilePage() {
@@ -24,47 +26,37 @@ export default function ProfilePage() {
   
   return ( 
     !profileLoading && 
-      <div className="grid sm:grid-cols-2 gap-3 sm:gap-5 p-3 sm:p-5">
+      <div className="grid gap-3 sm:gap-5 p-3 sm:p-5">
         <div className='grid sm:grid-cols-2 gap-3 sm:gap-5'>
-          <div className='flex flex-col items-center max-sm:gap-5 justify-between bg-primary rounded-3xl p-5'>
-            <CardTitle text="Current Profile"/>
+          <div className='flex flex-col items-center max-sm:gap-5 justify-between bg-primary rounded-3xl p-5 relative'>
             <div className='space-y-3 text-center'>
               <AvatarColor avatar={profileAvatar} color={profileColor} colorSize={"3xl"} avatarSize={"xl"} />
-              <p className='font-bold'>{profile.pseudo}</p>
+              <p className='text-xl font-bold'>{profile.pseudo}</p>
             </div>
-            <DarkModeSwitch
-              checked={isDarkMode}
-              onChange={toggleDarkMode}
-              size={50}
-            />
+            <div className="absolute top-5 left-5">
+              <DarkModeSwitch
+                checked={isDarkMode}
+                onChange={toggleDarkMode}
+                size={50}
+              />
+            </div>
           </div>
           <div className="flex flex-col items-center justify-between bg-primary rounded-3xl p-5">
             <CardTitle text={"Daily Macros Goals"} />
-            <div>
-              <CardTitle text={"Kcal"} />
-              {profile.dailyKcal}
-            </div>
-            <div>
-              <CardTitle text={"Prot"} />
-              {profile.dailyProt}
-            </div>
-            <div>
-              <CardTitle text={"Fat"} />
-              {profile.dailyFat}
-            </div>
-            <div>
-              <CardTitle text={"Carb"} />
-              {profile.dailyCarb}
+            <div className='grid grid-cols-2 gap-5 mt-5'>
+              {macros.map((macro) => (
+                <DailyMacroGoal key={macro} value={profile[`daily${macro.charAt(0).toUpperCase()}${macro.slice(1)}`]} macro={macro} />
+              ))}
             </div>
           </div>
         </div> 
         <div className='w-full flex flex-col gap-5 sm:gap-20'>
-          <div className='flex flex-wrap gap-5 sm:gap-10'>
+          <div className='flex flex-wrap justify-center gap-3 sm:gap-5'>
             {avatars && avatars.map((avatar) => (
               <AvatarItem key={avatar.id} avatar={avatar} clicked={() => changeAvatar(avatar)} size={'lg'} />
             ))}
           </div>
-          <div className='flex flex-wrap gap-5 sm:gap-10'>
+          <div className='flex flex-wrap justify-center gap-3 sm:gap-5'>
             {colors && colors.map((color) => (
               <ColorItem key={color.id} color={color} clicked={() => changeColor(color)} size={'lg'} />
             ))}
