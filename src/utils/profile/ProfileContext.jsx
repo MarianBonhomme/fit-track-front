@@ -38,14 +38,23 @@ export const ProfileProvider = ({ children }) => {
   }, [user])
 
   useEffect(() => {
-    if (profile && profile.id) {
-      fetchUserProfiles();
+    const fetchData = async () => {
+      try {
+        if (profile && profile.avatar_id) {
+          fetchProfileAvatar();
+        }
+        if (profile && profile.color_id) {
+          fetchProfileColor();
+        }
+      } catch (error) {
+        
+      } finally {
+        setProfileLoading(false);
+      }
     }
-    if (profile && profile.avatar_id) {
-      fetchProfileAvatar();
-    }
-    if (profile && profile.color_id) {
-      fetchProfileColor();
+
+    if (!userLoading && user && user.id) {
+      fetchData();
     }
   }, [profile])
 
@@ -67,7 +76,6 @@ export const ProfileProvider = ({ children }) => {
   const fetchProfile = async (profileId) => {
     const fetchedProfile = await getProfileById(profileId);
     setProfile(fetchedProfile)
-    localStorage.setItem('profile', fetchedProfile.id)
   }
 
   const fetchAvatars = async () => {
