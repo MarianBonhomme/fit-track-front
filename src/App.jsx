@@ -23,34 +23,26 @@ export default function App() {
 }
 
 function AppContent() {
-  const { user, userLoading } = useUser();
-
-  return (
-    <ProfileProvider>  
-      <AppContentContent />
-    </ProfileProvider>
-  )
-}
-
-function AppContentContent() {
   const { user } = useUser();
 
   return (
-    <NutritionProvider>
-      <SportProvider>  
-        <Router>
-          {user && <Sidebar />}
-          <div className="sm:pl-[80px] max-sm pb-[70px]">
-            <Routes>
-              <Route path="/auth" element={!user ? <AuthPage /> : <Navigate to="/profile" />} />
-              <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/auth" />} />
-              <Route path="/nutrition" element={user ? <NutritionPage /> : <Navigate to="/auth" />} />
-              <Route path="/sport" element={user ? <SportPage /> : <Navigate to="/auth" />} />
-              <Route path="*" element={<Navigate to="/auth" />} />
-            </Routes>
-          </div>
-        </Router>
-      </SportProvider>
-    </NutritionProvider>
+    <ProfileProvider>  
+      <NutritionProvider>
+        <SportProvider>  
+          <Router>
+            {user && <Sidebar />}
+            <div className="sm:pl-[80px] max-sm pb-[70px]">
+              <Routes>
+                <Route path="/auth" element={!user ? <AuthPage /> : <Navigate to="/profile" />} />
+                <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/auth" />} />
+                <Route path="/nutrition" element={user ? <NutritionPage /> : <Navigate to="/auth" />} />
+                <Route path="/sport" element={user ? <SportPage /> : <Navigate to="/auth" />} />
+                <Route path="*" element={<Navigate to="/auth" />} />
+              </Routes>
+            </div>
+          </Router>
+        </SportProvider>
+      </NutritionProvider>
+    </ProfileProvider>
   )
 }
