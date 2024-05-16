@@ -11,6 +11,8 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
   const { isDarkMode } = useUser();
   const { foodsWithTotalQuantity, dailyFoodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption } = useNutrition();
   const [sortedFoods, setSortedFoods] = useState();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredFoods, setFilteredFoods] = useState();
   const [selectedFood, setSelectedFood] = useState();
   const [isFoodsListVisible, setIsFoodsListVisible] = useState(!foodConsumption);
   const [quantity, setQuantity] = useState(1);
@@ -48,7 +50,21 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
   useEffect(() => {
     const sorted = sortFoodsByFavoritesAndInactives(foodsWithTotalQuantity);
     setSortedFoods(sorted);
+    setFilteredFoods(sorted);
   }, [foodsWithTotalQuantity])
+
+  useEffect(() => {
+    if (sortedFoods) {
+      const filteredFoods = getFilteredFoods(); 
+      setFilteredFoods(filteredFoods);
+    }
+  }, [searchQuery, sortedFoods])
+
+  const getFilteredFoods = () => {
+    return sortedFoods.filter(food =>
+      food.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }  
 
   const handleSubmit = () => {
     if (foodConsumption) {
@@ -144,7 +160,17 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
           )}
           {isFoodsListVisible && (
             <div className='w-full relative top-full h-[50dvh] overflow-y-scroll hide-scrollbar'>
-              {sortedFoods && sortedFoods.map((food) => {
+              <div className={`flex items-center gap-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`}>
+                <input
+                  type="text"
+                  placeholder="Search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="bg-lightPrimary text-secondary rounded-xl px-4 py-2 "
+                />
+                <Icon icon="maki:cross" width={15} height={15} className={`text-red cursor-pointer transition ${searchQuery ? '' : 'opacity-0'}`} onClick={() => setSearchQuery('')} />
+              </div>
+              {filteredFoods && filteredFoods.map((food) => {
                 return ( food.is_active &&
                   <div key={food.id}>
                     <div className={`max-sm:hidden flex items-center justify-between gap-3 p-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
