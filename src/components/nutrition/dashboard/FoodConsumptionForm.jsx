@@ -173,7 +173,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
               </div>
               {filteredFoods && filteredFoods.map((food) => {
                 return ( food.is_active && 
-                  <div key={food.id} class={`${(selectedFood && !searchQuery) && (selectedFood.id === food.id) && 'hidden'}`}>
+                  <div key={food.id} className={`${(selectedFood && !searchQuery) && (selectedFood.id === food.id) && 'hidden'}`}>
                     <div className={`max-sm:hidden flex items-center justify-between gap-3 p-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
                       <div className='flex gap-5 items-center'>
                         <FoodImage image={food.image} size="md" />
