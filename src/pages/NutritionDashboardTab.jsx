@@ -23,7 +23,7 @@ export default function NutritionDashboardTab() {
 
   return (
     <div className="flex max-sm:flex-col items-start gap-3 sm:gap-5 rounded-tl-none rounded-3xl relative">
-      <div className='sm:hidden'>
+      <div className='sm:hidden w-full'>
         <CalendarCard />
       </div>
       <div className='w-full sm:w-1/3'>
