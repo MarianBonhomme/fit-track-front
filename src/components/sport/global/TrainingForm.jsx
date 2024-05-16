@@ -86,7 +86,7 @@ export default function TrainingForm() {
               )}
             </div>
             {isProgramsListVisible && (
-              <div className='w-full absolute top-full left-0 overflow-y-scroll hide-scrollbar bg-lightPrimary rounded-2xl z-50'>
+              <div className='w-full max-h-[60dvh] absolute top-full left-0 overflow-y-scroll hide-scrollbar bg-lightPrimary rounded-2xl z-50'>
                 <div className='flex justify-center items-center gap-3 cursor-pointer max-sm:py-3' onClick={openProgramForm}>
                   <AddButton css={'sm:h-14'} />
                   <p className='text-gray max-sm:text-sm font-bold'>New Program</p>
