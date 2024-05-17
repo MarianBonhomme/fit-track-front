@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { signin, signup, getUserById, updateUser } from "./UserService"
+import { signin, signup, getUserById, updateUser, pingServer } from "./UserService"
 import { darkColors } from './../../assets/colors/darkColors';
 import { lightColors } from './../../assets/colors/lightColors';
+import axios from "axios";
 
 const UserContext = createContext();
 
@@ -13,6 +14,12 @@ export const UserProvider = ({ children }) => {
   const storedTheme = localStorage.getItem('theme')
   const [isDarkMode, setIsDarkMode] = useState(storedTheme === 'true');
   const [themeColors, setThemeColors] = useState(isDarkMode ? darkColors : lightColors);
+
+  useEffect(() => {
+    const pingInterval = setInterval(pingServer, 840000);
+    
+    return () => clearInterval(pingInterval);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {

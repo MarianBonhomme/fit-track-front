@@ -3,6 +3,15 @@ import { environment } from '../../../environment';
 
 const BASE_URL = environment.API_URL || "http://localhost:3000";
 
+const pingServer = async () => {
+  try {
+    await axios.get(`${BASE_URL}`);
+    console.log('Ping réussi');
+  } catch (error) {
+    console.error('Error ping:', error);
+  }
+};
+
 const signin = async (user) => {
   try {
     const response = await axios.post(`${BASE_URL}/user/signin`, user)
@@ -43,4 +52,4 @@ const updateUser = async (userToUpdate) => {
   }
 };
 
-export { signin, signup, getUserById, updateUser };
+export { pingServer, signin, signup, getUserById, updateUser };
