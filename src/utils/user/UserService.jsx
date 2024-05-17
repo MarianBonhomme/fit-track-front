@@ -43,4 +43,4 @@ const updateUser = async (userToUpdate) => {
   }
 };
 
-export { pingServer, signin, signup, getUserById, updateUser };
+export { signin, signup, getUserById, updateUser };

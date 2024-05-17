@@ -1,8 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { signin, signup, getUserById, updateUser, pingServer } from "./UserService"
+import { signin, signup, getUserById, updateUser } from "./UserService"
 import { darkColors } from './../../assets/colors/darkColors';
 import { lightColors } from './../../assets/colors/lightColors';
-import axios from "axios";
 
 const UserContext = createContext();
 
