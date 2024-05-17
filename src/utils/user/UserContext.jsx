@@ -16,12 +16,6 @@ export const UserProvider = ({ children }) => {
   const [themeColors, setThemeColors] = useState(isDarkMode ? darkColors : lightColors);
 
   useEffect(() => {
-    const pingInterval = setInterval(pingServer, 840000);
-    
-    return () => clearInterval(pingInterval);
-  }, []);
-
-  useEffect(() => {
     const fetchData = async () => {
       if (storedUser) {
         await fetchUser();
