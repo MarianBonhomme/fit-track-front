@@ -8,7 +8,7 @@ const ProfileContext = createContext();
 
 export const ProfileProvider = ({ children }) => {
   const [profileLoading, setProfileLoading] = useState(true)
-  const storedProfileId = useState(localStorage.getItem('profile'))
+  const storedProfileId = localStorage.getItem('profile')
   const { user, userLoading } = useUser();
   const [userProfiles, setUserProfiles] = useState(null);
   const [profile, setProfile] = useState()
@@ -21,9 +21,8 @@ export const ProfileProvider = ({ children }) => {
         const fetchedProfiles = await fetchUserProfiles();
         if (storedProfileId) {
           fetchProfile(storedProfileId)
-        }
-        else if (fetchedProfiles && fetchedProfiles.length > 0) {
-          setProfile(fetchedProfiles[0]);
+        } else if (fetchedProfiles && fetchedProfiles.length > 0) {
+          fetchProfile(fetchedProfiles[0].id);
         }
         await fetchAvatars();
         await fetchColors();
