@@ -56,6 +56,10 @@ export const NutritionProvider = ({ children }) => {
   }, [foodConsumptions, currentDate]);
 
   useEffect(() => {
+    console.log(currentDate)
+  }, [currentDate])
+
+  useEffect(() => {
     setCurrentMonth(initCurrentMonth());
   }, [])
 
@@ -158,7 +162,10 @@ export const NutritionProvider = ({ children }) => {
 
   const handleAddFoodConsumption = async (newFoodConsumption) => {
     try {
-      const createdDay = await addOrGetDay(currentDate);
+      const formattedDate = currentDate.toISOString().split('T')[0];
+      const createdDay = await addOrGetDay(formattedDate);
+      console.log(currentDate)
+      console.log(createdDay)
       const newFoodConsumptionWithProfileAndDay = {
         ...newFoodConsumption,
         day_id: createdDay.id,

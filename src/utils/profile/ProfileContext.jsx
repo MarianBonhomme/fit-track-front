@@ -8,7 +8,7 @@ const ProfileContext = createContext();
 
 export const ProfileProvider = ({ children }) => {
   const [profileLoading, setProfileLoading] = useState(true)
-  const [storedProfileId, setStoredProfileId] = useState(localStorage.getItem('profile'))
+  const storedProfileId = useState(localStorage.getItem('profile'))
   const { user, userLoading } = useUser();
   const [userProfiles, setUserProfiles] = useState(null);
   const [profile, setProfile] = useState()
