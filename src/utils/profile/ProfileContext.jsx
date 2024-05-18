@@ -8,6 +8,7 @@ const ProfileContext = createContext();
 
 export const ProfileProvider = ({ children }) => {
   const [profileLoading, setProfileLoading] = useState(true)
+  const [storedProfileId, setStoredProfileId] = useState(localStorage.getItem('profile'))
   const { user, userLoading } = useUser();
   const [userProfiles, setUserProfiles] = useState(null);
   const [profile, setProfile] = useState()
@@ -18,7 +19,10 @@ export const ProfileProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         const fetchedProfiles = await fetchUserProfiles();
-        if (fetchedProfiles && fetchedProfiles.length > 0) {
+        if (storedProfileId) {
+          fetchProfile(storedProfileId)
+        }
+        else if (fetchedProfiles && fetchedProfiles.length > 0) {
           setProfile(fetchedProfiles[0]);
         }
         await fetchAvatars();
@@ -53,6 +57,7 @@ export const ProfileProvider = ({ children }) => {
   const fetchProfile = async (profileId) => {
     const fetchedProfile = await getProfileById(profileId);
     setProfile(fetchedProfile)
+    localStorage.setItem('profile', fetchedProfile.id)
   }
 
   const fetchAvatars = async () => {

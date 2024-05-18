@@ -46,8 +46,7 @@ function AppContent() {
                 </Routes>
               </div>
             </Router>
-          )}
-          
+          )}          
         </SportProvider>
       </NutritionProvider>
     </ProfileProvider>
