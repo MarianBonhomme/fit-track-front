@@ -92,9 +92,9 @@ export default function MacroChartCard() {
         <CardTitle text="Daily Macro Consumption" />
         <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={incrementMonth} />
       </div>
-      <div className="grid grid-cols-2 sm:flex items-center justify-evenly my-3 gap-3">
+      <div className="flex items-center justify-evenly my-3 gap-3">
         {macros.map((macro) => (
-          <div key={macro} className={`w-[80px] text-xs text-center py-1 font-bold rounded ${activeMacro === macro ? 'bg-lightPrimary text-secondary' : `bg-${getColorByMacro(macro)} text-primary cursor-pointer`}`} onClick={() => setActiveMacro(macro)}>{macro}</div>
+          <div key={macro} className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${activeMacro === macro ? 'bg-lightPrimary text-secondary' : `bg-${getColorByMacro(macro)} text-primary cursor-pointer`}`} onClick={() => setActiveMacro(macro)}>{macro}</div>
         ))}
       </div>
       <Bar data={data} options={options} />

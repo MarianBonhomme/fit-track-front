@@ -38,7 +38,7 @@ export default function CountCard({ food, color }) {
   }
 
   return (
-    <div className={`min-h-40 flex flex-col items-center bg-${color} text-primary px-5 py-3 rounded-3xl`}>
+    <div className={`min-h-32 flex flex-col items-center bg-${color} text-primary px-5 py-3 rounded-3xl`}>
       <CardTitle text={food.name} />
       <div className="grow w-full flex items-center">
         <div className="w-1/3 flex justify-center">
@@ -46,7 +46,7 @@ export default function CountCard({ food, color }) {
             <Icon icon="ic:round-minus" width={25} height={25} className="text-primary cursor-pointer" onClick={decrementFoodConsumptionInDaily} />
           )}
         </div>
-        <p className="w-1/3 text-center text-3xl font-bold">{food.totalQuantity}</p>
+        <p className="w-1/3 text-center text-2xl font-bold">{food.totalQuantity}</p>
         <div className="w-1/3 flex justify-center">
           <Icon icon="ic:round-plus" width={25} height={25} className="text-primary cursor-pointer" onClick={incrementFoodConsumptionInDaily} />
         </div>

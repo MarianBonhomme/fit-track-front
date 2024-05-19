@@ -55,9 +55,9 @@ export default function CalendarCard() {
     for (let i = 1; i <= daysCount; i++) {
       const date = new Date(currentDay.getFullYear(), currentDay.getMonth(), i);
       const day = findDayByDate(date)
-      let cellStyle = `relative p-3 cursor-pointer rounded-lg`;
+      let cellStyle = `relative p-2 cursor-pointer rounded-lg`;
       if (isCurrentDate(date)) cellStyle += ' bg-lightPrimary';
-      let pelletStyle = `p-3 sm:p-4 w-5 h-5 flex items-center justify-center m-auto rounded-full ${isToday(date) && 'bg-blue text-primary font-semibold'}`;
+      let pelletStyle = `p-3 w-4 h-4 flex text-xs items-center justify-center m-auto rounded-full ${isToday(date) && 'bg-blue text-primary font-semibold'}`;
       days.push(
         <div key={i} className={cellStyle} onClick={() => handleDayClick(date)}>
           <div className={pelletStyle}>
@@ -82,7 +82,7 @@ export default function CalendarCard() {
           <CardTitle text={currentDay.toLocaleString('default', { month: 'long', year: 'numeric' })} />
           <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={() => setCurrentDay(new Date(currentDay.getFullYear(), currentDay.getMonth() + 1))} />
         </div>
-        <div className="w-full grid grid-cols-7 mb-3">
+        <div className="w-full grid grid-cols-7 mb-3 text-xs">
           <div className="day-label">Mon</div>
           <div className="day-label">Tue</div>
           <div className="day-label">Wed</div>
@@ -144,7 +144,7 @@ function Streaks() {
   return (
     <div className='space-y-3'>
       <CardTitle text={'Current Streak'} />
-      <div className='text-3xl font-bold'>{currentStreak}🔥</div>
+      <div className='text-2xl font-bold'>{currentStreak}🔥</div>
     </div>
   )
 }
