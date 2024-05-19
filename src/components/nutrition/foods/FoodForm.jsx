@@ -211,8 +211,8 @@ export default function FoodForm({ food, close }) {
           </div>          
         </div>
         <div className='flex items-center justify-center gap-3 mt-5 sm:mt-10'>
-          {food && <button type="submit" disabled={!isFormValid} className={`font-bold bg-red text-primary px-5 py-3 text-sm rounded-3xl ${!isFormValid && 'brightness-90'}`} onClick={deleteFood}>Delete</button>}
-          <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 text-sm rounded-3xl ${!isFormValid && 'brightness-90'}`}>Confirm</button>
+          {food && <button type="submit" disabled={!isFormValid} className={`font-bold bg-red text-primary px-5 py-3 rounded-3xl ${!isFormValid && 'brightness-90'}`} onClick={deleteFood}>Delete</button>}
+          <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl ${!isFormValid && 'brightness-90'}`}>Confirm</button>
         </div>
       </form>
     </div>

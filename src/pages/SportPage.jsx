@@ -22,7 +22,7 @@ export default function SportPage() {
         <div className='flex justify-between items-start'>
           <ul className='flex font-bold'>
             {tabs.map((tab, index) => (
-              <li key={index} className={`${activeTab === tab ? 'bg-primary' : 'cursor-pointer'} rounded-t-2xl py-3 px-6 flex gap-3 items-center`} onClick={() => setActiveTab(tab)} >
+              <li key={index} className={`${activeTab === tab ? 'bg-primary' : 'cursor-pointer'} text-xs rounded-t-2xl py-3 px-6 flex gap-3 items-center`} onClick={() => setActiveTab(tab)} >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
                 {tab === 'programs' && <AddButton css={'w-6 h-6 p-2'} clicked={openProgramForm} />}
               </li>

@@ -20,6 +20,9 @@ export default {
         blue: 'var(--blue-color)',
         purple: 'var(--purple-color)',
         gray: 'var(--gray-color)',
+      },
+      fontSize: {
+        xxs: '0.625rem'
       }
     },
   },

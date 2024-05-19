@@ -95,7 +95,7 @@ export default function ProgramJourney({program}) {
           )}
           <div onClick={() => openProgramForm(program)}>
             <p className="font-bold">{program.name}</p>
-            <p className='text-sm'>{program.description}</p>
+            <p className='text-xs'>{program.description}</p>
           </div>
         </div> 
         <div className="grid grid-cols-2 gap-x-5">
@@ -142,7 +142,7 @@ export default function ProgramJourney({program}) {
         <div className="flex items-center cursor-pointer mb-3">   
           <div onClick={() => openProgramForm(program)}>
             <p className="font-bold">{program.name}</p>
-            <p className='text-sm'>{program.description}</p>
+            <p className='text-xs'>{program.description}</p>
           </div>
         </div>         
       </div>            
@@ -162,7 +162,7 @@ export default function ProgramJourney({program}) {
 
 function StartingDate({date}) {
   return (
-    <div className="flex max-sm:flex-col items-center sm:gap-2 text-sm">
+    <div className="flex max-sm:flex-col items-center sm:gap-2 text-xs">
       <div className="w-12 text-xs text-center bg-green text-primary font-semibold rounded-md">Start</div>
       <p>{date}</p>
     </div>
@@ -171,7 +171,7 @@ function StartingDate({date}) {
 
 function EndedDate({date}) {
   return (
-    <div className="flex max-sm:flex-col items-center sm:gap-2 text-sm">
+    <div className="flex max-sm:flex-col items-center sm:gap-2 text-xs">
       <div className="w-12 text-xs text-center bg-red text-primary font-semibold rounded-md">End</div>
       <p>{date}</p>
     </div>
@@ -180,7 +180,7 @@ function EndedDate({date}) {
 
 function StartingPerf({training}) {
   return (
-    <div className="flex max-sm:flex-col items-center sm:gap-2 text-sm">
+    <div className="flex max-sm:flex-col items-center sm:gap-2 text-xs">
       <div className="w-12 text-xs text-center bg-yellow text-primary font-semibold rounded-md">Start</div>
       <p>{training.weight > 0 ? `${training.weight}kg` : training.comment}</p>
     </div>
@@ -189,7 +189,7 @@ function StartingPerf({training}) {
 
 function BestPerf({perf}) {
   return (
-    <div className="flex max-sm:flex-col items-center sm:gap-2 text-sm">
+    <div className="flex max-sm:flex-col items-center sm:gap-2 text-xs">
       <div className="w-12 text-xs text-center bg-purple text-primary font-semibold rounded-md">Best</div>
       <p>{perf}</p>
     </div>

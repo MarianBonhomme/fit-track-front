@@ -15,11 +15,13 @@ export default function DailyTrainings({date}) {
   return (
     dailyTrainings && dailyTrainings.length > 0 && (
       <FlipMove>
-        {dailyTrainings.map((training) => (
-          <div key={training.id} className='px-3 pb-3 last:pb-0'>
-            <TrainingCard isOnCalendar={true} training={training} />
-          </div>
-        ))}
+        <div className='flex flex-wrap gap-3 justify-center'>
+          {dailyTrainings.map((training) => (
+            <div key={training.id} className='flex'>
+              <TrainingCard isOnCalendar={true} training={training} />
+            </div>
+          ))}
+        </div>
       </FlipMove>
     )
   )

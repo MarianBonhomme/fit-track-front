@@ -91,7 +91,7 @@ export default function DailyMacroGoalForm({close}) {
             />
           </div>
         </div>
-        <button type="submit" className={`font-bold bg-blue text-primary px-5 py-3 text-sm rounded-3xl`}>Confirm</button>
+        <button type="submit" className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl`}>Confirm</button>
       </form>
     </div>
   )

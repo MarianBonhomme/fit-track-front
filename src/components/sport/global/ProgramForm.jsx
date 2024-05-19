@@ -84,8 +84,8 @@ export default function ProgramForm() {
           <Patterns programPattern={formData.pattern} clicked={handlePatternClick} />
         </div>
         <div className='flex items-center justify-center gap-5 mt-5 sm:mt-10'>
-          {programFormData.name && (<button type='button' className={`font-bold bg-red text-primary px-5 py-3 text-sm rounded-3xl`} onClick={deleteProgram}>Delete</button>)}
-          <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 text-sm rounded-3xl ${!isFormValid && 'brightness-75'}`}>Confirm</button>
+          {programFormData.name && (<button type='button' className={`font-bold bg-red text-primary px-5 py-3 rounded-3xl`} onClick={deleteProgram}>Delete</button>)}
+          <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl ${!isFormValid && 'brightness-75'}`}>Confirm</button>
         </div>
       </form>
     </div>

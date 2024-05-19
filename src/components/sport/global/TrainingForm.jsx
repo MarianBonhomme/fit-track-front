@@ -89,7 +89,7 @@ export default function TrainingForm() {
               <div className='w-full max-h-[60dvh] absolute top-full left-0 overflow-y-scroll hide-scrollbar bg-lightPrimary rounded-2xl z-50'>
                 <div className='flex justify-center items-center gap-3 cursor-pointer max-sm:py-3' onClick={openProgramForm}>
                   <AddButton css={'sm:h-14'} />
-                  <p className='text-gray max-sm:text-sm font-bold'>New Program</p>
+                  <p className='text-gray font-bold'>New Program</p>
                 </div>
                 {programs && programs.map((program) => {
                   return ( !program.is_completed &&
@@ -164,8 +164,8 @@ export default function TrainingForm() {
           </div>       
         </div>   
         <div className='flex justify-center items-center gap-5 mt-5 sm:mt-10'>
-          {trainingFormData && (<button className={`font-bold bg-red text-primary px-5 py-3 text-sm rounded-3xl`} onClick={deleteTraining}>Delete</button>)}
-          <button type="submit" className={`font-bold bg-blue text-primary px-5 py-3 text-sm rounded-3xl`}>Confirm</button>
+          {trainingFormData && (<button className={`font-bold bg-red text-primary px-5 py-3 rounded-3xl`} onClick={deleteTraining}>Delete</button>)}
+          <button type="submit" className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl`}>Confirm</button>
         </div>
       </form>
     </div>
