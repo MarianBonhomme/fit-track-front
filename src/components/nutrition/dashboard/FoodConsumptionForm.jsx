@@ -104,6 +104,11 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
     setSearchQuery('');
   }
 
+  const onInput = (e) => {
+    setIsFoodsListVisible(true);
+    setSearchQuery(e);
+  }
+
   return (
     <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center sm:items-start p-5 sm:pt-20 z-50'>
       <div className={`w-full max-w-xl px-3 py-5 sm:p-10 relative rounded-2xl ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`}>
@@ -136,8 +141,18 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                   />
                 </div>
               </div>
-            ) : (
-              <p className='text-center text-gray font-bold'>Select food</p>
+            ) : (              
+              <div className={`flex items-center cursor-pointer gap-3`}>
+                <input
+                  type="text"
+                  placeholder="Search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onClick={() => setIsFoodsListVisible(true)}
+                  className="text-secondary font-bold bg-lightPrimary pl-1"
+                />
+                <Icon icon="maki:cross" className={`size-[10px] text-red cursor-pointer transition ${searchQuery ? '' : 'opacity-0'}`} onClick={() => setSearchQuery('')} />
+              </div>
             )}
             {!foodConsumption && (
               <>
@@ -161,16 +176,18 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
           )}
           {isFoodsListVisible && (
             <div className='w-full relative top-full h-[50dvh] overflow-y-scroll hide-scrollbar'>
-              <div className={`flex items-center gap-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`}>
-                <input
-                  type="text"
-                  placeholder="Search"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-lightPrimary text-secondary rounded-xl px-4 py-2 "
-                />
-                <Icon icon="maki:cross" width={15} height={15} className={`text-red cursor-pointer transition ${searchQuery ? '' : 'opacity-0'}`} onClick={() => setSearchQuery('')} />
-              </div>
+              {selectedFood && 
+                <div className={`flex items-center gap-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`}>
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="bg-lightPrimary text-secondary rounded-xl px-4 py-2 "
+                  />
+                  <Icon icon="maki:cross" width={15} height={15} className={`text-red cursor-pointer transition ${searchQuery ? '' : 'opacity-0'}`} onClick={() => setSearchQuery('')} />
+                </div>
+              }
               {filteredFoods && filteredFoods.map((food) => {
                 return ( food.is_active && 
                   <div key={food.id} className={`${(selectedFood && !searchQuery) && (selectedFood.id === food.id) && 'hidden'}`}>
@@ -189,7 +206,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                       <FoodImage image={food.image} size="lg" />
                       <div>
                         <p className='mb-1'>{food.name}</p>
-                        <div className="flex gap-3">
+                        <div className="flex gap-2">
                           {macros.map((macro) => (
                             <MacroItem key={macro} macro={macro} value={food[macro]} isRounded={true} showUnity={true} />
                           ))}

@@ -90,12 +90,12 @@ export default function DailyCard() {
         <div className="flex justify-center items-center gap-5 mt-5">
           {dailyMacros && (
             <div className='flex max-sm:flex-col-reverse items-center gap-5'>
-              <div className="grid grid-cols-2 gap-1">
+              <div className="grid grid-cols-2 gap-3 sm:gap-1">
                 {macros.map((macro) => (
                   <MacroItem key={macro} macro={macro} value={dailyMacros[macro]} isRounded={false} showUnity={true} />
                 ))}
               </div>
-              <div className='flex items-center space-x-1'>
+              <div className='flex items-center space-x-3 sm:space-x-1'>
                 {macros.map((macro) => (
                   <DailyMacroProgressBar key={macro} maxValue={profile[`daily${macro.charAt(0).toUpperCase()}${macro.slice(1)}`]} value={dailyMacros[macro]} macro={macro} />
                 ))}

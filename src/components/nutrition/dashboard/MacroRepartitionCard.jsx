@@ -59,8 +59,8 @@ export default function MacroRepartitionCard() {
       {daysIndicatedCount > 0 ? (
         <div className="w-full flex justify-center items-center">
           {dailyAvgMacro && (
-            <div className="w-1/3 flex flex-col items-center gap-3">
-              <p className="text-sm">Daily Average</p>          
+            <div className="w-1/3 flex flex-col items-center gap-2">
+              <p className="text-xs/3">Daily Average</p>          
               {macros.map((macro) => (
                 <MacroItem key={macro} macro={macro} value={dailyAvgMacro[macro]} isRounded={false} showUnity={true} />
               ))}

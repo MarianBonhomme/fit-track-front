@@ -22,18 +22,18 @@ export default function SportPage() {
         <div className='flex justify-between items-start'>
           <ul className='flex font-bold'>
             {tabs.map((tab, index) => (
-              <li key={index} className={`${activeTab === tab ? 'bg-primary' : 'cursor-pointer'} rounded-t-3xl py-4 px-6 sm:py-5 sm:px-10 flex gap-5 items-center`} onClick={() => setActiveTab(tab)} >
+              <li key={index} className={`${activeTab === tab ? 'bg-primary' : 'cursor-pointer'} rounded-t-2xl py-3 px-6 flex gap-3 items-center`} onClick={() => setActiveTab(tab)} >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                {tab === 'programs' && <AddButton css={'w-8 h-8 p-2'} clicked={openProgramForm} />}
+                {tab === 'programs' && <AddButton css={'w-6 h-6 p-2'} clicked={openProgramForm} />}
               </li>
             ))}
           </ul>
-          <div className='sm:flex items-center justify-center gap-5'>
+          <div className='sm:flex items-center justify-center gap-3'>
             <div className='max-sm:hidden'>
               <DarkModeSwitch
                 checked={isDarkMode}
                 onChange={toggleDarkMode}
-                size={35}
+                size={30}
               />
             </div>
             <ProfileIcon />

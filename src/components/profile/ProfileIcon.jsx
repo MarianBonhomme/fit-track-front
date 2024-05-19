@@ -12,13 +12,13 @@ export default function ProfileIcon() {
   }
 
   return (
-    <div className="relative">
-      <AvatarColor avatar={profile.avatar} color={profile.color} clicked={() => setIsVisible(!isVisible)} colorSize={'md'} avatarSize={'xs'} />
+    <div className="relative shadow">
+      <AvatarColor avatar={profile.avatar} color={profile.color} clicked={() => setIsVisible(!isVisible)} colorSize={'xs'} avatarSize={'xxs'} />
       {isVisible && 
-        <div className="rounded-2xl bg-primary px-5 absolute top-full right-0 translate-y-3 z-50 shadow">
+        <div className="rounded-2xl bg-primary px-3 absolute top-full right-0 translate-y-3 z-50 shadow">
           {userProfiles && userProfiles.map((profile) => (
-            <div key={profile.id} className="flex items-center gap-3 py-3 border-b last:border-b-0 border-lightPrimary cursor-pointer" onClick={() => profileClicked(profile)}>
-              <AvatarColor avatar={profile.avatar} color={profile.color} colorSize={'sm'} avatarSize={'xxs'} />
+            <div key={profile.id} className="flex items-center gap-2 py-2 border-b last:border-b-0 border-lightPrimary cursor-pointer" onClick={() => profileClicked(profile)}>
+              <AvatarColor avatar={profile.avatar} color={profile.color} colorSize={'xs'} avatarSize={'xxs'} />
               <p className='font-bold'>{profile.pseudo}</p>
             </div>
           ))}

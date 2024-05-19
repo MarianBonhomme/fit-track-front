@@ -46,20 +46,20 @@ export default function RankingCard() {
   return (
     <div className="grow flex flex-col gap-2 bg-primary px-4 pt-3 rounded-3xl">
       <CardTitle text="Top Food" />
-      <div className="flex justify-between mt-3">
+      <div className="flex justify-between">
         <p>Sort by : {filter !== "totalQuantity" && filter}</p>
         <Icon icon="maki:cross" width={15} height={15} className={`text-red cursor-pointer transition ${filter !== 'totalQuantity' ? '' : 'opacity-0'}`} onClick={() => setFilter('totalQuantity')} />
       </div>
       <div className="grid grid-cols-2 gap-3">
         {macros.map((macro) => (
-          <div key={macro} className={`rounded-lg text-center font-bold py-1 ${filter === macro ? 'bg-lightPrimary text-secondary' : `bg-${getColorByMacro(macro)} text-primary cursor-pointer`}`} onClick={() => setFilter(macro)}>{macro}</div>
+          <div key={macro} className={`rounded-lg text-center text-xs font-bold py-1 ${filter === macro ? 'bg-lightPrimary text-secondary' : `bg-${getColorByMacro(macro)} text-primary cursor-pointer`}`} onClick={() => setFilter(macro)}>{macro}</div>
         ))}
       </div>
       <FlipMove enterAnimation="elevator" leaveAnimation="elevator">
         {rankedFoods.map((food, index) => {
           return (
             <div key={food.id} className="border-t border-lightPrimary first:border-none">
-              <div className='flex items-center gap-3 px-3 py-5 relative'>                
+              <div className='flex items-center gap-3 px-3 py-3 relative'>                
                 {index === 0 && (                  
                   <p className="absolute top-0 -left-3 -rotate-45 text-2xl">👑</p>
                 )}
