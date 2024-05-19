@@ -56,10 +56,6 @@ export const NutritionProvider = ({ children }) => {
   }, [foodConsumptions, currentDate]);
 
   useEffect(() => {
-    console.log(currentDate)
-  }, [currentDate])
-
-  useEffect(() => {
     setCurrentMonth(initCurrentMonth());
   }, [])
 
@@ -161,11 +157,8 @@ export const NutritionProvider = ({ children }) => {
   };
 
   const handleAddFoodConsumption = async (newFoodConsumption) => {
-    try {
-      const formattedDate = currentDate.toISOString().split('T')[0];
-      const createdDay = await addOrGetDay(formattedDate);
-      console.log(currentDate)
-      console.log(createdDay)
+    try {      
+      const createdDay = await addOrGetDay(currentDate);
       const newFoodConsumptionWithProfileAndDay = {
         ...newFoodConsumption,
         day_id: createdDay.id,
@@ -280,7 +273,6 @@ export const NutritionProvider = ({ children }) => {
     } else {
       const createdDay = await addDay({date: date, profile_id: profile.id});
       const updatedDays = [...days, createdDay];
-      // Trier le tableau days en fonction des dates
       updatedDays.sort((a, b) => {
         return new Date(a.date) - new Date(b.date);
       });
