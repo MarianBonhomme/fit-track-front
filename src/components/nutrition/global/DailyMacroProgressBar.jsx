@@ -8,7 +8,7 @@ export default function DailyMacroProgressBar({ value, maxValue, macro }) {
   const percentValue = value / maxValue * 100 
 
   return (
-    <div className="size-16 sm:size-20">
+    <div className="size-16 sm:size-14">
       <CircularProgressbarWithChildren
         value={value}
         maxValue={maxValue}
