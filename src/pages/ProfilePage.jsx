@@ -48,7 +48,7 @@ export default function ProfilePage() {
                 userProfile.id !== profile.id ? (
                   <div key={userProfile.id} onClick={() => switchProfile(userProfile)} className='flex flex-col items-center'>
                     <AvatarColor avatar={userProfile.avatar} color={userProfile.color} colorSize={"sm"} avatarSize={"xs"} />
-                    <p class="text-xxs font-bold">{userProfile.pseudo}</p>
+                    <p className="text-xxs font-bold">{userProfile.pseudo}</p>
                   </div>
                 ) : null
               ))}

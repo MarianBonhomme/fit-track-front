@@ -18,7 +18,7 @@ export default function DailyMacroGoalForm({close}) {
   const handleChange = (e) => {
 	  const { name, value } = e.target;
     setFormData({
-      ...profile,
+      ...formData,
       [name]: value,
     })
 	};
@@ -26,7 +26,7 @@ export default function DailyMacroGoalForm({close}) {
   const handleSubmit = (e) => {
 	  e.preventDefault();
 
-    const profileToUpdate = {...profile, formData}
+    const profileToUpdate = {...profile, ...formData}
     handleUpdateProfile(profileToUpdate)
 
 	  close();
