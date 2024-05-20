@@ -9,21 +9,21 @@ export default function Sidebar() {
       {location.pathname === "/nutrition" ? (
         <Icon icon="ion:nutrition" className="text-secondary size-[30px]"/>
       ) : (
-        <Link to='/nutrition'>
+        <Link to='/nutrition' aria-label="Nutrition">
           <Icon icon="ion:nutrition-outline" className="text-secondary size-[30px]" />
         </Link>
       )}
       {location.pathname === "/profile" ? (
         <Icon icon="iconamoon:profile-fill" className="text-secondary size-[30px]" />
       ) : (
-        <Link to='/profile'>
+        <Link to='/profile' aria-label="Profile">
           <Icon icon="iconamoon:profile-light" className="text-secondary size-[30px]" />
         </Link>
       )}
       {location.pathname === "/sport" ? (
         <Icon icon="ion:fitness" className="text-secondary size-[30px]"/>
       ) : (
-        <Link to='/sport'>
+        <Link to='/sport' aria-label="Sport">
           <Icon icon="ion:fitness-outline" className="text-secondary size-[30px]" />
         </Link>
       )}
