@@ -34,21 +34,22 @@ export default function ProfilePage() {
           <div className='grid sm:grid-cols-2 gap-3 sm:gap-5'>
             <div className='flex flex-col items-center max-sm:gap-5 justify-between bg-primary rounded-3xl p-5 relative'>
               <div className='space-y-3 text-center'>
-                <AvatarColor avatar={profile.avatar} color={profile.color} colorSize={"3xl"} avatarSize={"xl"} />
+                <AvatarColor avatar={profile.avatar} color={profile.color} colorSize={"xl"} avatarSize={"lg"} />
                 <p className='text-xl font-bold'>{profile.pseudo}</p>
               </div>
               <div className="absolute top-5 left-5">
                 <DarkModeSwitch
                   checked={isDarkMode}
                   onChange={toggleDarkMode}
-                  size={50}
+                  size={40}
                 />
               </div>
               <div className="absolute top-5 right-5">
                 {userProfiles && userProfiles.map((userProfile) => (
                   userProfile.id !== profile.id ? (
                     <div key={userProfile.id} onClick={() => switchProfile(userProfile)}>
-                      <AvatarColor avatar={userProfile.avatar} color={userProfile.color} colorSize={"md"} avatarSize={"sm"} />
+                      <AvatarColor avatar={userProfile.avatar} color={userProfile.color} colorSize={"sm"} avatarSize={"xs"} />
+                      <p class="text-xxs font-bold">{userProfile.pseudo}</p>
                     </div>
                   ) : null
                 ))}
@@ -62,19 +63,19 @@ export default function ProfilePage() {
                 ))}
               </div>
               <div className="absolute top-5 right-5">
-                <Icon icon="akar-icons:edit" width="20" height="20" onClick={() => setIsFormVisible(true)} />
+                <Icon icon="akar-icons:edit" className='size-[15px]' onClick={() => setIsFormVisible(true)} />
               </div>
             </div>
           </div> 
           <div className='w-full flex flex-col gap-5 sm:gap-20'>
             <div className='flex flex-wrap justify-center gap-3 sm:gap-5'>
               {avatars && avatars.map((avatar) => (
-                <AvatarItem key={avatar.id} avatar={avatar} clicked={() => changeAvatar(avatar)} size={'lg'} />
+                <AvatarItem key={avatar.id} avatar={avatar} clicked={() => changeAvatar(avatar)} size={'md'} />
               ))}
             </div>
             <div className='flex flex-wrap justify-center gap-3 sm:gap-5'>
               {colors && colors.map((color) => (
-                <ColorItem key={color.id} color={color} clicked={() => changeColor(color)} size={'lg'} />
+                <ColorItem key={color.id} color={color} clicked={() => changeColor(color)} size={'md'} />
               ))}
             </div>
           </div>
