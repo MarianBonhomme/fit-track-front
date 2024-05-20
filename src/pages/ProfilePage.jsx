@@ -46,7 +46,7 @@ export default function ProfilePage() {
             <div className="absolute top-5 right-5">
               {userProfiles && userProfiles.map((userProfile) => (
                 userProfile.id !== profile.id ? (
-                  <div key={userProfile.id} onClick={() => switchProfile(userProfile)}>
+                  <div key={userProfile.id} onClick={() => switchProfile(userProfile)} className='flex flex-col items-center'>
                     <AvatarColor avatar={userProfile.avatar} color={userProfile.color} colorSize={"sm"} avatarSize={"xs"} />
                     <p class="text-xxs font-bold">{userProfile.pseudo}</p>
                   </div>

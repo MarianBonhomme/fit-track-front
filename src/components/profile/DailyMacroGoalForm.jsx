@@ -37,8 +37,8 @@ export default function DailyMacroGoalForm({close}) {
       <form onSubmit={handleSubmit} className={`w-full max-w-xl px-3 py-5 sm:p-10 relative rounded-2xl ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`}>
         <Icon icon="maki:cross" className="absolute top-5 right-5 sm:right-10 sm:top-10 text-red cursor-pointer size-[20px] sm:size-[25px]" onClick={close} />
         <h3 className='text-center font-bold mb-5 sm:mb-10'>Edit Daily Macro Goals</h3>
-        <div className="grid grid-cols-2 sm:flex justify-center gap-3 sm:gap-5">
-          <div className='flex flex-col'>
+        <div className="grid grid-cols-2 gap-y-5">
+          <div className='flex flex-col mx-auto'>
             <label htmlFor="kcal">Kcals</label>
             <input
               type="number"
@@ -51,7 +51,7 @@ export default function DailyMacroGoalForm({close}) {
               min="0"
             />
           </div>
-          <div className='flex flex-col'>
+          <div className='flex flex-col mx-auto'>
             <label htmlFor="prot">Proteins</label>
             <input
               type="number"
@@ -64,7 +64,7 @@ export default function DailyMacroGoalForm({close}) {
               min="0"
             />
           </div>
-          <div className='flex flex-col'>
+          <div className='flex flex-col mx-auto'>
             <label htmlFor="fat">Fats</label>
             <input
               type="number"
@@ -77,7 +77,7 @@ export default function DailyMacroGoalForm({close}) {
               min="0"
             />
           </div>
-          <div className='flex flex-col'>
+          <div className='flex flex-col mx-auto'>
             <label htmlFor="carb">Carbs</label>
             <input
               type="number"
@@ -91,7 +91,7 @@ export default function DailyMacroGoalForm({close}) {
             />
           </div>
         </div>
-        <button type="submit" className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl`}>Confirm</button>
+        <button type="submit" className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl flex mx-auto mt-10`}>Confirm</button>
       </form>
     </div>
   )
