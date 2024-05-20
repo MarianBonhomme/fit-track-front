@@ -8,6 +8,7 @@ export default function FoodImage({ image, size }) {
     <img 
       src={image ? `${BASE_URL}/${getimagePathFormatted(image)}` : '/assets/images/not-found.jpg'} 
       className={`item-size-${size} rounded-full`}
+      alt="Food"
     />
   )
 }
