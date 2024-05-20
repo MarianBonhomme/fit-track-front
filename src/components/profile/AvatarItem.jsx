@@ -4,7 +4,7 @@ import { environment } from '../../../environment'
 
 export default function AvatarItem({ avatar, size, clicked }) {
   const BASE_URL = environment.API_URL ||'http://localhost:3000'
-  console.log(avatar)
+  
   return (
     avatar.image && <img 
       src={`${BASE_URL}/${getimagePathFormatted(avatar.image)}`} 
