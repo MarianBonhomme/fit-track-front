@@ -82,7 +82,7 @@ export default function DailyMacroGoalForm({close}) {
             <input
               type="number"
               id="carb"
-              name="DailyCarb"
+              name="dailyCarb"
               value={formData.dailyCarb}
               onChange={handleChange}
               className={`max-w-20 px-3 py-1 rounded-md bg-${getColorByMacro('carb')} text-primary font-bold`}
