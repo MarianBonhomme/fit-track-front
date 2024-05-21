@@ -13,6 +13,7 @@ import { SportProvider } from "./utils/sport/SportContext";
 import Sidebar from "./components/global/Sidebar";
 import SportPage from "./pages/SportPage";
 import ProfilePage from './pages/ProfilePage';
+import HealthPage from "./pages/HealthPage";
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ function AppContent() {
                   <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/auth" />} />
                   <Route path="/nutrition" element={user ? <NutritionPage /> : <Navigate to="/auth" />} />
                   <Route path="/sport" element={user ? <SportPage /> : <Navigate to="/auth" />} />
+                  <Route path="/health" element={user ? <HealthPage /> : <Navigate to="/auth" />} />
                   <Route path="*" element={<Navigate to="/auth" />} />
                 </Routes>
               </div>
