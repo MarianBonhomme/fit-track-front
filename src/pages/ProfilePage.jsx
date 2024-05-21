@@ -32,7 +32,7 @@ export default function ProfilePage() {
       <>
         <div className='grid sm:grid-cols-3 gap-3 sm:gap-5 p-5'>
           <div className='flex flex-col items-center max-sm:gap-5 justify-center bg-primary rounded-3xl p-5 relative'>
-            <div className='space-y-1 text-center'>
+            <div className='flex flex-col items-center gap-1'>
               <AvatarColor avatar={profile.avatar} color={profile.color} colorSize={"xl"} avatarSize={"lg"} />
               <p className='text-xl font-bold'>{profile.pseudo}</p>
             </div>
