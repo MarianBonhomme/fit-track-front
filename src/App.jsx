@@ -14,6 +14,7 @@ import Sidebar from "./components/global/Sidebar";
 import SportPage from "./pages/SportPage";
 import ProfilePage from './pages/ProfilePage';
 import HealthPage from "./pages/HealthPage";
+import { HealthProvider } from "./utils/health/HealthContext";
 
 export default function App() {
   return (
@@ -30,25 +31,27 @@ function AppContent() {
     <ProfileProvider>  
       <NutritionProvider>
         <SportProvider>  
-          {userLoading ? (
-            <div className="w-screen h-screen flex items-center justify-center">
-              <img src="/assets/images/loader.svg" alt="loader" />
-            </div>
-          ) : (
-            <Router>
-              {user && <Sidebar />}
-              <div className="sm:pl-[60px] max-sm:pb-[60px]">
-                <Routes>
-                  <Route path="/auth" element={!user ? <AuthPage /> : <Navigate to="/profile" />} />
-                  <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/auth" />} />
-                  <Route path="/nutrition" element={user ? <NutritionPage /> : <Navigate to="/auth" />} />
-                  <Route path="/sport" element={user ? <SportPage /> : <Navigate to="/auth" />} />
-                  <Route path="/health" element={user ? <HealthPage /> : <Navigate to="/auth" />} />
-                  <Route path="*" element={<Navigate to="/auth" />} />
-                </Routes>
+          <HealthProvider>
+            {userLoading ? (
+              <div className="w-screen h-screen flex items-center justify-center">
+                <img src="/assets/images/loader.svg" alt="loader" />
               </div>
-            </Router>
-          )}          
+            ) : (
+              <Router>
+                {user && <Sidebar />}
+                <div className="sm:pl-[60px] max-sm:pb-[60px]">
+                  <Routes>
+                    <Route path="/auth" element={!user ? <AuthPage /> : <Navigate to="/profile" />} />
+                    <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/auth" />} />
+                    <Route path="/nutrition" element={user ? <NutritionPage /> : <Navigate to="/auth" />} />
+                    <Route path="/sport" element={user ? <SportPage /> : <Navigate to="/auth" />} />
+                    <Route path="/health" element={user ? <HealthPage /> : <Navigate to="/auth" />} />
+                    <Route path="*" element={<Navigate to="/auth" />} />
+                  </Routes>
+                </div>
+              </Router>
+            )}          
+          </HealthProvider>
         </SportProvider>
       </NutritionProvider>
     </ProfileProvider>
