@@ -11,7 +11,7 @@ export default function MacroItem({ macro, value, isRounded, showUnity, css }) {
         )}
       </div>
     ) : (
-      <div className={`w-[70px] h-[25px] flex justify-center items-center gap-1 text-primary text-xs rounded-lg mx-auto bg-${getColorByMacro(macro)} ${css && css}`} >
+      <div className={`w-[65px] h-[25px] flex justify-center items-center gap-1 text-primary text-xs rounded-lg mx-auto bg-${getColorByMacro(macro)} ${css && css}`} >
         <p className="font-bold">{Math.round(value)}</p>
         {showUnity && (<p>{macro}</p>)}
       </div>

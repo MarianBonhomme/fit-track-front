@@ -23,7 +23,7 @@ function FoodCard({food, editBtnClicked}) {
   }
   
   return (
-    <div className={`bg-primary relative sm:w-[250px] mt-[30px] rounded-2xl p-3 cursor-pointer ${!food.is_active && 'opacity-60'}`} onClick={editBtnClicked}>
+    <div className={`bg-primary relative w-[175px] sm:w-[250px] mt-[30px] rounded-2xl p-3 cursor-pointer ${!food.is_active && 'opacity-60'}`} onClick={editBtnClicked}>
       <div className="absolute -top-[20px] left-0 w-full flex justify-center items-center px-3">
         <FoodImage image={food.image} size="lg" />
       </div>  

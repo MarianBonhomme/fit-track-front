@@ -89,9 +89,19 @@ export default function MacroChartCard() {
         <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={incrementMonth} />
       </div>
       <div className="flex items-center justify-evenly my-3 gap-3">
-        {macros.map((macro) => (
-          <div key={macro} className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${activeMacro === macro ? 'bg-lightPrimary text-secondary' : `bg-${getColorByMacro(macro)} text-primary cursor-pointer`}`} onClick={() => setActiveMacro(macro)}>{macro}</div>
-        ))}
+        {macros.map((macro) => {
+          const color = getColorByMacro(macro) 
+          const isActive = activeMacro === macro
+          return (
+            <div 
+              key={macro} 
+              className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${isActive ? `bg-${color} text-primary` : `bg-light-secondary border-2 border-${color} text-secondary cursor-pointer`}`} 
+              onClick={() => setActiveMacro(macro)}
+            >
+              {macro}
+            </div>
+          )
+        })}
       </div>
       <Bar data={data} options={options} />
     </div>

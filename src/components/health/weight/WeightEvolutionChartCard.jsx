@@ -10,7 +10,7 @@ import { useUser } from '../../../utils/user/UserContext';
 export default function WeightEvolutionChartCard() {
   const { themeColors } = useUser();
   const { weightMeasurements, currentMonth, incrementMonth, decrementMonth, currentWeek, incrementWeek, decrementWeek } = useHealth();
-  const [isMonth, setIsMonth] = useState(true);
+  const [isMonth, setIsMonth] = useState(false);
 
   const getDailyWeightMeasurement = (date) => {  
     const measurement = weightMeasurements.find(
@@ -79,8 +79,8 @@ export default function WeightEvolutionChartCard() {
         <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={isMonth ? incrementMonth : incrementWeek} />
       </div>
       <div className="flex items-center justify-evenly my-3 gap-3">
-        <div className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${isMonth ? 'bg-lightPrimary text-secondary' : `bg-yellow text-primary cursor-pointer`}`} onClick={() => setIsMonth(true)}>Month</div>
-        <div className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${!isMonth ? 'bg-lightPrimary text-secondary' : `bg-green text-primary cursor-pointer`}`} onClick={() => setIsMonth(false)}>Week</div>
+        <div className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${!isMonth ? 'bg-green text-primary' : `bg-light-secondary border-2 border-green text-secondary cursor-pointer`}`} onClick={() => setIsMonth(false)}>Week</div>
+        <div className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${isMonth ? 'bg-yellow text-primary' : `bg-light-secondary border-2 border-yellow text-secondary cursor-pointer`}`} onClick={() => setIsMonth(true)}>Month</div>
       </div>
       <Line data={data} options={options} />
     </div>
