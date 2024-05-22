@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import ProfileIcon from '../components/profile/ProfileIcon';
 import { useUser } from '../utils/user/UserContext';
-import CalendarTab from './SportCalendarTab';
-import ProgramsTab from './SportProgramsTab';
+import SportCalendarTab from './SportCalendarTab';
+import SportProgramsTab from './SportProgramsTab';
 import ProgramForm from '../components/sport/global/ProgramForm';
 import TrainingForm from '../components/sport/global/TrainingForm';
 import AddButton from '../components/global/AddButton';
@@ -39,10 +39,10 @@ export default function SportPage() {
             ))}
           </ul>
           {activeTab === 'calendar' && (
-            <CalendarTab />
+            <SportCalendarTab />
           )}
           {activeTab === 'programs' && (
-            <ProgramsTab />
+            <SportProgramsTab />
           )}
         </div>
         {isProgramFormDisplayed && (
