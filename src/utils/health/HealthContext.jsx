@@ -29,10 +29,11 @@ export const HealthProvider = ({ children }) => {
   const handleAddWeightMeasurement = async (newWeightMeasurement) => {
     try {
       const addedWeightMeasurement = await addWeightMeasurement(newWeightMeasurement);
-      setWeightMeasurements((prevFoodsConsumptions) => [
-        ...prevFoodsConsumptions,
-        addedWeightMeasurement,
-      ]);
+      setWeightMeasurements((prevWeightMeasurements) => {
+        const updatedMeasurements = [...prevWeightMeasurements, addedWeightMeasurement];
+        updatedMeasurements.sort((a, b) => new Date(a.date) - new Date(b.date));
+        return updatedMeasurements;
+      });
     } catch (error) {
       console.error("Error adding WeightMeasurement:", error);
     }
@@ -93,6 +94,7 @@ export const HealthProvider = ({ children }) => {
         currentDate,
         incrementCurrentDate,
         decrementCurrentDate,
+        setCurrentDate,
       }}
     >
       {children}

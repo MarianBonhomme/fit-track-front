@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getFullDate } from '../../../utils/global/DateService'
+import { formatDate, getFullDate } from '../../../utils/global/DateService'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import CardTitle from '../../global/CardTitle'
 import { useHealth } from '../../../utils/health/HealthContext'
@@ -20,35 +20,20 @@ export default function DailyWeightMeasurementCard() {
   useEffect(() => {
     if (dailyWeightMeasurement) {
       setNewWeightMeasurement(dailyWeightMeasurement.weight_value);
-      setIsFasting(dailyWeightMeasurement.is_fasting)
+      setIsFasting(dailyWeightMeasurement.is_fasting);
+      setIsEditing(false);
     } else {
       setNewWeightMeasurement(0);
-      setIsFasting(true)
+      setIsFasting(true);
+      setIsEditing(true);
     }
   }, [dailyWeightMeasurement])
 
   const getDailyWeightMeasurement = () => {  
-    const formatDate = (date) => {
-      const d = new Date(date);
-      const year = d.getFullYear();
-      const month = ('0' + (d.getMonth() + 1)).slice(-2);
-      const day = ('0' + d.getDate()).slice(-2);
-      return `${year}-${month}-${day}`;
-    };
-  
-    const formattedCurrentDate = formatDate(currentDate);
-
     const measurement = weightMeasurements.find(
-      (measurement) => formatDate(measurement.date) === formattedCurrentDate
+      (measurement) => formatDate(measurement.date) === formatDate(currentDate)
     );
-
-    if (measurement) {
-      setIsEditing(false);
-      return measurement
-    } else {
-      setIsEditing(true)
-      return null
-    }
+    return measurement || null
   }
 
   const addMeasurement = () => {
