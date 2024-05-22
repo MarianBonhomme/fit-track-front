@@ -34,6 +34,7 @@ export default function WeightEvolutionChartCard() {
       },
       y: {
         beginAtZero: true,
+        min: 40,
         max: 100,
       },
     },
@@ -64,7 +65,7 @@ export default function WeightEvolutionChartCard() {
             const dailyWeightMeasurement = getDailyWeightMeasurement(new Date(day));
             return dailyWeightMeasurement && dailyWeightMeasurement.weight_value || 0
           }),
-        backgroundColor: isMonth ? themeColors.yellow : themeColors.green,
+        backgroundColor: isMonth ? themeColors.green : themeColors.purple,
         pointRadius: 0,
         borderWidth: 1,
       },
@@ -79,8 +80,8 @@ export default function WeightEvolutionChartCard() {
         <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={isMonth ? incrementMonth : incrementWeek} />
       </div>
       <div className="flex items-center justify-evenly my-3 gap-3">
-        <div className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${!isMonth ? 'bg-green text-primary' : `bg-light-secondary border-2 border-green text-secondary cursor-pointer`}`} onClick={() => setIsMonth(false)}>Week</div>
-        <div className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${isMonth ? 'bg-yellow text-primary' : `bg-light-secondary border-2 border-yellow text-secondary cursor-pointer`}`} onClick={() => setIsMonth(true)}>Month</div>
+        <div className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${!isMonth ? 'bg-purple text-primary' : `bg-light-secondary border-2 border-purple text-secondary cursor-pointer`}`} onClick={() => setIsMonth(false)}>Week</div>
+        <div className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${isMonth ? 'bg-green text-primary' : `bg-light-secondary border-2 border-green text-secondary cursor-pointer`}`} onClick={() => setIsMonth(true)}>Month</div>
       </div>
       <Line data={data} options={options} />
     </div>

@@ -11,6 +11,7 @@ export const SportProvider = ({ children }) => {
   const [programs, setPrograms] = useState([]);
   const [trainings, setTrainings] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState([]);
   const [currentWeek, setCurrentWeek] = useState([]);
   const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false);
   const [trainingFormData, setTrainingFormData] = useState(null);
@@ -31,6 +32,7 @@ export const SportProvider = ({ children }) => {
   }, [profile])
 
   useEffect(() => {
+    setCurrentMonth(initCurrentMonth());
     setCurrentWeek(initCurrentWeek());
   }, [])
 
@@ -44,24 +46,43 @@ export const SportProvider = ({ children }) => {
     setTrainings(fetchedTrainings);
   }
 
-  const initCurrentWeek = () => {
-    const today = moment().startOf('day');
-    const startOfWeek = today.clone().startOf('isoWeek');
-    const endOfWeek = today.clone().endOf('isoWeek');
-    return Array.from({ length: 7 }, (_, i) => startOfWeek.clone().add(i, 'day').format());
-  }
+  const initCurrentMonth = () => {
+    const today = moment().startOf('month');
+    const startOfMonth = today.clone().startOf('month');
+    const endOfMonth = today.clone().endOf('month');
+    return Array.from({ length: endOfMonth.diff(startOfMonth, 'days') + 1 }, (_, i) => startOfMonth.clone().add(i, 'day').format());
+  };
+  
+  const incrementMonth = () => {
+    setCurrentMonth(prevMonth =>
+      prevMonth.map(day => moment(day).add(1, 'month').toDate())
+    );
+  };
+  
+  const decrementMonth = () => {
+    setCurrentMonth(prevMonth =>
+      prevMonth.map(day => moment(day).subtract(1, 'month').toDate())
+    );
+  };
 
+  const initCurrentWeek = () => {
+    const today = moment().startOf('week');
+    const startOfWeek = today.clone().startOf('week');
+    const endOfWeek = today.clone().endOf('week');
+    return Array.from({ length: endOfWeek.diff(startOfWeek, 'days') + 1 }, (_, i) => startOfWeek.clone().add(i, 'day').format());
+  };
+  
   const incrementWeek = () => {
     setCurrentWeek(prevWeek =>
       prevWeek.map(day => moment(day).add(1, 'week').toDate())
     );
-  }
-
+  };
+  
   const decrementWeek = () => {
     setCurrentWeek(prevWeek =>
       prevWeek.map(day => moment(day).subtract(1, 'week').toDate())
     );
-  }
+  };
   
   const incrementCurrentDate = () => {
     const nextDay = new Date(currentDate);
@@ -228,6 +249,7 @@ export const SportProvider = ({ children }) => {
       value={{
         sportLoading,
         programs,
+        trainings,
         handleUpdateProgram,
         handleAddProgram,
         handleDeleteProgram,
@@ -235,10 +257,14 @@ export const SportProvider = ({ children }) => {
         handleAddTraining,
         handleDeleteTraining,
         getTrainingsByDate,
+        currentMonth,
+        incrementMonth,
+        decrementMonth,
         currentWeek,
         incrementWeek,
         decrementWeek,
         currentDate,
+        setCurrentDate,
         incrementCurrentDate,
         decrementCurrentDate,
         trainingFormData,

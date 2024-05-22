@@ -84,6 +84,40 @@
 }
 
 
+.border-primary {
+  border-color: var(--primary-color);
+}
+
+.border-red {
+  border-color: var(--red-color);
+}
+
+.border-yellow {
+  border-color: var(--yellow-color);
+}
+
+.border-orange {
+  border-color: var(--orange-color);
+}
+
+.border-green {
+  border-color: var(--green-color);
+}
+
+.border-blue {
+  border-color: var(--blue-color);
+}
+
+.border-purple {
+  border-color: var(--purple-color);
+}
+
+.border-gray {
+  border-color: var(--gray-color);
+}
+
+
+
 /* hide scrollbar */
 body::-webkit-scrollbar {
   width: 0em;

@@ -30,7 +30,7 @@ export default function ProfilePage() {
   return ( 
     !profileLoading && 
       <>
-        <div className='grid sm:grid-cols-3 gap-3 sm:gap-5 p-5'>
+        <div className='grid sm:grid-cols-3 gap-3 sm:gap-5 p-3 sm:p-5'>
           <div className='flex flex-col items-center max-sm:gap-5 justify-center bg-primary rounded-3xl p-5 relative'>
             <div className='flex flex-col items-center gap-1'>
               <AvatarColor avatar={profile.avatar} color={profile.color} colorSize={"xl"} avatarSize={"lg"} />

@@ -56,7 +56,7 @@ export default function DailyWeightMeasurementCard() {
   }
 
   return (
-    <div className="w-full bg-primary max-sm:p-3 sm:px-4 sm:py-3 rounded-3xl sm:rounded-tl-none relative">
+    <div className="w-full bg-primary max-sm:p-3 sm:px-4 sm:py-3 rounded-3xl relative">
       <div className="flex justify-between items-center mb-5">
         <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={decrementCurrentDate} />
         <CardTitle text={currentDate && getFullDate(currentDate)} />

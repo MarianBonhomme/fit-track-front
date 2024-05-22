@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useHealth } from '../../../utils/health/HealthContext';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import CardTitle from '../../global/CardTitle';
 import moment from 'moment';
 import { formatDate, isToday } from '../../../utils/global/DateService';
+import { useSport } from '../../../utils/sport/SportContext';
 
-export default function WeightCalendarCard() {
-  const { currentDate, setCurrentDate, weightMeasurements } = useHealth();
+export default function SportCalendarCard() {
+  const { currentDate, setCurrentDate, trainings } = useSport();
   const [currentCalendarDate, setCurrentCalendarDate] = useState(currentDate);
 
   const daysInMonth = (date) => {
@@ -46,7 +46,7 @@ export default function WeightCalendarCard() {
 
     for (let i = 1; i <= daysCount; i++) {
       const date = new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth(), i);
-      const isMeasurement = weightMeasurements.find((measurement) => formatDate(measurement.date) == formatDate(date));
+      const isTraining = trainings.find((training) => formatDate(training.date) == formatDate(date));
       let cellStyle = `relative p-2 cursor-pointer rounded-lg`;
       if (isCurrentDate(date)) cellStyle += ' bg-lightPrimary';
       let pelletStyle = `p-3 w-4 h-4 flex text-xs items-center justify-center m-auto rounded-full ${isToday(date) && 'bg-blue text-primary font-semibold'}`;
@@ -55,7 +55,7 @@ export default function WeightCalendarCard() {
           <div className={pelletStyle}>
             {i}
           </div>
-          <div className={`absolute top-0 left-0 ${!isMeasurement && 'opacity-0'}`}>⚖️</div>
+          <div className={`absolute top-0 left-0 ${!isTraining && 'opacity-0'}`}>🏋️</div>
         </div>
       );
     }
@@ -63,10 +63,36 @@ export default function WeightCalendarCard() {
     return days;
   };
 
+  const getTrainingStats = () => {
+    const daysCount = daysInMonth(currentCalendarDate);
+    const trainingDays = new Set(
+      trainings
+        .filter(training => {
+          const trainingDate = new Date(training.date);
+          return (
+            trainingDate.getFullYear() === currentCalendarDate.getFullYear() &&
+            trainingDate.getMonth() === currentCalendarDate.getMonth()
+          );
+        })
+        .map(training => formatDate(training.date))
+    ).size;
+    const restDays = daysCount - trainingDays;
+    return { trainingDays, restDays };
+  };
+
+  const { trainingDays, restDays } = getTrainingStats();
+
   return (
     <div className="flex max-sm:flex-col bg-primary px-5 py-3 rounded-3xl rounded-ss-none text-center gap-5">
-      <div className="sm:w-1/4 flex flex-col justify-evenly">
-        <Streaks />
+      <div className="sm:w-1/4 flex sm:flex-col justify-evenly">
+        <div className='space-y-3'>
+          <CardTitle text={'Training Days'} />
+          <div className='text-2xl font-bold'>{trainingDays}🏋️</div>
+        </div>
+        <div className='space-y-3'>
+          <CardTitle text={'Rest Days'} />
+          <div className='text-2xl font-bold'>{restDays}🧘</div>
+        </div>
       </div>
       <div className='sm:w-3/4'>
         <div className="w-full flex items-center justify-between mb-5">
@@ -87,55 +113,4 @@ export default function WeightCalendarCard() {
       </div>
     </div>
   );
-}
-
-
-function Streaks() {  
-  const { weightMeasurements } = useHealth();
-  const [currentStreak, setCurrentStreak] = useState(0);
-
-  useEffect(() => {
-    if (weightMeasurements && weightMeasurements.length > 0) {
-      const streak = calculateCurrentStreak()
-      setCurrentStreak(streak);
-    }
-  }, [weightMeasurements])
-
-  const calculateCurrentStreak = () => {
-    const today = new Date();
-    let streak = 0;
-  
-    const todayIndex = weightMeasurements.findIndex(measurement => 
-      formatDate(measurement.date) === formatDate(today)
-    );
-  
-    if (todayIndex === -1) {
-      return streak;
-    }
-  
-    streak++;
-  
-    for (let i = todayIndex; i > 0; i--) {
-      const currentWeightMeasurement = weightMeasurements[i];
-      const previousWeightMeasurement = weightMeasurements[i - 1];
-  
-      const currentDate = moment(currentWeightMeasurement.date);
-      const previousDate = moment(previousWeightMeasurement.date);
-
-      if (currentDate.diff(previousDate, 'days') === 1) {
-        streak++;
-      } else {
-        break;
-      }
-    }
-  
-    return streak;
-  }
-
-  return (
-    <div className='space-y-3'>
-      <CardTitle text={'Current Streak'} />
-      <div className='text-2xl font-bold'>{currentStreak}⚖️</div>
-    </div>
-  )
 }

@@ -89,9 +89,9 @@ export default function ProgramJourney({program}) {
       <div className='max-sm:hidden flex justify-between items-start relative mb-3'>   
         <div className="flex items-center gap-3 cursor-pointer">   
           {program.state === "COMPLETED" ? (
-            <Icon icon="iconamoon:restart-bold" width="25" height="25" className='text-purple' onClick={restartProgram} />
+            <Icon icon="iconamoon:restart-bold" className='text-purple size-[20px]' onClick={restartProgram} />
           ) : program.state === "ONGOING" && (
-            <Icon icon="heroicons:stop-circle-16-solid" width="25" height="25" className='text-orange' onClick={stopProgram} />
+            <Icon icon="heroicons:stop-circle-16-solid" className='text-orange size-[20px]' onClick={stopProgram} />
           )}
           <div onClick={() => openProgramForm(program)}>
             <p className="font-bold">{program.name}</p>
@@ -121,9 +121,9 @@ export default function ProgramJourney({program}) {
         <div className="flex justify-between mb-1">
           <div className="flex gap-x-3">
             {program.state === "COMPLETED" ? (
-              <Icon icon="iconamoon:restart-bold" width="30" height="30" className='text-purple' onClick={restartProgram} />
+              <Icon icon="iconamoon:restart-bold" className='text-purple size-[20px]' onClick={restartProgram} />
             ) : program.state === "ONGOING" && (
-              <Icon icon="heroicons:stop-circle-16-solid" width="30" height="30" className='text-orange' onClick={stopProgram} />
+              <Icon icon="heroicons:stop-circle-16-solid" className='text-orange size-[20px]' onClick={stopProgram} />
             )}
             {program.state !== "INITIAL" && 
               <StartingDate date={getShortDate(new Date(firstTraining.date))} />

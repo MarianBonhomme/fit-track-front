@@ -63,7 +63,7 @@ export default function CalendarCard() {
           <div className={pelletStyle}>
             {i}
           </div>
-          <div className={`absolute top-0 left-0 ${day && day.count_for_stats ? '' : 'opacity-0'} `}>🔥</div>
+          <div className={`absolute top-0 left-0 ${day && day.count_for_stats ? '' : 'opacity-0'} `}>🍎</div>
         </div>
       );
     }
@@ -144,7 +144,7 @@ function Streaks() {
   return (
     <div className='space-y-3'>
       <CardTitle text={'Current Streak'} />
-      <div className='text-2xl font-bold'>{currentStreak}🔥</div>
+      <div className='text-2xl font-bold'>{currentStreak}🍎</div>
     </div>
   )
 }
