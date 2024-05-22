@@ -71,7 +71,7 @@ export default function WeightCalendarCard() {
       <div className='sm:w-3/4'>
         <div className="w-full flex items-center justify-between mb-5">
           <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() - 1))} />
-          <CardTitle text={currentCalendarDate.toLocaleString('default', { month: 'long', year: 'numeric' })} />
+          <CardTitle text={moment(currentCalendarDate).format("MMMM YYYY")} />
           <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + 1))} />
         </div>
         <div className="w-full grid grid-cols-7 mb-3 text-xs">

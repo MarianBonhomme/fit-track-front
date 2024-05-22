@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useProfile } from "../profile/ProfileContext";
 import { addWeightMeasurement, deleteWeightMeasurement, getWeightMeasurements, updateWeightMeasurement } from "./HealthService";
+import moment from 'moment';
 
 const HealthContext = createContext();
 
@@ -9,6 +10,8 @@ export const HealthProvider = ({ children }) => {
   const [weightMeasurements, setWeightMeasurements] = useState()
   const [healthLoading, setHealthLoading] = useState(true);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState([]);
+  const [currentWeek, setCurrentWeek] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +23,11 @@ export const HealthProvider = ({ children }) => {
       fetchData();
     }
   }, [profile]);
+
+  useEffect(() => {
+    setCurrentMonth(initCurrentMonth());
+    setCurrentWeek(initCurrentWeek());
+  }, [])
 
   const fetchWeightMeasurements = async () => {
     const fetchedWeightMeasurements = await getWeightMeasurements(profile.id);
@@ -83,6 +91,44 @@ export const HealthProvider = ({ children }) => {
     setCurrentDate(prevDay);
   };
 
+  const initCurrentMonth = () => {
+    const today = moment().startOf('month');
+    const startOfMonth = today.clone().startOf('month');
+    const endOfMonth = today.clone().endOf('month');
+    return Array.from({ length: endOfMonth.diff(startOfMonth, 'days') + 1 }, (_, i) => startOfMonth.clone().add(i, 'day').format());
+  };
+  
+  const incrementMonth = () => {
+    setCurrentMonth(prevMonth =>
+      prevMonth.map(day => moment(day).add(1, 'month').toDate())
+    );
+  };
+  
+  const decrementMonth = () => {
+    setCurrentMonth(prevMonth =>
+      prevMonth.map(day => moment(day).subtract(1, 'month').toDate())
+    );
+  };
+
+  const initCurrentWeek = () => {
+    const today = moment().startOf('week');
+    const startOfWeek = today.clone().startOf('week');
+    const endOfWeek = today.clone().endOf('week');
+    return Array.from({ length: endOfWeek.diff(startOfWeek, 'days') + 1 }, (_, i) => startOfWeek.clone().add(i, 'day').format());
+  };
+  
+  const incrementWeek = () => {
+    setCurrentWeek(prevWeek =>
+      prevWeek.map(day => moment(day).add(1, 'week').toDate())
+    );
+  };
+  
+  const decrementWeek = () => {
+    setCurrentWeek(prevWeek =>
+      prevWeek.map(day => moment(day).subtract(1, 'week').toDate())
+    );
+  };
+
   return (
     <HealthContext.Provider
       value={{
@@ -94,7 +140,13 @@ export const HealthProvider = ({ children }) => {
         currentDate,
         incrementCurrentDate,
         decrementCurrentDate,
-        setCurrentDate,
+        setCurrentDate,       
+        currentMonth,
+        incrementMonth,
+        decrementMonth,       
+        currentWeek,
+        incrementWeek,
+        decrementWeek,
       }}
     >
       {children}

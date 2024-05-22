@@ -72,10 +72,6 @@ export default function MacroChartCard() {
       },
       y: {
         beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Quantité (g)',
-        },
       },
     },
     plugins: {
