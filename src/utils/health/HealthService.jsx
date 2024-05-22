@@ -28,6 +28,22 @@ const addWeightMeasurement = async (newWeightMeasurement) => {
   }
 };
 
+const updateWeightMeasurement = async (weightMeasurementToUpdate) => {
+  try {
+    const response = await axios.put(
+      `${BASE_URL}/weightMeasurement/${weightMeasurementToUpdate.id}`,
+      weightMeasurementToUpdate
+    );
+    return response.data;
+  } catch (error) {
+    console.error(
+      `Error updating weightMeasurement with id ${weightMeasurementToUpdate.id}:`,
+      error
+    );
+    throw error;
+  }
+};
+
 const deleteWeightMeasurement = async (weightMeasurementToDelete) => {
   try {
     const response = await axios.delete(
@@ -46,5 +62,6 @@ const deleteWeightMeasurement = async (weightMeasurementToDelete) => {
 export {
   getWeightMeasurements,
   addWeightMeasurement,
+  updateWeightMeasurement,
   deleteWeightMeasurement,
 };

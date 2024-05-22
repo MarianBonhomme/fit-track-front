@@ -1,7 +1,10 @@
 import React from 'react'
+import DailyWeightMeasurementCard from '../components/health/weight/DailyWeightMeasurementCard'
 
 export default function HealthWeightTab() {
   return (
-    <div>HealthWeightTab</div>
+    <div className="flex max-sm:flex-col items-start gap-3 sm:gap-5 rounded-tl-none rounded-3xl relative">
+      <DailyWeightMeasurementCard />
+    </div>
   )
 }
