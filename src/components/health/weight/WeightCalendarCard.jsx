@@ -93,39 +93,45 @@ export default function WeightCalendarCard() {
 
   return (
     <div className="flex max-sm:flex-col bg-primary px-5 py-3 rounded-3xl rounded-ss-none text-center gap-5">
-      <div className="sm:w-1/4 flex flex-col justify-evenly">
-        <div className='flex justify-evenly items-center'>
-          <Streaks />   
-          {minWeight && 
-            <div className='flex items-center justify-center gap-1'>
-              <p className='text-xl font-bold'>
-                {minWeight}
-                <span className='text-xs font-normal'>kg</span>
-              </p>
-              <Icon icon="ph:arrow-down-left-bold" className='text-blue size-[15px]' />
-            </div>       
-          }
-          {maxWeight && 
-            <div className='flex items-center justify-center gap-1'>
-              <p className='text-xl font-bold'>
-                {maxWeight}
-                <span className='text-xs font-normal'>kg</span>
-              </p>
-              <Icon icon="ph:arrow-up-right-bold" className='text-blue size-[15px]' />
-            </div>
-          }
-          {averageWeight && 
-            <div className='flex items-center justify-center gap-1'>
-              <p className='text-xl font-bold'>
-                {averageWeight}
-                <span className='text-xs font-normal'>kg</span>
-              </p>
-              <Icon icon="ph:approximate-equals-bold" className='text-blue size-[15px]' />
-            </div>
-          }
+      <div className="sm:w-1/2 flex flex-col sm:justify-evenly max-sm:space-y-5">
+        <div className='flex flex-col justify-center space-y-3'>
+          <CardTitle text={'Current Streak'} />
+          <Streaks /> 
+        </div>
+        <div className='flex flex-col justify-center space-y-3'>
+          <CardTitle text={'Weight Stats'} />
+          <div className='flex justify-evenly items-center'>
+            {minWeight && 
+              <div className='flex items-center justify-center gap-1'>
+              <Icon icon="ph:arrow-down-left-bold" className='text-blue size-[25px]' />
+                <p className='text-xl font-bold'>
+                  {minWeight}
+                  <span className='text-xs font-normal'>kg</span>
+                </p>
+              </div>       
+            }
+            {maxWeight && 
+              <div className='flex items-center justify-center gap-1'>
+              <Icon icon="ph:arrow-up-right-bold" className='text-blue size-[25px]' />
+                <p className='text-xl font-bold'>
+                  {maxWeight}
+                  <span className='text-xs font-normal'>kg</span>
+                </p>
+              </div>
+            }
+            {averageWeight && 
+              <div className='flex items-center justify-center gap-1'>
+                <Icon icon="ph:approximate-equals-bold" className='text-blue size-[25px]' />
+                <p className='text-xl font-bold'>
+                  {averageWeight}
+                  <span className='text-xs font-normal'>kg</span>
+                </p>
+              </div>
+            }
+          </div>
         </div>
       </div>
-      <div className='sm:w-3/4'>
+      <div className='sm:w-1/2'>
         <div className="w-full flex items-center justify-between mb-5">
           <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() - 1))} />
           <CardTitle text={moment(currentCalendarDate).format("MMMM YYYY")} />
@@ -190,6 +196,6 @@ function Streaks() {
   }
 
   return (
-    <div className='text-xl font-bold'>{currentStreak}🔥</div>
+    <div className='text-2xl font-bold'>{currentStreak}⚖️</div>
   )
 }
