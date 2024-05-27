@@ -95,28 +95,34 @@ export default function WeightCalendarCard() {
     <div className="flex max-sm:flex-col bg-primary px-5 py-3 rounded-3xl rounded-ss-none text-center gap-5">
       <div className="sm:w-1/4 flex flex-col justify-evenly">
         <div className='flex justify-evenly items-center'>
-          <Streaks />        
-          <div className='flex items-center justify-center gap-1'>
-            <Icon icon="ph:arrow-down-left-bold" className='text-blue size-[15px]' />
-            <p className='text-2xl font-bold'>
-              {minWeight ?? '-'}
-              <span className='text-xs font-normal'>kg</span>
-            </p>
-          </div>
-          <div className='flex items-center justify-center gap-1'>
-            <Icon icon="ph:arrow-up-right-bold" className='text-blue size-[15px]' />
-            <p className='text-2xl font-bold'>
-              {maxWeight ?? '-'}
-              <span className='text-xs font-normal'>kg</span>
-            </p>
-          </div>
-          <div className='flex items-center justify-center gap-1'>
-            <Icon icon="ph:approximate-equals-bold" className='text-blue size-[15px]' />
-            <p className='text-2xl font-bold'>
-              {averageWeight ?? '-'}
-              <span className='text-xs font-normal'>kg</span>
-            </p>
-          </div>
+          <Streaks />   
+          {minWeight && 
+            <div className='flex items-center justify-center gap-1'>
+              <p className='text-xl font-bold'>
+                {minWeight}
+                <span className='text-xs font-normal'>kg</span>
+              </p>
+              <Icon icon="ph:arrow-down-left-bold" className='text-blue size-[15px]' />
+            </div>       
+          }
+          {maxWeight && 
+            <div className='flex items-center justify-center gap-1'>
+              <p className='text-xl font-bold'>
+                {maxWeight}
+                <span className='text-xs font-normal'>kg</span>
+              </p>
+              <Icon icon="ph:arrow-up-right-bold" className='text-blue size-[15px]' />
+            </div>
+          }
+          {averageWeight && 
+            <div className='flex items-center justify-center gap-1'>
+              <p className='text-xl font-bold'>
+                {averageWeight}
+                <span className='text-xs font-normal'>kg</span>
+              </p>
+              <Icon icon="ph:approximate-equals-bold" className='text-blue size-[15px]' />
+            </div>
+          }
         </div>
       </div>
       <div className='sm:w-3/4'>
@@ -184,10 +190,6 @@ function Streaks() {
   }
 
   return (
-    <div className='text-2xl font-bold'>{currentStreak ?? '-'}🔥</div>
+    <div className='text-xl font-bold'>{currentStreak}🔥</div>
   )
-}
-
-function Stats() {
-
 }
