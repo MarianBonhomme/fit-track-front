@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHealth } from '../../../utils/health/HealthContext';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import CardTitle from '../../global/CardTitle';
@@ -11,6 +11,18 @@ export default function WeightEvolutionChartCard() {
   const { themeColors } = useUser();
   const { weightMeasurements, currentMonth, incrementMonth, decrementMonth, currentWeek, incrementWeek, decrementWeek } = useHealth();
   const [isMonth, setIsMonth] = useState(false);
+  const [minWeight, setMinWeight] = useState();
+  const [maxWeight, setMaxWeight] = useState();
+
+  useEffect(() => {
+    if (weightMeasurements && weightMeasurements.length > 0) {
+      const weights = weightMeasurements.map(measurement => measurement.weight_value);
+      const min = Math.floor(Math.min(...weights));
+      const max = Math.ceil(Math.max(...weights));
+      setMinWeight(min);
+      setMaxWeight(max);
+    }
+  }, [weightMeasurements])
 
   const getDailyWeightMeasurement = (date) => {  
     const measurement = weightMeasurements.find(
@@ -34,8 +46,8 @@ export default function WeightEvolutionChartCard() {
       },
       y: {
         beginAtZero: true,
-        min: 40,
-        max: 100,
+        min: minWeight - 1,
+        max: maxWeight + 1,
       },
     },
     plugins: {
@@ -58,16 +70,17 @@ export default function WeightEvolutionChartCard() {
         data: isMonth ? 
           currentMonth && currentMonth.map((day) => {
             const dailyWeightMeasurement = getDailyWeightMeasurement(new Date(day));
-            return dailyWeightMeasurement && dailyWeightMeasurement.weight_value || 0
+            return dailyWeightMeasurement ? dailyWeightMeasurement.weight_value : null
           }) 
           :
           currentWeek && currentWeek.map((day) => {
             const dailyWeightMeasurement = getDailyWeightMeasurement(new Date(day));
-            return dailyWeightMeasurement && dailyWeightMeasurement.weight_value || 0
+            return dailyWeightMeasurement ? dailyWeightMeasurement.weight_value : null
           }),
         backgroundColor: isMonth ? themeColors.green : themeColors.purple,
         pointRadius: 0,
         borderWidth: 1,
+        spanGaps: true
       },
     ],
   };
