@@ -8,6 +8,34 @@ import { formatDate, isToday } from '../../../utils/global/DateService';
 export default function WeightCalendarCard() {
   const { currentDate, setCurrentDate, weightMeasurements } = useHealth();
   const [currentCalendarDate, setCurrentCalendarDate] = useState(currentDate);
+  const [minWeight, setMinWeight] = useState();
+  const [maxWeight, setMaxWeight] = useState();
+  const [averageWeight, setAverageWeight] = useState();
+
+  useEffect(() => {
+    if (weightMeasurements && weightMeasurements.length > 0) {
+      const filteredMeasurements = weightMeasurements.filter(measurement => {
+        const measurementDate = new Date(measurement.date);
+        return measurementDate.getMonth() === currentCalendarDate.getMonth() &&
+          measurementDate.getFullYear() === currentCalendarDate.getFullYear();
+      });
+
+      if (filteredMeasurements.length > 0) {
+        const weights = filteredMeasurements.map(measurement => measurement.weight_value);
+        const min = Math.min(...weights);
+        const max = Math.max(...weights);
+        const average = (weights.reduce((acc, val) => acc + val, 0) / weights.length).toFixed(1);
+
+        setMinWeight(min);
+        setMaxWeight(max);
+        setAverageWeight(average);
+      } else {
+        setMinWeight(undefined);
+        setMaxWeight(undefined);
+        setAverageWeight(undefined);
+      }
+    }
+  }, [weightMeasurements, currentCalendarDate]);
 
   const daysInMonth = (date) => {
     const year = date.getFullYear();
@@ -55,7 +83,7 @@ export default function WeightCalendarCard() {
           <div className={pelletStyle}>
             {i}
           </div>
-          <div className={`absolute top-0 left-0 ${!isMeasurement && 'opacity-0'}`}>⚖️</div>
+          <div className={`absolute top-0 left-0 ${!isMeasurement && 'opacity-0'}`}>🔥</div>
         </div>
       );
     }
@@ -66,7 +94,30 @@ export default function WeightCalendarCard() {
   return (
     <div className="flex max-sm:flex-col bg-primary px-5 py-3 rounded-3xl rounded-ss-none text-center gap-5">
       <div className="sm:w-1/4 flex flex-col justify-evenly">
-        <Streaks />
+        <div className='flex justify-evenly items-center'>
+          <Streaks />        
+          <div className='flex items-center justify-center gap-1'>
+            <Icon icon="ph:arrow-down-left-bold" className='text-blue size-[15px]' />
+            <p className='text-2xl font-bold'>
+              {minWeight ?? '-'}
+              <span className='text-xs font-normal'>kg</span>
+            </p>
+          </div>
+          <div className='flex items-center justify-center gap-1'>
+            <Icon icon="ph:arrow-up-right-bold" className='text-blue size-[15px]' />
+            <p className='text-2xl font-bold'>
+              {maxWeight ?? '-'}
+              <span className='text-xs font-normal'>kg</span>
+            </p>
+          </div>
+          <div className='flex items-center justify-center gap-1'>
+            <Icon icon="ph:approximate-equals-bold" className='text-blue size-[15px]' />
+            <p className='text-2xl font-bold'>
+              {averageWeight ?? '-'}
+              <span className='text-xs font-normal'>kg</span>
+            </p>
+          </div>
+        </div>
       </div>
       <div className='sm:w-3/4'>
         <div className="w-full flex items-center justify-between mb-5">
@@ -133,9 +184,10 @@ function Streaks() {
   }
 
   return (
-    <div className='space-y-3'>
-      <CardTitle text={'Current Streak'} />
-      <div className='text-2xl font-bold'>{currentStreak}⚖️</div>
-    </div>
+    <div className='text-2xl font-bold'>{currentStreak ?? '-'}🔥</div>
   )
+}
+
+function Stats() {
+
 }
