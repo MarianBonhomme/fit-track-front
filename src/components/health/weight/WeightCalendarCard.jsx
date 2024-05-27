@@ -196,6 +196,6 @@ function Streaks() {
   }
 
   return (
-    <div className='text-2xl font-bold'>{currentStreak}⚖️</div>
+    <div className='text-2xl font-bold'>{currentStreak}🔥</div>
   )
 }
