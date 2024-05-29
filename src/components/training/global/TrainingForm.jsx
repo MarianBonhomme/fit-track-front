@@ -164,8 +164,8 @@ export default function TrainingForm() {
           </div>       
         </div>   
         <div className='flex justify-center items-center gap-5 mt-5 sm:mt-10'>
-          {trainingFormData && (<button className={`font-bold bg-red text-primary px-5 py-3 rounded-3xl`} onClick={deleteTraining}>Delete</button>)}
-          <button type="submit" className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl`}>Confirm</button>
+          {trainingFormData?.training && (<button className={`font-bold bg-red text-primary px-5 py-3 rounded-3xl`} onClick={deleteTraining}>Delete</button>)}
+          <button type="submit" disabled={!selectedProgram} className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl ${selectedProgram ?? 'opacity-80'}`}>Confirm</button>
         </div>
       </form>
     </div>
