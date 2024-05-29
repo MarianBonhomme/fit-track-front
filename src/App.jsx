@@ -14,6 +14,7 @@ import TrainingPage from "./pages/TrainingPage";
 import UserPage from './pages/UserPage';
 import HealthPage from "./pages/HealthPage";
 import { HealthProvider } from "./utils/health/HealthContext";
+import Loader from "./components/global/Loader";
 
 export default function App() {
   return (
@@ -31,12 +32,10 @@ function AppContent() {
       <TrainingProvider>  
         <HealthProvider>
           {userLoading ? (
-            <div className="w-screen h-screen flex items-center justify-center">
-              <img src="/assets/images/loader.svg" alt="loader" />
-            </div>
+            <Loader />
           ) : (
             <Router>
-              {user && <Sidebar />}
+              {user ? <Sidebar /> : <Loader />}
               <div className="sm:pl-[60px] max-sm:pb-[60px]">
                 <Routes>
                   <Route path="/auth" element={!user ? <AuthPage /> : <Navigate to="/user" />} />

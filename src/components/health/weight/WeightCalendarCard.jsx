@@ -83,7 +83,7 @@ export default function WeightCalendarCard() {
           <div className={pelletStyle}>
             {i}
           </div>
-          <div className={`absolute top-0 left-0 ${!isMeasurement && 'opacity-0'}`}>🔥</div>
+          <div className={`absolute top-0 left-0 ${isMeasurement ?? 'opacity-0'}`}>🔥</div>
         </div>
       );
     }
@@ -101,16 +101,18 @@ export default function WeightCalendarCard() {
         <div className='flex flex-col justify-center space-y-3'>
           <CardTitle text={'Weight Stats'} />
           <div className='flex justify-evenly items-center'>
-            {minWeight && 
+            {minWeight ? ( 
               <div className='flex items-center justify-center gap-1'>
               <Icon icon="ph:arrow-down-left-bold" className='text-blue size-[25px]' />
                 <p className='text-xl font-bold'>
                   {minWeight}
                   <span className='text-xs font-normal'>kg</span>
                 </p>
-              </div>       
-            }
-            {maxWeight && 
+              </div>      
+            ) : (
+              <p>-</p>
+            )}
+            {maxWeight ? ( 
               <div className='flex items-center justify-center gap-1'>
               <Icon icon="ph:arrow-up-right-bold" className='text-blue size-[25px]' />
                 <p className='text-xl font-bold'>
@@ -118,8 +120,10 @@ export default function WeightCalendarCard() {
                   <span className='text-xs font-normal'>kg</span>
                 </p>
               </div>
-            }
-            {averageWeight && 
+            ) : (
+              <p>-</p>
+            )}
+            {averageWeight ? ( 
               <div className='flex items-center justify-center gap-1'>
                 <Icon icon="ph:approximate-equals-bold" className='text-blue size-[25px]' />
                 <p className='text-xl font-bold'>
@@ -127,7 +131,9 @@ export default function WeightCalendarCard() {
                   <span className='text-xs font-normal'>kg</span>
                 </p>
               </div>
-            }
+            ) : (
+              <p>-</p>
+            )}
           </div>
         </div>
       </div>
