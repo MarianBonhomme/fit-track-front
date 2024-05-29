@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { addProgram, addTraining, deleteTraining, deleteprogram, getPrograms, getSortedTrainingsByDate, getTrainings, updateProgram, updateTraining } from "./SportService";
+import { addProgram, addTraining, deleteTraining, deleteprogram, getPrograms, getSortedTrainingsByDate, getTrainings, updateProgram, updateTraining } from "./TrainingService";
 import moment from 'moment';
 import { useUser } from "../user/UserContext";
 
-const SportContext = createContext();
+const TrainingContext = createContext();
 
-export const SportProvider = ({ children }) => {
+export const TrainingProvider = ({ children }) => {
   const { user } = useUser();
-  const [sportLoading, setSportLoading] = useState(true);
+  const [trainingLoading, setTrainingLoading] = useState(true);
   const [programs, setPrograms] = useState([]);
   const [trainings, setTrainings] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -23,7 +23,7 @@ export const SportProvider = ({ children }) => {
     const fetchData = async () => {
       await fetchPrograms();
       await fetchTrainings();
-      setSportLoading(false);
+      setTrainingLoading(false);
     }
     
     if (user && user.id) {
@@ -245,9 +245,9 @@ export const SportProvider = ({ children }) => {
   };
 
   return (
-    <SportContext.Provider
+    <TrainingContext.Provider
       value={{
-        sportLoading,
+        trainingLoading,
         programs,
         trainings,
         handleUpdateProgram,
@@ -278,10 +278,10 @@ export const SportProvider = ({ children }) => {
       }}
     >
       {children}
-    </SportContext.Provider>
+    </TrainingContext.Provider>
   )
 }
 
-export const useSport = () => {
-  return useContext(SportContext);
+export const useTraining = () => {
+  return useContext(TrainingContext);
 }

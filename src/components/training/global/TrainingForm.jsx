@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useSport } from '../../../utils/sport/SportContext'
+import { useTraining } from '../../../utils/training/TrainingContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
 import moment from 'moment';
-import AddButton from './../../global/AddButton';
+import AddButton from '../../global/AddButton';
 import PatternIndicator from './PatternIndicator';
 
 export default function TrainingForm() {
-  const { programs, handleAddTraining, handleDeleteTraining, closeTrainingForm, trainingFormData, openProgramForm } = useSport();
+  const { programs, handleAddTraining, handleDeleteTraining, closeTrainingForm, trainingFormData, openProgramForm } = useTraining();
   const [difficulty, setDifficulty] = useState(trainingFormData.training ? trainingFormData.training.difficulty : 1);
   const [isValidated, setisValidated] = useState(trainingFormData.training ? trainingFormData.training.is_validated : 1);;
   const [selectedProgram, setSelectedProgram] = useState(trainingFormData.programId && trainingFormData.programId);

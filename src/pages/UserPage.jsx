@@ -24,8 +24,6 @@ export default function UserPage() {
     const updatedUser = { ...user, color_id: color.id }
     handleUpdateUser(updatedUser)
   } 
-
-  console.log(user);
   
   return ( 
     !userLoading && 
@@ -37,7 +35,7 @@ export default function UserPage() {
               <p className='text-xl font-bold'>{user.pseudo}</p>
             </div>
             <div className="absolute top-5 left-5">
-              <Icon icon="majesticons:logout-half-circle" className='text-red size-[30px]' onClick={handleSignout} />
+              <Icon icon="majesticons:logout-half-circle" className='text-red size-[30px] cursor-pointer' onClick={handleSignout} />
             </div>
             <div className="absolute top-5 right-5">
               <DarkModeSwitch

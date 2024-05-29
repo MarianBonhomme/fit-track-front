@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js';
 import CardTitle from '../../global/CardTitle';
 import moment from 'moment';
 import { formatDate, isToday } from '../../../utils/global/DateService';
-import { useSport } from '../../../utils/sport/SportContext';
+import { useTraining } from '../../../utils/training/TrainingContext';
 
-export default function SportCalendarCard() {
-  const { currentDate, setCurrentDate, trainings } = useSport();
+export default function TrainingCalendarCard() {
+  const { currentDate, setCurrentDate, trainings } = useTraining();
   const [currentCalendarDate, setCurrentCalendarDate] = useState(currentDate);
 
   const daysInMonth = (date) => {

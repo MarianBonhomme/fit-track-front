@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import TrainingCard from './TrainingCard'
-import { useSport } from '../../../utils/sport/SportContext'
+import { useTraining } from '../../../utils/training/TrainingContext'
 import { getShortDate } from '../../../utils/global/DateService';
-import { getBestTrainingPerformanceOfProgram, getFirstTrainingOfProgram, getLastTraining } from '../../../utils/sport/SportService';
+import { getBestTrainingPerformanceOfProgram, getFirstTrainingOfProgram, getLastTraining } from '../../../utils/training/TrainingService';
 import { useDraggable } from "react-use-draggable-scroll";
 import AddButton from '../../global/AddButton';
 import PatternIndicator from '../global/PatternIndicator';
 
 export default function ProgramJourney({program}) {
-  const { openTrainingForm, openProgramForm, handleUpdateProgram } = useSport()
+  const { openTrainingForm, openProgramForm, handleUpdateProgram } = useTraining()
   const [lastTraining, setLastTraining] = useState('');
   const [firstTraining, setFirstTraining] = useState('');
   const [bestPerf, setBestPerf] = useState('');

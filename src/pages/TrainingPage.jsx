@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import { useUser } from '../utils/user/UserContext';
-import SportCalendarTab from './SportCalendarTab';
-import SportProgramsTab from './SportProgramsTab';
-import ProgramForm from '../components/sport/global/ProgramForm';
-import TrainingForm from '../components/sport/global/TrainingForm';
+import TrainingCalendarTab from './TrainingCalendarTab';
+import TrainingProgramsTab from './TrainingProgramsTab';
+import ProgramForm from '../components/training/global/ProgramForm';
+import TrainingForm from '../components/training/global/TrainingForm';
 import AddButton from '../components/global/AddButton';
-import { useSport } from '../utils/sport/SportContext';
+import { useTraining } from '../utils/training/TrainingContext';
 
-export default function SportPage() {
+export default function TrainingPage() {
   const { isDarkMode, toggleDarkMode } = useUser();
-  const { isTrainingFormDisplayed, isProgramFormDisplayed, openProgramForm, sportLoading } = useSport();
+  const { isTrainingFormDisplayed, isProgramFormDisplayed, openProgramForm, trainingLoading } = useTraining();
 
   const tabs = ['programs', 'calendar'];
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   return (
-    !sportLoading && (
+    !trainingLoading && (
       <>
         <div className='p-3 sm:p-5 relative'>
           <div className='absolute right-3 top-3 sm:right-5 sm:top-5'>
@@ -35,10 +35,10 @@ export default function SportPage() {
             ))}
           </ul>
           {activeTab === 'calendar' && (
-            <SportCalendarTab />
+            <TrainingCalendarTab />
           )}
           {activeTab === 'programs' && (
-            <SportProgramsTab />
+            <TrainingProgramsTab />
           )}
         </div>
         {isProgramFormDisplayed && (

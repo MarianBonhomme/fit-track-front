@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useSport } from '../../../utils/sport/SportContext'
+import { useTraining } from '../../../utils/training/TrainingContext'
 import TrainingCard from '../programs/TrainingCard';
 import FlipMove from 'react-flip-move';
 
 export default function DailyTrainings({date}) {
-  const { programs, getTrainingsByDate } = useSport();
+  const { programs, getTrainingsByDate } = useTraining();
   const [dailyTrainings, setDailyTrainings] = useState([])  
 
   useEffect(() => {

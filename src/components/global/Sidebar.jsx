@@ -20,10 +20,10 @@ export default function Sidebar() {
           <Icon icon="ion:nutrition-outline" className="text-secondary size-[30px]" />
         </Link>
       )}
-      {location.pathname === "/sport" ? (
+      {location.pathname === "/training" ? (
         <Icon icon="mingcute:fitness-fill" className="text-secondary size-[30px]"/>
       ) : (
-        <Link to='/sport' aria-label="Sport">
+        <Link to='/training' aria-label="Training">
           <Icon icon="mingcute:fitness-line" className="text-secondary size-[30px]" />
         </Link>
       )}      

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { getShortDate } from '../../../utils/global/DateService'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import DifficultyScale from './../global/DifficultyScale';
-import { useSport } from '../../../utils/sport/SportContext';
+import { useTraining } from '../../../utils/training/TrainingContext';
 import PatternIndicator from '../global/PatternIndicator';
 
 export default function TrainingCard({training, isOnCalendar}) {
-  const { openTrainingForm, programs } = useSport()
+  const { openTrainingForm, programs } = useTraining()
   const [program, setProgram] = useState();
 
   useEffect(() => {

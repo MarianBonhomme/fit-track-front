@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useSport } from '../../../utils/sport/SportContext'
+import { useTraining } from '../../../utils/training/TrainingContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 export default function ProgramForm() {
-  const { handleAddProgram, handleDeleteProgram, closeProgramForm, programFormData } = useSport();
+  const { handleAddProgram, handleDeleteProgram, closeProgramForm, programFormData } = useTraining();
   const [isFormValid, setIsFormValid] = useState(false);
 
   const [formData, setFormData] = useState({

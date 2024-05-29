@@ -1,13 +1,13 @@
 import React from 'react'
-import { useSport } from '../../../utils/sport/SportContext';
+import { useTraining } from '../../../utils/training/TrainingContext';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import DailyTrainings from './DailyTrainings';
-import AddButton from './../../global/AddButton';
+import AddButton from '../../global/AddButton';
 import { getDayOfWeek } from '../../../utils/global/DateService';
 import moment from 'moment';
 
 export default function TrainingsCalendarCard() {
-  const { currentWeek, incrementWeek, decrementWeek, openTrainingForm, currentDate, incrementCurrentDate, decrementCurrentDate } = useSport();
+  const { currentWeek, incrementWeek, decrementWeek, openTrainingForm, currentDate, incrementCurrentDate, decrementCurrentDate } = useTraining();
 
   return (
     <div className='bg-primary sm:p-5 rounded-3xl relative'>
