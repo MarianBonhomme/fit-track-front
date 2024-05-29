@@ -30,7 +30,7 @@ const addFood = async (newFood) => {
   }
 };
 
-const updateFood = async (foodToUpdate, profileId) => {
+const updateFood = async (foodToUpdate, userId) => {
   try {
     let id;
 
@@ -40,7 +40,7 @@ const updateFood = async (foodToUpdate, profileId) => {
       id = foodToUpdate.id;
     }
 
-    const response = await axios.put(`${BASE_URL}/food/${id}/${profileId}`, foodToUpdate, {
+    const response = await axios.put(`${BASE_URL}/food/${id}/${userId}`, foodToUpdate, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -62,10 +62,10 @@ const deleteFood = async (foodToDelete) => {
   }
 };
 
-const getFoodConsumptions = async (profileId) => {
+const getFoodConsumptions = async (userId) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/foodConsumption/${profileId}`
+      `${BASE_URL}/foodConsumption/${userId}`
     );
     return response.data;
   } catch (error) {
@@ -118,10 +118,10 @@ const deleteFoodConsumption = async (foodConsumptionToDelete) => {
   }
 };
 
-const getDatesCount = async (profileId) => {
+const getDatesCount = async (userId) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/foodConsumption/datesCount/${profileId}`
+      `${BASE_URL}/foodConsumption/datesCount/${userId}`
     );
     return response.data;
   } catch (error) {

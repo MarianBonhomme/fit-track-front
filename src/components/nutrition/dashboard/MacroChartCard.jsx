@@ -5,26 +5,24 @@ import { useNutrition } from "../../../utils/nutrition/NutritionContext";
 import moment from 'moment';
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useState } from "react";
-import { useProfile } from "../../../utils/profile/ProfileContext";
 import { getColorByMacro, macros } from "../../../utils/global/MacroService";
 
 export default function MacroChartCard() {
-  const { themeColors } = useUser();
-  const { profile } = useProfile();
+  const { user, themeColors } = useUser();
   const { currentMonth, incrementMonth, decrementMonth, filterFoodConsumptionsByDate } = useNutrition();
   const [activeMacro, setActiveMacro] = useState('prot');
   const [maxMacros, setMaxMacros] = useState();
 
   useEffect(() => {
-    if (profile) {
+    if (user) {
       setMaxMacros({
-        kcal: profile.dailyKcal,
-        prot: profile.dailyProt,
-        fat: profile.dailyFat,
-        carb: profile.dailyCarb,
+        kcal: user.dailyKcal,
+        prot: user.dailyProt,
+        fat: user.dailyFat,
+        carb: user.dailyCarb,
       })
     }
-  }, [profile])
+  }, [user])
 
   const getDailyMacroValue = (dailyFoodConsumptions) => {
     var value = 0;

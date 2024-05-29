@@ -3,10 +3,10 @@ import { formatDate, getFullDate } from '../../../utils/global/DateService'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import CardTitle from '../../global/CardTitle'
 import { useHealth } from '../../../utils/health/HealthContext'
-import { useProfile } from '../../../utils/profile/ProfileContext'
+import { useUser } from '../../../utils/user/UserContext'
 
 export default function DailyWeightMeasurementCard() {
-  const { profile } = useProfile();
+  const { user } = useUser();
   const { weightMeasurements, currentDate, incrementCurrentDate, decrementCurrentDate, handleAddWeightMeasurement, handleUpdateWeightMeasurement } = useHealth();
   const [dailyWeightMeasurement, setDailyWeightMeasurement] = useState(null)
   const [newWeightMeasurement, setNewWeightMeasurement] = useState(0)
@@ -37,7 +37,7 @@ export default function DailyWeightMeasurementCard() {
     if (newWeightMeasurement && newWeightMeasurement > 0 ) {
       const newWeight = {
         id: dailyWeightMeasurement ? dailyWeightMeasurement.id : null,
-        profile_id: profile.id,
+        user_id: user.id,
         date: currentDate,
         weight_value: newWeightMeasurement,
       }

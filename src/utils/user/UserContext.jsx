@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { signin, signup, getUserById, updateUser } from "./UserService"
 import { darkColors } from './../../assets/colors/darkColors';
 import { lightColors } from './../../assets/colors/lightColors';
+import { getColors } from "./ColorService";
+import { getAvatars } from "./AvatarService";
 
 const UserContext = createContext();
 
@@ -13,11 +15,16 @@ export const UserProvider = ({ children }) => {
   const storedTheme = localStorage.getItem('theme')
   const [isDarkMode, setIsDarkMode] = useState(storedTheme === 'true');
   const [themeColors, setThemeColors] = useState(isDarkMode ? darkColors : lightColors);
+  
+  const [avatars, setAvatars] = useState([]);
+  const [colors, setColors] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       if (storedUser) {
         await fetchUser();
+        await fetchAvatars();
+        await fetchColors();
       }
       setUserLoading(false);
     };
@@ -56,6 +63,16 @@ export const UserProvider = ({ children }) => {
     const userFetched = await getUserById(storedUser);
     setUser(userFetched)
   }
+
+  const fetchAvatars = async () => {
+    const fetchedAvatars = await getAvatars();
+    setAvatars(fetchedAvatars)
+  }  
+
+  const fetchColors = async () => {
+    const fetchedColors = await getColors();
+    setColors(fetchedColors)
+  }  
 
   const handleSignin = async (user) => {
     try {
@@ -96,6 +113,8 @@ export const UserProvider = ({ children }) => {
       value={{
         userLoading,
         user,
+        avatars,
+        colors,
         handleSignin,
         handleSignup,
         handleSignout,

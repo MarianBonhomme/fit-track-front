@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useProfile } from "../profile/ProfileContext";
 import { addWeightMeasurement, deleteWeightMeasurement, getWeightMeasurements, updateWeightMeasurement } from "./HealthService";
 import moment from 'moment';
+import { useUser } from "../user/UserContext";
 
 const HealthContext = createContext();
 
 export const HealthProvider = ({ children }) => {
-  const { profile } = useProfile();
+  const { user } = useUser();
   const [weightMeasurements, setWeightMeasurements] = useState()
   const [healthLoading, setHealthLoading] = useState(true);
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -19,10 +19,10 @@ export const HealthProvider = ({ children }) => {
       setHealthLoading(false);
     };
 
-    if (profile && profile.id) {
+    if (user && user.id) {
       fetchData();
     }
-  }, [profile]);
+  }, [user]);
 
   useEffect(() => {
     setCurrentMonth(initCurrentMonth());
@@ -30,7 +30,7 @@ export const HealthProvider = ({ children }) => {
   }, [])
 
   const fetchWeightMeasurements = async () => {
-    const fetchedWeightMeasurements = await getWeightMeasurements(profile.id);
+    const fetchedWeightMeasurements = await getWeightMeasurements(user.id);
     setWeightMeasurements(fetchedWeightMeasurements);
   };
 

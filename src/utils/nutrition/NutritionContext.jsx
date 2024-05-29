@@ -10,14 +10,14 @@ import {
   getDatesCount,
   deleteFood,
 } from "./NutritionService";
-import { useProfile } from "../profile/ProfileContext";
-import { addDay, deleteDay, getDayByDateAndProfile, getDays, updateDay } from "../global/DayService";
+import { addDay, deleteDay, getDayByDateAndUser, getDays, updateDay } from "../global/DayService";
 import moment from 'moment';
+import { useUser } from "../user/UserContext";
 
 const NutritionContext = createContext();
 
 export const NutritionProvider = ({ children }) => {
-  const { profile } = useProfile();
+  const { user } = useUser();
   const [nutritionLoading, setNutritionLoading] = useState(true);
   const [foodsWithTotalQuantity, setFoodsWithTotalQuantity] = useState([]);
   const [foodConsumptions, setFoodConsumptions] = useState([]);
@@ -34,13 +34,13 @@ export const NutritionProvider = ({ children }) => {
       setNutritionLoading(false);
     };
 
-    if (profile && profile.id) {
+    if (user && user.id) {
       fetchData();
     }
-  }, [profile]);
+  }, [user]);
 
   useEffect(() => {
-    if (profile && profile.id) {
+    if (user && user.id) {
       fetchFoodsWithTotalQuantity();
       fetchDaysIndicatedCount();
     }
@@ -60,23 +60,23 @@ export const NutritionProvider = ({ children }) => {
   }, [])
 
   const fetchFoodConsumptions = async () => {
-    const fetchedFoodConsumptions = await getFoodConsumptions(profile.id);
+    const fetchedFoodConsumptions = await getFoodConsumptions(user.id);
     setFoodConsumptions(fetchedFoodConsumptions);
   };
 
   const fetchDays = async () => {
-    const fetchedDays = await getDays(profile);
+    const fetchedDays = await getDays(user);
     setDays(fetchedDays);
   };
 
   const fetchDaysIndicatedCount = async () => {
-    const fetchedDaysIndicatedCount = await getDatesCount(profile.id);
+    const fetchedDaysIndicatedCount = await getDatesCount(user.id);
     setDaysIndicatedCount(fetchedDaysIndicatedCount);
   };
 
   const fetchFoodsWithTotalQuantity = async () => {
     const fetchedFoodsWithTotalQuantity = await getFoodsWithTotalQuantity(
-      profile.id
+      user.id
     );
     setFoodsWithTotalQuantity(fetchedFoodsWithTotalQuantity);
   };
@@ -131,7 +131,7 @@ export const NutritionProvider = ({ children }) => {
 
   const handleUpdateFood = async (foodToUpdate) => {
     try {
-      const updatedFood = await updateFood(foodToUpdate, profile.id);
+      const updatedFood = await updateFood(foodToUpdate, user.id);
       setFoodsWithTotalQuantity((prevFoods) =>
         prevFoods.map((food) =>
           food.id === updatedFood.id ? updatedFood : food
@@ -159,13 +159,13 @@ export const NutritionProvider = ({ children }) => {
   const handleAddFoodConsumption = async (newFoodConsumption) => {
     try {      
       const createdDay = await addOrGetDay(currentDate);
-      const newFoodConsumptionWithProfileAndDay = {
+      const newFoodConsumptionWithUserAndDay = {
         ...newFoodConsumption,
         day_id: createdDay.id,
       };
       try {
         const addedFoodConsumption = await addFoodConsumption(
-          newFoodConsumptionWithProfileAndDay
+          newFoodConsumptionWithUserAndDay
         );
         setFoodConsumptions((prevFoodsConsumptions) => [
           ...prevFoodsConsumptions,
@@ -267,11 +267,11 @@ export const NutritionProvider = ({ children }) => {
   }
   
   const addOrGetDay = async (date) => {
-    const day = await getDayByDateAndProfile(date, profile);
+    const day = await getDayByDateAndUser(date, user);
     if (day) {
       return day
     } else {
-      const createdDay = await addDay({date: date, profile_id: profile.id});
+      const createdDay = await addDay({date: date, user_id: user.id});
       const updatedDays = [...days, createdDay];
       updatedDays.sort((a, b) => {
         return new Date(a.date) - new Date(b.date);
@@ -283,7 +283,7 @@ export const NutritionProvider = ({ children }) => {
 
   const findDayByDate = (date) => {
     const formattedDate = moment(date);
-    const foundDay = days.find(day => moment(day.date).isSame(formattedDate, 'day') && day.profile_id === profile.id);
+    const foundDay = days.find(day => moment(day.date).isSame(formattedDate, 'day') && day.user_id === user.id);
     return foundDay;
   } 
 

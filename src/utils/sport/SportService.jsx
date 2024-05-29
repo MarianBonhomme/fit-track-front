@@ -3,9 +3,9 @@ import { environment } from "../../../environment";
 
 const BASE_URL = environment.API_URL || "http://localhost:3000";
 
-const getPrograms = async (profileId) => {
+const getPrograms = async (userId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/program/${profileId}`);
+    const response = await axios.get(`${BASE_URL}/program/${userId}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching all programs:", error);
@@ -13,12 +13,12 @@ const getPrograms = async (profileId) => {
   }
 };
 
-const getTrainings = async (profileId) => {
+const getTrainings = async (userId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/training/${profileId}`);
+    const response = await axios.get(`${BASE_URL}/training/${userId}`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching all trainings with profile id:", error);
+    console.error("Error fetching all trainings with user id:", error);
     throw error;
   }
 };

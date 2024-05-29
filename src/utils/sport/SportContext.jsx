@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useProfile } from "../profile/ProfileContext";
 import { addProgram, addTraining, deleteTraining, deleteprogram, getPrograms, getSortedTrainingsByDate, getTrainings, updateProgram, updateTraining } from "./SportService";
 import moment from 'moment';
+import { useUser } from "../user/UserContext";
 
 const SportContext = createContext();
 
 export const SportProvider = ({ children }) => {
-  const { profile } = useProfile();
+  const { user } = useUser();
   const [sportLoading, setSportLoading] = useState(true);
   const [programs, setPrograms] = useState([]);
   const [trainings, setTrainings] = useState([]);
@@ -26,10 +26,10 @@ export const SportProvider = ({ children }) => {
       setSportLoading(false);
     }
     
-    if (profile && profile.id) {
+    if (user && user.id) {
       fetchData();
     }
-  }, [profile])
+  }, [user])
 
   useEffect(() => {
     setCurrentMonth(initCurrentMonth());
@@ -37,12 +37,12 @@ export const SportProvider = ({ children }) => {
   }, [])
 
   const fetchPrograms = async () => {
-    const fetchedPrograms = await getPrograms(profile.id);
+    const fetchedPrograms = await getPrograms(user.id);
     setPrograms(fetchedPrograms);
   }
 
   const fetchTrainings = async () => {
-    const fetchedTrainings = await getTrainings(profile.id);
+    const fetchedTrainings = await getTrainings(user.id);
     setTrainings(fetchedTrainings);
   }
 
@@ -155,10 +155,10 @@ export const SportProvider = ({ children }) => {
       handleUpdateProgram(newProgram);
       return;
     }
-    const newProgramWithProfile = {...newProgram, profile_id: profile.id}
+    const newProgramWithUser = {...newProgram, user_id: user.id}
 
     try {
-      const addedProgram = await addProgram(newProgramWithProfile);
+      const addedProgram = await addProgram(newProgramWithUser);
       setPrograms((prevPrograms) => [...prevPrograms, addedProgram]);
     } catch (error) {
       console.error('Error adding program:', error);

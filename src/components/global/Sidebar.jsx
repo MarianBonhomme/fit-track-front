@@ -6,10 +6,10 @@ export default function Sidebar() {
 
   return (
     <nav className="h-[60px] sm:h-screen max-sm:w-screen sm:w-[60px] bg-primary fixed bottom-0 sm:top-0 left-0 z-40 flex sm:flex-col max-sm:justify-evenly sm:gap-10 items-center sm:py-10">
-      {location.pathname === "/profile" ? (
+      {location.pathname === "/user" ? (
         <Icon icon="iconamoon:profile-fill" className="text-secondary size-[30px]" />
       ) : (
-        <Link to='/profile' aria-label="Profile">
+        <Link to='/user' aria-label="User">
           <Icon icon="iconamoon:profile-light" className="text-secondary size-[30px]" />
         </Link>
       )}

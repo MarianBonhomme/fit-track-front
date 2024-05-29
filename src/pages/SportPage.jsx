@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
-import ProfileIcon from '../components/profile/ProfileIcon';
 import { useUser } from '../utils/user/UserContext';
 import SportCalendarTab from './SportCalendarTab';
 import SportProgramsTab from './SportProgramsTab';
@@ -20,15 +19,12 @@ export default function SportPage() {
     !sportLoading && (
       <>
         <div className='p-3 sm:p-5 relative'>
-          <div className='absolute right-3 top-3 sm:right-5 sm:top-5 flex items-center justify-center gap-3'>
-            <div>
-              <DarkModeSwitch
-                checked={isDarkMode}
-                onChange={toggleDarkMode}
-                size={30}
-              />
-            </div>
-            <ProfileIcon />
+          <div className='absolute right-3 top-3 sm:right-5 sm:top-5'>
+            <DarkModeSwitch
+              checked={isDarkMode}
+              onChange={toggleDarkMode}
+              size={30}
+            />
           </div>
           <ul className='flex font-bold'>
             {tabs.map((tab, index) => (

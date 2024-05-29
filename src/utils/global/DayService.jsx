@@ -3,9 +3,9 @@ import { environment } from "../../../environment";
 
 const BASE_URL = environment.API_URL || "http://localhost:3000";
 
-const getDays = async (profile) => {
+const getDays = async (user) => {
   try {
-    const response = await axios.get(`${BASE_URL}/day/${profile.id}`);
+    const response = await axios.get(`${BASE_URL}/day/${user.id}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching all days:", error);
@@ -43,9 +43,9 @@ const deleteDay = async (dayToDelete) => {
   }
 }
 
-const getDayByDateAndProfile = async (date, profile) => {
+const getDayByDateAndUser = async (date, user) => {
   try {
-    const response = await axios.get(`${BASE_URL}/day/date/${date}/${profile.id}`);
+    const response = await axios.get(`${BASE_URL}/day/date/${date}/${user.id}`);
     return response.data;
   } catch (error) {
     console.error("Error adding new day:", error);
@@ -53,4 +53,4 @@ const getDayByDateAndProfile = async (date, profile) => {
   }
 }
 
-export { getDays, addDay, updateDay, deleteDay, getDayByDateAndProfile } 
+export { getDays, addDay, updateDay, deleteDay, getDayByDateAndUser } 

@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
-import { useProfile } from '../../utils/profile/ProfileContext'
 import { useUser } from '../../utils/user/UserContext';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { getColorByMacro } from '../../utils/global/MacroService';
 
 export default function DailyMacroGoalForm({close}) {
-  const { isDarkMode } = useUser();
-  const { profile, handleUpdateProfile } = useProfile();
+  const { user, handleUpdateUser, isDarkMode } = useUser();
 
   const [formData, setFormData] = useState({
-    dailyKcal: profile.dailyKcal,
-    dailyProt: profile.dailyProt,
-    dailyFat: profile.dailyFat,
-    dailyCarb: profile.dailyCarb,
+    dailyKcal: user.dailyKcal,
+    dailyProt: user.dailyProt,
+    dailyFat: user.dailyFat,
+    dailyCarb: user.dailyCarb,
   })
 
   const handleChange = (e) => {
@@ -26,8 +24,8 @@ export default function DailyMacroGoalForm({close}) {
   const handleSubmit = (e) => {
 	  e.preventDefault();
 
-    const profileToUpdate = {...profile, ...formData}
-    handleUpdateProfile(profileToUpdate)
+    const userToUpdate = {...user, ...formData}
+    handleUpdateUser(userToUpdate)
 
 	  close();
 	};

@@ -3,10 +3,10 @@ import { environment } from "../../../environment";
 
 const BASE_URL = environment.API_URL || "http://localhost:3000";
 
-const getWeightMeasurements = async (profileId) => {
+const getWeightMeasurements = async (userId) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/weightMeasurement/${profileId}`
+      `${BASE_URL}/weightMeasurement/${userId}`
     );
     return response.data;
   } catch (error) {

@@ -9,12 +9,12 @@ import { getFullDate } from '../../../utils/global/DateService';
 import AddButton from '../../global/AddButton';
 import FlipMove from 'react-flip-move';
 import DailyMacroProgressBar from '../global/DailyMacroProgressBar';
-import { useProfile } from '../../../utils/profile/ProfileContext';
 import MacroItem from '../global/MacroItem';
 import { macros } from '../../../utils/global/MacroService';
+import { useUser } from '../../../utils/user/UserContext';
 
 export default function DailyCard() {
-  const { profile } = useProfile();
+  const { user } = useUser();
   const { currentDate, days, dailyFoodConsumptions, incrementCurrentDate, decrementCurrentDate, setCurrentDate, toggleValidateDay, findDayByDate } = useNutrition();
   const [sortedDailyFoodConsumptions, setSortedDailyFoodConsumptions] = useState([]);
   const [isFoodConsumptionFormVisible, setIsFoodConsumptionFormVisible] = useState(false);
@@ -92,7 +92,7 @@ export default function DailyCard() {
             <div className='flex flex-col items-center gap-3'>
               <div className='flex items-center space-x-2'>
                 {macros.map((macro) => (
-                  <DailyMacroProgressBar key={macro} maxValue={profile[`daily${macro.charAt(0).toUpperCase()}${macro.slice(1)}`]} value={dailyMacros[macro]} macro={macro} />
+                  <DailyMacroProgressBar key={macro} maxValue={user[`daily${macro.charAt(0).toUpperCase()}${macro.slice(1)}`]} value={dailyMacros[macro]} macro={macro} />
                 ))}
               </div>
               <div className="flex items-center space-x-2">
