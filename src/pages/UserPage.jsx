@@ -12,7 +12,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 
 
 export default function UserPage() {
-  const { user, avatars, colors, handleUpdateUser, userLoading, isDarkMode, toggleDarkMode } = useUser();
+  const { user, avatars, colors, handleSignout, handleUpdateUser, userLoading, isDarkMode, toggleDarkMode } = useUser();
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   const changeAvatar = (avatar) => {
@@ -24,6 +24,8 @@ export default function UserPage() {
     const updatedUser = { ...user, color_id: color.id }
     handleUpdateUser(updatedUser)
   } 
+
+  console.log(user);
   
   return ( 
     !userLoading && 
@@ -35,10 +37,13 @@ export default function UserPage() {
               <p className='text-xl font-bold'>{user.pseudo}</p>
             </div>
             <div className="absolute top-5 left-5">
+              <Icon icon="majesticons:logout-half-circle" className='text-red size-[30px]' onClick={handleSignout} />
+            </div>
+            <div className="absolute top-5 right-5">
               <DarkModeSwitch
                 checked={isDarkMode}
                 onChange={toggleDarkMode}
-                size={40}
+                size={30}
               />
             </div>
           </div>
