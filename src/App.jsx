@@ -35,7 +35,7 @@ function AppContent() {
             <Loader />
           ) : (
             <Router>
-              {user ? <Sidebar /> : <Loader />}
+              {user ? <Sidebar /> : null}
               <div className="sm:pl-[60px] max-sm:pb-[60px]">
                 <Routes>
                   <Route path="/auth" element={!user ? <AuthPage /> : <Navigate to="/user" />} />
