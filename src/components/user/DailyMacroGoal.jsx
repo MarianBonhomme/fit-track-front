@@ -26,7 +26,7 @@ export default function DailyMacroGoal({ value, macro }) {
         })}
       >
         <p className="font-bold">{value}</p>
-        <p className="text-xxs">{macro}</p>
+        <p className="text-xs">{macro}</p>
       </CircularProgressbarWithChildren>
     </div>
   );

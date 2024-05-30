@@ -1,5 +1,5 @@
-export default function CardTitle({ text, css }) {
+export default function CardTitle({ text, css, alignLeft }) {
   return (
-    <h3 className={`text-center font-bold ${css && css}`}>{text}</h3>
+    <h3 className={`${alignLeft ?? 'text-center'} font-bold ${css && css}`}>{text}</h3>
   )
 }
