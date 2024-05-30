@@ -69,14 +69,9 @@ export default function DailyCard() {
 
   return (
     <>
-      <div className="bg-primary max-sm:p-3 sm:px-4 sm:py-3 rounded-3xl sm:rounded-tl-none relative">
+      <div className="bg-primary px-4 py-3 rounded-3xl sm:rounded-tl-none relative">
         <div className="flex justify-between items-center">
-          <div className={`${currentDate && getFullDate(currentDate) === 'Today' ? 'opacity-0' : 'cursor-pointer'}`} onClick={() => setCurrentDate(new Date())}>
-            <Icon icon="ion:calendar" width="25" height="25" className='text-blue' />
-          </div>
-          <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={decrementCurrentDate} />
           <CardTitle text={currentDate && getFullDate(currentDate)} />
-          <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={incrementCurrentDate} />
           <div>
             {daily && sortedDailyFoodConsumptions.length > 0 && (
               daily.count_for_stats ? (
@@ -85,6 +80,10 @@ export default function DailyCard() {
                 <Icon icon="icon-park-solid:check-one" width="25" height="25" className="text-green cursor-pointer" onClick={toggleValidateDay} />
               )
             )}
+          </div>
+          <div className='flex gap-1'>
+            <Icon icon="ic:round-chevron-left" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={decrementCurrentDate} />
+            <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={incrementCurrentDate} />
           </div>
         </div>
         <div className="flex justify-center items-center gap-5 mt-5">

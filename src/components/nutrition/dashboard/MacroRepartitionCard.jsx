@@ -54,8 +54,8 @@ export default function MacroRepartitionCard() {
   }
 
   return (
-    <div className="flex flex-col items-center bg-primary px-5 py-3 rounded-3xl">
-      <CardTitle text="Total Macro Repartition" />
+    <div className="flex flex-col bg-primary px-5 py-3 rounded-3xl">
+      <CardTitle text="Total Macro Repartition" alignLeft={true} />
       {daysIndicatedCount > 0 ? (
         <div className="w-full flex justify-center items-center">
           {dailyAvgMacro && (

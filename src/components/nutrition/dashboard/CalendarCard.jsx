@@ -63,7 +63,7 @@ export default function CalendarCard() {
           <div className={pelletStyle}>
             {i}
           </div>
-          <div className={`absolute top-0 left-0 ${day && day.count_for_stats ? '' : 'opacity-0'} `}>🍎</div>
+          <div className={`absolute top-0 left-0 ${day && day.count_for_stats ? '' : 'opacity-0'} `}>🔥</div>
         </div>
       );
     }
@@ -72,15 +72,15 @@ export default function CalendarCard() {
   };
 
   return (
-    <div className="flex max-sm:flex-col bg-primary px-5 py-3 rounded-3xl max-sm:rounded-ss-none text-center gap-5">
-      <div className="sm:w-1/4 flex flex-col justify-evenly">
-        <Streaks />
-      </div>
+    <div className="flex max-sm:flex-col bg-primary px-4 py-3 rounded-3xl max-sm:rounded-ss-none text-center gap-5">
+      <Streaks />
       <div className='sm:w-3/4'>
-        <div className="w-full flex items-center justify-between mb-5">
-          <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={() => setCurrentDay(new Date(currentDay.getFullYear(), currentDay.getMonth() - 1))} />
+        <div className="w-full flex items-center justify-between mb-3 px-2">
           <CardTitle text={moment(currentDay).format("MMMM YYYY")} />
-          <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={() => setCurrentDay(new Date(currentDay.getFullYear(), currentDay.getMonth() + 1))} />
+          <div className='flex gap-1'>
+            <Icon icon="ic:round-chevron-left" width="25" height="25" className="bg-lightPrimary rounded-full text-secondary cursor-pointer" onClick={() => setCurrentDay(new Date(currentDay.getFullYear(), currentDay.getMonth() - 1))} />
+            <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary rounded-full text-secondary cursor-pointer" onClick={() => setCurrentDay(new Date(currentDay.getFullYear(), currentDay.getMonth() + 1))} />
+          </div>
         </div>
         <div className="w-full grid grid-cols-7 mb-3 text-xs">
           <div className="day-label">Mon</div>
@@ -142,9 +142,11 @@ function Streaks() {
   }
 
   return (
-    <div className='space-y-3'>
-      <CardTitle text={'Current Streak'} />
-      <div className='text-2xl font-bold'>{currentStreak}🍎</div>
-    </div>
+    currentStreak ? (
+      <div className="sm:w-1/4 flex flex-col justify-evenly space-y-3">
+        <CardTitle text={'Current Streak'} />
+        <div className='text-2xl font-bold'>{currentStreak}🔥</div>
+      </div>
+    ) : null
   )
 }

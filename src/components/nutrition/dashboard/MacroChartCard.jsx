@@ -80,11 +80,13 @@ export default function MacroChartCard() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center bg-primary px-5 py-2 rounded-3xl">
-      <div className="flex justify-between items-center gap-5">
-        <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={decrementMonth} />
+    <div className="w-full flex flex-col items-center bg-primary px-4 py-3 rounded-3xl">
+      <div className="w-full flex justify-between items-center">
         <CardTitle text="Daily Macro Consumption" />
-        <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={incrementMonth} />
+        <div className="flex gap-1">
+          <Icon icon="ic:round-chevron-left" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={decrementMonth} />
+          <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={incrementMonth} />
+      </div>
       </div>
       <div className="flex items-center justify-evenly my-3 gap-3">
         {macros.map((macro) => {
