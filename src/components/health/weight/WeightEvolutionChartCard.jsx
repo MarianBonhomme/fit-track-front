@@ -86,11 +86,13 @@ export default function WeightEvolutionChartCard() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center bg-primary px-5 py-2 rounded-3xl">
+    <div className="w-full flex flex-col items-center bg-primary px-4 py-3 rounded-3xl">
       <div className="w-full flex justify-between items-center">
-        <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={isMonth ? decrementMonth : decrementWeek} />
         <CardTitle text="Weight Evolution" />
-        <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={isMonth ? incrementMonth : incrementWeek} />
+        <div className='flex gap-1'>
+          <Icon icon="ic:round-chevron-left" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={isMonth ? decrementMonth : decrementWeek} />
+          <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={isMonth ? incrementMonth : incrementWeek} />
+        </div>
       </div>
       <div className="flex items-center justify-evenly my-3 gap-3">
         <div className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${!isMonth ? 'bg-purple text-primary' : `bg-light-secondary border-2 border-purple text-secondary cursor-pointer`}`} onClick={() => setIsMonth(false)}>Week</div>

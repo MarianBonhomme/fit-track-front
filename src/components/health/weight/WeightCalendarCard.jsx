@@ -8,34 +8,6 @@ import { formatDate, isToday } from '../../../utils/global/DateService';
 export default function WeightCalendarCard() {
   const { currentDate, setCurrentDate, weightMeasurements } = useHealth();
   const [currentCalendarDate, setCurrentCalendarDate] = useState(currentDate);
-  const [minWeight, setMinWeight] = useState();
-  const [maxWeight, setMaxWeight] = useState();
-  const [averageWeight, setAverageWeight] = useState();
-
-  useEffect(() => {
-    if (weightMeasurements && weightMeasurements.length > 0) {
-      const filteredMeasurements = weightMeasurements.filter(measurement => {
-        const measurementDate = new Date(measurement.date);
-        return measurementDate.getMonth() === currentCalendarDate.getMonth() &&
-          measurementDate.getFullYear() === currentCalendarDate.getFullYear();
-      });
-
-      if (filteredMeasurements.length > 0) {
-        const weights = filteredMeasurements.map(measurement => measurement.weight_value);
-        const min = Math.min(...weights);
-        const max = Math.max(...weights);
-        const average = (weights.reduce((acc, val) => acc + val, 0) / weights.length).toFixed(1);
-
-        setMinWeight(min);
-        setMaxWeight(max);
-        setAverageWeight(average);
-      } else {
-        setMinWeight(undefined);
-        setMaxWeight(undefined);
-        setAverageWeight(undefined);
-      }
-    }
-  }, [weightMeasurements, currentCalendarDate]);
 
   const daysInMonth = (date) => {
     const year = date.getFullYear();
@@ -92,56 +64,15 @@ export default function WeightCalendarCard() {
   };
 
   return (
-    <div className="flex max-sm:flex-col bg-primary px-5 py-3 rounded-3xl rounded-ss-none text-center gap-5">
-      <div className="sm:w-1/2 flex flex-col sm:justify-evenly max-sm:space-y-5">
-        <div className='flex flex-col justify-center space-y-3'>
-          <CardTitle text={'Current Streak'} />
-          <Streaks /> 
-        </div>
-        <div className='flex flex-col justify-center space-y-3'>
-          <CardTitle text={'Weight Stats'} />
-          <div className='flex justify-evenly items-center'>
-            {minWeight ? ( 
-              <div className='flex items-center justify-center gap-1'>
-              <Icon icon="ph:arrow-down-left-bold" className='text-blue size-[25px]' />
-                <p className='text-xl font-bold'>
-                  {minWeight}
-                  <span className='text-xs font-normal'>kg</span>
-                </p>
-              </div>      
-            ) : (
-              <p>-</p>
-            )}
-            {maxWeight ? ( 
-              <div className='flex items-center justify-center gap-1'>
-              <Icon icon="ph:arrow-up-right-bold" className='text-blue size-[25px]' />
-                <p className='text-xl font-bold'>
-                  {maxWeight}
-                  <span className='text-xs font-normal'>kg</span>
-                </p>
-              </div>
-            ) : (
-              <p>-</p>
-            )}
-            {averageWeight ? ( 
-              <div className='flex items-center justify-center gap-1'>
-                <Icon icon="ph:approximate-equals-bold" className='text-blue size-[25px]' />
-                <p className='text-xl font-bold'>
-                  {averageWeight}
-                  <span className='text-xs font-normal'>kg</span>
-                </p>
-              </div>
-            ) : (
-              <p>-</p>
-            )}
-          </div>
-        </div>
-      </div>
+    <div className="flex max-sm:flex-col bg-primary px-4 py-3 rounded-3xl rounded-ss-none text-center gap-5">
+      <Stats date={currentCalendarDate}/>
       <div className='sm:w-1/2'>
-        <div className="w-full flex items-center justify-between mb-5">
-          <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() - 1))} />
+        <div className="w-full flex items-center justify-between mb-3 px-2">
           <CardTitle text={moment(currentCalendarDate).format("MMMM YYYY")} />
-          <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + 1))} />
+          <div className='flex gap-1'>
+            <Icon icon="ic:round-chevron-left" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() - 1))} />
+            <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + 1))} />
+          </div>
         </div>
         <div className="w-full grid grid-cols-7 mb-3 text-xs">
           <div className="day-label">Mon</div>
@@ -158,6 +89,74 @@ export default function WeightCalendarCard() {
   );
 }
 
+function Stats({date}) {
+  const { weightMeasurements } = useHealth();
+  const [minWeight, setMinWeight] = useState();
+  const [maxWeight, setMaxWeight] = useState();
+  const [averageWeight, setAverageWeight] = useState();
+  const [showStats, setShowStats] = useState(false);
+
+  useEffect(() => {
+    if (weightMeasurements && weightMeasurements.length > 0) {
+      const filteredMeasurements = weightMeasurements.filter(measurement => {
+        const measurementDate = new Date(measurement.date);
+        return measurementDate.getMonth() === date.getMonth() &&
+          measurementDate.getFullYear() === date.getFullYear();
+      });
+
+      if (filteredMeasurements.length > 0) {
+        const weights = filteredMeasurements.map(measurement => measurement.weight_value);
+        const min = Math.min(...weights);
+        const max = Math.max(...weights);
+        const average = (weights.reduce((acc, val) => acc + val, 0) / weights.length).toFixed(1);
+
+        setMinWeight(min);
+        setMaxWeight(max);
+        setAverageWeight(average);
+        setShowStats(true);
+      } else {
+        setMinWeight(undefined);
+        setMaxWeight(undefined);
+        setAverageWeight(undefined);
+        setShowStats(false);
+      }
+    }
+  }, [weightMeasurements, date]);
+
+  return (
+    showStats ? (
+      <div className="sm:w-1/2 flex flex-col sm:justify-evenly max-sm:space-y-3">
+      <Streaks /> 
+      <div className='space-y-1'>
+        <CardTitle text={'Weight Stats'} />
+        <div className='flex justify-evenly items-center'>
+          <div className='flex items-center justify-center gap-1'>
+          <Icon icon="ph:arrow-down-left-bold" className='text-blue size-[25px]' />
+            <p className='text-xl font-bold'>
+              {minWeight}
+              <span className='text-xs font-normal'>kg</span>
+            </p>
+          </div>      
+          <div className='flex items-center justify-center gap-1'>
+          <Icon icon="ph:arrow-up-right-bold" className='text-blue size-[25px]' />
+            <p className='text-xl font-bold'>
+              {maxWeight}
+              <span className='text-xs font-normal'>kg</span>
+            </p>
+          </div>
+          <div className='flex items-center justify-center gap-1'>
+            <Icon icon="ph:approximate-equals-bold" className='text-blue size-[25px]' />
+            <p className='text-xl font-bold'>
+              {averageWeight}
+              <span className='text-xs font-normal'>kg</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    ) : null   
+  )
+}
 
 function Streaks() {  
   const { weightMeasurements } = useHealth();
@@ -202,6 +201,11 @@ function Streaks() {
   }
 
   return (
-    <div className='text-2xl font-bold'>{currentStreak}🔥</div>
+    currentStreak ? (
+      <div className='space-y-1'>
+        <CardTitle text={'Current Streak'} />
+        <div className='text-2xl font-bold'>{currentStreak}🔥</div>
+      </div>
+    ) : null
   )
 }

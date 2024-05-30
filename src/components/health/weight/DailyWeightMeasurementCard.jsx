@@ -52,11 +52,13 @@ export default function DailyWeightMeasurementCard() {
   }
 
   return (
-    <div className="w-full bg-primary max-sm:p-3 sm:px-4 sm:py-3 rounded-3xl relative">
+    <div className="w-full bg-primary px-4 py-3 rounded-3xl relative">
       <div className="flex justify-between items-center mb-5">
-        <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={decrementCurrentDate} />
         <CardTitle text={currentDate && getFullDate(currentDate)} />
-        <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={incrementCurrentDate} />
+        <div className='flex gap-1'>
+          <Icon icon="ic:round-chevron-left" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={decrementCurrentDate} />
+          <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={incrementCurrentDate} />
+        </div>
       </div>
       {dailyWeightMeasurement && !isEditing ? (
         <div className="flex justify-evenly relative">

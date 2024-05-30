@@ -143,7 +143,7 @@ function Streaks() {
 
   return (
     currentStreak ? (
-      <div className="sm:w-1/4 flex flex-col justify-evenly space-y-3">
+      <div className="sm:w-1/4 flex flex-col justify-evenly space-y-1">
         <CardTitle text={'Current Streak'} />
         <div className='text-2xl font-bold'>{currentStreak}🔥</div>
       </div>
