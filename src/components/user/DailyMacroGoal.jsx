@@ -7,7 +7,7 @@ export default function DailyMacroGoal({ value, macro }) {
   const { themeColors } = useUser();
 
   return (
-    <div className="size-20">
+    <div className="size-28">
       <CircularProgressbarWithChildren
         value={value}
         maxValue={value}
@@ -25,7 +25,7 @@ export default function DailyMacroGoal({ value, macro }) {
           },
         })}
       >
-        <p className="font-bold">{value}</p>
+        <p className="text-lg font-bold">{value}</p>
         <p className="text-xs">{macro}</p>
       </CircularProgressbarWithChildren>
     </div>
