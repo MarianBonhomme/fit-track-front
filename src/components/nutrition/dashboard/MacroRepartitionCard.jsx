@@ -3,14 +3,21 @@ import { useNutrition } from "../../../utils/nutrition/NutritionContext";
 import CardTitle from "../../global/CardTitle";
 import MacroPie from '../global/MacroPie';
 import MacroItem from "../global/MacroItem";
-import AddButton from './../../global/AddButton';
 import { macros } from "../../../utils/global/MacroService";
 
 export default function MacroRepartitionCard() {
   const { foodsWithTotalQuantity, daysIndicatedCount } = useNutrition();
-  const [averageMacros, setAverageMacros] = useState(null);
-  const [dailyAvgMacro, setDailyAvgMacros] = useState(null);
-
+  const [averageMacros, setAverageMacros] = useState({
+    prot: 33,
+    carb: 33,
+    fat: 33,
+  });
+  const [dailyAvgMacro, setDailyAvgMacros] = useState({
+    kcal: 0,
+    prot: 0,
+    carb: 0,
+    fat: 0,
+  });
 
   useEffect(() => {
     if (daysIndicatedCount > 0) {
@@ -56,28 +63,21 @@ export default function MacroRepartitionCard() {
   return (
     <div className="flex flex-col bg-primary px-5 py-3 rounded-3xl">
       <CardTitle text="Total Macro Repartition" alignLeft={true} />
-      {daysIndicatedCount > 0 ? (
-        <div className="w-full flex justify-center items-center">
-          {dailyAvgMacro && (
-            <div className="w-1/3 flex flex-col items-center gap-2">
-              <p className="text-xs/3">Daily Average</p>          
-              {macros.map((macro) => (
-                <MacroItem key={macro} macro={macro} value={dailyAvgMacro[macro]} isRounded={false} showUnity={true} />
-              ))}
-            </div>
-          )}
-          {averageMacros && (
-            <div className="w-2/3">
-              <MacroPie macros={averageMacros} />
-            </div>
-          )}  
-        </div>
-      ) : (
-        <div className="text-gray font-bold text-center my-auto flex flex-col gap-5 px-10">
-          <AddButton css={'size-14 mx-auto'} />
-          Add and valid food consumption to see stats
-        </div>
-      )}
+      <div className="w-full flex justify-center items-center">
+        {dailyAvgMacro && (
+          <div className="w-1/3 flex flex-col items-center gap-2">
+            <p className="text-xs/3">Daily Average</p>          
+            {macros.map((macro) => (
+              <MacroItem key={macro} macro={macro} value={dailyAvgMacro[macro]} isRounded={false} showUnity={true} />
+            ))}
+          </div>
+        )}
+        {averageMacros && (
+          <div className="w-2/3">
+            <MacroPie macros={averageMacros} />
+          </div>
+        )}  
+      </div>
     </div>
   );
 }

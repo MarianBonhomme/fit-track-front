@@ -26,7 +26,13 @@ export default function DailyMacroProgressBar({ value, maxValue, macro }) {
           },
         })}
       >
-        <p className="font-bold">{Math.round(percentValue) }%</p>
+        <p className="font-bold">
+          {percentValue && maxValue ? (
+            `${Math.round(percentValue)}%`
+          ) : (
+            <span>-</span>
+          )}
+        </p>
       </CircularProgressbarWithChildren>
     </div>
   );
