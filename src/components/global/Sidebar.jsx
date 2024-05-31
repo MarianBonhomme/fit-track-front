@@ -8,7 +8,7 @@ export default function Sidebar() {
   const location = useLocation();
 
   return (
-    <nav className="h-[60px] sm:h-screen max-sm:w-screen sm:w-[60px] bg-primary fixed bottom-0 sm:top-0 left-0 z-40 flex sm:flex-col max-sm:justify-evenly sm:gap-10 items-center sm:py-10">
+    <nav className="h-[60px] sm:h-screen max-sm:w-screen sm:w-[60px] bg-primary fixed bottom-0 sm:top-0 left-0 z-40 flex sm:flex-col max-sm:justify-evenly sm:gap-10 items-center sm:py-10 border-t border-gray">
       <div className="max-sm:hidden">
         {location.pathname === "/user" ? (
            <AvatarColor avatar={user.avatar} color={user.color} colorSize={"md"} avatarSize={"xs"} />

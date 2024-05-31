@@ -15,11 +15,11 @@ export default function UserPage() {
   return ( 
     !userLoading && 
       <>
-        <div className='grid sm:max-w-xl gap-10 p-3 sm:p-5 relative'>
+        <div className='grid sm:max-w-xl gap-10 p-5 relative'>
           <div className='w-full flex flex-col gap-10 sm:bg-primary sm:rounded-3xl sm:p-5'>
             <div className="flex justify-between items-center">
               <Icon icon="majesticons:logout-half-circle" className='text-red size-[30px] cursor-pointer' onClick={handleSignout} />
-              <Icon icon="akar-icons:edit" className='size-[30px]' onClick={() => setIsEditUserModalVisible(true)} />
+              <Icon icon="akar-icons:edit" className='size-[30px] cursor-pointer' onClick={() => setIsEditUserModalVisible(true)} />
               <DarkModeSwitch
                 checked={isDarkMode}
                 onChange={toggleDarkMode}

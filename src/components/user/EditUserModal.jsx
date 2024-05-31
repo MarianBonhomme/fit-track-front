@@ -37,11 +37,11 @@ export default function EditUserModal({close}) {
 	};
 
   return (
-    <>
-      <form onSubmit={handleSubmit} className={`h-screen w-full fixed flex flex-col justify-between top-0 left-0 py-5 bg-primary z-40`}>
-        <Icon icon="maki:cross" className="absolute top-5 right-5 sm:right-10 sm:top-10 text-red cursor-pointer size-[20px] sm:size-[25px]" onClick={close} />
+    <div className='h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-40'>
+      <form onSubmit={handleSubmit} className={`max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col justify-between py-5 bg-primary relative`}>
+        <Icon icon="maki:cross" className="absolute top-5 right-5 text-red cursor-pointer size-[20px] sm:size-[25px]" onClick={close} />
         <CardTitle text={'Edit User'} />
-        <div className='grid gap-5'>
+        <div className='grid gap-5 mt-10'>
           <div className="bg-lightPrimary p-5">
             <CardTitle text={'Avatar'} alignLeft={true} />
             <div className='flex flex-col items-center gap-1'>
@@ -88,6 +88,6 @@ export default function EditUserModal({close}) {
       {isAvatarModalVisible &&
         <AvatarModal close={() => setIsAvatarModalVisible(false)} />
       }
-    </>
+    </div>
   )
 }
