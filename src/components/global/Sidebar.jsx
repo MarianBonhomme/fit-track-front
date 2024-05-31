@@ -9,6 +9,15 @@ export default function Sidebar() {
 
   return (
     <nav className="h-[60px] sm:h-screen max-sm:w-screen sm:w-[60px] bg-primary fixed bottom-0 sm:top-0 left-0 z-40 flex sm:flex-col max-sm:justify-evenly sm:gap-10 items-center sm:py-10">
+      <div className="max-sm:hidden">
+        {location.pathname === "/user" ? (
+           <AvatarColor avatar={user.avatar} color={user.color} colorSize={"md"} avatarSize={"xs"} />
+        ) : (
+          <Link to='/user' aria-label="User">
+            <AvatarColor avatar={user.avatar} color={user.color} colorSize={"md"} avatarSize={"xs"} />
+          </Link>
+        )}  
+      </div>
       {location.pathname === "/nutrition" ? (
         <Icon icon="ion:nutrition" className="text-secondary size-[30px]"/>
       ) : (
@@ -23,17 +32,19 @@ export default function Sidebar() {
           <Icon icon="mingcute:fitness-line" className="text-secondary size-[30px]" />
         </Link>
       )}  
-      {location.pathname === "/user" ? (
-        <div className="-translate-y-2">
-          <AvatarColor avatar={user.avatar} color={user.color} colorSize={"md"} avatarSize={"xs"} />
-        </div>
-      ) : (
-        <Link to='/user' aria-label="User">
+      <div className="sm:hidden">
+        {location.pathname === "/user" ? (
           <div className="-translate-y-2">
             <AvatarColor avatar={user.avatar} color={user.color} colorSize={"md"} avatarSize={"xs"} />
           </div>
-        </Link>
-      )}    
+        ) : (
+          <Link to='/user' aria-label="User">
+            <div className="-translate-y-2">
+              <AvatarColor avatar={user.avatar} color={user.color} colorSize={"md"} avatarSize={"xs"} />
+            </div>
+          </Link>
+        )}    
+      </div>
       {location.pathname === "/health" ? (
         <Icon icon="solar:health-bold" className="text-secondary size-[30px]" />
       ) : (
