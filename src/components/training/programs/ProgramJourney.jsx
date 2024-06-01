@@ -85,9 +85,9 @@ export default function ProgramJourney({program}) {
   }
 
   return (
-    <Card>
+    <Card padding='py-3'>
       {/* <PatternIndicator pattern={program.pattern} /> */}
-      <div className='max-sm:hidden flex justify-between items-start relative mb-3'>   
+      <div className='max-sm:hidden flex justify-between items-start relative mb-3 px-4'>   
         <div className="flex items-center gap-3 cursor-pointer">   
           {/* {program.state === "COMPLETED" ? (
             <Icon icon="iconamoon:restart-bold" className='text-purple size-[20px]' onClick={restartProgram} />
@@ -118,7 +118,7 @@ export default function ProgramJourney({program}) {
           </div>
         </div> */}
       </div>        
-      <div className='sm:hidden'>   
+      <div className='sm:hidden px-4'>   
         {/* <div className="flex justify-between mb-1">
           <div className="flex gap-x-3">
             {program.state === "COMPLETED" ? (
@@ -147,7 +147,7 @@ export default function ProgramJourney({program}) {
           </div>
         </div>         
       </div>            
-      <div className='flex items-stretch overflow-x-scroll hide-scrollbar gap-3' {...events} ref={ref}>
+      <div className='flex items-stretch overflow-x-scroll hide-scrollbar gap-3 px-3' {...events} ref={ref}>
         {program.trainings && program.trainings.map((training) => (
           <TrainingCard key={training.id} training={training} />
         ))}        
