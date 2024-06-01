@@ -1,15 +1,13 @@
 import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
+import { macros } from '../../../utils/global/MacroService';
 import { useNutrition } from '../../../utils/nutrition/NutritionContext';
 import { sortFoodsByFavoritesAndInactives } from '../../../utils/nutrition/NutritionService';
-import MacroItem from '../global/MacroItem';
-import FoodImage from '../global/FoodImage';
-import { useUser } from '../../../utils/user/UserContext';
-import { macros } from '../../../utils/global/MacroService';
 import CardTitle from '../../global/CardTitle';
+import FoodImage from '../global/FoodImage';
+import MacroItem from '../global/MacroItem';
 
 export default function FoodConsumptionForm({ foodConsumption, close }) {
-  const { isDarkMode } = useUser();
   const { foodsWithTotalQuantity, dailyFoodConsumptions, handleAddFoodConsumption, handleUpdateFoodConsumption } = useNutrition();
   const [sortedFoods, setSortedFoods] = useState();
   const [searchQuery, setSearchQuery] = useState('');
@@ -113,7 +111,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
   return (
     <div className='h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-40'>
       <div className={`max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-5 bg-primary relative py-5`}>
-        <Icon icon="maki:cross" className="absolute top-5 right-5 text-red cursor-pointer size-[20px]" onClick={close} />
+        <Icon icon="maki:cross" className="absolute top-5 right-5 text-secondary cursor-pointer size-[20px]" onClick={close} />
         <CardTitle text={foodConsumption ? 'Update FoodConsumption' : 'Add Consumption'} />
         <div className={`${selectedFood && 'px-5 py-3'} relative bg-lightPrimary`}>
           {selectedFood ? (
@@ -131,7 +129,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                   </div>
                 </div>  
                 <div className='grid'>
-                  <CardTitle text={'Quantity*'} alignLeft={true} />
+                  <CardTitle text={'Quantity'} alignLeft={true} />
                     <div className='flex items-center gap-1'>
                       <input 
                         type="number" 
@@ -165,7 +163,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
               {filteredFoods && filteredFoods.map((food) => {
                 return ( food.is_active && 
                   <div key={food.id} className={`${(selectedFood && !searchQuery) && (selectedFood.id === food.id) && 'hidden'}`}>
-                    <div className={`max-sm:hidden flex items-center sm:justify-between gap-3 p-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
+                    <div className={`max-sm:hidden flex items-center sm:justify-between gap-3 p-3 border-t border-primary cursor-pointer`} onClick={() => selectFood(food)}>
                       <div className='flex gap-5 items-center'>
                         <FoodImage image={food.image} size="md" />
                         <p>{food.name}</p>
@@ -176,7 +174,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                         ))}
                       </div>
                     </div>
-                    <div className={`flex sm:hidden items-center gap-10 py-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
+                    <div className={`flex sm:hidden items-center gap-10 py-3 border-t border-primary cursor-pointer`} onClick={() => selectFood(food)}>
                       <FoodImage image={food.image} size="lg" />
                       <div>
                         <p className='mb-1'>{food.name}</p>

@@ -63,7 +63,7 @@ export default function DailyWeightMeasurementCard() {
       {dailyWeightMeasurement && !isEditing ? (
         <div className="flex justify-evenly relative">
           <div className="absolute top-0 right-0">
-            <Icon icon="akar-icons:edit" className='size-[15px]' onClick={() => setIsEditing(true)} />
+            <Icon icon="akar-icons:edit" className='text-secondary size-[15px]' onClick={() => setIsEditing(true)} />
           </div>
           <p className='text-2xl font-bold'>
             {dailyWeightMeasurement.weight_value}
@@ -82,7 +82,7 @@ export default function DailyWeightMeasurementCard() {
             />     
           </div>
           <button onClick={addMeasurement} disabled={newWeightMeasurement === 0} className={`flex mx-auto mt-5 ${newWeightMeasurement === 0 && 'brightness-75'}`}>
-            <Icon icon="icon-park-solid:check-one" className="text-green size-[25px]" />
+            <Icon icon="icon-park-solid:check-one" className="text-secondary size-[25px]" />
           </button>
         </>
       )}

@@ -55,7 +55,7 @@ export default function ProgramForm() {
   return (
     <div className='h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-40'>
       <form onSubmit={handleSubmit} className='max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-5 bg-primary relative py-5'>
-        <Icon icon="maki:cross" className="absolute top-5 right-5 text-red cursor-pointer size-[20px]" onClick={closeProgramForm} />
+        <Icon icon="maki:cross" className="absolute top-5 right-5 text-secondary cursor-pointer size-[20px]" onClick={closeProgramForm} />
         <Icon icon="solar:star-bold" className={`absolute top-5 left-5 size-[20px] text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />   
         <CardTitle text={'Program'} />
         <div className='grid gap-3'>   

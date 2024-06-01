@@ -23,7 +23,7 @@ export default function AvatarModal({close}) {
   return (
     <div className='h-screen w-full fixed top-0 left-0 flex justify-center items-center bg-opacity-70 bg-black p-5 sm:pt-20 z-50'>
       <div className='w-full max-w-xl flex flex-col items-center gap-5 bg-primary px-3 py-5 sm:p-10 relative rounded-2xl'>
-        <Icon icon="maki:cross" className="absolute top-5 right-5 text-red cursor-pointer size-[20px] sm:size-[25px]" onClick={close} />
+        <Icon icon="maki:cross" className="absolute top-5 right-5 text-secondary cursor-pointer size-[20px] sm:size-[25px]" onClick={close} />
         <CardTitle text={"Choose Avatar"} />
         <div className='flex flex-wrap justify-center gap-3 sm:gap-5'>
           {avatars && avatars.map((avatar) => (

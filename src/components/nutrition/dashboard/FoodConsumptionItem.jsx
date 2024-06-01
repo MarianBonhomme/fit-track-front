@@ -33,7 +33,7 @@ export default function FoodConsumptionItem({consumption, clicked}) {
             ))}
           </div>
         )}
-        <Icon icon="maki:cross" className="text-red cursor-pointer size-[10px]" onClick={() => handleDeleteFoodConsumption(consumption)} />
+        <Icon icon="maki:cross" className="text-secondary cursor-pointer size-[10px]" onClick={() => handleDeleteFoodConsumption(consumption)} />
       </div>
     </div>
   )

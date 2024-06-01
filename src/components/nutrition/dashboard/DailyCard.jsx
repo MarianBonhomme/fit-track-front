@@ -71,15 +71,15 @@ export default function DailyCard() {
     <>
       <div className="bg-primary px-4 py-3 rounded-3xl sm:rounded-tl-none relative">
         <div className="flex justify-between items-center">
-          <CardTitle text={currentDate && getFullDate(currentDate)} />
-          <div>
+          <div className='flex gap-2'>
             {daily && sortedDailyFoodConsumptions.length > 0 && (
               daily.count_for_stats ? (
-                <Icon icon="material-symbols:cancel-rounded" width="25" height="25" className='text-red cursor-pointer' onClick={toggleValidateDay} />
+                <Icon icon="material-symbols:cancel-rounded" width="20" height="20" className='text-secondary cursor-pointer' onClick={toggleValidateDay} />
               ) : (
-                <Icon icon="icon-park-solid:check-one" width="25" height="25" className="text-green cursor-pointer" onClick={toggleValidateDay} />
+                <Icon icon="icon-park-solid:check-one" width="20" height="20" className="text-secondary cursor-pointer" onClick={toggleValidateDay} />
               )
             )}
+            <CardTitle text={currentDate && getFullDate(currentDate)} />
           </div>
           <div className='flex gap-1'>
             <Icon icon="ic:round-chevron-left" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={decrementCurrentDate} />

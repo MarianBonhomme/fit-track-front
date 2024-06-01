@@ -11,7 +11,7 @@ export default function SelectProgramModal({ close, programClicked  }) {
   return (
     <div className="h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-30">
       <div className='max-sm:h-screen min-w-96 max-sm:w-full sm:rounded-t-lg sm:rounded-b-lg flex flex-col bg-primary relative pt-5 overflow-hidden'>
-        <Icon icon="maki:cross" className="absolute top-5 right-5 text-red cursor-pointer size-[20px]" onClick={close} />
+        <Icon icon="maki:cross" className="absolute top-5 right-5 text-secondary cursor-pointer size-[20px]" onClick={close} />
         <CardTitle text={'Select Program'} />
         <div className='w-full bg-lightPrimary mt-5'>
           <div className='px-3 py-1 flex items-center gap-1 cursor-pointer' onClick={openProgramForm}>

@@ -76,7 +76,7 @@ export default function TrainingForm() {
     <>
       <div className="h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-30">
         <form onSubmit={handleSubmit} className='max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-5 bg-primary relative py-5'>
-          <Icon icon="maki:cross" className="absolute top-5 right-5 text-red cursor-pointer size-[20px]" onClick={closeTrainingForm} />
+          <Icon icon="maki:cross" className="absolute top-5 right-5 text-secondary cursor-pointer size-[20px]" onClick={closeTrainingForm} />
           <CardTitle text={'Training'} />
           <div className='grid gap-3'>
             <div className={`flex items-center gap-5 bg-lightPrimary px-5 py-3 relative`}>            

@@ -131,14 +131,14 @@ function Stats({date}) {
         <CardTitle text={'Weight Stats'} />
         <div className='flex justify-evenly items-center'>
           <div className='flex items-center justify-center gap-1'>
-          <Icon icon="ph:arrow-down-left-bold" className='text-blue size-[25px]' />
+          <Icon icon="ph:arrow-down-left-bold" className='text-green size-[25px]' />
             <p className='text-xl font-bold'>
               {minWeight}
               <span className='text-xs font-normal'>kg</span>
             </p>
           </div>      
           <div className='flex items-center justify-center gap-1'>
-          <Icon icon="ph:arrow-up-right-bold" className='text-blue size-[25px]' />
+          <Icon icon="ph:arrow-up-right-bold" className='text-red size-[25px]' />
             <p className='text-xl font-bold'>
               {maxWeight}
               <span className='text-xs font-normal'>kg</span>

@@ -39,7 +39,7 @@ export default function EditUserModal({close}) {
   return (
     <div className='h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-40'>
       <form onSubmit={handleSubmit} className={`max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-5 bg-primary relative py-5`}>
-        <Icon icon="maki:cross" className="absolute top-5 right-5 text-red cursor-pointer size-[20px]" onClick={close} />
+        <Icon icon="maki:cross" className="absolute top-5 right-5 text-secondary cursor-pointer size-[20px]" onClick={close} />
         <CardTitle text={'Edit User'} />
         <div className='grid gap-3'>
           <div className="bg-lightPrimary p-5">

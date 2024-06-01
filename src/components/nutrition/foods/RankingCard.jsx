@@ -48,7 +48,7 @@ export default function RankingCard() {
       <CardTitle text="Top Food" />
       <div className="flex justify-between">
         <p>Sort by : {filter !== "totalQuantity" && filter}</p>
-        <Icon icon="maki:cross" width={15} height={15} className={`text-red cursor-pointer transition ${filter !== 'totalQuantity' ? '' : 'opacity-0'}`} onClick={() => setFilter('totalQuantity')} />
+        <Icon icon="maki:cross" width={15} height={15} className={`text-secondary cursor-pointer transition ${filter !== 'totalQuantity' ? '' : 'opacity-0'}`} onClick={() => setFilter('totalQuantity')} />
       </div>
       <div className="grid grid-cols-2 gap-3">
         {macros.map((macro) => (

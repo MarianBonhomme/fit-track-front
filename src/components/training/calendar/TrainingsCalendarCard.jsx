@@ -5,6 +5,7 @@ import DailyTrainings from './DailyTrainings';
 import AddButton from '../../global/AddButton';
 import { getDayOfWeek } from '../../../utils/global/DateService';
 import moment from 'moment';
+import CardTitle from '../../global/CardTitle';
 
 export default function TrainingsCalendarCard() {
   const { currentWeek, incrementWeek, decrementWeek, openTrainingForm, currentDate, incrementCurrentDate, decrementCurrentDate } = useTraining();
@@ -27,10 +28,12 @@ export default function TrainingsCalendarCard() {
       <div className="sm:hidden flex">
         {currentDate && 
           <div className='w-full flex flex-col gap-3 p-3'>
-            <div className='flex items-center justify-between'>
-              <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={decrementCurrentDate} />
-              <p className='text-center'>{getDayOfWeek(new Date(currentDate))} {moment(currentDate).format("DD/MM")}</p>
-              <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={incrementCurrentDate} />
+            <div className="w-full flex items-center justify-between mb-3 px-2">
+              <CardTitle text={`${getDayOfWeek(new Date(currentDate))} ${moment(currentDate).format("DD/MM")}`} />
+              <div className='flex gap-1'>
+                <Icon icon="ic:round-chevron-left" width="25" height="25" className="bg-lightPrimary rounded-full text-secondary cursor-pointer" onClick={decrementCurrentDate} />
+                <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary rounded-full text-secondary cursor-pointer" onClick={incrementCurrentDate} />
+              </div>
             </div>
             <AddButton css={'flex mx-auto size-8 p-2'} clicked={() => openTrainingForm(new Date(currentDate), null, null)} />
             <DailyTrainings date={new Date(currentDate)} />

@@ -53,7 +53,7 @@ export default function NutritionFoodsTab() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-lightPrimary text-secondary rounded-xl px-4 py-2 "
             />
-            <Icon icon="maki:cross" width={15} height={15} className={`text-red cursor-pointer transition ${searchQuery ? '' : 'opacity-0'}`} onClick={() => setSearchQuery('')} />
+            <Icon icon="maki:cross" width={15} height={15} className={`text-secondary cursor-pointer transition ${searchQuery ? '' : 'opacity-0'}`} onClick={() => setSearchQuery('')} />
           </div>
         </div>
         <div className='flex flex-wrap max-sm:justify-center gap-x-2 sm:gap-x-5'>

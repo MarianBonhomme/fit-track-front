@@ -83,7 +83,7 @@ export default function TrainingCalendarCard() {
   const { trainingDays, restDays } = getTrainingStats();
 
   return (
-    <div className="flex max-sm:flex-col bg-primary px-5 py-3 rounded-3xl rounded-ss-none text-center gap-5">
+    <div className="flex max-sm:flex-col bg-primary px-4 py-3 rounded-3xl rounded-ss-none text-center gap-5">
       <div className="sm:w-1/4 flex sm:flex-col justify-evenly">
         <div className='space-y-3'>
           <CardTitle text={'Training Days'} />
@@ -95,10 +95,12 @@ export default function TrainingCalendarCard() {
         </div>
       </div>
       <div className='sm:w-3/4'>
-        <div className="w-full flex items-center justify-between mb-5">
-          <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() - 1))} />
+        <div className="w-full flex items-center justify-between mb-3 px-2">
           <CardTitle text={moment(currentCalendarDate).format("MMMM YYYY")} />
-          <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + 1))} />
+          <div className='flex gap-1'>
+            <Icon icon="ic:round-chevron-left" width="25" height="25" className="bg-lightPrimary rounded-full text-secondary cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() - 1))} />
+            <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary rounded-full text-secondary cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + 1))} />
+          </div>
         </div>
         <div className="w-full grid grid-cols-7 mb-3 text-xs">
           <div className="day-label">Mon</div>
