@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNutrition } from '../../../utils/nutrition/NutritionContext';
 import { sortFoodConsumptionsByFavorites } from '../../../utils/nutrition/NutritionService';
 import CardTitle from '../../global/CardTitle';
-import FoodConsumptionForm from './FoodConsumptionForm';
+import FoodConsumptionModal from './FoodConsumptionModal';
 import FoodConsumptionItem from './FoodConsumptionItem';
 import { getFullDate } from '../../../utils/global/DateService';
 import AddButton from '../../global/AddButton';
@@ -18,7 +18,7 @@ export default function DailyCard() {
   const { user } = useUser();
   const { currentDate, days, dailyFoodConsumptions, incrementCurrentDate, decrementCurrentDate, setCurrentDate, toggleValidateDay, findDayByDate } = useNutrition();
   const [sortedDailyFoodConsumptions, setSortedDailyFoodConsumptions] = useState([]);
-  const [isFoodConsumptionFormVisible, setIsFoodConsumptionFormVisible] = useState(false);
+  const [isFoodConsumptionModalVisible, setIsFoodConsumptionModalVisible] = useState(false);
   const [foodConsumptionToUpdate, setFoodConsumptionToUpdate] = useState(null);
   const [dailyMacros, setDailyMacros] = useState(null);
   const [daily, setDaily] = useState();
@@ -58,14 +58,14 @@ export default function DailyCard() {
     return macros;
   }
 
-  const openFoodConsumptionForm = (foodConsumption) => {
+  const openFoodConsumptionModal = (foodConsumption) => {
     setFoodConsumptionToUpdate(foodConsumption);
-    setIsFoodConsumptionFormVisible(true);
+    setIsFoodConsumptionModalVisible(true);
   }
 
-  const closeFoodConsumptionForm = () => {
+  const closeFoodConsumptionModal = () => {
     setFoodConsumptionToUpdate(null);
-    setIsFoodConsumptionFormVisible(false);
+    setIsFoodConsumptionModalVisible(false);
   }
 
   return (
@@ -102,19 +102,19 @@ export default function DailyCard() {
           </div>
         )}
       </div>
-      <AddButton clicked={() => openFoodConsumptionForm()} css='w-full mt-5 h-12 mx-auto'/>
+      <AddButton clicked={() => openFoodConsumptionModal()} css='w-full mt-5 h-12 mx-auto'/>
       {sortedDailyFoodConsumptions && sortedDailyFoodConsumptions.length > 0 && (
         <FlipMove className='divide-y divide-lightPrimary'>
           {sortedDailyFoodConsumptions.map((consumption) => (
             <div key={consumption.id}>
-              <FoodConsumptionItem consumption={consumption} clicked={() => openFoodConsumptionForm(consumption)} /> 
+              <FoodConsumptionItem consumption={consumption} clicked={() => openFoodConsumptionModal(consumption)} /> 
             </div>        
           ))}
         </FlipMove>
       )}
   
-      {isFoodConsumptionFormVisible && (
-        <FoodConsumptionForm foodConsumption={foodConsumptionToUpdate} close={closeFoodConsumptionForm} />
+      {isFoodConsumptionModalVisible && (
+        <FoodConsumptionModal foodConsumption={foodConsumptionToUpdate} close={closeFoodConsumptionModal} />
       )}
     </Card>     
   )

@@ -6,7 +6,7 @@ import { useTraining } from '../../../utils/training/TrainingContext';
 import PatternIndicator from '../global/PatternIndicator';
 
 export default function TrainingCard({training, isOnCalendar}) {
-  const { openTrainingForm, programs } = useTraining()
+  const { openTrainingModal, programs } = useTraining()
   const [program, setProgram] = useState();
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function TrainingCard({training, isOnCalendar}) {
   }, [programs, training])
 
   return (
-    <div className={`max-w-60 bg-lightPrimary ${isOnCalendar ? 'min-w-40' : 'min-w-32'} min-h-32 p-2 flex flex-col items-center justify-between rounded-xl text-secondary relative cursor-pointer`} onClick={() => openTrainingForm(new Date(training.date), training.program_id, training)}>
+    <div className={`max-w-60 bg-lightPrimary ${isOnCalendar ? 'min-w-40' : 'min-w-32'} min-h-32 p-2 flex flex-col items-center justify-between rounded-xl text-secondary relative cursor-pointer`} onClick={() => openTrainingModal(new Date(training.date), training.program_id, training)}>
       {isOnCalendar && program && program.pattern ? (        
         <>
           <PatternIndicator pattern={program.pattern} />

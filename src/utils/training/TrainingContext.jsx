@@ -13,9 +13,9 @@ export const TrainingProvider = ({ children }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState([]);
   const [currentWeek, setCurrentWeek] = useState([]);
-  const [isTrainingFormDisplayed, setIsTrainingFormDisplayed] = useState(false);
+  const [isTrainingModalDisplayed, setIsTrainingModalDisplayed] = useState(false);
   const [trainingFormData, setTrainingFormData] = useState(null);
-  const [isProgramFormDisplayed, setIsProgramFormDisplayed] = useState(false);
+  const [isProgramModalDisplayed, setIsProgramModalDisplayed] = useState(false);
   const [programFormData, setProgramFormData] = useState(null);
 
 
@@ -96,29 +96,29 @@ export const TrainingProvider = ({ children }) => {
     setCurrentDate(prevDay);
   };
 
-  const openTrainingForm = (date, programId, training) => {
+  const openTrainingModal = (date, programId, training) => {
     const trainingFormData = {
       date: date,
       programId: programId,
       training: training
     }
     setTrainingFormData(trainingFormData)
-    setIsTrainingFormDisplayed(true);
+    setIsTrainingModalDisplayed(true);
   }
 
-  const closeTrainingForm = () => {
+  const closeTrainingModal = () => {
     setTrainingFormData(null);
-    setIsTrainingFormDisplayed(false);
+    setIsTrainingModalDisplayed(false);
   }
 
-  const openProgramForm = (program) => {
+  const openProgramModal = (program) => {
     setProgramFormData(program)
-    setIsProgramFormDisplayed(true);
+    setIsProgramModalDisplayed(true);
   }
 
-  const closeProgramForm = () => {
+  const closeProgramModal = () => {
     setProgramFormData(null)
-    setIsProgramFormDisplayed(false);
+    setIsProgramModalDisplayed(false);
   }
 
   const getTrainingsByDate = (date) => {
@@ -268,13 +268,13 @@ export const TrainingProvider = ({ children }) => {
         incrementCurrentDate,
         decrementCurrentDate,
         trainingFormData,
-        isTrainingFormDisplayed,
-        openTrainingForm,
-        closeTrainingForm,
+        isTrainingModalDisplayed,
+        openTrainingModal,
+        closeTrainingModal,
         programFormData,
-        isProgramFormDisplayed,
-        openProgramForm,
-        closeProgramForm,
+        isProgramModalDisplayed,
+        openProgramModal,
+        closeProgramModal,
       }}
     >
       {children}

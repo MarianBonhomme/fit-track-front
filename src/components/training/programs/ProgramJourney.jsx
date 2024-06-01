@@ -10,7 +10,7 @@ import PatternIndicator from '../global/PatternIndicator';
 import Card from '../../global/Card';
 
 export default function ProgramJourney({program}) {
-  const { openTrainingForm, openProgramForm, handleUpdateProgram } = useTraining()
+  const { openTrainingModal, openProgramModal, handleUpdateProgram } = useTraining()
   const [lastTraining, setLastTraining] = useState('');
   const [firstTraining, setFirstTraining] = useState('');
   const [bestPerf, setBestPerf] = useState('');
@@ -94,7 +94,7 @@ export default function ProgramJourney({program}) {
           ) : program.state === "ONGOING" && (
             <Icon icon="heroicons:stop-circle-16-solid" className='text-orange size-[20px]' onClick={stopProgram} />
           )} */}
-          <div onClick={() => openProgramForm(program)}>
+          <div onClick={() => openProgramModal(program)}>
             <p className="font-bold">{program.name}</p>
             <p className='text-xs'>{program.description}</p>
           </div>
@@ -141,7 +141,7 @@ export default function ProgramJourney({program}) {
           )}
         </div> */}
         <div className="flex items-center cursor-pointer mb-3">   
-          <div onClick={() => openProgramForm(program)}>
+          <div onClick={() => openProgramModal(program)}>
             <p className="font-bold">{program.name}</p>
             <p className='text-xs'>{program.description}</p>
           </div>
@@ -153,7 +153,7 @@ export default function ProgramJourney({program}) {
         ))}        
         {program.state !== "COMPLETED" && 
           <div className='flex items-center justify-center'>
-            <AddButton clicked={() => openTrainingForm(null, program.id, null)} css={'size-8 p-2'}/> 
+            <AddButton clicked={() => openTrainingModal(null, program.id, null)} css={'size-8 p-2'}/> 
           </div>
         }            
       </div>

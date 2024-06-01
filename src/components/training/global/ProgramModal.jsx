@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useTraining } from '../../../utils/training/TrainingContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
-import CardTitle from './../../global/CardTitle';
+import CardTitle from '../../global/CardTitle';
+import Modal from '../../global/Modal';
 
-export default function ProgramForm() {
-  const { handleAddProgram, handleDeleteProgram, closeProgramForm, programFormData } = useTraining();
+export default function ProgramModal() {
+  const { handleAddProgram, handleDeleteProgram, closeProgramModal, programFormData } = useTraining();
   const [isFormValid, setIsFormValid] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -37,14 +38,14 @@ export default function ProgramForm() {
   const handleSubmit = (e) => {
 	  e.preventDefault();
     handleAddProgram(formData)
-	  closeProgramForm();
+	  closeProgramModal();
 	};
 
   const deleteProgram = () => {
     const confirm = window.confirm("Are you sure ?");
     if (confirm) {
       handleDeleteProgram(formData)
-      closeProgramForm()
+      closeProgramModal()
     }
   }
 
@@ -53,11 +54,10 @@ export default function ProgramForm() {
   }
 
   return (
-    <div className='h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-40'>
-      <form onSubmit={handleSubmit} className='max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-5 bg-primary relative py-5'>
-        <Icon icon="maki:cross" className="absolute top-5 right-5 text-secondary cursor-pointer size-[20px]" onClick={closeProgramForm} />
-        <Icon icon="solar:star-bold" className={`absolute top-5 left-5 size-[20px] text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />   
-        <CardTitle text={'Program'} />
+    <Modal close={closeProgramModal}>
+      <Icon icon="solar:star-bold" className={`absolute top-5 left-5 size-[20px] text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />   
+      <CardTitle text={'Program'} />
+      <form onSubmit={handleSubmit}>
         <div className='grid gap-3'>   
           <div className='flex items-center gap-5 bg-lightPrimary px-5 py-3'>
             <CardTitle text={'Name*'} alignLeft={true} />
@@ -87,12 +87,12 @@ export default function ProgramForm() {
             <Patterns programPattern={formData.pattern} clicked={handlePatternClick} />
           </div>
         </div>
-        <div className='flex items-center justify-center gap-5'>
+        <div className='flex items-center justify-center gap-5 mt-5'>
           {programFormData.name && (<button type='button' className={`font-bold bg-red text-primary px-5 py-3 rounded-3xl`} onClick={deleteProgram}>Delete</button>)}
           <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl ${!isFormValid && 'brightness-75'}`}>Confirm</button>
         </div>
       </form>
-    </div>
+    </Modal>
   )
 }
 

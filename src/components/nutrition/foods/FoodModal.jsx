@@ -4,8 +4,9 @@ import { useNutrition } from "../../../utils/nutrition/NutritionContext";
 import { getColorByMacro } from '../../../utils/global/MacroService';
 import CardTitle from '../../global/CardTitle';
 import { macros } from '../../../utils/global/MacroService';
+import Modal from '../../global/Modal';
 
-export default function FoodForm({ food, close }) {
+export default function FoodModal({ food, close }) {
   const { handleAddFood, handleUpdateFood, handleDeleteFood } = useNutrition();
   const [isProportionInputVisible, setIsProportionInputVisible] = useState(food?.unity === 'Portion')
   const [isFormValid, setIsFormValid] = useState(false);
@@ -105,11 +106,10 @@ export default function FoodForm({ food, close }) {
   }
 
   return (
-    <div className='h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-40'>
-      <form onSubmit={handleSubmit} className='max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-5 bg-primary relative py-5'>
-        <Icon icon="maki:cross" className="absolute top-5 right-5 text-secondary cursor-pointer size-[20px]" onClick={close} />
+    <Modal close={close}>
+      <CardTitle text={food ? 'Update Food' : 'Create Food'} />
+      <form onSubmit={handleSubmit}>      
         <Icon icon="solar:star-bold" className={`absolute top-5 left-5 size-[20px] text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />  
-        <CardTitle text={food ? 'Update Food' : 'Create Food'} />
         <div className='grid gap-3'>     
           <div className='bg-lightPrimary p-5'>
             <CardTitle text={'Image'} alignLeft={true} />
@@ -180,11 +180,11 @@ export default function FoodForm({ food, close }) {
             />
           </div>        
         </div>
-        <div className='flex items-center justify-center gap-3'>
+        <div className='flex items-center justify-center gap-3 mt-5'>
           {food && <button className={`font-bold bg-red text-primary px-5 py-3 rounded-3xl`} onClick={deleteFood}>Delete</button>}
           <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl ${!isFormValid && 'brightness-75'}`}>Confirm</button>
         </div>
       </form>
-    </div>
+    </Modal>
   )
 }

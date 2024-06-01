@@ -3,14 +3,14 @@ import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import { useUser } from '../utils/user/UserContext';
 import TrainingCalendarTab from './TrainingCalendarTab';
 import TrainingProgramsTab from './TrainingProgramsTab';
-import ProgramForm from '../components/training/global/ProgramForm';
-import TrainingForm from '../components/training/global/TrainingForm';
+import ProgramModal from '../components/training/global/ProgramModal';
+import TrainingModal from '../components/training/global/TrainingModal';
 import AddButton from '../components/global/AddButton';
 import { useTraining } from '../utils/training/TrainingContext';
 
 export default function TrainingPage() {
   const { isDarkMode, toggleDarkMode } = useUser();
-  const { isTrainingFormDisplayed, isProgramFormDisplayed, openProgramForm, trainingLoading } = useTraining();
+  const { isTrainingModalDisplayed, isProgramModalDisplayed, openProgramModal, trainingLoading } = useTraining();
 
   const tabs = ['calendar', 'programs'];
   const [activeTab, setActiveTab] = useState(tabs[0]);
@@ -30,7 +30,7 @@ export default function TrainingPage() {
             {tabs.map((tab, index) => (
               <li key={index} className={`${activeTab === tab ? 'bg-primary' : 'cursor-pointer'} text-xs rounded-t-2xl py-3 px-6 flex gap-3 items-center`} onClick={() => setActiveTab(tab)} >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                {tab === 'programs' && <AddButton css={'w-6 h-6 p-2'} clicked={openProgramForm} />}
+                {tab === 'programs' && <AddButton css={'w-6 h-6 p-2'} clicked={openProgramModal} />}
               </li>
             ))}
           </ul>
@@ -41,11 +41,11 @@ export default function TrainingPage() {
             <TrainingProgramsTab />
           )}
         </div>
-        {isProgramFormDisplayed && (
-          <ProgramForm />
+        {isProgramModalDisplayed && (
+          <ProgramModal />
         )} 
-        {isTrainingFormDisplayed && (
-          <TrainingForm />
+        {isTrainingModalDisplayed && (
+          <TrainingModal />
         )}
     </>
     )

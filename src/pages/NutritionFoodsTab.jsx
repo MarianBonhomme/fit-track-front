@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNutrition } from '../utils/nutrition/NutritionContext';
 import AddButton from '../components/global/AddButton';
 import FoodCard from '../components/nutrition/foods/FoodCard';
-import FoodForm from '../components/nutrition/foods/FoodForm';
+import FoodModal from '../components/nutrition/foods/FoodModal';
 import RankingCard from '../components/nutrition/foods/RankingCard';
 import { sortFoodsByFavoritesAndInactives } from '../utils/nutrition/NutritionService';
 import Card from '../components/global/Card';
@@ -12,7 +12,7 @@ import Card from '../components/global/Card';
 export default function NutritionFoodsTab() {
   const { foodsWithTotalQuantity } = useNutrition();
   const [sortedFoods, setSortedFoods] = useState();
-  const [isFoodFormDisplayed, setIsFoodFormDisplayed] = useState(false)
+  const [isFoodModalDisplayed, setIsFoodModalDisplayed] = useState(false)
   const [foodToUpdate, setFoodToUpdate] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredFoods, setFilteredFoods] = useState();
@@ -36,16 +36,16 @@ export default function NutritionFoodsTab() {
     );
   }  
 
-  const openFoodForm = (food) => {
+  const openFoodModal = (food) => {
     food ? setFoodToUpdate(food) : setFoodToUpdate(null);
-    setIsFoodFormDisplayed(true);
+    setIsFoodModalDisplayed(true);
   }
 
   return (
     <div className='w-full flex max-sm:flex-col gap-5'>
       <div className='w-full sm:w-3/4'>
         <Card css={'flex justify-between items-center'}>
-          <AddButton clicked={() => openFoodForm(null)} css="h-10 w-10 p-3" />
+          <AddButton clicked={() => openFoodModal(null)} css="h-10 w-10 p-3" />
           <div className='flex items-center gap-3'>
             <input
               type="text"
@@ -60,12 +60,12 @@ export default function NutritionFoodsTab() {
         <div className='flex flex-wrap max-sm:justify-center gap-x-2 sm:gap-x-5'>
           {filteredFoods && (
             filteredFoods.map((food) => (
-              <FoodCard food={food} key={food.id} editBtnClicked={() => openFoodForm(food)} />
+              <FoodCard food={food} key={food.id} editBtnClicked={() => openFoodModal(food)} />
             ))
           )}
         </div>
-        {isFoodFormDisplayed && (
-          <FoodForm food={foodToUpdate} close={() => setIsFoodFormDisplayed(false)}/>
+        {isFoodModalDisplayed && (
+          <FoodModal food={foodToUpdate} close={() => setIsFoodModalDisplayed(false)}/>
         )}
       </div>
       <div className="w-full sm:w-1/4">

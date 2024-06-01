@@ -9,7 +9,7 @@ import CardTitle from '../../global/CardTitle';
 import Card from '../../global/Card';
 
 export default function TrainingsCalendarCard() {
-  const { currentWeek, incrementWeek, decrementWeek, openTrainingForm, currentDate, incrementCurrentDate, decrementCurrentDate } = useTraining();
+  const { currentWeek, incrementWeek, decrementWeek, openTrainingModal, currentDate, incrementCurrentDate, decrementCurrentDate } = useTraining();
 
   return (
     <Card>
@@ -19,7 +19,7 @@ export default function TrainingsCalendarCard() {
           {currentWeek && currentWeek.length === 7 && currentWeek.map((day, index) => (
             <div key={index} className='space-y-3'>
               <p className='text-center'>{getDayOfWeek(new Date(day))} {moment(day).format("DD/MM")}</p>
-              <AddButton css={'flex mx-auto size-8 p-2'} clicked={() => openTrainingForm(new Date(day), null, null)} />
+              <AddButton css={'flex mx-auto size-8 p-2'} clicked={() => openTrainingModal(new Date(day), null, null)} />
               <DailyTrainings date={new Date(day)} />
             </div>
           ))}
@@ -36,7 +36,7 @@ export default function TrainingsCalendarCard() {
                 <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary rounded-full text-secondary cursor-pointer" onClick={incrementCurrentDate} />
               </div>
             </div>
-            <AddButton css={'flex mx-auto size-8 p-2'} clicked={() => openTrainingForm(new Date(currentDate), null, null)} />
+            <AddButton css={'flex mx-auto size-8 p-2'} clicked={() => openTrainingModal(new Date(currentDate), null, null)} />
             <DailyTrainings date={new Date(currentDate)} />
           </div>
         }

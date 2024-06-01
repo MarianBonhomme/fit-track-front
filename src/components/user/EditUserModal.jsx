@@ -6,6 +6,7 @@ import CardTitle from './../global/CardTitle';
 import { macros } from '../../utils/global/MacroService';
 import AvatarModal from './AvatarModal';
 import AvatarColor from './AvatarColor';
+import Modal from '../global/Modal';
 
 export default function EditUserModal({close}) {
   const { user, handleUpdateUser } = useUser();
@@ -37,10 +38,9 @@ export default function EditUserModal({close}) {
 	};
 
   return (
-    <div className='h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-40'>
-      <form onSubmit={handleSubmit} className={`max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-5 bg-primary relative py-5`}>
-        <Icon icon="maki:cross" className="absolute top-5 right-5 text-secondary cursor-pointer size-[20px]" onClick={close} />
-        <CardTitle text={'Edit User'} />
+    <Modal close={close}>
+      <CardTitle text={'Edit User'} />
+      <form onSubmit={handleSubmit}>
         <div className='grid gap-3'>
           <div className="bg-lightPrimary p-5">
             <CardTitle text={'Avatar'} alignLeft={true} />
@@ -83,11 +83,11 @@ export default function EditUserModal({close}) {
             </div>
           </div>
         </div>
-        <button type="submit" className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl flex mx-auto`}>Confirm</button>
+        <button type="submit" className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl flex mx-auto mt-5`}>Confirm</button>
       </form>    
       {isAvatarModalVisible &&
         <AvatarModal close={() => setIsAvatarModalVisible(false)} />
       }
-    </div>
+    </Modal>
   )
 }
