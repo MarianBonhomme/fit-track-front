@@ -28,7 +28,7 @@ export default function TrainingsCalendarCard() {
       </div>
       <div className="sm:hidden flex">
         {currentDate && 
-          <div className='w-full flex flex-col gap-3 p-3'>
+          <div className='w-full flex flex-col gap-3'>
             <div className="w-full flex items-center justify-between mb-3 px-2">
               <CardTitle text={`${getDayOfWeek(new Date(currentDate))} ${moment(currentDate).format("DD/MM")}`} />
               <div className='flex gap-1'>

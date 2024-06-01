@@ -149,7 +149,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
             </>          
           ) : null}
           {isFoodsListVisible && (
-            <div className='w-full relative h-[50dvh] overflow-y-scroll hide-scrollbar border border-primary px-3 pt-1'>
+            <div className={`w-full relative ${selectedFood ? 'max-h-[50vh]' : 'max-h-[70dvh]'} overflow-y-scroll hide-scrollbar border border-primary px-3 pt-1`}>
               <div className={`flex items-center gap-3 cursor-pointer`}>
                 <input
                   type="text"
