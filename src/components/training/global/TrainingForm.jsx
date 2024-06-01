@@ -66,16 +66,22 @@ export default function TrainingForm() {
     setIsSelectProgramModalVisible(false);
   }
 
+  const openSelectProgramModal = () => {
+    if (!trainingFormData.training && !trainingFormData.programId) {
+      setIsSelectProgramModalVisible(true);
+    }
+  }
+
   return (
     <>
       <div className="h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-30">
-        <form onSubmit={handleSubmit} className='max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-10 bg-primary relative py-5'>
+        <form onSubmit={handleSubmit} className='max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-5 bg-primary relative py-5'>
           <Icon icon="maki:cross" className="absolute top-5 right-5 text-red cursor-pointer size-[20px]" onClick={closeTrainingForm} />
           <CardTitle text={'Training'} />
-          <div className='grid gap-5'>
+          <div className='grid gap-3'>
             <div className={`flex items-center gap-5 bg-lightPrimary px-5 py-3 relative`}>            
               <CardTitle text={'Program'} alignLeft={true} />
-              <div className='w-full flex items-center gap-1 py-3 cursor-pointer' onClick={() => setIsSelectProgramModalVisible(true)}>
+              <div className='w-full flex items-center gap-1 py-3 cursor-pointer' onClick={openSelectProgramModal}>
                 {selectedProgram ? (
                   <div className="flex justify-center items-center relative">
                     {selectedProgram.name}
@@ -141,7 +147,7 @@ export default function TrainingForm() {
               </div>
             </div>   
             <div className='bg-lightPrimary p-5'>
-              <CardTitle text={'Difficulty'} alignLeft={true} />
+              <CardTitle text={'Comment'} alignLeft={true} />
               <textarea
                 id="comment"
                 name="comment"

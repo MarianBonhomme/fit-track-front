@@ -6,6 +6,7 @@ import MacroItem from '../global/MacroItem';
 import FoodImage from '../global/FoodImage';
 import { useUser } from '../../../utils/user/UserContext';
 import { macros } from '../../../utils/global/MacroService';
+import CardTitle from '../../global/CardTitle';
 
 export default function FoodConsumptionForm({ foodConsumption, close }) {
   const { isDarkMode } = useUser();
@@ -110,88 +111,61 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
   }
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center sm:items-start p-5 sm:pt-20 z-50'>
-      <div className={`w-full max-w-xl px-3 py-5 sm:p-10 relative rounded-2xl ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`}>
-        <Icon icon="maki:cross" className="absolute top-5 right-5 sm:right-10 sm:top-10 text-red cursor-pointer size-[20px] sm:size-[25px]" onClick={close} />
-        <h3 className='text-center font-bold mb-5 sm:mb-10'>{foodConsumption ? 'Update FoodConsumption' : 'Add Consumption'}</h3>
-        <div className={`px-5 rounded-xl relative ${isDarkMode ? 'bg-lightPrimary' : 'bg-primary'}`}>
-          <div className='w-full flex justify-between items-center gap-5 py-3'>
-            {selectedFood ? (
-              <div className="grow flex justify-between items-center">
-                <div className='flex items-center gap-5'>
+    <div className='h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-40'>
+      <div className={`max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-5 bg-primary relative py-5`}>
+        <Icon icon="maki:cross" className="absolute top-5 right-5 text-red cursor-pointer size-[20px]" onClick={close} />
+        <CardTitle text={foodConsumption ? 'Update FoodConsumption' : 'Add Consumption'} />
+        <div className={`${selectedFood && 'px-5 py-3'} relative bg-lightPrimary`}>
+          {selectedFood ? (
+            <>
+              <div className='w-full flex justify-between py-3'>
+                <div className='flex items-center gap-3'>
                   <FoodImage image={selectedFood.image} size="lg" />
                   <div className='space-y-1'>
                     <p className='font-semibold'>{selectedFood.name}</p>
-                    <div className="flex space-x-3">
+                    <div className="flex gap-1">
                       {macros.map((macro) => (
                         <MacroItem key={macro} macro={macro} value={selectedFood[macro]} isRounded={true} showUnity={true} />
                       ))}
                     </div>
                   </div>
-                </div>
-                <div className='max-sm:hidden flex flex-col items-center gap-3'>
-                  <p>Quantity</p>
-                  <input 
-                    type="number" 
-                    className={`max-w-20 px-3 py-1 rounded-md ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`} 
-                    value={quantity} 
-                    onChange={handleChangeQuantity}   
-                    required                 
-                    min="1"
-                  />
-                </div>
-              </div>
-            ) : (              
-              <div className={`flex items-center cursor-pointer gap-3`}>
+                </div>  
+                <div className='grid'>
+                  <CardTitle text={'Quantity*'} alignLeft={true} />
+                    <div className='flex items-center gap-1'>
+                      <input 
+                        type="number" 
+                        className="bg-primary rounded text-secondary w-16 p-2"
+                        value={quantity} 
+                        onChange={handleChangeQuantity}   
+                        required                 
+                        min="1"
+                      />
+                      <div className='max-sm:hidden'>{selectedFood.unity}</div>
+                    </div>
+                </div>           
+              </div>     
+              {!foodConsumption && (
+                <Icon icon="ion:chevron-up" width="25" height="25" className={`mx-auto transition ${isFoodsListVisible ? '' : 'rotate-180'} cursor-pointer`}  onClick={() => setIsFoodsListVisible(!isFoodsListVisible)}/>
+              )}      
+            </>          
+          ) : null}
+          {isFoodsListVisible && (
+            <div className='w-full relative h-[50dvh] overflow-y-scroll hide-scrollbar border border-primary px-3 pt-1'>
+              <div className={`flex items-center gap-3 cursor-pointer`}>
                 <input
                   type="text"
                   placeholder="Search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  onClick={() => setIsFoodsListVisible(true)}
-                  className="text-secondary font-bold bg-lightPrimary pl-1"
+                  className="bg-lightPrimary text-secondary rounded-xl px-4 py-2"
                 />
-                <Icon icon="maki:cross" className={`size-[10px] text-red cursor-pointer transition ${searchQuery ? '' : 'opacity-0'}`} onClick={() => setSearchQuery('')} />
+                <Icon icon="maki:cross" width={15} height={15} className={`text-red cursor-pointer transition ${searchQuery ? '' : 'opacity-0'}`} onClick={() => setSearchQuery('')} />
               </div>
-            )}
-            {!foodConsumption && (
-              <>
-                <Icon icon="ion:chevron-up" width="25" height="25" className={`transition ${isFoodsListVisible ? '' : 'rotate-180'} cursor-pointer max-sm:hidden`}  onClick={() => setIsFoodsListVisible(!isFoodsListVisible)}/>
-                <Icon icon="ion:chevron-up" width="25" height="25" className={`transition ${isFoodsListVisible ? '' : 'rotate-180'} cursor-pointer absolute top-3 right-3 sm:hidden`}  onClick={() => setIsFoodsListVisible(!isFoodsListVisible)}/>
-              </>
-            )}
-          </div>          
-          {selectedFood && (
-            <div className='flex sm:hidden flex-col items-center gap-1 pb-3'>
-              <p>Quantity</p>
-              <input 
-                type="number" 
-                className={`max-w-20 px-3 py-1 rounded-md ${isDarkMode ? 'bg-primary' : 'bg-lightPrimary'}`} 
-                value={quantity} 
-                onChange={handleChangeQuantity}   
-                required                 
-                min="1"
-              />
-            </div>
-          )}
-          {isFoodsListVisible && (
-            <div className='w-full relative top-full h-[50dvh] overflow-y-scroll hide-scrollbar'>
-              {selectedFood && 
-                <div className={`flex items-center gap-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`}>
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="bg-lightPrimary text-secondary rounded-xl px-4 py-2 "
-                  />
-                  <Icon icon="maki:cross" width={15} height={15} className={`text-red cursor-pointer transition ${searchQuery ? '' : 'opacity-0'}`} onClick={() => setSearchQuery('')} />
-                </div>
-              }
               {filteredFoods && filteredFoods.map((food) => {
                 return ( food.is_active && 
                   <div key={food.id} className={`${(selectedFood && !searchQuery) && (selectedFood.id === food.id) && 'hidden'}`}>
-                    <div className={`max-sm:hidden flex items-center justify-between gap-3 p-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
+                    <div className={`max-sm:hidden flex items-center sm:justify-between gap-3 p-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
                       <div className='flex gap-5 items-center'>
                         <FoodImage image={food.image} size="md" />
                         <p>{food.name}</p>
@@ -202,7 +176,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
                         ))}
                       </div>
                     </div>
-                    <div className={`flex sm:hidden items-center justify-between gap-3 py-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
+                    <div className={`flex sm:hidden items-center gap-10 py-3 border-t ${isDarkMode ? 'border-primary' : 'border-lightPrimary'} cursor-pointer`} onClick={() => selectFood(food)}>
                       <FoodImage image={food.image} size="lg" />
                       <div>
                         <p className='mb-1'>{food.name}</p>
@@ -219,7 +193,7 @@ export default function FoodConsumptionForm({ foodConsumption, close }) {
             </div>     
           )}
         </div>
-        <button type="submit" disabled={!isFormValid} className={`flex font-bold bg-blue text-primary px-5 py-3 rounded-3xl mt-5 sm:mt-10 mx-auto transition ${!isFormValid && 'brightness-90'}`} onClick={handleSubmit}>Confirm</button>
+        <button type="submit" disabled={!isFormValid} className={`flex font-bold bg-blue text-primary px-5 py-3 rounded-3xl mx-auto transition ${!isFormValid && 'brightness-90'}`} onClick={handleSubmit}>Confirm</button>
       </div>
     </div>
   )

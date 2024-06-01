@@ -2,6 +2,8 @@ import { Icon } from '@iconify/react';
 import { useEffect, useState } from "react";
 import { useNutrition } from "../../../utils/nutrition/NutritionContext";
 import { getColorByMacro } from '../../../utils/global/MacroService';
+import CardTitle from '../../global/CardTitle';
+import { macros } from '../../../utils/global/MacroService';
 
 export default function FoodForm({ food, close }) {
   const { handleAddFood, handleUpdateFood, handleDeleteFood } = useNutrition();
@@ -41,6 +43,15 @@ export default function FoodForm({ food, close }) {
     });
     checkSelectInput(name, value);
 	};
+
+  const handleUnityClick = (clickedUnity) => {
+    if (clickedUnity === 'Portion') {
+      setIsProportionInputVisible(true);
+    } else {
+      setIsProportionInputVisible(false);
+    }
+    setFormData({...formData, unity: clickedUnity})
+  }
 
   const checkSelectInput = (name, value) => {
     if (name === 'unity') { 
@@ -94,125 +105,84 @@ export default function FoodForm({ food, close }) {
   }
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center sm:items-start p-5 sm:pt-20 z-50'>
-      <form onSubmit={handleSubmit} className='w-full max-w-xl flex flex-col items-center bg-primary px-3 py-5 sm:p-10 relative rounded-2xl'>
-        <Icon icon="maki:cross" className="absolute top-5 right-5 sm:right-10 sm:top-10 text-red cursor-pointer size-[20px] sm:size-[25px]" onClick={close} />
-        <Icon icon="solar:star-bold" className={`absolute top-5 left-5 sm:right-10 sm:top-10 size-[20px] sm:size-[25px] text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />  
-        <h3 className='font-bold mb-5 sm:mb-10'>{food ? 'Update Food' : 'Create Food'}</h3>
-        <div className='w-full flex flex-col items-center relative gap-5'>     
-          <div className='flex flex-col relative'>
-            <label htmlFor="image">Image</label>
+    <div className='h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-40'>
+      <form onSubmit={handleSubmit} className='max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-5 bg-primary relative py-5'>
+        <Icon icon="maki:cross" className="absolute top-5 right-5 text-red cursor-pointer size-[20px]" onClick={close} />
+        <Icon icon="solar:star-bold" className={`absolute top-5 left-5 size-[20px] text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />  
+        <CardTitle text={food ? 'Update Food' : 'Create Food'} />
+        <div className='grid gap-3'>     
+          <div className='bg-lightPrimary p-5'>
+            <CardTitle text={'Image'} alignLeft={true} />
             <input
               type="file"
               id="image"
               name="image"
 						  onChange={e => setFile(e.target.files[0])}
               accept="image/*"
+              className='mt-3 mx-auto'
             />
           </div>     
-          <div className='flex flex-col relative'>
-            <label htmlFor="name">Name</label>
+          <div className='flex items-center gap-5 bg-lightPrimary px-5 py-3'>
+            <CardTitle text={'Name*'} alignLeft={true} />
             <input
               type="text"
               id="name"
               name="name"
               value={formData.name}
 						  onChange={handleChange}
-              className='max-w-100 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
+              className='bg-transparent text-secondary w-full p-3'
               required
             />
           </div>
-          <div className='flex flex-col items-center'>
-            <div className="grid grid-cols-2 sm:flex gap-3 sm:gap-5">
-              <div className='flex flex-col'>
-                <label htmlFor="kcal">Kcals</label>
-                <input
-                  type="number"
-                  id="kcal"
-                  name="kcal"
-                  value={formData.kcal}
-                  onChange={handleChange}
-                  className={`max-w-20 px-3 py-1 rounded-md bg-${getColorByMacro('kcal')} text-primary font-bold`}
-                  required
-                  min="0"
-                />
-              </div>
-              <div className='flex flex-col'>
-                <label htmlFor="prot">Proteins</label>
-                <input
-                  type="number"
-                  id="prot"
-                  name="prot"
-                  value={formData.prot}
-                  onChange={handleChange}
-                  className={`max-w-20 px-3 py-1 rounded-md bg-${getColorByMacro('prot')} text-primary font-bold`}
-                  required
-                  min="0"
-                />
-              </div>
-              <div className='flex flex-col'>
-                <label htmlFor="fat">Fats</label>
-                <input
-                  type="number"
-                  id="fat"
-                  name="fat"
-                  value={formData.fat}
-                  onChange={handleChange}
-                  className={`max-w-20 px-3 py-1 rounded-md bg-${getColorByMacro('fat')} text-primary font-bold`}
-                  required
-                  min="0"
-                />
-              </div>
-              <div className='flex flex-col'>
-                <label htmlFor="carb">Carbs</label>
-                <input
-                  type="number"
-                  id="carb"
-                  name="carb"
-                  value={formData.carb}
-                  onChange={handleChange}
-                  className={`max-w-20 px-3 py-1 rounded-md bg-${getColorByMacro('carb')} text-primary font-bold`}
-                  required
-                  min="0"
-                />
-              </div>
+          <div className='bg-lightPrimary p-5'>
+            <CardTitle text={'Macros'} alignLeft={true} />
+            <div className='flex justify-evenly mt-3'>
+              {macros.map((macro) => {
+                return (
+                  <div className='flex flex-col mx-auto'>
+                    <input
+                      type="number"
+                      id={macro}
+                      name={macro}
+                      value={formData[macro]}
+                      onChange={handleChange}
+                      className={`w-14 h-14 text-center font-bold rounded-full bg-${getColorByMacro(macro)} text-primary font-bold`}
+                      required
+                      min="0"
+                      max="9999"
+                    />
+                    <p className='text-center'>{macro}</p>
+                  </div>
+                )
+              })}
             </div>
-            <p className='mt-2 text-center text-gray font-bold'>Toutes les quantités sont à renseigner pour 100g</p>
+            <p className='mt-2 text-center text-gray font-bold'>All quantities are to be provided for 100g</p>
           </div>
-          <div className="flex gap-5">
-            <div className='flex flex-col'>
-              <label htmlFor="unity">Unity</label>
-              <select
-                id="unity"
-                name="unity"
-                value={formData.unity}
-                onChange={handleChange}
-                className='max-w-28 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
-                required
-              >
-                <option value="Gram">G</option>
-                <option value="Litre">Ml</option>
-                <option value="Portion">Portion</option>
-              </select>
+          <div className="bg-lightPrimary p-5">
+            <CardTitle text={'Unity*'} alignLeft={true} />
+            <div className='flex items-center justify-evenly mt-3'>
+            <div onClick={() => handleUnityClick('Gram')} className={`w-16 sm:w-20 text-center py-2 rounded-lg capitalize ${formData.unity === 'Gram' ? `bg-blue cursor-default text-primary font-semibold` : 'bg-primary text-secondary cursor-pointer'}`}>g</div>
+            <div onClick={() => handleUnityClick('L')} className={`w-16 sm:w-20 text-center py-2 rounded-lg capitalize ${formData.unity === 'L' ? `bg-blue cursor-default text-primary font-semibold` : 'bg-primary text-secondary cursor-pointer'}`}>L</div>
+            <div onClick={() => handleUnityClick('Portion')} className={`w-16 sm:w-20 text-center py-2 rounded-lg capitalize ${formData.unity === 'Portion' ? `bg-blue cursor-default text-primary font-semibold` : 'bg-primary text-secondary cursor-pointer'}`}>portion</div>
             </div>
-            <div className={`${isProportionInputVisible ? 'flex' : 'hidden'} flex-col mb-3`}>
-              <label htmlFor="proportion">Proportion</label>
-              <input
-                type="number"
-                id="proportion"
-                name="proportion"
-                value={formData.proportion}
-                onChange={handleChange}
-                className='max-w-20 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
-                required
-                min="1"
-              />
-            </div>
-          </div>          
+          </div>  
+          <div className={`${isProportionInputVisible ? 'flex' : 'hidden'} items-center gap-5 bg-lightPrimary px-5 py-3`}>
+            <CardTitle text={'Proportion*'} alignLeft={true} />
+            <input
+              type="number"
+              id="proportion"
+              name="proportion"
+              value={formData.proportion}
+              onChange={handleChange}
+              className='bg-transparent text-secondary w-full p-3'
+              required
+              min="1"
+            />
+          </div>        
         </div>
-        <div className='flex items-center justify-center gap-3 mt-5 sm:mt-10'>
-          {food && <button type="submit" disabled={!isFormValid} className={`font-bold bg-red text-primary px-5 py-3 rounded-3xl ${!isFormValid && 'brightness-90'}`} onClick={deleteFood}>Delete</button>}
-          <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl ${!isFormValid && 'brightness-90'}`}>Confirm</button>
+        <div className='flex items-center justify-center gap-3'>
+          {food && <button className={`font-bold bg-red text-primary px-5 py-3 rounded-3xl`} onClick={deleteFood}>Delete</button>}
+          <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl ${!isFormValid && 'brightness-75'}`}>Confirm</button>
         </div>
       </form>
     </div>

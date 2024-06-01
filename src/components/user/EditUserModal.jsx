@@ -38,10 +38,10 @@ export default function EditUserModal({close}) {
 
   return (
     <div className='h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-40'>
-      <form onSubmit={handleSubmit} className={`max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-10 bg-primary relative py-5`}>
+      <form onSubmit={handleSubmit} className={`max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-5 bg-primary relative py-5`}>
         <Icon icon="maki:cross" className="absolute top-5 right-5 text-red cursor-pointer size-[20px]" onClick={close} />
         <CardTitle text={'Edit User'} />
-        <div className='grid gap-5'>
+        <div className='grid gap-3'>
           <div className="bg-lightPrimary p-5">
             <CardTitle text={'Avatar'} alignLeft={true} />
             <div className='flex flex-col items-center gap-1'>
@@ -58,8 +58,8 @@ export default function EditUserModal({close}) {
             </div>
           </div>
           <div className="bg-lightPrimary p-5">
-            <CardTitle text={'Daily Macro Goals'} alignLeft={true} css={'mb-5'} />
-            <div className='flex justify-evenly'>
+            <CardTitle text={'Daily Macro Goals'} alignLeft={true} />
+            <div className='flex justify-evenly mt-5'>
               {macros.map((macro) => {
                 const firstLetterUpper = macro.charAt(0).toUpperCase();
                 const dailyMacro = `daily${firstLetterUpper}${macro.slice(1)}`;
