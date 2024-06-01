@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react'
 import { useTraining } from '../../../utils/training/TrainingContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
 import moment from 'moment';
-import AddButton from '../../global/AddButton';
-import PatternIndicator from './PatternIndicator';
+import CardTitle from '../../global/CardTitle';
+import SelectProgramModal from './SelectProgramModal';
 
 export default function TrainingForm() {
   const { programs, handleAddTraining, handleDeleteTraining, closeTrainingForm, trainingFormData, openProgramForm } = useTraining();
   const [difficulty, setDifficulty] = useState(trainingFormData.training ? trainingFormData.training.difficulty : 1);
   const [isValidated, setisValidated] = useState(trainingFormData.training ? trainingFormData.training.is_validated : 1);;
   const [selectedProgram, setSelectedProgram] = useState(trainingFormData.programId && trainingFormData.programId);
-  const [isProgramsListVisible, setIsProgramsListVisible] = useState();
+  const [isSelectProgramModalVisible, setIsSelectProgramModalVisible] = useState(false);
 
   const [formData, setFormData] = useState({
     id: trainingFormData.training ? trainingFormData.training.id : null,
@@ -63,111 +63,104 @@ export default function TrainingForm() {
 
   const selectProgram = (program) => {
     setSelectedProgram(program);
-    setIsProgramsListVisible(false);
+    setIsSelectProgramModalVisible(false);
   }
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center sm:items-start p-5 sm:pt-20 z-40'>
-      <form onSubmit={handleSubmit} className='w-full max-w-xl flex flex-col items-center bg-primary px-3 py-5 sm:p-10 relative rounded-2xl'>
-        <Icon icon="maki:cross" className="absolute top-5 right-5 sm:right-10 sm:top-10 text-red cursor-pointer size-[20px] sm:size-[25px]" onClick={closeTrainingForm} />
-        <h3 className='font-bold mb-5 sm:mb-10'>Add Training</h3>
-        <div className='flex flex-col items-center relative gap-5'>
-          <div className={`min-w-80 px-5 rounded-xl relative bg-lightPrimary`}>
-            <div className='w-full flex justify-between items-center gap-5 py-3'>
-              {selectedProgram ? (
-                <div className="grow flex justify-between items-center relative">
-                  {selectedProgram.name}
-                </div>
-              ) : (
-                <p className='text-center text-gray font-bold'>Select program</p>
-              )}
-              {(!trainingFormData.training && !trainingFormData.programId) && (
-                <Icon icon="ion:chevron-up" width={25} height={25} className={`transition ${isProgramsListVisible ? '' : 'rotate-180'} cursor-pointer`}  onClick={() => setIsProgramsListVisible(!isProgramsListVisible)}/>
-              )}
+    <>
+      <div className="h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-30">
+        <form onSubmit={handleSubmit} className='max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-10 bg-primary relative py-5'>
+          <Icon icon="maki:cross" className="absolute top-5 right-5 text-red cursor-pointer size-[20px]" onClick={closeTrainingForm} />
+          <CardTitle text={'Training'} />
+          <div className='grid gap-5'>
+            <div className={`flex items-center gap-5 bg-lightPrimary px-5 py-3 relative`}>            
+              <CardTitle text={'Program'} alignLeft={true} />
+              <div className='w-full flex items-center gap-1 py-3 cursor-pointer' onClick={() => setIsSelectProgramModalVisible(true)}>
+                {selectedProgram ? (
+                  <div className="flex justify-center items-center relative">
+                    {selectedProgram.name}
+                  </div>
+                ) : (
+                  <p>Select program</p>
+                )}
+                {(!trainingFormData.training && !trainingFormData.programId) && (
+                  <Icon icon="ion:chevron-down" width={20} height={20} className='text-secondary'/>
+                )}
+              </div>
             </div>
-            {isProgramsListVisible && (
-              <div className='w-full max-h-[60dvh] absolute top-full left-0 overflow-y-scroll hide-scrollbar bg-lightPrimary rounded-2xl z-50'>
-                <div className='flex justify-center items-center gap-3 cursor-pointer max-sm:py-3' onClick={openProgramForm}>
-                  <AddButton css={'sm:h-14'} />
-                  <p className='text-gray font-bold'>New Program</p>
-                </div>
-                {programs && programs.map((program) => {
-                  return ( !program.is_completed &&
-                    <div key={program.id} className={`pl-5 p-3 sm:p-5 border-t border-primary cursor-pointer relative`} onClick={() => selectProgram(program)}>
-                      <PatternIndicator pattern={program.pattern} />
-                      {program.name}
-                    </div>
-                  )
-                })}
-              </div>     
-            )}
-          </div>
-          <div className='flex flex-col relative'>
-            <label htmlFor="weight">Date</label>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              step="0.01"
-              value={formData.date}
-              onChange={handleChange}
-              className='max-w-40 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
-              required
-            />
-          </div>
-          <div className='flex flex-col relative'>
-            <label htmlFor="weight">Weight</label>
-            <div className='flex gap-3'>
+            <div className='flex items-center gap-5 bg-lightPrimary px-5 py-3'>
+              <CardTitle text={'Date'} alignLeft={true} />
               <input
-                type="number"
-                id="weight"
-                name="weight"
+                type="date"
+                id="date"
+                name="date"
                 step="0.01"
-                value={formData.weight}
+                value={formData.date}
                 onChange={handleChange}
-                className='max-w-28 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
+                className='bg-transparent text-secondary text-center'
                 required
               />
-              kg
             </div>
-          </div> 
-          <div className='flex flex-col relative'>
-            <div className="flex border border-lightPrimary rounded-full overflow-hidden">
-              <div className={`px-5 py-3 ${!isValidated ? 'bg-lightPrimary' : 'cursor-pointer'}`} onClick={() => setisValidated(0)}>
-                <Icon icon="material-symbols:cancel-rounded" width="25" height="25" className='text-red' />
+            <div className='flex items-center gap-5 bg-lightPrimary px-5 py-3'>
+              <CardTitle text={'Weight'} alignLeft={true} />
+              <div className='flex'>
+                <input
+                  type="number"
+                  id="weight"
+                  name="weight"
+                  step="0.01"
+                  value={formData.weight}
+                  onChange={handleChange}
+                  className='bg-transparent text-secondary text-center max-w-8'
+                  required
+                />
+                kg
               </div>
-              <div className={`px-5 py-3 ${isValidated ? 'bg-lightPrimary' : 'cursor-pointer'}`} onClick={() => setisValidated(1)}>
-                <Icon icon="icon-park-solid:check-one" width="25" height="25" className="text-green" />
+            </div> 
+            <div className='flex items-center gap-5 bg-lightPrimary px-5 py-3'>
+              <CardTitle text={'Validated'} alignLeft={true} />
+              <div className='bg-primary rounded-full'>
+                <div className="flex border border-primary rounded-full overflow-hidden">
+                  <div className={`px-3 py-2 ${!isValidated ? 'bg-lightPrimary' : 'cursor-pointer'}`} onClick={() => setisValidated(0)}>
+                    <Icon icon="material-symbols:cancel-rounded" width="20" height="20" className='text-red' />
+                  </div>
+                  <div className={`px-3 py-2 ${isValidated ? 'bg-lightPrimary' : 'cursor-pointer'}`} onClick={() => setisValidated(1)}>
+                    <Icon icon="icon-park-solid:check-one" width="20" height="20" className="text-green" />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className='flex flex-col relative'>
-            <p>Difficulty</p>
-            <div className='flex justify-center gap-5 font-bold bg-lightPrimary rounded-full px-2 py-1'>
-              <p onClick={() => setDifficulty(1)} className={`flex items-center justify-center h-8 w-8 rounded-full ${difficulty === 1 ? 'bg-green text-primary' : 'text-green cursor-pointer' }`}>1</p>
-              <p onClick={() => setDifficulty(2)} className={`flex items-center justify-center h-8 w-8 rounded-full ${difficulty === 2 ? 'bg-green text-primary' : 'text-green cursor-pointer' }`}>2</p>
-              <p onClick={() => setDifficulty(3)} className={`flex items-center justify-center h-8 w-8 rounded-full ${difficulty === 3 ? 'bg-yellow text-primary' : 'text-yellow cursor-pointer' }`}>3</p>
-              <p onClick={() => setDifficulty(4)} className={`flex items-center justify-center h-8 w-8 rounded-full ${difficulty === 4 ? 'bg-orange text-primary' : 'text-orange cursor-pointer' }`}>4</p>
-              <p onClick={() => setDifficulty(5)} className={`flex items-center justify-center h-8 w-8 rounded-full ${difficulty === 5 ? 'bg-red text-primary' : 'text-red cursor-pointer' }`}>5</p>
-            </div>
+            <div className='flex items-center gap-5 bg-lightPrimary px-5 py-3'>
+              <CardTitle text={'Difficulty'} alignLeft={true} />
+              <div className='flex justify-center gap-2 font-bold bg-primary rounded-full px-2 py-1'>
+                <p onClick={() => setDifficulty(1)} className={`flex items-center justify-center h-6 w-6 rounded-full ${difficulty === 1 ? 'bg-green text-primary' : 'text-green cursor-pointer' }`}>1</p>
+                <p onClick={() => setDifficulty(2)} className={`flex items-center justify-center h-6 w-6 rounded-full ${difficulty === 2 ? 'bg-green text-primary' : 'text-green cursor-pointer' }`}>2</p>
+                <p onClick={() => setDifficulty(3)} className={`flex items-center justify-center h-6 w-6 rounded-full ${difficulty === 3 ? 'bg-yellow text-primary' : 'text-yellow cursor-pointer' }`}>3</p>
+                <p onClick={() => setDifficulty(4)} className={`flex items-center justify-center h-6 w-6 rounded-full ${difficulty === 4 ? 'bg-orange text-primary' : 'text-orange cursor-pointer' }`}>4</p>
+                <p onClick={() => setDifficulty(5)} className={`flex items-center justify-center h-6 w-6 rounded-full ${difficulty === 5 ? 'bg-red text-primary' : 'text-red cursor-pointer' }`}>5</p>
+              </div>
+            </div>   
+            <div className='bg-lightPrimary p-5'>
+              <CardTitle text={'Difficulty'} alignLeft={true} />
+              <textarea
+                id="comment"
+                name="comment"
+                value={formData.comment}
+                onChange={handleChange}
+                rows={2}
+                className='bg-transparent text-secondary w-full mt-3'
+              />
+            </div>       
           </div>   
-          <div className='flex flex-col relative'>
-            <label htmlFor="comment">Comment</label>
-            <input
-              type="text"
-              id="comment"
-              name="comment"
-              value={formData.comment}
-              onChange={handleChange}
-              className='max-w-100 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
-            />
-          </div>       
-        </div>   
-        <div className='flex justify-center items-center gap-5 mt-5 sm:mt-10'>
-          {trainingFormData?.training && (<button className={`font-bold bg-red text-primary px-5 py-3 rounded-3xl`} onClick={deleteTraining}>Delete</button>)}
-          <button type="submit" disabled={!selectedProgram} className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl ${selectedProgram ?? 'opacity-80'}`}>Confirm</button>
-        </div>
-      </form>
-    </div>
+          <div className='flex justify-center items-center gap-5'>
+            {trainingFormData?.training && (<button className={`font-bold bg-red text-primary px-5 py-3 rounded-3xl`} onClick={deleteTraining}>Delete</button>)}
+            <button type="submit" disabled={!selectedProgram} className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl ${selectedProgram ?? 'opacity-80'}`}>Confirm</button>
+          </div>
+        </form>
+      </div>   
+      {isSelectProgramModalVisible &&
+        <SelectProgramModal close={() => setIsSelectProgramModalVisible(false)} programClicked={selectProgram} />
+      }
+    </>
   )
 }

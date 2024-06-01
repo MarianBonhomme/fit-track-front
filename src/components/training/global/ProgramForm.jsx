@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTraining } from '../../../utils/training/TrainingContext'
 import { Icon } from '@iconify/react/dist/iconify.js';
+import CardTitle from './../../global/CardTitle';
 
 export default function ProgramForm() {
   const { handleAddProgram, handleDeleteProgram, closeProgramForm, programFormData } = useTraining();
@@ -52,38 +53,41 @@ export default function ProgramForm() {
   }
 
   return (
-    <div className='h-screen w-full fixed top-0 left-0 flex bg-opacity-70 bg-black justify-center items-center sm:items-start p-5 sm:pt-20 z-50'>
-      <form onSubmit={handleSubmit} className='w-full max-w-xl flex flex-col items-center bg-primary px-3 py-5 sm:p-10 relative rounded-2xl'>
-        <Icon icon="maki:cross" className="absolute top-5 right-5 sm:right-10 sm:top-10 text-red cursor-pointer size-[20px] sm:size-[25px]" onClick={closeProgramForm} />
-        <Icon icon="solar:star-bold" className={`absolute top-5 left-5 sm:right-10 sm:top-10 size-[20px] sm:size-[25px] text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />   
-        <h3 className='font-bold mb-5 sm:mb-10'>Create New Program</h3>
-        <div className='w-full flex flex-col items-center relative gap-5'>   
-          <div className='flex flex-col relative'>
-            <label htmlFor="name">Name</label>
+    <div className='h-screen w-full bg-opacity-70 bg-black flex justify-center items-center fixed top-0 left-0 z-40'>
+      <form onSubmit={handleSubmit} className='max-sm:h-screen w-full sm:max-w-xl sm:rounded-3xl flex flex-col gap-10 bg-primary relative py-5'>
+        <Icon icon="maki:cross" className="absolute top-5 right-5 text-red cursor-pointer size-[20px]" onClick={closeProgramForm} />
+        <Icon icon="solar:star-bold" className={`absolute top-5 left-5 size-[20px] text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />   
+        <CardTitle text={'Program'} />
+        <div className='grid gap-5'>   
+          <div className='flex items-center gap-5 bg-lightPrimary px-5 py-3'>
+            <CardTitle text={'Name*'} alignLeft={true} />
             <input
               type="text"
               id="name"
               name="name"
               value={formData.name}
 						  onChange={handleChange}
-              className='max-w-100 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
+              className='bg-transparent text-secondary w-full p-3'
               required
             />
           </div> 
-          <div className='flex flex-col relative'>
-            <label htmlFor="description">Description</label>
-            <input
-              type="text"
+          <div className='bg-lightPrimary p-5'>
+            <CardTitle text={'Description'} alignLeft={true} />
+            <textarea
               id="description"
               name="description"
               value={formData.description}
 						  onChange={handleChange}
-              className='max-w-100 px-3 py-1 rounded-md bg-lightPrimary text-secondary font-bold'
+              rows="2"
+              className='bg-transparent text-secondary w-full mt-3'
             />
           </div> 
-          <Patterns programPattern={formData.pattern} clicked={handlePatternClick} />
+          <div className='bg-lightPrimary p-5'>
+            <CardTitle text={'Type'} alignLeft={true} />
+            <Patterns programPattern={formData.pattern} clicked={handlePatternClick} />
+          </div>
         </div>
-        <div className='flex items-center justify-center gap-5 mt-5 sm:mt-10'>
+        <div className='flex items-center justify-center gap-5'>
           {programFormData.name && (<button type='button' className={`font-bold bg-red text-primary px-5 py-3 rounded-3xl`} onClick={deleteProgram}>Delete</button>)}
           <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl ${!isFormValid && 'brightness-75'}`}>Confirm</button>
         </div>
@@ -109,9 +113,9 @@ function Patterns({programPattern, clicked}) {
   }
 
   return (
-    <div className='flex max-sm:flex-wrap items-center justify-center gap-3'>
+    <div className='flex items-center justify-between mt-3'>
       {patterns.map((pattern, index) => (
-        <div key={index} onClick={() => clicked(pattern)} className={`px-5 py-2 rounded-lg capitalize ${programPattern === pattern ? `${getBackgroundByPattern(pattern)} cursor-default text-primary font-semibold` : 'bg-lightPrimary text-secondary cursor-pointer'}`}>{pattern}</div>
+        <div key={index} onClick={() => clicked(pattern)} className={`w-16 sm:w-20 text-center py-2 rounded-lg capitalize ${programPattern === pattern ? `${getBackgroundByPattern(pattern)} cursor-default text-primary font-semibold` : 'bg-primary text-secondary cursor-pointer'}`}>{pattern}</div>
       ))}
     </div>
   )

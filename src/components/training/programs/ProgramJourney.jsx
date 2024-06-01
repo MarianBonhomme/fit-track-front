@@ -84,21 +84,21 @@ export default function ProgramJourney({program}) {
   }
 
   return (
-    <div className="bg-primary text-secondary p-3 pl-4 sm:p-5 rounded-2xl relative">
-      <PatternIndicator pattern={program.pattern} />
+    <div className="bg-primary text-secondary p-3 sm:p-5 rounded-2xl relative">
+      {/* <PatternIndicator pattern={program.pattern} /> */}
       <div className='max-sm:hidden flex justify-between items-start relative mb-3'>   
         <div className="flex items-center gap-3 cursor-pointer">   
-          {program.state === "COMPLETED" ? (
+          {/* {program.state === "COMPLETED" ? (
             <Icon icon="iconamoon:restart-bold" className='text-purple size-[20px]' onClick={restartProgram} />
           ) : program.state === "ONGOING" && (
             <Icon icon="heroicons:stop-circle-16-solid" className='text-orange size-[20px]' onClick={stopProgram} />
-          )}
+          )} */}
           <div onClick={() => openProgramForm(program)}>
             <p className="font-bold">{program.name}</p>
             <p className='text-xs'>{program.description}</p>
           </div>
         </div> 
-        <div className="grid grid-cols-2 gap-x-5">
+        {/* <div className="grid grid-cols-2 gap-x-5">
           <div>
             {program.state !== "INITIAL" && 
               <StartingDate date={getShortDate(new Date(firstTraining.date))} />
@@ -115,10 +115,10 @@ export default function ProgramJourney({program}) {
               </>
             )}
           </div>
-        </div>
+        </div> */}
       </div>        
       <div className='sm:hidden'>   
-        <div className="flex justify-between mb-1">
+        {/* <div className="flex justify-between mb-1">
           <div className="flex gap-x-3">
             {program.state === "COMPLETED" ? (
               <Icon icon="iconamoon:restart-bold" className='text-purple size-[20px]' onClick={restartProgram} />
@@ -138,7 +138,7 @@ export default function ProgramJourney({program}) {
               <BestPerf perf={bestPerf} />
             </div>
           )}
-        </div>
+        </div> */}
         <div className="flex items-center cursor-pointer mb-3">   
           <div onClick={() => openProgramForm(program)}>
             <p className="font-bold">{program.name}</p>
