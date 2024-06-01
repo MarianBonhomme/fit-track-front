@@ -8,6 +8,7 @@ import { calculateMacros } from "../../../utils/nutrition/NutritionService";
 import MacroItem from "../global/MacroItem";
 import FlipMove from "react-flip-move";
 import { getColorByMacro, macros } from "../../../utils/global/MacroService";
+import Card from "../../global/Card";
 
 export default function RankingCard() {
   const { foodsWithTotalQuantity } = useNutrition();
@@ -44,7 +45,7 @@ export default function RankingCard() {
   }
 
   return (
-    <div className="grow flex flex-col gap-2 bg-primary px-4 pt-3 rounded-3xl">
+    <Card css={'grid gap-2'}>
       <CardTitle text="Top Food" />
       <div className="flex justify-between">
         <p>Sort by : {filter !== "totalQuantity" && filter}</p>
@@ -81,6 +82,6 @@ export default function RankingCard() {
           )      
         })}
       </FlipMove>
-    </div>
+    </Card>
   )
 }

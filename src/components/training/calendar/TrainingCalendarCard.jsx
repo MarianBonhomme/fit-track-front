@@ -4,6 +4,7 @@ import CardTitle from '../../global/CardTitle';
 import moment from 'moment';
 import { formatDate, isToday } from '../../../utils/global/DateService';
 import { useTraining } from '../../../utils/training/TrainingContext';
+import Card from '../../global/Card';
 
 export default function TrainingCalendarCard() {
   const { currentDate, setCurrentDate, trainings } = useTraining();
@@ -83,7 +84,7 @@ export default function TrainingCalendarCard() {
   const { trainingDays, restDays } = getTrainingStats();
 
   return (
-    <div className="flex max-sm:flex-col bg-primary px-4 py-3 rounded-3xl rounded-ss-none text-center gap-5">
+    <Card css={'flex max-sm:flex-col rounded-ss-none text-center gap-5'}>
       <div className="sm:w-1/4 flex sm:flex-col justify-evenly">
         <div className='space-y-3'>
           <CardTitle text={'Training Days'} />
@@ -113,6 +114,6 @@ export default function TrainingCalendarCard() {
         </div>
         <div className='w-full grid grid-cols-7'>{renderCalendar()}</div>
       </div>
-    </div>
+    </Card>
   );
 }

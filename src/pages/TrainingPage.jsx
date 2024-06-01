@@ -12,7 +12,7 @@ export default function TrainingPage() {
   const { isDarkMode, toggleDarkMode } = useUser();
   const { isTrainingFormDisplayed, isProgramFormDisplayed, openProgramForm, trainingLoading } = useTraining();
 
-  const tabs = ['programs', 'calendar'];
+  const tabs = ['calendar', 'programs'];
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   return (

@@ -23,7 +23,7 @@ export default function NutritionDashboardTab() {
 }
 
   return (
-    <div className="flex max-sm:flex-col items-start gap-3 sm:gap-5 rounded-tl-none rounded-3xl relative">
+    <div className="flex max-sm:flex-col items-start gap-3 sm:gap-5 relative">
       <div className='sm:hidden w-full'>
         <CalendarCard />
       </div>
@@ -49,7 +49,7 @@ export default function NutritionDashboardTab() {
         </div>
       ) : (
         <div className='w-full relative'>
-          <div className="w-full sm:w-2/3 flex max-sm:flex-col gap-3 sm:gap-5 opacity-50">
+          <div className="w-full sm:w-2/3 flex max-sm:flex-col gap-3 sm:gap-5 opacity-25">
             <div className='w-full sm:w-2/3 flex flex-col sm:grid gap-5'>
               <MacroChartCard />
               <div className='max-sm:hidden'>
@@ -69,7 +69,7 @@ export default function NutritionDashboardTab() {
 
 function StartMessage() {
   return (
-    <div className="font-bold text-gray text-center my-auto flex flex-col gap-3 bg-primary rounded-3xl p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow">
+    <div className="text-center my-auto flex flex-col gap-3 bg-primary rounded-3xl p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow">
       <AddButton css={'size-14 mx-auto'} />
       Start adding consumptions to see your stats
     </div>

@@ -6,12 +6,13 @@ import AddButton from '../../global/AddButton';
 import { getDayOfWeek } from '../../../utils/global/DateService';
 import moment from 'moment';
 import CardTitle from '../../global/CardTitle';
+import Card from '../../global/Card';
 
 export default function TrainingsCalendarCard() {
   const { currentWeek, incrementWeek, decrementWeek, openTrainingForm, currentDate, incrementCurrentDate, decrementCurrentDate } = useTraining();
 
   return (
-    <div className='bg-primary sm:p-5 rounded-3xl relative'>
+    <Card>
       <div className="max-sm:hidden flex">
         <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-dark cursor-pointer" onClick={decrementWeek} />
         <div className="w-full grid grid-cols-7 divide-x divide-lightPrimary">
@@ -40,6 +41,6 @@ export default function TrainingsCalendarCard() {
           </div>
         }
       </div>
-    </div>
+    </Card>
   )
 }

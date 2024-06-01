@@ -4,6 +4,7 @@ import CardTitle from "../../global/CardTitle";
 import MacroPie from '../global/MacroPie';
 import MacroItem from "../global/MacroItem";
 import { macros } from "../../../utils/global/MacroService";
+import Card from "../../global/Card";
 
 export default function MacroRepartitionCard() {
   const { foodsWithTotalQuantity, daysIndicatedCount } = useNutrition();
@@ -61,7 +62,7 @@ export default function MacroRepartitionCard() {
   }
 
   return (
-    <div className="flex flex-col bg-primary px-5 py-3 rounded-3xl">
+    <Card>
       <CardTitle text="Total Macro Repartition" alignLeft={true} />
       <div className="w-full flex justify-center items-center">
         {dailyAvgMacro && (
@@ -78,6 +79,6 @@ export default function MacroRepartitionCard() {
           </div>
         )}  
       </div>
-    </div>
+    </Card>
   );
 }

@@ -1,4 +1,5 @@
 import { useNutrition } from "../../../utils/nutrition/NutritionContext";
+import Card from "../../global/Card";
 import CardTitle from "../../global/CardTitle";
 import { Icon } from '@iconify/react';
 
@@ -38,7 +39,7 @@ export default function CountCard({ food, color }) {
   }
 
   return (
-    <div className={`min-h-32 flex flex-col items-center bg-${color} text-primary px-5 py-3 rounded-3xl`}>
+    <Card backgroundColor={color} css={'min-h-32 flex flex-col items-center text-primary'}>
       <CardTitle text={food.name} />
       <div className="grow w-full flex items-center">
         <div className="w-1/3 flex justify-center">
@@ -50,7 +51,7 @@ export default function CountCard({ food, color }) {
         <div className="w-1/3 flex justify-center">
           <Icon icon="ic:round-plus" width={25} height={25} className="text-primary cursor-pointer" onClick={incrementFoodConsumptionInDaily} />
         </div>
-      </div>      
-    </div>
+      </div>  
+    </Card>
   );
 }

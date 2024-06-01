@@ -6,6 +6,7 @@ import FoodCard from '../components/nutrition/foods/FoodCard';
 import FoodForm from '../components/nutrition/foods/FoodForm';
 import RankingCard from '../components/nutrition/foods/RankingCard';
 import { sortFoodsByFavoritesAndInactives } from '../utils/nutrition/NutritionService';
+import Card from '../components/global/Card';
 
 
 export default function NutritionFoodsTab() {
@@ -43,7 +44,7 @@ export default function NutritionFoodsTab() {
   return (
     <div className='w-full flex max-sm:flex-col gap-5'>
       <div className='w-full sm:w-3/4'>
-        <div className='w-full flex justify-between items-center bg-primary p-5 rounded-3xl'>
+        <Card css={'flex justify-between items-center'}>
           <AddButton clicked={() => openFoodForm(null)} css="h-10 w-10 p-3" />
           <div className='flex items-center gap-3'>
             <input
@@ -55,7 +56,7 @@ export default function NutritionFoodsTab() {
             />
             <Icon icon="maki:cross" width={15} height={15} className={`text-secondary cursor-pointer transition ${searchQuery ? '' : 'opacity-0'}`} onClick={() => setSearchQuery('')} />
           </div>
-        </div>
+        </Card>
         <div className='flex flex-wrap max-sm:justify-center gap-x-2 sm:gap-x-5'>
           {filteredFoods && (
             filteredFoods.map((food) => (

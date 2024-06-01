@@ -4,8 +4,9 @@ import FoodImage from '../global/FoodImage';
 import MacroItem from '../global/MacroItem';
 import MacroPie from '../global/MacroPie';
 import { macros } from '../../../utils/global/MacroService';
+import Card from '../../global/Card';
 
-function FoodCard({food, editBtnClicked}) {
+export default function FoodCard({food, editBtnClicked}) {
   const [foodMacros, setFoodMacros] = useState();
 
   useEffect(() => {
@@ -23,7 +24,7 @@ function FoodCard({food, editBtnClicked}) {
   }
   
   return (
-    <div className={`bg-primary relative w-[175px] sm:w-[250px] mt-[30px] rounded-2xl p-3 cursor-pointer ${!food.is_active && 'opacity-60'}`} onClick={editBtnClicked}>
+    <Card css={`relative w-[175px] sm:w-[250px] mt-[30px] cursor-pointer ${!food.is_active && 'opacity-60'}`} clicked={editBtnClicked}>
       <div className="absolute -top-[20px] left-0 w-full flex justify-center items-center px-3">
         <FoodImage image={food.image} size="lg" />
       </div>  
@@ -38,8 +39,6 @@ function FoodCard({food, editBtnClicked}) {
           <MacroItem key={macro} macro={macro} value={food[macro]} isRounded={false} showUnity={true} />
         ))}
       </div>
-    </div>
+    </Card>
   )
 }
-
-export default FoodCard

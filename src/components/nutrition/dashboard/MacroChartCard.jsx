@@ -6,6 +6,7 @@ import moment from 'moment';
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useState } from "react";
 import { getColorByMacro, macros } from "../../../utils/global/MacroService";
+import Card from "../../global/Card";
 
 export default function MacroChartCard() {
   const { user, themeColors } = useUser();
@@ -80,7 +81,7 @@ export default function MacroChartCard() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center bg-primary px-4 py-3 rounded-3xl">
+    <Card>
       <div className="w-full flex justify-between items-center">
         <CardTitle text="Daily Macro Consumption" />
         <div className="flex gap-1">
@@ -88,7 +89,7 @@ export default function MacroChartCard() {
           <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={incrementMonth} />
       </div>
       </div>
-      <div className="flex items-center justify-evenly my-3 gap-3">
+      <div className="flex items-center justify-center my-3 gap-3">
         {macros.map((macro) => {
           const color = getColorByMacro(macro) 
           const isActive = activeMacro === macro
@@ -104,7 +105,7 @@ export default function MacroChartCard() {
         })}
       </div>
       <Bar data={data} options={options} />
-    </div>
+    </Card>
   );
 };
 

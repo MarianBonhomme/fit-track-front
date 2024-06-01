@@ -12,6 +12,7 @@ import DailyMacroProgressBar from '../global/DailyMacroProgressBar';
 import MacroItem from '../global/MacroItem';
 import { macros } from '../../../utils/global/MacroService';
 import { useUser } from '../../../utils/user/UserContext';
+import Card from '../../global/Card';
 
 export default function DailyCard() {
   const { user } = useUser();
@@ -68,55 +69,53 @@ export default function DailyCard() {
   }
 
   return (
-    <>
-      <div className="bg-primary px-4 py-3 rounded-3xl sm:rounded-tl-none relative">
-        <div className="flex justify-between items-center">
-          <div className='flex gap-2'>
-            {daily && sortedDailyFoodConsumptions.length > 0 && (
-              daily.count_for_stats ? (
-                <Icon icon="material-symbols:cancel-rounded" width="20" height="20" className='text-secondary cursor-pointer' onClick={toggleValidateDay} />
-              ) : (
-                <Icon icon="icon-park-solid:check-one" width="20" height="20" className="text-secondary cursor-pointer" onClick={toggleValidateDay} />
-              )
-            )}
-            <CardTitle text={currentDate && getFullDate(currentDate)} />
-          </div>
-          <div className='flex gap-1'>
-            <Icon icon="ic:round-chevron-left" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={decrementCurrentDate} />
-            <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={incrementCurrentDate} />
-          </div>
-        </div>
-        <div className="flex justify-center items-center gap-5 mt-5">
-          {dailyMacros && (
-            <div className='flex flex-col items-center gap-3'>
-              <div className='flex items-center space-x-2'>
-                {macros.map((macro) => (
-                  <DailyMacroProgressBar key={macro} maxValue={user[`daily${macro.charAt(0).toUpperCase()}${macro.slice(1)}`]} value={dailyMacros[macro]} macro={macro} />
-                ))}
-              </div>
-              <div className="flex items-center space-x-2">
-                {macros.map((macro) => (
-                  <MacroItem key={macro} macro={macro} value={dailyMacros[macro]} isRounded={false} showUnity={true} />
-                ))}
-              </div>
-            </div>
+    <Card css={'sm:rounded-tl-none'}>
+      <div className="flex justify-between items-center">
+        <div className='flex gap-2'>
+          {daily && sortedDailyFoodConsumptions.length > 0 && (
+            daily.count_for_stats ? (
+              <Icon icon="material-symbols:cancel-rounded" width="20" height="20" className='text-secondary cursor-pointer' onClick={toggleValidateDay} />
+            ) : (
+              <Icon icon="icon-park-solid:check-one" width="20" height="20" className="text-secondary cursor-pointer" onClick={toggleValidateDay} />
+            )
           )}
+          <CardTitle text={currentDate && getFullDate(currentDate)} />
         </div>
-        <AddButton clicked={() => openFoodConsumptionForm()} css='w-full mt-5 h-12 mx-auto'/>
-        {sortedDailyFoodConsumptions && sortedDailyFoodConsumptions.length > 0 && (
-          <FlipMove className='divide-y divide-lightPrimary'>
-            {sortedDailyFoodConsumptions.map((consumption) => (
-              <div key={consumption.id}>
-                <FoodConsumptionItem consumption={consumption} clicked={() => openFoodConsumptionForm(consumption)} /> 
-              </div>        
-            ))}
-          </FlipMove>
+        <div className='flex gap-1'>
+          <Icon icon="ic:round-chevron-left" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={decrementCurrentDate} />
+          <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={incrementCurrentDate} />
+        </div>
+      </div>
+      <div className="flex justify-center items-center gap-5 mt-5">
+        {dailyMacros && (
+          <div className='flex flex-col items-center gap-3'>
+            <div className='flex items-center space-x-2'>
+              {macros.map((macro) => (
+                <DailyMacroProgressBar key={macro} maxValue={user[`daily${macro.charAt(0).toUpperCase()}${macro.slice(1)}`]} value={dailyMacros[macro]} macro={macro} />
+              ))}
+            </div>
+            <div className="flex items-center space-x-2">
+              {macros.map((macro) => (
+                <MacroItem key={macro} macro={macro} value={dailyMacros[macro]} isRounded={false} showUnity={true} />
+              ))}
+            </div>
+          </div>
         )}
       </div>
+      <AddButton clicked={() => openFoodConsumptionForm()} css='w-full mt-5 h-12 mx-auto'/>
+      {sortedDailyFoodConsumptions && sortedDailyFoodConsumptions.length > 0 && (
+        <FlipMove className='divide-y divide-lightPrimary'>
+          {sortedDailyFoodConsumptions.map((consumption) => (
+            <div key={consumption.id}>
+              <FoodConsumptionItem consumption={consumption} clicked={() => openFoodConsumptionForm(consumption)} /> 
+            </div>        
+          ))}
+        </FlipMove>
+      )}
   
       {isFoodConsumptionFormVisible && (
         <FoodConsumptionForm foodConsumption={foodConsumptionToUpdate} close={closeFoodConsumptionForm} />
       )}
-    </>     
+    </Card>     
   )
 }

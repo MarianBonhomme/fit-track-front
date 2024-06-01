@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useNutrition } from '../../../utils/nutrition/NutritionContext';
 import CardTitle from './../../global/CardTitle';
 import moment from 'moment';
+import Card from '../../global/Card';
 
 export default function CalendarCard() {
   const { currentDate, setCurrentDate, findDayByDate } = useNutrition();
@@ -72,7 +73,7 @@ export default function CalendarCard() {
   };
 
   return (
-    <div className="flex max-sm:flex-col bg-primary px-4 py-3 rounded-3xl max-sm:rounded-ss-none text-center gap-5">
+    <Card css={'flex max-sm:flex-col text-center gap-5 max-sm:rounded-tl-none text-center'}>
       <Streaks />
       <div className='sm:w-3/4'>
         <div className="w-full flex items-center justify-between mb-3 px-2">
@@ -93,7 +94,7 @@ export default function CalendarCard() {
         </div>
         <div className='w-full grid grid-cols-7'>{renderCalendar()}</div>
       </div>
-    </div>
+    </Card>
   );
 }
 

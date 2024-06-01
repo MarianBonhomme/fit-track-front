@@ -6,6 +6,7 @@ import { Line } from 'react-chartjs-2';
 import moment from 'moment';
 import { formatDate } from '../../../utils/global/DateService';
 import { useUser } from '../../../utils/user/UserContext';
+import Card from '../../global/Card';
 
 export default function WeightEvolutionChartCard() {
   const { themeColors } = useUser();
@@ -86,7 +87,7 @@ export default function WeightEvolutionChartCard() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center bg-primary px-4 py-3 rounded-3xl">
+    <Card>
       <div className="w-full flex justify-between items-center">
         <CardTitle text="Weight Evolution" />
         <div className='flex gap-1'>
@@ -94,11 +95,11 @@ export default function WeightEvolutionChartCard() {
           <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={isMonth ? incrementMonth : incrementWeek} />
         </div>
       </div>
-      <div className="flex items-center justify-evenly my-3 gap-3">
+      <div className="flex items-center justify-center my-3 gap-3">
         <div className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${!isMonth ? 'bg-purple text-primary' : `bg-light-secondary border-2 border-purple text-secondary cursor-pointer`}`} onClick={() => setIsMonth(false)}>Week</div>
         <div className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${isMonth ? 'bg-green text-primary' : `bg-light-secondary border-2 border-green text-secondary cursor-pointer`}`} onClick={() => setIsMonth(true)}>Month</div>
       </div>
       <Line data={data} options={options} />
-    </div>
+    </Card>
   )
 }

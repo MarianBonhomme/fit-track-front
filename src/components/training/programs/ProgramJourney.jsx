@@ -7,6 +7,7 @@ import { getBestTrainingPerformanceOfProgram, getFirstTrainingOfProgram, getLast
 import { useDraggable } from "react-use-draggable-scroll";
 import AddButton from '../../global/AddButton';
 import PatternIndicator from '../global/PatternIndicator';
+import Card from '../../global/Card';
 
 export default function ProgramJourney({program}) {
   const { openTrainingForm, openProgramForm, handleUpdateProgram } = useTraining()
@@ -84,7 +85,7 @@ export default function ProgramJourney({program}) {
   }
 
   return (
-    <div className="bg-primary text-secondary p-3 sm:p-5 rounded-2xl relative">
+    <Card>
       {/* <PatternIndicator pattern={program.pattern} /> */}
       <div className='max-sm:hidden flex justify-between items-start relative mb-3'>   
         <div className="flex items-center gap-3 cursor-pointer">   
@@ -156,7 +157,7 @@ export default function ProgramJourney({program}) {
           </div>
         }            
       </div>
-    </div>
+    </Card>
   )
 }
 

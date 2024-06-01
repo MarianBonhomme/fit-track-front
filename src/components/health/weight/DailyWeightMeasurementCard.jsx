@@ -4,6 +4,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import CardTitle from '../../global/CardTitle'
 import { useHealth } from '../../../utils/health/HealthContext'
 import { useUser } from '../../../utils/user/UserContext'
+import Card from '../../global/Card'
 
 export default function DailyWeightMeasurementCard() {
   const { user } = useUser();
@@ -52,7 +53,7 @@ export default function DailyWeightMeasurementCard() {
   }
 
   return (
-    <div className="w-full bg-primary px-4 py-3 rounded-3xl relative">
+    <Card>
       <div className="flex justify-between items-center mb-5">
         <CardTitle text={currentDate && getFullDate(currentDate)} />
         <div className='flex gap-1'>
@@ -86,6 +87,6 @@ export default function DailyWeightMeasurementCard() {
           </button>
         </>
       )}
-    </div>
+    </Card>
   )
 }
