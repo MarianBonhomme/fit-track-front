@@ -148,7 +148,7 @@ export default function FoodConsumptionModal({ foodConsumption, close }) {
           </>          
         ) : null}
         {isFoodsListVisible && (
-          <div className={`w-full relative ${selectedFood ? 'h-[60vh] sm:-[50dvh]' : 'h-[80dvh] sm:-[70dvh]'} overflow-y-scroll hide-scrollbar border border-primary px-3 pt-1`}>
+          <div className={`w-full relative ${selectedFood ? 'h-[60vh] sm:h-[50dvh]' : 'h-[80dvh] sm:h-[70dvh]'} overflow-y-scroll hide-scrollbar border border-primary px-3 pt-1`}>
             <div className={`flex items-center gap-3 cursor-pointer`}>
               <input
                 type="text"

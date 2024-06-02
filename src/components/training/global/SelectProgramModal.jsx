@@ -11,20 +11,22 @@ export default function SelectProgramModal({ close, programClicked  }) {
   return (
     <Modal close={close} zIndex={'z-30'}>
       <CardTitle text={'Select Program'} />
-      <div className='w-full bg-lightPrimary mt-5'>
+      <div className='w-full bg-lightPrimary'>
         <div className='px-3 py-1 flex items-center gap-1 cursor-pointer' onClick={openProgramModal}>
           <AddButton css={'h-10'} />
           <p className='text-gray font-bold'>New Program</p>
         </div>
-        {programs && programs.map((program) => {
-          return ( !program.is_completed &&
-            <div key={program.id} className={`pl-5 p-3 border-t border-primary cursor-pointer relative`} onClick={() => programClicked(program)}>
-              <PatternIndicator pattern={program.pattern} />
-              <p className='font-bold'>{program.name}</p>
-              <p className='text-xs'>{program.description}</p>
-            </div>
-          )
-        })}
+        <div className='max-h-[70dvh] overflow-y-scroll hide-scrollbar'>
+          {programs && programs.map((program) => {
+            return ( !program.is_completed &&
+              <div key={program.id} className={`pl-5 p-3 border-t border-primary cursor-pointer relative`} onClick={() => programClicked(program)}>
+                <PatternIndicator pattern={program.pattern} />
+                <p className='font-bold'>{program.name}</p>
+                <p className='text-xs'>{program.description}</p>
+              </div>
+            )
+          })}
+        </div>
       </div>
     </Modal>
   )
