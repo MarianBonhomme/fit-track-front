@@ -25,7 +25,9 @@ export default function WeightCalendarCard() {
   };
 
   const handleDayClick = (dateClicked) => {
-    setCurrentDate(new Date(dateClicked))
+    if (!isFuture(dateClicked)) {
+      setCurrentDate(new Date(dateClicked))
+    }
   };
 
   const isCurrentDate = (date) => {
@@ -36,6 +38,11 @@ export default function WeightCalendarCard() {
       date.getFullYear() === currentDate.getFullYear()
     );
   };
+
+  const isFuture = (date) => {
+    const today = formatDate(new Date());
+    return formatDate(date) > today;
+  }
 
   const renderCalendar = () => {
     const days = [];
@@ -49,16 +56,16 @@ export default function WeightCalendarCard() {
     for (let i = 1; i <= daysCount; i++) {
       const date = new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth(), i);
       const dayMeasurement = weightMeasurements.find((measurement) => formatDate(measurement.date) == formatDate(date));
-      let cellStyle = `relative p-2 cursor-pointer rounded-lg`;
+      let cellStyle = `relative p-2 cursor-pointer border-t border-lightPrimary`;
       if (isCurrentDate(date)) cellStyle += ' bg-lightPrimary';
-      let pelletStyle = `p-3 w-4 h-4 flex text-xs items-center justify-center m-auto rounded-full ${isToday(date) && 'bg-blue text-primary font-semibold'}`;
+      let pelletStyle = `p-3 w-4 h-4 flex text-xs text-gray items-center justify-center m-auto rounded-full ${isToday(date) && 'bg-blue text-primary font-semibold'} ${isFuture(date) ? 'opacity-50' : 'font-bold' }`;
       days.push(
         <div key={i} className={cellStyle} onClick={() => handleDayClick(date)}>
           <div className={pelletStyle}>
             {i}
           </div>
-          <div className='w-full h-6 flex items-center justify-center text-center'>{dayMeasurement && dayMeasurement.weight_value}</div>
-          <div className={`absolute top-0 left-0 ${dayMeasurement ?? 'opacity-0'}`}>🔥</div>
+          <div className='w-full h-4 text-xs text-center mt-1'>{dayMeasurement && dayMeasurement.weight_value}</div>
+          <div className={`text-xs absolute top-0 left-0 ${dayMeasurement ?? 'opacity-0'}`}>🔥</div>
         </div>
       );
     }
@@ -103,7 +110,12 @@ function WeightInput() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
-    if (newWeightMeasurement === dailyWeightMeasurement?.weight_value || newWeightMeasurement === 0 || newWeightMeasurement === '') {
+    console.log(newWeightMeasurement)
+    const isMeasurementEqual = newWeightMeasurement === dailyWeightMeasurement?.weight_value;
+    const isMeasurementTooLong = newWeightMeasurement.length < 2 || newWeightMeasurement.length > 3;
+    const isMeasurementEmpty = newWeightMeasurement === '';
+
+    if (isMeasurementEqual || isMeasurementTooLong || isMeasurementEmpty) {
       setIsButtonDisabled(true)
     } else {
       setIsButtonDisabled(false);
@@ -202,21 +214,21 @@ function Stats({date}) {
       <div className='flex items-center gap-1'>
         <Icon icon="ph:arrow-up-right-bold" className='text-red size-[15px]' />
         <p className='font-bold'>
-          {maxWeight}
+          {maxWeight ?? '- '}
           <span className='text-xs font-normal'>kg</span>
         </p>
       </div>  
       <div className='flex items-center gap-1'>
         <Icon icon="ph:approximate-equals-bold" className='text-blue size-[15px]' />
         <p className='font-bold'>
-          {averageWeight}
+          {averageWeight ?? '- '}
           <span className='text-xs font-normal'>kg</span>
         </p>
       </div>
       <div className='flex items-center gap-1'>
         <Icon icon="ph:arrow-down-left-bold" className='text-green size-[15px]' />
         <p className='font-bold'>
-          {minWeight}
+          {minWeight ?? '- '}
           <span className='text-xs font-normal'>kg</span>
         </p>
       </div>
