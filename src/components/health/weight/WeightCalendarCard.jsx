@@ -56,9 +56,9 @@ export default function WeightCalendarCard() {
     for (let i = 1; i <= daysCount; i++) {
       const date = new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth(), i);
       const dayMeasurement = weightMeasurements.find((measurement) => formatDate(measurement.date) == formatDate(date));
-      let cellStyle = `relative p-2 cursor-pointer border-t border-lightPrimary`;
+      let cellStyle = `relative p-2 border-t border-lightPrimary ${isFuture(date) ? 'cursor-default' : 'cursor-pointer hover:bg-lightPrimary' }`;
       if (isCurrentDate(date)) cellStyle += ' bg-lightPrimary';
-      let pelletStyle = `p-3 w-4 h-4 flex text-xs text-gray items-center justify-center m-auto rounded-full ${isToday(date) && 'bg-blue text-primary font-semibold'} ${isFuture(date) ? 'opacity-50' : 'font-bold' }`;
+      let pelletStyle = `p-3 w-4 h-4 flex text-xs text-gray items-center justify-center m-auto rounded-full ${isToday(date) && 'bg-blue text-primary'} ${isFuture(date) ? 'opacity-50' : 'font-bold' }`;
       days.push(
         <div key={i} className={cellStyle} onClick={() => handleDayClick(date)}>
           <div className={pelletStyle}>
@@ -110,7 +110,6 @@ function WeightInput() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
-    console.log(newWeightMeasurement)
     const isMeasurementEqual = newWeightMeasurement === dailyWeightMeasurement?.weight_value;
     const isMeasurementTooLong = newWeightMeasurement.length < 2 || newWeightMeasurement.length > 5;
     const isMeasurementEmpty = newWeightMeasurement === '';

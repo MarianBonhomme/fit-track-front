@@ -56,15 +56,16 @@ export default function CalendarCard() {
     for (let i = 1; i <= daysCount; i++) {
       const date = new Date(currentDay.getFullYear(), currentDay.getMonth(), i);
       const day = findDayByDate(date)
-      let cellStyle = `relative p-2 cursor-pointer rounded-lg`;
+      let cellStyle = `relative p-2 cursor-pointer border-t border-lightPrimary hover:bg-lightPrimary`;
       if (isCurrentDate(date)) cellStyle += ' bg-lightPrimary';
-      let pelletStyle = `p-3 w-4 h-4 flex text-xs items-center justify-center m-auto rounded-full ${isToday(date) && 'bg-blue text-primary font-semibold'}`;
+      let pelletStyle = `p-3 w-4 h-4 flex text-xs font-bold text-gray items-center justify-center m-auto rounded-full ${isToday(date) && 'bg-blue text-primary'}`;
       days.push(
         <div key={i} className={cellStyle} onClick={() => handleDayClick(date)}>
           <div className={pelletStyle}>
             {i}
           </div>
-          <div className={`absolute top-0 left-0 ${day && day.count_for_stats ? '' : 'opacity-0'} `}>🔥</div>
+          <div className={`block w-2 h-2 rounded-full mx-auto my-1 ${day ? day.count_for_stats ? 'bg-green' : 'bg-orange' : '' }`}></div>
+          <div className={`text-xs absolute top-0 left-0 ${day?.count_for_stats ?? 'opacity-0'} `}>🔥</div>
         </div>
       );
     }
