@@ -74,12 +74,12 @@ export default function WeightCalendarCard() {
   };
 
   return (
-    <Card css={'flex max-sm:flex-col text-center gap-5 rounded-tl-none text-center'}>
+    <Card css={'flex flex-col text-center gap-5 rounded-tl-none text-center'}>
       <div className='flex justify-between items-center'>
         <WeightInput />
         <Stats date={currentCalendarDate}/>
       </div>
-      <div className='sm:w-1/2'>
+      <div>
         <div className="w-full flex items-center justify-between mb-3 px-2">
           <CardTitle text={moment(currentCalendarDate).format("MMMM YYYY")} />
           <div className='flex gap-1'>

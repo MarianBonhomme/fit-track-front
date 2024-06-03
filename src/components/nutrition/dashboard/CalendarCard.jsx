@@ -129,13 +129,8 @@ function Streaks() {
       const previousDate = moment(previousNutritionDay.date);
   
       if (currentDate.diff(previousDate, 'days') === 1) {
-        if (currentNutritionDay.count_for_stats) {
-          streak++;
-        } else {
-          break;
-        }
-      } else {
         streak++
+      } else {
         break;
       }
     }
@@ -144,11 +139,9 @@ function Streaks() {
   }
 
   return (
-    currentStreak ? (
-      <div className="sm:w-1/4 flex flex-col justify-evenly space-y-1">
-        <CardTitle text={'Current Streak'} />
-        <div className='text-2xl font-bold'>{currentStreak}🔥</div>
-      </div>
-    ) : null
+    <div className="sm:w-1/4 flex flex-col justify-center space-y-2">
+      <CardTitle text={'Current Streak'} />
+      <div className='text-lg font-bold'>{currentStreak ? currentStreak : '- '}🔥</div>
+    </div>
   )
 }
