@@ -5,6 +5,7 @@ import CardTitle from '../../global/CardTitle';
 import moment from 'moment';
 import { formatDate, isToday } from '../../../utils/global/DateService';
 import Card from '../../global/Card';
+import { useUser } from '../../../utils/user/UserContext';
 
 export default function WeightCalendarCard() {
   const { currentDate, setCurrentDate, weightMeasurements } = useHealth();
@@ -47,7 +48,7 @@ export default function WeightCalendarCard() {
 
     for (let i = 1; i <= daysCount; i++) {
       const date = new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth(), i);
-      const isMeasurement = weightMeasurements.find((measurement) => formatDate(measurement.date) == formatDate(date));
+      const dayMeasurement = weightMeasurements.find((measurement) => formatDate(measurement.date) == formatDate(date));
       let cellStyle = `relative p-2 cursor-pointer rounded-lg`;
       if (isCurrentDate(date)) cellStyle += ' bg-lightPrimary';
       let pelletStyle = `p-3 w-4 h-4 flex text-xs items-center justify-center m-auto rounded-full ${isToday(date) && 'bg-blue text-primary font-semibold'}`;
@@ -56,7 +57,8 @@ export default function WeightCalendarCard() {
           <div className={pelletStyle}>
             {i}
           </div>
-          <div className={`absolute top-0 left-0 ${isMeasurement ?? 'opacity-0'}`}>🔥</div>
+          <div className='w-full h-6 flex items-center justify-center text-center'>{dayMeasurement && dayMeasurement.weight_value}</div>
+          <div className={`absolute top-0 left-0 ${dayMeasurement ?? 'opacity-0'}`}>🔥</div>
         </div>
       );
     }
@@ -66,7 +68,8 @@ export default function WeightCalendarCard() {
 
   return (
     <Card css={'flex max-sm:flex-col text-center gap-5 rounded-tl-none text-center'}>
-      <Stats date={currentCalendarDate}/>
+      {/* <Stats date={currentCalendarDate}/> */}
+      <WeightInput />
       <div className='sm:w-1/2'>
         <div className="w-full flex items-center justify-between mb-3 px-2">
           <CardTitle text={moment(currentCalendarDate).format("MMMM YYYY")} />
@@ -88,6 +91,73 @@ export default function WeightCalendarCard() {
       </div>
     </Card>
   );
+}
+
+function WeightInput() {
+  const { user } = useUser();
+  const { weightMeasurements, currentDate, handleAddWeightMeasurement, handleUpdateWeightMeasurement } = useHealth();
+  const [dailyWeightMeasurement, setDailyWeightMeasurement] = useState(null)
+  const [newWeightMeasurement, setNewWeightMeasurement] = useState(0)
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    if (newWeightMeasurement === dailyWeightMeasurement?.weight_value || newWeightMeasurement === 0 || newWeightMeasurement === '') {
+      setIsButtonDisabled(true)
+    } else {
+      setIsButtonDisabled(false);
+    }
+  }, [newWeightMeasurement, dailyWeightMeasurement])
+  
+  useEffect(() => {
+    setDailyWeightMeasurement(getDailyWeightMeasurement());
+  }, [weightMeasurements, currentDate])
+
+  useEffect(() => {
+    if (dailyWeightMeasurement) {
+      setNewWeightMeasurement(dailyWeightMeasurement.weight_value);
+    } else {
+      setNewWeightMeasurement(0);
+    }
+  }, [dailyWeightMeasurement])
+
+  const getDailyWeightMeasurement = () => {  
+    const measurement = weightMeasurements.find(
+      (measurement) => formatDate(measurement.date) === formatDate(currentDate)
+    );
+    return measurement || null
+  }
+
+  const addMeasurement = () => {
+    if (newWeightMeasurement && newWeightMeasurement > 0 ) {
+      const newWeight = {
+        id: dailyWeightMeasurement ? dailyWeightMeasurement.id : null,
+        user_id: user.id,
+        date: currentDate,
+        weight_value: newWeightMeasurement,
+      }
+
+      if (dailyWeightMeasurement) {
+        handleUpdateWeightMeasurement(newWeight)
+      } else {
+        handleAddWeightMeasurement(newWeight);
+      }
+    }
+  }
+
+  return (
+    <div className='flex justify-center items-center bg-lightPrimary max-w-fit mx-auto px-3 py-1 rounded-lg'>
+      <input 
+        name="Weight"
+        type="number" 
+        value={newWeightMeasurement} 
+        onChange={() => setNewWeightMeasurement(event.target.value)} 
+        className='flex font-bold max-w-14 text-xl text-secondary bg-transparent'
+      />    
+      <button onClick={addMeasurement} disabled={isButtonDisabled} className="flex">
+        <Icon icon="icon-park-solid:check-one" className={`text-green size-[20px] ${isButtonDisabled && 'opacity-50'}`} />
+      </button> 
+    </div>  
+  )
 }
 
 function Stats({date}) {
