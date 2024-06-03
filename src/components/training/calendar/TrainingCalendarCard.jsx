@@ -48,15 +48,15 @@ export default function TrainingCalendarCard() {
     for (let i = 1; i <= daysCount; i++) {
       const date = new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth(), i);
       const isTraining = trainings.find((training) => formatDate(training.date) == formatDate(date));
-      let cellStyle = `relative p-2 cursor-pointer rounded-lg`;
+      let cellStyle = `relative p-2 border-t border-lightPrimary cursor-pointer`;
       if (isCurrentDate(date)) cellStyle += ' bg-lightPrimary';
-      let pelletStyle = `p-3 w-4 h-4 flex text-xs items-center justify-center m-auto rounded-full ${isToday(date) && 'bg-blue text-primary font-semibold'}`;
+      let pelletStyle = `p-3 w-4 h-4 flex text-xs text-gray font-bold items-center justify-center m-auto rounded-full ${isToday(date) && 'bg-blue text-primary font-semibold'}`;
       days.push(
         <div key={i} className={cellStyle} onClick={() => handleDayClick(date)}>
           <div className={pelletStyle}>
             {i}
           </div>
-          <div className={`absolute top-0 left-0 ${!isTraining && 'opacity-0'}`}>🏋️</div>
+          <div className='w-full h-4 text-xs text-center mt-1'>{isTraining && '🏋️'}</div>
         </div>
       );
     }

@@ -178,7 +178,6 @@ function Stats({date}) {
   const [minWeight, setMinWeight] = useState();
   const [maxWeight, setMaxWeight] = useState();
   const [averageWeight, setAverageWeight] = useState();
-  const [showStats, setShowStats] = useState(false);
 
   useEffect(() => {
     if (weightMeasurements && weightMeasurements.length > 0) {
@@ -197,12 +196,10 @@ function Stats({date}) {
         setMinWeight(min);
         setMaxWeight(max);
         setAverageWeight(average);
-        setShowStats(true);
       } else {
         setMinWeight(undefined);
         setMaxWeight(undefined);
         setAverageWeight(undefined);
-        setShowStats(false);
       }
     }
   }, [weightMeasurements, date]);
