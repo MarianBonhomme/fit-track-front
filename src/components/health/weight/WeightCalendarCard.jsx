@@ -68,8 +68,10 @@ export default function WeightCalendarCard() {
 
   return (
     <Card css={'flex max-sm:flex-col text-center gap-5 rounded-tl-none text-center'}>
-      {/* <Stats date={currentCalendarDate}/> */}
-      <WeightInput />
+      <div className='flex justify-between items-center'>
+        <WeightInput />
+        <Stats date={currentCalendarDate}/>
+      </div>
       <div className='sm:w-1/2'>
         <div className="w-full flex items-center justify-between mb-3 px-2">
           <CardTitle text={moment(currentCalendarDate).format("MMMM YYYY")} />
@@ -145,7 +147,7 @@ function WeightInput() {
   }
 
   return (
-    <div className='flex justify-center items-center bg-lightPrimary max-w-fit mx-auto px-3 py-1 rounded-lg'>
+    <div className='flex justify-center items-center bg-lightPrimary max-w-fit px-3 py-1 rounded-lg'>
       <input 
         name="Weight"
         type="number" 
@@ -195,37 +197,30 @@ function Stats({date}) {
   }, [weightMeasurements, date]);
 
   return (
-    showStats ? (
-      <div className="sm:w-1/2 flex flex-col sm:justify-evenly max-sm:space-y-3">
-      <Streaks /> 
-      <div className='space-y-1'>
-        <CardTitle text={'Weight Stats'} />
-        <div className='flex justify-evenly items-center'>
-          <div className='flex items-center justify-center gap-1'>
-          <Icon icon="ph:arrow-down-left-bold" className='text-green size-[25px]' />
-            <p className='text-xl font-bold'>
-              {minWeight}
-              <span className='text-xs font-normal'>kg</span>
-            </p>
-          </div>      
-          <div className='flex items-center justify-center gap-1'>
-          <Icon icon="ph:arrow-up-right-bold" className='text-red size-[25px]' />
-            <p className='text-xl font-bold'>
-              {maxWeight}
-              <span className='text-xs font-normal'>kg</span>
-            </p>
-          </div>
-          <div className='flex items-center justify-center gap-1'>
-            <Icon icon="ph:approximate-equals-bold" className='text-blue size-[25px]' />
-            <p className='text-xl font-bold'>
-              {averageWeight}
-              <span className='text-xs font-normal'>kg</span>
-            </p>
-          </div>
-        </div>
+    <div className="grid grid-cols-2 ml-auto gap-x-3 text-left">
+      <Streaks />     
+      <div className='flex items-center gap-1'>
+        <Icon icon="ph:arrow-up-right-bold" className='text-red size-[15px]' />
+        <p className='font-bold'>
+          {maxWeight}
+          <span className='text-xs font-normal'>kg</span>
+        </p>
+      </div>  
+      <div className='flex items-center gap-1'>
+        <Icon icon="ph:approximate-equals-bold" className='text-blue size-[15px]' />
+        <p className='font-bold'>
+          {averageWeight}
+          <span className='text-xs font-normal'>kg</span>
+        </p>
+      </div>
+      <div className='flex items-center gap-1'>
+        <Icon icon="ph:arrow-down-left-bold" className='text-green size-[15px]' />
+        <p className='font-bold'>
+          {minWeight}
+          <span className='text-xs font-normal'>kg</span>
+        </p>
       </div>
     </div>
-    ) : null   
   )
 }
 
@@ -272,11 +267,6 @@ function Streaks() {
   }
 
   return (
-    currentStreak ? (
-      <div className='space-y-1'>
-        <CardTitle text={'Current Streak'} />
-        <div className='text-2xl font-bold'>{currentStreak}🔥</div>
-      </div>
-    ) : null
+    <div className='font-bold'>🔥{currentStreak}</div>
   )
 }
