@@ -21,6 +21,10 @@ export default function TrainingsCalendarCard() {
     return week;
   }  
 
+  const formatWeek = (startDate, endDate) => {
+    return `${moment(startDate).format("DD")} - ${moment(endDate).format("DD MMM YYYY")}`;
+  };
+
   return (
     <Card>
       <div className="max-sm:hidden flex">
@@ -37,12 +41,17 @@ export default function TrainingsCalendarCard() {
         <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-dark cursor-pointer" onClick={incrementWeek} />
       </div>
       <div className="sm:hidden">
+        <div className='text-center mb-3 text-gray font-bold'>
+          
+            {formatWeek(currentWeek[0], currentWeek[currentWeek.length - 1])}
+        </div>
         <div className="w-full flex justify-between mb-3">
           {reorderedWeek && reorderedWeek.length === 7 && reorderedWeek.map((day, index) => {
             const isCurrent = formatDate(day) == formatDate(currentDate)
             return (
-              <div key={index} onClick={() => setCurrentDate(new Date(day))} className={`w-8 h-8 flex items-center justify-center rounded-full ${isCurrent ? 'bg-blue text-primary font-bold' : 'bg-lightPrimary cursor-pointer'}`}>
-                {getDayOfWeek(new Date(day)).charAt(0)}
+              <div key={index} onClick={() => setCurrentDate(new Date(day))} className={`w-10 py-3 gap-1 flex flex-col items-center justify-center rounded-2xl text-xs ${isCurrent ? 'bg-blue text-primary font-bold' : 'bg-lightPrimary cursor-pointer'}`}>
+                <p className={`font-bold ${isCurrent ? '' : 'text-gray'}`}>{getDayOfWeek(new Date(day)).charAt(0)}</p>
+                <p>{new Date(day).getDate()}</p>
               </div>
             )
           })}
