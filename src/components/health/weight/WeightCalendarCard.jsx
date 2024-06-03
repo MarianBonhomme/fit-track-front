@@ -112,7 +112,7 @@ function WeightInput() {
   useEffect(() => {
     console.log(newWeightMeasurement)
     const isMeasurementEqual = newWeightMeasurement === dailyWeightMeasurement?.weight_value;
-    const isMeasurementTooLong = newWeightMeasurement.length < 2 || newWeightMeasurement.length > 3;
+    const isMeasurementTooLong = newWeightMeasurement.length < 2 || newWeightMeasurement.length > 5;
     const isMeasurementEmpty = newWeightMeasurement === '';
 
     if (isMeasurementEqual || isMeasurementTooLong || isMeasurementEmpty) {
