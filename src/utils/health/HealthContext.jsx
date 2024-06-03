@@ -27,7 +27,7 @@ export const HealthProvider = ({ children }) => {
   useEffect(() => {
     setCurrentMonth(initCurrentMonth());
     setCurrentWeek(initCurrentWeek());
-  }, [])
+  }, [currentDate])
 
   const fetchWeightMeasurements = async () => {
     const fetchedWeightMeasurements = await getWeightMeasurements(user.id);
@@ -92,7 +92,7 @@ export const HealthProvider = ({ children }) => {
   };
 
   const initCurrentMonth = () => {
-    const today = moment().startOf('month');
+    const today = moment(currentDate).startOf('month');
     const startOfMonth = today.clone().startOf('month');
     const endOfMonth = today.clone().endOf('month');
     return Array.from({ length: endOfMonth.diff(startOfMonth, 'days') + 1 }, (_, i) => startOfMonth.clone().add(i, 'day').format());
@@ -111,7 +111,7 @@ export const HealthProvider = ({ children }) => {
   };
 
   const initCurrentWeek = () => {
-    const today = moment().startOf('week');
+    const today = moment(currentDate).startOf('week');
     const startOfWeek = today.clone().startOf('week');
     const endOfWeek = today.clone().endOf('week');
     return Array.from({ length: endOfWeek.diff(startOfWeek, 'days') + 1 }, (_, i) => startOfWeek.clone().add(i, 'day').format());
