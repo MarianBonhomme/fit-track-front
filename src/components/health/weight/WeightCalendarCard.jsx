@@ -164,7 +164,7 @@ function WeightInput() {
         type="number" 
         value={newWeightMeasurement} 
         onChange={() => setNewWeightMeasurement(event.target.value)} 
-        className='flex font-bold max-w-14 text-xl text-secondary bg-transparent'
+        className='flex font-bold max-w-16 text-xl text-secondary bg-transparent'
       />    
       <button onClick={addMeasurement} disabled={isButtonDisabled} className="flex">
         <Icon icon="icon-park-solid:check-one" className={`text-green size-[20px] ${isButtonDisabled && 'opacity-50'}`} />
