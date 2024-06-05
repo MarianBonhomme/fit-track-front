@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useHealth } from '../../../utils/health/HealthContext';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import CardTitle from '../../global/CardTitle';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import moment from 'moment';
 import { formatDate } from '../../../utils/global/DateService';
 import { useUser } from '../../../utils/user/UserContext';
@@ -42,11 +42,7 @@ export default function WeightEvolutionChartCard() {
 
   const options = {
     scales: {
-      x: {
-        stacked: false,
-      },
       y: {
-        beginAtZero: true,
         min: minWeight - 1,
         max: maxWeight + 1,
       },
@@ -66,7 +62,6 @@ export default function WeightEvolutionChartCard() {
     labels: isMonth ? (currentMonth && currentMonth.map((day) => moment(day).format("DD/MM"))) : (currentWeek && currentWeek.map((day) => moment(day).format("DD/MM"))),
     datasets: [
       {
-        fill: true,
         label: '',
         data: isMonth ? 
           currentMonth && currentMonth.map((day) => {
@@ -79,9 +74,7 @@ export default function WeightEvolutionChartCard() {
             return dailyWeightMeasurement ? dailyWeightMeasurement.weight_value : null
           }),
         backgroundColor: isMonth ? themeColors.green : themeColors.purple,
-        pointRadius: 0,
         borderWidth: 1,
-        spanGaps: true
       },
     ],
   };
@@ -99,7 +92,7 @@ export default function WeightEvolutionChartCard() {
         <div className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${!isMonth ? 'bg-purple text-primary' : `bg-light-secondary border-2 border-purple text-secondary cursor-pointer`}`} onClick={() => setIsMonth(false)}>Week</div>
         <div className={`w-[50px] text-xs text-center py-1 font-bold rounded-lg ${isMonth ? 'bg-green text-primary' : `bg-light-secondary border-2 border-green text-secondary cursor-pointer`}`} onClick={() => setIsMonth(true)}>Month</div>
       </div>
-      <Line data={data} options={options} />
+      <Bar data={data} options={options} />
     </Card>
   )
 }
