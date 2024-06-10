@@ -1,1 +1,1 @@
-Fitness Application to track food and trainings
+Fitness Application to track food, trainings and weight
