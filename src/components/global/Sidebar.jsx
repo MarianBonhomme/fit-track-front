@@ -19,17 +19,25 @@ export default function Sidebar() {
         )}  
       </div>
       {location.pathname === "/nutrition" ? (
-        <Icon icon="ion:nutrition" className="text-secondary size-[30px]"/>
+        <div className="flex flex-col items-center justify-center">
+          <Icon icon="ion:nutrition" className="text-secondary size-[30px]"/>
+          <p className="text-xxs/4">Nutrition</p>
+        </div>
       ) : (
-        <Link to='/nutrition' aria-label="Nutrition">
+        <Link to='/nutrition' aria-label="Nutrition" className="flex flex-col items-center justify-center">
           <Icon icon="ion:nutrition-outline" className="text-secondary size-[30px]" />
+          <p className="text-xxs/4">Nutrition</p>
         </Link>
       )}
       {location.pathname === "/training" ? (
-        <Icon icon="mingcute:fitness-fill" className="text-secondary size-[30px]"/>
+        <div className="flex flex-col items-center justify-center">
+          <Icon icon="ion:fitness" className="text-secondary size-[30px]"/>
+          <p className="text-xxs/4">Training</p>
+        </div>
       ) : (
-        <Link to='/training' aria-label="Training">
-          <Icon icon="mingcute:fitness-line" className="text-secondary size-[30px]" />
+        <Link to='/training' aria-label="Training" className="flex flex-col items-center justify-center">
+          <Icon icon="ion:fitness-outline" className="text-secondary size-[30px]" />
+          <p className="text-xxs/4">Training</p>
         </Link>
       )}  
       <div className="sm:hidden">
@@ -46,13 +54,19 @@ export default function Sidebar() {
         )}    
       </div>
       {location.pathname === "/health" ? (
-        <Icon icon="solar:health-bold" className="text-secondary size-[30px]" />
+        <div className="flex flex-col items-center justify-center">
+          <Icon icon="ion-scale" className="text-secondary size-[30px]" />
+          <p className="text-xxs/4">Weight</p>
+        </div>
       ) : (
-        <Link to='/health' aria-label="Health">
-          <Icon icon="solar:health-outline" className="text-secondary size-[30px]" />
+        <Link to='/health' aria-label="Health" className="flex flex-col items-center justify-center">
+          <Icon icon="ion:scale-outline" className="text-secondary size-[30px]" />
+          <p className="text-xxs/4">Weight</p>
         </Link>
       )}
-      <Icon icon="ion:nutrition" className="text-secondary opacity-0 size-[30px]"/>
+      <div className="flex flex-col items-center justify-center">
+        <Icon icon="ion:nutrition" className="text-secondary opacity-0 size-[30px]"/>
+      </div>
     </nav>
   );
 }
