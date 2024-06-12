@@ -64,56 +64,25 @@ export default function TrainingCalendarCard() {
     return days;
   };
 
-  const getTrainingStats = () => {
-    const daysCount = daysInMonth(currentCalendarDate);
-    const trainingDays = new Set(
-      trainings
-        .filter(training => {
-          const trainingDate = new Date(training.date);
-          return (
-            trainingDate.getFullYear() === currentCalendarDate.getFullYear() &&
-            trainingDate.getMonth() === currentCalendarDate.getMonth()
-          );
-        })
-        .map(training => formatDate(training.date))
-    ).size;
-    const restDays = daysCount - trainingDays;
-    return { trainingDays, restDays };
-  };
-
-  const { trainingDays, restDays } = getTrainingStats();
-
   return (
-    <Card css={'flex max-sm:flex-col rounded-ss-none text-center gap-5'}>
-      <div className="sm:w-1/4 flex sm:flex-col justify-evenly">
-        <div className='space-y-3'>
-          <CardTitle text={'Training Days'} />
-          <div className='text-2xl font-bold'>{trainingDays}🏋️</div>
-        </div>
-        <div className='space-y-3'>
-          <CardTitle text={'Rest Days'} />
-          <div className='text-2xl font-bold'>{restDays}🧘</div>
+    <Card css={'flex max-sm:flex-col rounded-ss-none text-center gap-3'}>
+      <div className="w-full flex items-center justify-between px-2">
+        <CardTitle text={moment(currentCalendarDate).format("MMMM YYYY")} />
+        <div className='flex gap-1'>
+          <Icon icon="ic:round-chevron-left" width="25" height="25" className="bg-lightPrimary rounded-full text-secondary cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() - 1))} />
+          <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary rounded-full text-secondary cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + 1))} />
         </div>
       </div>
-      <div className='sm:w-3/4'>
-        <div className="w-full flex items-center justify-between mb-3 px-2">
-          <CardTitle text={moment(currentCalendarDate).format("MMMM YYYY")} />
-          <div className='flex gap-1'>
-            <Icon icon="ic:round-chevron-left" width="25" height="25" className="bg-lightPrimary rounded-full text-secondary cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() - 1))} />
-            <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary rounded-full text-secondary cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + 1))} />
-          </div>
-        </div>
-        <div className="w-full grid grid-cols-7 mb-3 text-xs">
-          <div className="day-label">Mon</div>
-          <div className="day-label">Tue</div>
-          <div className="day-label">Wed</div>
-          <div className="day-label">Thu</div>
-          <div className="day-label">Fri</div>
-          <div className="day-label">Sat</div>
-          <div className="day-label">Sun</div>
-        </div>
-        <div className='w-full grid grid-cols-7'>{renderCalendar()}</div>
+      <div className="w-full grid grid-cols-7 text-xs">
+        <div className="day-label">Mon</div>
+        <div className="day-label">Tue</div>
+        <div className="day-label">Wed</div>
+        <div className="day-label">Thu</div>
+        <div className="day-label">Fri</div>
+        <div className="day-label">Sat</div>
+        <div className="day-label">Sun</div>
       </div>
+      <div className='w-full grid grid-cols-7'>{renderCalendar()}</div>
     </Card>
   );
 }

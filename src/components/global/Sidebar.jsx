@@ -26,7 +26,7 @@ export default function Sidebar() {
       ) : (
         <Link to='/nutrition' aria-label="Nutrition" className="flex flex-col items-center justify-center">
           <Icon icon="ion:nutrition-outline" className="text-secondary size-[30px]" />
-          <p className="text-xxs/4">Nutrition</p>
+          <p className="brightness-75 text-xxs/4">Nutrition</p>
         </Link>
       )}
       {location.pathname === "/training" ? (
@@ -37,7 +37,7 @@ export default function Sidebar() {
       ) : (
         <Link to='/training' aria-label="Training" className="flex flex-col items-center justify-center">
           <Icon icon="ion:fitness-outline" className="text-secondary size-[30px]" />
-          <p className="text-xxs/4">Training</p>
+          <p className="brightness-75 text-xxs/4">Training</p>
         </Link>
       )}  
       <div className="sm:hidden">
@@ -61,7 +61,7 @@ export default function Sidebar() {
       ) : (
         <Link to='/health' aria-label="Health" className="flex flex-col items-center justify-center">
           <Icon icon="ion:scale-outline" className="text-secondary size-[30px]" />
-          <p className="text-xxs/4">Weight</p>
+          <p className="brightness-75 text-xxs/4">Weight</p>
         </Link>
       )}
       <div className="flex flex-col items-center justify-center">
