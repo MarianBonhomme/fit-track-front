@@ -27,9 +27,9 @@ export default function SignupForm() {
 
   return (
     <div className='p-20 flex flex-col gap-5'>
-      <input type="text" placeholder="Pseudo" value={pseudo} onChange={(e) => setPseudo(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <input type="password" placeholder="Confirm" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+      <input type="text" placeholder="Pseudo" value={pseudo} onChange={(e) => setPseudo(e.target.value)}  className='bg-primary text-secondary px-2 py-1' />
+      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}  className='bg-primary text-secondary px-2 py-1' />
+      <input type="password" placeholder="Confirm" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}  className='bg-primary text-secondary px-2 py-1' />
       <button onClick={submit} className='mx-auto px-5 py-2 bg-blue text-white rounded-3xl'>Signup</button>
       <div>{error}</div>
     </div>
