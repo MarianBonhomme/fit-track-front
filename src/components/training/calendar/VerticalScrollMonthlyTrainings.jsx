@@ -30,7 +30,7 @@ export default function VerticalScrollMonthlyTrainings({ onDateClick }) {
             onClick={() => onDateClick(date)}
           >
             <div className='flex justify-between items-center'>
-              <p className='text-lg font-bold cursor-pointer'>
+              <p className='font-bold cursor-pointer'>
                 {getDayAndNumber(date)}
               </p>
               <AddButton css={'size-8 p-2 bg-primary'} clicked={() => openTrainingModal(date, null, null)} />

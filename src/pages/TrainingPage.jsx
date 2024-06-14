@@ -18,7 +18,7 @@ export default function TrainingPage() {
   return (
     !trainingLoading && (
       <>
-        <div className={`relative ${activeTab === 'calendar' && 'h-screen overflow-hidden flex flex-col gap-3'} max-sm:pb-[60px]`}>
+        <div className={`relative ${activeTab === 'calendar' && 'max-h-screen overflow-hidden flex flex-col gap-3'} max-sm:pb-[60px]`}>
           <div className='absolute right-3 top-3 sm:right-5 sm:top-5'>
             <DarkModeSwitch
               checked={isDarkMode}
