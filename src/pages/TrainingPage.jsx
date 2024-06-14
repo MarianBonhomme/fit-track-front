@@ -18,8 +18,8 @@ export default function TrainingPage() {
   return (
     !trainingLoading && (
       <>
-        <div className='p-3 sm:p-5 relative'>
-          <div className='absolute right-3 top-3 sm:right-5 sm:top-5'>
+        <div className='relative'>
+          {/* <div className='absolute right-3 top-3 sm:right-5 sm:top-5'>
             <DarkModeSwitch
               checked={isDarkMode}
               onChange={toggleDarkMode}
@@ -33,7 +33,7 @@ export default function TrainingPage() {
                 {tab === 'programs' && <AddButton css={'w-4 h-4 p-1'} clicked={openProgramModal} />}
               </li>
             ))}
-          </ul>
+          </ul> */}
           {activeTab === 'calendar' && (
             <TrainingCalendarTab />
           )}
