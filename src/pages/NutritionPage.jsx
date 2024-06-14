@@ -14,7 +14,7 @@ export default function NutritionPage() {
 
   return (
     !nutritionLoading && (
-      <div className='p-3 sm:p-5 relative'>
+      <div className='p-3 sm:p-5 relative max-sm:pb-[70px]'>
       <div className='absolute right-3 top-3 sm:right-5 sm:top-5'>
         <DarkModeSwitch
           checked={isDarkMode}

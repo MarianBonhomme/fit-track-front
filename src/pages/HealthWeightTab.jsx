@@ -4,7 +4,7 @@ import WeightEvolutionChartCard from '../components/health/weight/WeightEvolutio
 
 export default function HealthWeightTab() {
   return (
-    <div className="flex max-sm:flex-col items-start gap-3 sm:gap-5 relative">
+    <div className="flex max-sm:flex-col items-start gap-3 sm:gap-5 relative max-sm:pb-[60px]">
       <div className="w-full sm:w-1/2 flex flex-col gap-3 sm:gap-5">
         <WeightCalendarCard />
       </div>
