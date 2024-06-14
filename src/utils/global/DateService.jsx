@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const getFullDate = (date) => {
   if (isToday(date)) {
     return "Today";
@@ -40,6 +42,14 @@ const getDayOfWeek = (date) => {
   return daysOfWeek[date.getDay()];
 };
 
+const getDayAndNumber = (date) => {
+  const dayOfWeek = getDayOfWeek(date);
+  const dayOfMonth = date.getDate();
+  const suffix = getDaySuffix(dayOfMonth);
+  
+  return `${dayOfWeek} ${dayOfMonth}${suffix}`;
+}
+
 const formatDate = (date) => {
   const d = new Date(date);
   const year = d.getFullYear();
@@ -48,4 +58,24 @@ const formatDate = (date) => {
   return `${year}-${month}-${day}`;
 };
 
-export { getFullDate, getShortDate, getDayOfWeek, isToday, formatDate };
+const getDaySuffix = (day) => {
+  if (day >= 11 && day <= 13) {
+    return 'th';
+  }
+  switch (day % 10) {
+    case 1: return 'st';
+    case 2: return 'nd';
+    case 3: return 'rd';
+    default: return 'th';
+  }
+};
+
+const formatMonth = (date) => {
+  return moment(date).format("MMMM YYYY");
+};
+
+const formatWeek = (startDate, endDate) => {
+  return `${moment(startDate).format("DD")} - ${moment(endDate).format("DD MMM YYYY")}`;
+};
+
+export { getFullDate, getShortDate, getDayOfWeek, isToday, formatDate, getDayAndNumber, formatMonth, formatWeek };

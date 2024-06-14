@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import CardTitle from '../../global/CardTitle';
 import { Bar } from 'react-chartjs-2';
 import moment from 'moment';
-import { formatDate } from '../../../utils/global/DateService';
+import { formatDate, formatMonth, formatWeek } from '../../../utils/global/DateService';
 import { useUser } from '../../../utils/user/UserContext';
 import Card from '../../global/Card';
 
@@ -31,14 +31,6 @@ export default function WeightEvolutionChartCard() {
     );
     return measurement || null
   }
-
-  const formatMonth = (date) => {
-    return moment(date).format("MMMM YYYY");
-  };
-
-  const formatWeek = (startDate, endDate) => {
-    return `${moment(startDate).format("DD")} - ${moment(endDate).format("DD MMM YYYY")}`;
-  };
 
   const options = {
     scales: {
