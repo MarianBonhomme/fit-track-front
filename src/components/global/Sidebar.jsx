@@ -53,13 +53,13 @@ export default function Sidebar() {
           </Link>
         )}    
       </div>
-      {location.pathname === "/health" ? (
+      {location.pathname === "/weight" ? (
         <div className="flex flex-col items-center justify-center">
           <Icon icon="ion-scale" className="text-secondary size-[30px]" />
           <p className="text-xxs/4">Weight</p>
         </div>
       ) : (
-        <Link to='/health' aria-label="Health" className="flex flex-col items-center justify-center">
+        <Link to='/weight' aria-label="Weight" className="flex flex-col items-center justify-center">
           <Icon icon="ion:scale-outline" className="text-secondary size-[30px]" />
           <p className="brightness-75 text-xxs/4">Weight</p>
         </Link>

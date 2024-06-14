@@ -12,9 +12,9 @@ import { TrainingProvider } from "./utils/training/TrainingContext";
 import Sidebar from "./components/global/Sidebar";
 import TrainingPage from "./pages/TrainingPage";
 import UserPage from './pages/UserPage';
-import HealthPage from "./pages/HealthPage";
 import { HealthProvider } from "./utils/health/HealthContext";
 import Loader from "./components/global/Loader";
+import WeightPage from "./pages/WeightPage";
 
 export default function App() {
   return (
@@ -42,7 +42,7 @@ function AppContent() {
                   <Route path="/user" element={user ? <UserPage /> : <Navigate to="/auth" />} />
                   <Route path="/nutrition" element={user ? <NutritionPage /> : <Navigate to="/auth" />} />
                   <Route path="/training" element={user ? <TrainingPage /> : <Navigate to="/auth" />} />
-                  <Route path="/health" element={user ? <HealthPage /> : <Navigate to="/auth" />} />
+                  <Route path="/weight" element={user ? <WeightPage /> : <Navigate to="/auth" />} />
                   <Route path="*" element={<Navigate to="/auth" />} />
                 </Routes>
               </div>
