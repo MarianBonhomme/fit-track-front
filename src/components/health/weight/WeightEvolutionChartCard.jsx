@@ -11,7 +11,7 @@ import Card from '../../global/Card';
 export default function WeightEvolutionChartCard() {
   const { themeColors } = useUser();
   const { weightMeasurements, currentMonth, incrementMonth, decrementMonth, currentWeek, incrementWeek, decrementWeek } = useHealth();
-  const [isMonth, setIsMonth] = useState(false);
+  const [isMonth, setIsMonth] = useState(true);
   const [minWeight, setMinWeight] = useState();
   const [maxWeight, setMaxWeight] = useState();
 

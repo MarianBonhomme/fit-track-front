@@ -75,10 +75,6 @@ export default function WeightCalendarCard() {
 
   return (
     <div>
-      {/* <div className='flex justify-between items-center'>
-        <WeightInput />
-        <Stats date={currentCalendarDate}/>
-      </div> */}
       <div>
         <div className='flex justify-center items-center gap-3 mb-2'>
           <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-gray cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() - 1))} />
@@ -95,6 +91,10 @@ export default function WeightCalendarCard() {
           <div className="day-label">Sun</div>
         </div>
         <div className='w-full grid grid-cols-7'>{renderCalendar()}</div>
+      </div>
+      <div className='flex justify-center items-center'>
+        <WeightInput />
+        {/* <Stats date={currentCalendarDate}/> */}
       </div>
     </div>
   );
@@ -156,7 +156,7 @@ function WeightInput() {
   }
 
   return (
-    <div className='flex justify-center items-center bg-lightPrimary max-w-fit px-3 py-1 rounded-lg'>
+    <div className='flex justify-center items-center bg-primary max-w-fit px-3 py-1 rounded-lg'>
       <input 
         name="Weight"
         type="number" 
