@@ -56,8 +56,8 @@ export default function WeightCalendarCard() {
     for (let i = 1; i <= daysCount; i++) {
       const date = new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth(), i);
       const dayMeasurement = weightMeasurements.find((measurement) => formatDate(measurement.date) == formatDate(date));
-      let cellStyle = `relative p-2 border-t border-lightPrimary ${isFuture(date) ? 'cursor-default' : 'cursor-pointer hover:bg-lightPrimary' }`;
-      if (isCurrentDate(date)) cellStyle += ' bg-lightPrimary';
+      let cellStyle = `relative p-2 border-t border-primary ${isFuture(date) ? 'cursor-default' : 'cursor-pointer hover:bg-primary' }`;
+      if (isCurrentDate(date)) cellStyle += ' bg-primary';
       let pelletStyle = `p-3 w-4 h-4 flex text-xs text-gray items-center justify-center m-auto rounded-full ${isToday(date) && 'bg-blue text-primary'} ${isFuture(date) ? 'opacity-50' : 'font-bold' }`;
       days.push(
         <div key={i} className={cellStyle} onClick={() => handleDayClick(date)}>
@@ -74,20 +74,18 @@ export default function WeightCalendarCard() {
   };
 
   return (
-    <Card css={'flex flex-col text-center gap-5 rounded-tl-none text-center'}>
-      <div className='flex justify-between items-center'>
+    <div>
+      {/* <div className='flex justify-between items-center'>
         <WeightInput />
         <Stats date={currentCalendarDate}/>
-      </div>
+      </div> */}
       <div>
-        <div className="w-full flex items-center justify-between mb-3 px-2">
-          <CardTitle text={moment(currentCalendarDate).format("MMMM YYYY")} />
-          <div className='flex gap-1'>
-            <Icon icon="ic:round-chevron-left" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() - 1))} />
-            <Icon icon="ic:round-chevron-right" width="25" height="25" className="bg-lightPrimary text-secondary rounded-full cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + 1))} />
-          </div>
+        <div className='flex justify-center items-center gap-3 mb-2'>
+          <Icon icon="ic:round-chevron-left" width="25" height="25" className="text-gray cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() - 1))} />
+          <p className='text-gray font-bold'>{moment(currentCalendarDate).format("MMMM YYYY")}</p>
+          <Icon icon="ic:round-chevron-right" width="25" height="25" className="text-gray cursor-pointer" onClick={() => setCurrentCalendarDate(new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + 1))} />
         </div>
-        <div className="w-full grid grid-cols-7 mb-3 text-xs">
+        <div className="w-full grid grid-cols-7 mb-3 text-xs text-center">
           <div className="day-label">Mon</div>
           <div className="day-label">Tue</div>
           <div className="day-label">Wed</div>
@@ -98,7 +96,7 @@ export default function WeightCalendarCard() {
         </div>
         <div className='w-full grid grid-cols-7'>{renderCalendar()}</div>
       </div>
-    </Card>
+    </div>
   );
 }
 
