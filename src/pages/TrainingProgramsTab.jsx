@@ -32,7 +32,7 @@ export default function TrainingProgramsTab() {
     <FlipMove enterAnimation={{
       from: {},
       to: {},
-    }} className="flex flex-col gap-3 sm:gap-5">
+    }} className="flex flex-col gap-3 sm:gap-5 p-3">
       {sortedPrograms.map((program) => (
         <div key={program.id} className="flex flex-col gap-5">
           <ProgramJourney program={program} />

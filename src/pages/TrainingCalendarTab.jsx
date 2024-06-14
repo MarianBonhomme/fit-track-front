@@ -22,14 +22,13 @@ export default function TrainingCalendarTab() {
   };
 
   return (
-    <div className="flex flex-col gap-3 h-screen overflow-hidden max-sm:pb-[60px]">
-      <p className='text-xl font-medium p-3 pb-0'>Training</p>
+    <>
       <div className="flex-none">
         <HorizontalScrollMonthlyDays onDateClick={handleDateClick} verticalScrollRef={verticalScrollRef} />
       </div>
       <div className="flex-grow overflow-y-scroll hide-scrollbar" ref={verticalScrollRef}>
         <VerticalScrollMonthlyTrainings onDateClick={handleDateClick} />
       </div>
-    </div>
+    </>
   );
 }
