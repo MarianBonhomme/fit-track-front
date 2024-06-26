@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useTraining } from '../../../utils/training/TrainingContext';
-import { formatDate, getDayAndNumber } from '../../../utils/global/DateService';
+import { formatDate, getDayAndNumber, isToday } from '../../../utils/global/DateService';
 import AddButton from '../../global/AddButton';
 import TrainingCard from '../programs/TrainingCard';
 import FlipMove from 'react-flip-move';
@@ -30,7 +30,7 @@ export default function VerticalScrollMonthlyTrainings({ onDateClick }) {
             onClick={() => onDateClick(date)}
           >
             <div className='flex justify-between items-center'>
-              <p className='font-bold cursor-pointer'>
+              <p className={`font-bold cursor-pointer ${isToday(date) && 'text-blue'}`}>
                 {getDayAndNumber(date)}
               </p>
               <AddButton css={'size-8 p-2 bg-primary'} clicked={() => openTrainingModal(date, null, null)} />
