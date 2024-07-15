@@ -67,34 +67,12 @@ export default function ProgramJourney({program}) {
     }
   }, [program])
 
-  
-  const stopProgram = () => {
-    const confirm = window.confirm("Are you sure ?");
-    if (confirm) {
-      const programToStop = {...program, is_completed: 1 }
-      handleUpdateProgram(programToStop)
-    }
-  }
-
-  const restartProgram = () => {
-    const confirm = window.confirm("Are you sure ?");
-    if (confirm) {
-      const programToRestart = {...program, is_completed: 0 }
-      handleUpdateProgram(programToRestart)
-    }
-  }
-
   return (
-    <Card padding='py-3'>
-      {/* <PatternIndicator pattern={program.pattern} /> */}
+    <Card padding='py-3' css={`relative ${program.is_completed && 'opacity-50'}`}>
+      <PatternIndicator pattern={program.pattern} />
       <div className='max-sm:hidden flex justify-between items-start relative mb-3 px-4'>   
         <div className="flex items-center gap-3 cursor-pointer">   
-          {/* {program.state === "COMPLETED" ? (
-            <Icon icon="iconamoon:restart-bold" className='text-purple size-[20px]' onClick={restartProgram} />
-          ) : program.state === "ONGOING" && (
-            <Icon icon="heroicons:stop-circle-16-solid" className='text-orange size-[20px]' onClick={stopProgram} />
-          )} */}
-          <div onClick={() => openProgramModal(program)}>
+          <div className='cursor-pointer' onClick={() => openProgramModal(program)}>
             <p className="font-bold">{program.name}</p>
             <p className='text-xs'>{program.description}</p>
           </div>

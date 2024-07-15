@@ -5,7 +5,7 @@ import CardTitle from '../../global/CardTitle';
 import Modal from '../../global/Modal';
 
 export default function ProgramModal() {
-  const { handleAddProgram, handleDeleteProgram, closeProgramModal, programFormData } = useTraining();
+  const { handleAddProgram, handleUpdateProgram, handleDeleteProgram, closeProgramModal, programFormData } = useTraining();
   const [isFormValid, setIsFormValid] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -13,7 +13,8 @@ export default function ProgramModal() {
     name: programFormData?.name,
     description: programFormData?.description,
     is_favorite: programFormData?.is_favorite,
-    pattern: programFormData?.pattern
+    pattern: programFormData?.pattern,
+    is_completed: programFormData?.is_completed,
   })
 
   useEffect(() => {
@@ -53,6 +54,22 @@ export default function ProgramModal() {
     setFormData({...formData, pattern: clickedPattern})
   }
 
+  const stopProgram = () => {
+    const confirm = window.confirm("Are you sure ?");
+    if (confirm) {
+      const programToStop = {...programFormData, is_completed: 1 }
+      handleUpdateProgram(programToStop)
+    }
+  }
+
+  const restartProgram = () => {
+    const confirm = window.confirm("Are you sure ?");
+    if (confirm) {
+      const programToRestart = {...programFormData, is_completed: 0 }
+      handleUpdateProgram(programToRestart)
+    }
+  }
+
   return (
     <Modal close={closeProgramModal}>
       <Icon icon="solar:star-bold" className={`absolute top-5 left-5 size-[20px] text-${formData.is_favorite ? 'yellow' : 'gray'} cursor-pointer`} onClick={toggleIsFavorite} />   
@@ -89,6 +106,11 @@ export default function ProgramModal() {
         </div>
         <div className='flex items-center justify-center gap-5 mt-5'>
           {programFormData.name && (<button type='button' className={`font-bold bg-red text-primary px-5 py-3 rounded-3xl`} onClick={deleteProgram}>Delete</button>)}
+          {programFormData.is_completed ? (
+            <button type='button' className={`font-bold bg-green text-primary px-5 py-3 rounded-3xl`} onClick={restartProgram}>Restart</button>
+          ) : (
+            <button type='button' className={`font-bold bg-orange text-primary px-5 py-3 rounded-3xl`} onClick={stopProgram}>Stop</button>
+          )}
           <button type="submit" disabled={!isFormValid} className={`font-bold bg-blue text-primary px-5 py-3 rounded-3xl ${!isFormValid && 'brightness-75'}`}>Confirm</button>
         </div>
       </form>
